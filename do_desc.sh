@@ -56,10 +56,6 @@ sed '
             x
         }
     }
-# return-underline in pre
-    s/{RETURN\([^}][^}]*\)}/<span class="invert">RETURN<\/span><span class="underline">\1<\/span>/
-    s/{RETURN}/<span class="invert">RETURN<\/span>/
-    s/{{\([^}][^}]*\)}}/<span class="underline">\1<\/span>/g
 # handy-hint
     /^<handy-hint>/{
         s/<handy-hint>[^{]*{/<div class="handy-hint">{/
@@ -148,6 +144,48 @@ sed '/^<foreword>/,/^<\/foreword>/{
             x
         }
     }
+/^<miniterm>/,/^<\/miniterm>/{
+        /^<miniterm>/{
+            s/.*/<miniterm>/
+            x
+            s/.*//
+            x
+            b
+        }
+        /^<\/miniterm>/{
+            x
+            p
+            x
+            s/.*/<\/miniterm>/
+            b
+        }
+        /^||/!{
+            /^ *$/b
+            s/^/<p style="margin-left: 0;">/
+            s/$/<\/p>/
+            b
+        }
+        /^||/{
+            x
+            p
+            x
+            /^||[^|][^|]*|| *$/N
+            s/\n/ /
+            s/^||\([^|][^|]*\)||\(.*\)$/<div class="miniterm-grid">\
+  <span class="miniterm-word">\1<\/span>\
+  <span style="display: inline-block; width: 0.5em;"> <\/span>\
+  <span class="miniterm-desc">\
+\2/
+            x
+            s/^$/  <\/span>\
+<\/div>/
+            x
+        }
+    }
+/^<table>/,/<\table>/{
+    /^<table>/s/<table>/<div class="table">/
+    /^<\/table>/s/<\/table>/<\/div>/
+}
 ' |
 sed '/^<membership>/,/^<\/membership>/{
     /|/{

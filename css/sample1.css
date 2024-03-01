@@ -5,7 +5,7 @@
 :root {
 	font-size: 12Q;
 	line-height: 18Q;
-	font-family: 'Noto Sans JP';
+	font-family: 'Noto Serif JP';
 	font-weight: 400;
 	/*text-spacing: auto;*/
 	widows: 1;
@@ -42,6 +42,26 @@ img {
 .foreword-word {
 	font-size: 14Q;
 	font-weight: 700;
+}
+
+/* miniterm style */
+.miniterm-grid {
+	margin-block: 1rem;
+	margin-left: 4em;
+}
+
+.miniterm-grid > p {
+	margin-left: 0;
+}
+
+.miniterm-word {
+	font-weight: 700;
+}
+
+/* table */
+.table {
+	margin-left: 4em;
+	float: center;
 }
 
 /* membership .. grid version */
@@ -223,7 +243,7 @@ h1 {
 	break-before: verso;
 	font-size: 22Q;
 	line-height: 30Q;
-	block-size: 2lh;
+	block-size: 1.5lh;
 	margin-block: 0 0;
 	counter-reset: section 0;
 }
@@ -270,12 +290,12 @@ h4 {
 	font-size: 14Q;
 	line-height: 18Q;
 	margin-block: 1rlh 0;
-	block-size: 2rlh;
+	block-size: 1.5rlh;
 	margin-break: auto;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Noto Sans JP';
+	font-family: 'Noto Serif JP';
 	font-weight: 700;
 	font-feature-settings: 'palt';
 	text-spacing: no-autospace;
@@ -289,6 +309,7 @@ h1, h2, h3, h4, h5, h6 {
 
 ul, ol {
 	margin-block: 0.5lh;
+	margin-left: 4em;
 	/*font-weight: 700;*/
 }
 
@@ -400,6 +421,7 @@ pre {
 	padding-inline: 3mm;
 	margin-block: 1mm;
 	margin-inline: 0;
+	margin-left: 4em;
 	/*background: repeating-linear-gradient(#eee 0, #eee 18Q, #fff 18Q, #fff 36Q);*/
 	background: #eee;
 	background-position-y: 1.4mm;
@@ -1109,27 +1131,29 @@ h1 {
 h1, h2, h3 {
 	font-weight: normal;
 }
+*/
 
-table {
+asciitable > table {
 	border-collapse: collapse;
 }
-
-table > thead > tr > th {
-	text-align: left;
+asciitable > table > thead > tr > th {
+	text-align: center;
 	border-bottom: 1px solid;
 }
 
-table > thead > tr > th,
-table > thead > tr > td,
-table > tbody > tr > th,
-table > tbody > tr > td {
-	padding: 5px 10px;
+asciitable > table > thead > tr > th,
+asciitable > table > thead > tr > td,
+asciitable > table > tbody > tr > th,
+asciitable > table > tbody > tr > td {
+	min-width: 2em;
+	text-align: center;
+	padding: 1px 1px;
 }
 
-table > tbody > tr + tr > td {
-	border-top: 1px solid;
+asciitable > table > tbody > tr + tr > td {
+	/*border-top: 1px solid;*/
 }
-*/
+
 /*
 blockquote {
 	margin: 0 7px 0 5px;
