@@ -1,18 +1,36 @@
-ANSI X3.215-1994
-
-American National Standard
+<div style="display: flow;
+            flex-direction: row;
+            margin: 0 25mm;">
+  <div style="margin-top: 10em;
+            font-size: 16Q;
+            line-height: 23Q;
+            text-align: right;">
+American National Standard<br style="margin-bottom: 2em;">
 for Information Systems —  
-
-Programming Languages —  
+  </div>
+  <div style="margin-top: 2em;
+            font-size: 22Q;
+            line-height: 26Q;
+            text-align: right;">
+Programming Languages —  <br>
 Forth 
+  </div>
+  <div style="margin-top: 10em;
+            text-align: left;">
+Secretariat<br>
+<div style="font-weight: 700;">Computer and Business Equipment Manufacturers Association</div>
+  </div>  
 
-Secretariat
-Computer and Business Equipment Manufacturers Association  
-
-Approved: March 24, 1994
-American National Standards Institute, Inc.
+  <div style="margin-top: 10em;
+            text-align: left;">
+Approved: March 24, 1994<br>
+<div style="font-weight: 700;">American National Standards Institute, Inc.</div>
+  </div>
+</div>
 
 <hr class="page-wrap" />
+
+## Special Electronic Edition
 
 Copyright (c) 1994 by Technical Committee X3J14. All rights reserved.
 
@@ -20,11 +38,16 @@ This is a working document of Technical Committee X3J14 which represents the las
 
 Specifically, permission is granted to use this working document as the foundation for textbooks, system  manuals, and online documentation so long as the requirements in the preceding paragraph are met and the  resulting product addresses a technical need that is not practically met by the official ANS.
 
-NOTE: This file is provided as a working document of the TC for public review and comment as well as  documentation uses described above. It is not intended as a substitute for the official ANS Forth document  published by ANSI. In the event of conflict, only the printed document X3.215-1994 represents the official  ANS Forth.
+**NOTE**: This file is provided as a working document of the TC for public review and comment as well as  documentation uses described above. It is not intended as a substitute for the official ANS Forth document  published by ANSI. In the event of conflict, only the printed document X3.215-1994 represents the official  ANS Forth.
 
 To obtain the official standard, please contact the American National Standards Institute Sales Department,  at (212) 642-4900 or FAX (212) 302-1286, or Global Engineering Documents, at (800) 854-7179 or FAX  (303) 843-9880, and request Document X3.215-1994. Thank you very much for your interest.
 
+
 ## TOC SHOULD BE IN HERE
+
+<hr class="page-wrap" />
+
+<foreword>
 
 ||Foreword||
 (This foreword is not a part of American National Standard X3.215-1994)
@@ -42,47 +65,74 @@ As the language continued to evolve, an interim Forth-78 Standard was published 
 
 The first meeting of the Technical Committee on Forth Programming Systems was  convened by the Organizing Committee of the X3J14 Forth Technical Committee on  August 3, 1987, and has met subsequently on November 11-12, 1987, February 10-12,  May 3-6, 1989, July 26-29, 1989, October 25-28, 1989, January 24-27, 1990, May 22-26,  1992, January 26-30, 1993, June 28-30, 1993, and June 21, 1994.
 
-Requests for interpretation, suggestions for improvement or addenda, or defect reports are  welcome. They should be sent to the X3 Secretariat, Computer and Business Equipment  Manufacturers Association, 1250 Eye Street, NW, Suite 200, Washington, DC 20005.
+> Requests for interpretation, suggestions for improvement or addenda, or defect reports are  welcome. They should be sent to the X3 Secretariat, Computer and Business Equipment  Manufacturers Association, 1250 Eye Street, NW, Suite 200, Washington, DC 20005.
 
 ||X3 Membership||
+This standard was processed and approved for submittal to ANSI by the Accredited Standards Committee on Information Processing Systems, X3. Committee approval of this  standard does not necessarily imply that all committee members voted for its approval. At  the time it approved this standard, the X3 Committee had the following members:
 
-> some sentenses are lost
+James D. Converse, Chair<br>
+Donald C. Loughry, Vice-Chair<br>
+Joanne Flanagan, Secretary
 
- Charles Brill (Alt.) 
- Thomas F. Frost (Alt.) 
- Kevin Lewis 
- Kei Yamashita (Alt.) 
- Mary Anne Lawler (Alt.) 
- Stephen P. Oksala (Alt.) 
- Samuel D. Cheatham (Alt.) 
- Gary S. Robinson (Alt.) 
-* Xerox Corporation ............................................................ Dwight McBain 
- Roy Pierce (Alt.) 
-3M Company ...................................................................... Edie T. Morioka 
-ANSI X3.215-1994  viii  
+<membership>
+Producer Group|Name of Representative
+AMP Incorporated| Edward Kelly
+                |Charles Brill (Alt.) 
+AT&T/NCR Corporation | Thomas W. Kern
+                    |Thomas F. Frost (Alt.) 
+Apple Computer, Inc| Karen Higginbottom
+Compaq Computers| James Barnes
+Digital Equipment Corporation| Delbert Shoemaker
+                            |Kevin Lewis 
+Hitachi America Ltd| John Neumann
+                    |Kei Yamashita (Alt.) 
+Hewlett Packard| Donald C. Loughry
+Bull HN Information Systems Inc| William George
+IBM Corporation| Joel Urman
+                |Mary Anne Lawler (Alt.) 
+Unisys Corporation | John Hill
+                    |Stephen P. Oksala (Alt.) 
+Sony Corporation of America| Michael Deese
+Storage Technology Corporation| Joseph S. Zajaczkowski
+                            |Samuel D. Cheatham (Alt.) 
+Sun Microsystems, Inc| Scott Jameson
+                    |Gary S. Robinson (Alt.) 
+* Xerox Corporation |Dwight McBain 
+                    |Roy Pierce (Alt.) 
+3M Company |Edie T. Morioka 
+            |Paul D. Jahnke (Alt.
 
-||X3 Membership||
-This standard was processed and approved for submittal to ANSI by the Accredited Standards Committee on Information Processing Systems, X3. Committee approval of this  standard does not necessarily imply that all committee members voted for its approval. At  the time it approved this standard, the X3 Committee had the following members:  James D. Converse, Chair  Donald C. Loughry, Vice-Chair  Joanne Flanagan, Secretary  Producer Group Name of Representative  AMP Incorporated............................................................... Edward Kelly  AT&T/NCR Corporation ...................................................... Thomas W. Kern  Apple Computer, Inc........................................................... Karen Higginbottom  Compaq Computers............................................................ James Barnes  Digital Equipment Corporation............................................ Delbert Shoemaker  Hitachi America Ltd............................................................. John Neumann  Hewlett Packard.................................................................. Donald C. Loughry  Bull HN Information Systems Inc........................................ William George  IBM Corporation.................................................................. Joel Urman  Unisys Corporation ............................................................. John Hill  Sony Corporation of America.............................................. Michael Deese  Storage Technology Corporation........................................ Joseph S. Zajaczkowski  Sun Microsystems, Inc........................................................ Scott Jameson   Paul D. Jahnke (Alt.
- Andrea Vanosdoll (Alt.) 
- Michael Nier (Alt.) 
- Larry L. Jackson (Alt.) 
- Harold Kuneke (Alt.) 
-** Hughes Aircraft Company .............................................. Harold Zebrack 
- Subhash Patel (Alt.) 
-** Recognition Tech Users Association.............................. Herbert P. Schantz 
- G. Edwin Hale (Alt.) 
- David Thewis (Alt.) 
- C. J. Pasquariello (Alt.) 
- Lawrence A. Wasson (Alt.) 
- Sally Hartzell (Alt.) 
-............................................................................................ Kenneth Zemrowski 
- Micharl Hogan (Alt.) 
-________________________ 
-* Abstain ** Non-Response 
- ANSI X3.215-1994 
- ix 
- Howe Fong (Alt.) 
-Consumers Group  Boeing Company ................................................................ Catherine Howells  Eastman Kodak Company.................................................. James Converse  General Services Administration ........................................ Douglas Arai  Guide International Inc........................................................ Frank Kirshenbaum  National Communications Systems.................................... Dennis Bodson  Northern Telecom Inc. ........................................................ Mel Woinsky  Share Inc. ........................................................................... Gary Ainsworth  U. S. Department of Defense.............................................. William Rinehuls  U. S. Department of Energy................................................ Alton Cox  Wintergreen Information Services ...................................... John Wheeler  General Interest Group  American Nuclear Society .................................................. Geraldine C. Main  Assn. of the Institute for Certification of Computer Professionals  Nat'l Institute of Standards and Technology ....................... Robert E. Rountree  Neville & Associates Carlton Neville 
+Consumers Group|
+Boeing Company | Catherine Howells
+                | Andrea Vanosdoll (Alt.) 
+Eastman Kodak Company| James Converse
+                    |Michael Nier (Alt.) 
+General Services Administration | Douglas Arai
+                                |Larry L. Jackson (Alt.) 
+Guide International Inc| Frank Kirshenbaum
+                        | Harold Kuneke (Alt.) 
+* Hughes Aircraft Company | Harold Zebrack 
+National Communications Systems| Dennis Bodson
+Northern Telecom Inc. | Mel Woinsky
+                        |Subhash Patel (Alt.) 
+** Recognition Tech Users Association| Herbert P. Schantz 
+                        | G. Edwin Hale (Alt.) 
+Share Inc. | Gary Ainsworth
+            |David Thewis (Alt.) 
+U. S. Department of Defense| William Rinehuls
+                        | C. J. Pasquariello (Alt.) 
+U. S. Department of Energy| Alton Cox
+                        |Lawrence A. Wasson (Alt.) 
+Wintergreen Information Services | John Wheeler
+
+General Interest Group|
+American Nuclear Society | Geraldine C. Main
+                        | Sally Hartzell (Alt.) 
+Assn. of the Institute for Certification of Computer Professionals| Kenneth Zemrowski 
+Nat'l Institute of Standards and Technology | Robert E. Rountree
+                                        | Micharl Hogan (Alt.) 
+Neville & Associates|Carlton Neville 
+</membership>
 
 
 ||X3J14  Membership||
@@ -138,4 +188,6 @@ IEEE Software Engineering
 Kelly Enterprises Texas Instruments  
 Laboratory Microsystems, Inc. The Dickens Company  
 Maxtor Corp.
+
+</foreword>
 
