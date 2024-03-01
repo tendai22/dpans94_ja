@@ -8,10 +8,9 @@ module.exports = {
   theme: 'css/sample1.css',
   entry: [
     'cover_x.md', // `title` is automatically guessed from the file (frontmatter > first heading).
-    'test_x.md',
-  //  'foreword_x.md',
+  //  'test_x.md',
   //  'toc.md',
-  //    'part1_x.md',
+      'part1_x.md',
     // {
     //   path: 'epigraph.md',
     //   title: 'Epigraph', // title can be overwritten (entry > file),

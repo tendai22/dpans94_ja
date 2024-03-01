@@ -11,21 +11,19 @@ This Standard specifies an interface between a Forth System and a Forth Program 
 ### 1.2.1 Inclusions 
 
 This Standard specifies: 
-– the forms that a program written in the Forth language may take; 
-– the rules for interpreting the meaning of a program and its data. 
+- the forms that a program written in the Forth language may take; 
+- the rules for interpreting the meaning of a program and its data. 
 
 ### 1.2.2 Exclusions 
 
-This Standard does not specify: 
-– the mechanism by which programs are transformed for use on computing systems; 
-– the operations required for setup and control of the use of programs on computing systems; 
-– the method of transcription of programs or their input or output data to or from a storage medium; 
-
+This Standard does not specify:
+- the mechanism by which programs are transformed for use on computing systems; 
+- the operations required for setup and control of the use of programs on computing systems; 
+- the method of transcription of programs or their input or output data to or from a storage medium; 
 - the program and Forth system behavior when the rules of this Standard fail to establish an  interpretation; 
-
 - the size or complexity of a program and its data that will exceed the capacity of any specific computing  system or the capability of a particular Forth system; 
-– the physical properties of input/output records, files, and units; 
-– the physical properties and implementation of storage. 
+- the physical properties of input/output records, files, and units; 
+- the physical properties and implementation of storage. 
 
 TRAILER ANSI X3.215-1994 2
 
@@ -78,8 +76,8 @@ and “may”, depending on context, means “is allowed to” or “might happe
 Throughout the Standard, typefaces are used in the following manner: 
 
 - This proportional serif typeface is used for text, with italic used for symbols and the first appearance of  new terms; 
-– A bold proportional sans-serif typeface is used for headings; 
-– A bold monospaced serif typeface is used for Forth-language text. 
+- A bold proportional sans-serif typeface is used for headings; 
+- A bold monospaced serif typeface is used for Forth-language text. 
 
 ## 2.1 Definitions of terms 
 
@@ -165,7 +163,7 @@ TRAILER ANSI X3.215-1994 6
 
 
 <NOTOUCH>
-Table 2.1 – Parsed text abbreviations 
+Table 2.1 - Parsed text abbreviations 
 Abbreviation Description 
 <char> the delimiting character marking the end of the string being 
 parsed 
@@ -191,13 +189,13 @@ The glossary entries for each word set are listed in the standard ASCII collatin
 The index line is a single-line entry containing, from left to right: 
 
 - Section number, the last four digits of which assign a unique sequential number to all words included in  this Standard; 
-– DEFINITION-NAME in upper-case, mono-spaced, bold-face letters; 
-– Natural-language pronunciation in quotes if it differs from English; 
-– Word-set designator from table 2.2. The designation for extensions word sets includes “EXT”. 
+- DEFINITION-NAME in upper-case, mono-spaced, bold-face letters; 
+- Natural-language pronunciation in quotes if it differs from English; 
+- Word-set designator from table 2.2. The designation for extensions word sets includes “EXT”. 
 
 
 <NOTOUCH>
-Table 2.2 – Word set designators 
+Table 2.2 - Word set designators 
 Word set Designator 
 Core word set CORE 
 Block word set BLOCK 
@@ -274,7 +272,7 @@ All non-graphic characters included in the implementation-defined character set 
 Programs that require the ability to send or receive control characters have an environmental dependency.
 
 <NOTOUCH> 
-Table 3.1 – Data types 
+Table 3.1 - Data types 
 Symbol Data type Size on stack 
 flag flag 1 cell 
 true true flag 1 cell 
@@ -311,7 +309,7 @@ i*x, j*x, k*x 3 any data type 0 or more cells
 TRAILER ANSI X3.215-1994 10
 
 <NOTOUCH>
-Table 3.2 – Standard graphic characters 
+Table 3.2 - Standard graphic characters 
  Hex IRV ASCII 
 20 
 21 ! ! 
@@ -559,13 +557,13 @@ See 1.2.2 Exclusions.
 The method of selecting the user input device is implementation defined. 
 
 <NOTOUCH>
-Table 3.3 – Floored Division Example 
+Table 3.3 - Floored Division Example 
  Dividend Divisor Remainder Quotient 
  10 7 3 1 
  -10 7 4 -2 
  10 -7 -4 -2 
  -10 -7 -3 1 
-Table 3.4 – Symmetric Division Example 
+Table 3.4 - Symmetric Division Example 
  Dividend Divisor Remainder Quotient 
  10 7 3 1 
  -10 7 -3 -1 
@@ -590,7 +588,7 @@ The name spaces for ENVIRONMENT? and definitions are disjoint. Names of definiti
 
 
 <NOTOUCH>
-Table 3.5 – Environmental Query Strings 
+Table 3.5 - Environmental Query Strings 
 String Value data type Constant? Meaning 
 /COUNTED-STRING n yes maximum size of a counted string, in 
 characters 
@@ -680,9 +678,9 @@ A program may directly examine the input buffer using its address and length as 
 #### 3.3.3.6 Other transient regions 
 
 The data space regions identified by PAD, WORD, and #> (the pictured numeric output string buffer) may be  transient. Their addresses and contents may become invalid after: 
-– a definition is created via a defining word; 
-– definitions are compiled with : or :NONAME; 
-– data space is allocated using ALLOT, , (comma), C, (c-comma), or ALIGN. 
+- a definition is created via a defining word; 
+- definitions are compiled with : or :NONAME; 
+- data space is allocated using ALLOT, , (comma), C, (c-comma), or ALIGN. 
 The previous contents of the regions identified by WORD and #> may be invalid after each use of these  words. Further, the regions returned by WORD and #> may overlap in memory. Consequently, use of one of  these words can corrupt a region returned earlier by a different word. The other words that construct  pictured numeric output strings (<#, #, #S, and HOLD) may also modify the contents of these regions. 
 
 TRAILER  ANSI X3.215-1994  17
@@ -765,12 +763,12 @@ Unless otherwise specified in a “Compilation:” section of the glossary entry
 ### 3.4.4 Possible actions on an ambiguous condition 
 
 When an ambiguous condition exists, a system may take one or more of the following actions: 
-– ignore and continue; 
-– display a message; 
-– execute a particular word; 
-– set interpretation state and begin text interpretation; 
-– take other implementation-defined actions; 
-– take implementation-dependent actions. 
+- ignore and continue; 
+- display a message; 
+- execute a particular word; 
+- set interpretation state and begin text interpretation; 
+- take other implementation-defined actions; 
+- take implementation-dependent actions. 
 The response to a particular ambiguous condition need not be the same under all circumstances. 
 
 TRAILER ANSI X3.215-1994 20
@@ -792,44 +790,44 @@ When it is impossible or infeasible for a system or program to define a particul
 ### 4.1.1 Implementation-defined options 
 
 The implementation-defined items in the following list represent characteristics and choices left to the  discretion of the implementor, provided that the requirements of this Standard are met. A system shall  document the values for, or behaviors of, each item. 
-– aligned address requirements (3.1.3.3 Addresses); 
-– behavior of 6.1.1320 EMIT for non-graphic characters; 
-– character editing of 6.1.0695 ACCEPT and 6.2.1390 EXPECT; 
-– character set (3.1.2 Character types, 6.1.1320 EMIT, 6.1.1750 KEY); 
-– character-aligned address requirements (3.1.3.3 Addresses); 
-– character-set-extensions matching characteristics (3.4.2 Finding definition names); 
-– conditions under which control characters match a space delimiter (3.4.1.1 Delimiters); 
-– format of the control-flow stack (3.2.3.2 Control-flow stack); 
-– conversion of digits larger than thirty-five (3.2.1.2 Digit conversion); 
-– display after input terminates in 6.1.0695 ACCEPT and 6.2.1390 EXPECT; 
-– exception abort sequence (as in 6.1.0680 ABORT"); 
-– input line terminator (3.2.4.1 User input device); 
-– maximum size of a counted string, in characters (3.1.3.4 Counted strings, 6.1.2450 WORD); 
-– maximum size of a parsed string (3.4.1 Parsing); 
-– maximum size of a definition name, in characters (3.3.1.2 Definition names); 
-– maximum string length for 6.1.1345 ENVIRONMENT?, in characters; 
-– method of selecting 3.2.4.1 User input device; 
-– method of selecting 3.2.4.2 User output device; 
-– methods of dictionary compilation (3.3 The Forth dictionary); 
-– number of bits in one address unit (3.1.3.3 Addresses); 
-– number representation and arithmetic (3.2.1.1 Internal number representation); 
-– ranges for n, +n, u, d, +d, and ud (3.1.3 Single-cell types, 3.1.4 Cell-pair types); 
-– read-only data-space regions (3.3.3 Data space); 
-– size of buffer at 6.1.2450 WORD (3.3.3.6 Other transient regions); 
-– size of one cell in address units (3.1.3 Single-cell types); 
-– size of one character in address units (3.1.2 Character types); 
-– size of the keyboard terminal input buffer (3.3.3.5 Input buffers); 
-– size of the pictured numeric output string buffer (3.3.3.6 Other transient regions); 
-– size of the scratch area whose address is returned by 6.2.2000 PAD (3.3.3.6 Other transient regions); 
-– system case-sensitivity characteristics (3.4.2 Finding definition names); 
-– system prompt (3.4 The Forth text interpreter, 6.1.2050 QUIT); 
+- aligned address requirements (3.1.3.3 Addresses); 
+- behavior of 6.1.1320 EMIT for non-graphic characters; 
+- character editing of 6.1.0695 ACCEPT and 6.2.1390 EXPECT; 
+- character set (3.1.2 Character types, 6.1.1320 EMIT, 6.1.1750 KEY); 
+- character-aligned address requirements (3.1.3.3 Addresses); 
+- character-set-extensions matching characteristics (3.4.2 Finding definition names); 
+- conditions under which control characters match a space delimiter (3.4.1.1 Delimiters); 
+- format of the control-flow stack (3.2.3.2 Control-flow stack); 
+- conversion of digits larger than thirty-five (3.2.1.2 Digit conversion); 
+- display after input terminates in 6.1.0695 ACCEPT and 6.2.1390 EXPECT; 
+- exception abort sequence (as in 6.1.0680 ABORT"); 
+- input line terminator (3.2.4.1 User input device); 
+- maximum size of a counted string, in characters (3.1.3.4 Counted strings, 6.1.2450 WORD); 
+- maximum size of a parsed string (3.4.1 Parsing); 
+- maximum size of a definition name, in characters (3.3.1.2 Definition names); 
+- maximum string length for 6.1.1345 ENVIRONMENT?, in characters; 
+- method of selecting 3.2.4.1 User input device; 
+- method of selecting 3.2.4.2 User output device; 
+- methods of dictionary compilation (3.3 The Forth dictionary); 
+- number of bits in one address unit (3.1.3.3 Addresses); 
+- number representation and arithmetic (3.2.1.1 Internal number representation); 
+- ranges for n, +n, u, d, +d, and ud (3.1.3 Single-cell types, 3.1.4 Cell-pair types); 
+- read-only data-space regions (3.3.3 Data space); 
+- size of buffer at 6.1.2450 WORD (3.3.3.6 Other transient regions); 
+- size of one cell in address units (3.1.3 Single-cell types); 
+- size of one character in address units (3.1.2 Character types); 
+- size of the keyboard terminal input buffer (3.3.3.5 Input buffers); 
+- size of the pictured numeric output string buffer (3.3.3.6 Other transient regions); 
+- size of the scratch area whose address is returned by 6.2.2000 PAD (3.3.3.6 Other transient regions); 
+- system case-sensitivity characteristics (3.4.2 Finding definition names); 
+- system prompt (3.4 The Forth text interpreter, 6.1.2050 QUIT); 
 
 - type of division rounding (3.2.2.1 Integer division, 6.1.0100 */, 6.1.0110 */MOD, 6.1.0230 /,  6.1.0240 /MOD, 6.1.1890 MOD); 
-– values of 6.1.2250 STATE when true; 
-– values returned after arithmetic overflow (3.2.2.2 Other integer operations); 
+- values of 6.1.2250 STATE when true; 
+- values returned after arithmetic overflow (3.2.2.2 Other integer operations); 
 
 TRAILER ANSI X3.215-1994 22
-– whether the current definition can be found after 6.1.1250 DOES> (6.1.0450 :). 
+- whether the current definition can be found after 6.1.1250 DOES> (6.1.0450 :). 
 
 ### 4.1.2 Ambiguous conditions 
 
@@ -837,44 +835,44 @@ A system shall document the system action taken upon each of the general or spec
 The following general ambiguous conditions could occur because of a combination of factors: 
 
 - a name is neither a valid definition name nor a valid number during text interpretation (3.4 The Forth  text interpreter); 
-– a definition name exceeded the maximum length allowed (3.3.1.2 Definition names); 
-– addressing a region not listed in 3.3.3 Data Space; 
+- a definition name exceeded the maximum length allowed (3.3.1.2 Definition names); 
+- addressing a region not listed in 3.3.3 Data Space; 
 
 - argument type incompatible with specified input parameter, e.g., passing a flag to a word expecting an  n (3.1 Data types); 
 
 - attempting to obtain the execution token, (e.g., with 6.1.0070 ', 6.1.1550 FIND, etc.) of a definition  with undefined interpretation semantics; 
 
 - dividing by zero (6.1.0100 */, 6.1.0110 */MOD, 6.1.0230 /, 6.1.0240 /MOD, 6.1.1561 FM/MOD,  ### 6.1.1890 MOD, 6.1.2214 SM/REM, 6.1.2370 UM/MOD, 8.6.1.1820 M*/); 
-– insufficient data-stack space or return-stack space (stack overflow); 
-– insufficient space for loop-control parameters; 
-– insufficient space in the dictionary; 
-– interpretating a word with undefined interpretation semantics; 
+- insufficient data-stack space or return-stack space (stack overflow); 
+- insufficient space for loop-control parameters; 
+- insufficient space in the dictionary; 
+- interpretating a word with undefined interpretation semantics; 
 
 - modifying the contents of the input buffer or a string literal (3.3.3.4 Text-literal regions, 3.3.3.5 Input  buffers); 
-– overflow of a pictured numeric output string; 
-– parsed string overflow; 
+- overflow of a pictured numeric output string; 
+- parsed string overflow; 
 
 - producing a result out of range, e.g., multiplication (using *) results in a value too big to be represented  by a single-cell integer (6.1.0090 *, 6.1.0100 */, 6.1.0110 */MOD, 6.1.0570 >NUMBER, 6.1.1561 FM/MOD, 6.1.2214 SM/REM, 6.1.2370 UM/MOD, 6.2.0970 CONVERT, 8.6.1.1820 M*/); 
-– reading from an empty data stack or return stack (stack underflow); 
-– unexpected end of input buffer, resulting in an attempt to use a zero-length string as a name; 
+- reading from an empty data stack or return stack (stack underflow); 
+- unexpected end of input buffer, resulting in an attempt to use a zero-length string as a name; 
 The following specific ambiguous conditions are noted in the glossary entries of the relevant words: 
-– >IN greater than size of input buffer (3.4.1 Parsing); 
-– 6.1.2120 RECURSE appears after 6.1.1250 DOES>; 
-– argument input source different than current input source for 6.2.2148 RESTORE-INPUT; 
-– data space containing definitions is de-allocated (3.3.3.2 Contiguous regions); 
-– data space read/write with incorrect alignment (3.3.3.1 Address alignment); 
-– data-space pointer not properly aligned (6.1.0150 ,, 6.1.0860 C,); 
-– less than u+2 stack items (6.2.2030 PICK, 6.2.2150 ROLL); 
+- >IN greater than size of input buffer (3.4.1 Parsing); 
+- 6.1.2120 RECURSE appears after 6.1.1250 DOES>; 
+- argument input source different than current input source for 6.2.2148 RESTORE-INPUT; 
+- data space containing definitions is de-allocated (3.3.3.2 Contiguous regions); 
+- data space read/write with incorrect alignment (3.3.3.1 Address alignment); 
+- data-space pointer not properly aligned (6.1.0150 ,, 6.1.0860 C,); 
+- less than u+2 stack items (6.2.2030 PICK, 6.2.2150 ROLL); 
 
 - loop-control parameters not available (6.1.0140 +LOOP, 6.1.1680 I, 6.1.1730 J, 6.1.1760 LEAVE,  ### 6.1.1800 LOOP, 6.1.2380 UNLOOP); 
-– most recent definition does not have a name (6.1.1710 IMMEDIATE); 
-– name not defined by 6.2.2405 VALUE used by 6.2.2295 TO; 
-– name not found (6.1.0070 ', 6.1.2033 POSTPONE, 6.1.2510 ['], 6.2.2530 [COMPILE]); 
-– parameters are not of the same type (6.1.1240 DO, 6.2.0620 ?DO, 6.2.2440 WITHIN); 
-– 6.1.2033 POSTPONE or 6.2.2530 [COMPILE] applied to 6.2.2295 TO; 
-– string longer than a counted string returned by 6.1.2450 WORD; 
-– u greater than or equal to the number of bits in a cell ( 6.1.1805 LSHIFT, 6.1.2162 RSHIFT); 
-– word not defined via 6.1.1000 CREATE (6.1.0550 >BODY, 6.1.1250 DOES>); 
+- most recent definition does not have a name (6.1.1710 IMMEDIATE); 
+- name not defined by 6.2.2405 VALUE used by 6.2.2295 TO; 
+- name not found (6.1.0070 ', 6.1.2033 POSTPONE, 6.1.2510 ['], 6.2.2530 [COMPILE]); 
+- parameters are not of the same type (6.1.1240 DO, 6.2.0620 ?DO, 6.2.2440 WITHIN); 
+- 6.1.2033 POSTPONE or 6.2.2530 [COMPILE] applied to 6.2.2295 TO; 
+- string longer than a counted string returned by 6.1.2450 WORD; 
+- u greater than or equal to the number of bits in a cell ( 6.1.1805 LSHIFT, 6.1.2162 RSHIFT); 
+- word not defined via 6.1.1000 CREATE (6.1.0550 >BODY, 6.1.1250 DOES>); 
 
 - words improperly used outside 6.1.0490 <# and 6.1.0040 #> (6.1.0030 #, 6.1.0050 #S,  ### 6.1.1670 HOLD, 6.1.2210 SIGN). 
 
@@ -883,12 +881,12 @@ TRAILER  ANSI X3.215-1994  23
 ### 4.1.3 Other system documentation 
 
 A system shall provide the following information: 
-– list of non-standard words using 6.2.2000 PAD (3.3.3.6 Other transient regions); 
-– operator’s terminal facilities available; 
-– program data space available, in address units; 
-– return stack space available, in cells; 
-– stack space available, in cells; 
-– system dictionary space required, in address units. 
+- list of non-standard words using 6.2.2000 PAD (3.3.3.6 Other transient regions); 
+- operator’s terminal facilities available; 
+- program data space available, in address units; 
+- return stack space available, in cells; 
+- stack space available, in cells; 
+- system dictionary space required, in address units. 
 
 ## 4.2 Program documentation 
 
@@ -900,22 +898,22 @@ A program shall document the following environmental dependencies, where they ap
 - considering the pictured numeric output string buffer a fixed area with unchanging access parameters  (3.3.3.6 Other transient regions); 
 
 - depending on the presence or absence of non-graphic characters in a received string  (6.1.0695 ACCEPT, 6.2.1390 EXPECT); 
-– relying on a particular rounding direction (3.2.2.1 Integer division); 
+- relying on a particular rounding direction (3.2.2.1 Integer division); 
 
 - requiring a particular number representation and arithmetic (3.2.1.1 Internal number  representation); 
-– requiring non-standard words or techniques (3. Usage requirements); 
-– requiring the ability to send or receive control characters (3.1.2.2 Control characters, 6.1.1750 KEY); 
-– using control characters to perform specific functions (6.1.1320 EMIT, 6.1.2310 TYPE); 
-– using flags as arithmetic operands (3.1.3.1 Flags); 
+- requiring non-standard words or techniques (3. Usage requirements); 
+- requiring the ability to send or receive control characters (3.1.2.2 Control characters, 6.1.1750 KEY); 
+- using control characters to perform specific functions (6.1.1320 EMIT, 6.1.2310 TYPE); 
+- using flags as arithmetic operands (3.1.3.1 Flags); 
 
 - using lower case for standard definition names or depending on the case sensitivity of a system  (3.3.1.2 Definition names); 
-– using the graphic character with a value of hex 24 (3.1.2.1 Graphic characters). 
+- using the graphic character with a value of hex 24 (3.1.2.1 Graphic characters). 
 
 ### 4.2.2 Other program documentation 
 
 A program shall also document: 
-– minimum operator’s terminal facilities required; 
-– whether a Standard System exists after the program is loaded. 
+- minimum operator’s terminal facilities required; 
+- whether a Standard System exists after the program is loaded. 
 
 TRAILER ANSI X3.215-1994 24 Collating Sequence: 
 
@@ -1330,7 +1328,7 @@ See: 3.4.1 Parsing.
 ### 6.1.2050 QUIT CORE 
 
 ( -- ) ( R: i*x -- )  Empty the return stack, store zero in SOURCE-ID if it is present, make the user input device the  input source, and enter interpretation state. Do not display a message. Repeat the following: 
-– Accept a line from the input source into the input buffer, set >IN to zero, and interpret. 
+- Accept a line from the input source into the input buffer, set >IN to zero, and interpret. 
 
 - Display the implementation-defined system prompt if in interpretation state, all  processing has been completed, and no ambiguous condition exists. 
 See: 3.4 The Forth text interpreter. 

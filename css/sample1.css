@@ -192,6 +192,7 @@ img {
 p {
 	text-align: auto;
 	margin-block: 1rem;
+	margin-left: 4em;
 }
 
 .title-page {
@@ -220,13 +221,11 @@ nh1 {
 
 h1 {
 	break-before: verso;
-	font-size: 24Q;
-	line-height: 32Q;
-	/*inline-size: 10em;*/
+	font-size: 22Q;
+	line-height: 30Q;
 	block-size: 2lh;
-	margin-block: 0 12mm;
+	margin-block: 0 0;
 	counter-reset: section 0;
-	text-align: center;
 }
 
 h1::before {
@@ -237,10 +236,10 @@ h1::before {
 }
 
 h2 {
-	font-size: 20Q;
-	line-height: 26Q;
-	margin-block: 1rlh 0;
-	block-size: 2rlh;
+	font-size: 18Q;
+	line-height: 24Q;
+	margin-block: 0.5rlh 0;
+	block-size: 1.5rlh;
 	margin-break: auto;
 	counter-reset: subsection; /* counter needs reset, otherwise, no increments occur */
 }
@@ -252,10 +251,10 @@ h2::before {
 }
 
 h3 {
-	font-size: 20Q;
-	line-height: 26Q;
-	margin-block: 1rlh 0;
-	block-size: 2rlh;
+	font-size: 16Q;
+	line-height: 24Q;
+	margin-block: 0.5rlh 0;
+	block-size: 1.5rlh;
 	margin-break: auto;
 }
 
@@ -268,8 +267,8 @@ h3::before {
 
 /* h4 ... no number prefix but same format as h3 */
 h4 {
-	font-size: 20Q;
-	line-height: 26Q;
+	font-size: 14Q;
+	line-height: 18Q;
 	margin-block: 1rlh 0;
 	block-size: 2rlh;
 	margin-break: auto;
