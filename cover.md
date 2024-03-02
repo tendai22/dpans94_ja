@@ -68,11 +68,13 @@ The first meeting of the Technical Committee on Forth Programming Systems was  c
 > Requests for interpretation, suggestions for improvement or addenda, or defect reports are  welcome. They should be sent to the X3 Secretariat, Computer and Business Equipment  Manufacturers Association, 1250 Eye Street, NW, Suite 200, Washington, DC 20005.
 
 ||X3 Membership||
-This standard was processed and approved for submittal to ANSI by the Accredited Standards Committee on Information Processing Systems, X3. Committee approval of this  standard does not necessarily imply that all committee members voted for its approval. At  the time it approved this standard, the X3 Committee had the following members:
+This standard was processed and approved for submittal to ANSI by the Accredited Standards Committee on Information Processing Systems, X3. Committee approval of this  standard does not necessarily imply that all committee members voted for its approval. At  the time it approved this standard, the X3 Committee had the following members:
 
 James D. Converse, Chair<br>
 Donald C. Loughry, Vice-Chair<br>
 Joanne Flanagan, Secretary
+
+</foreword>
 
 <membership>
 Producer Group|Name of Representative
@@ -134,7 +136,7 @@ Nat'l Institute of Standards and Technology | Robert E. Rountree
 Neville & Associates|Carlton Neville 
 </membership>
 
-
+<foreword>
 ||X3J14  Membership||
 At the time it approved this draft of the proposed American National Standard, the  Technical Committee X3J14 on the Forth Programming Language had the following  members:  
 
@@ -144,50 +146,57 @@ Don Colburn, Secretary
 John Rible, Technical Editor  
 Len Zettel, Vocabulary Representative  
 Greg Bailey, Technical Subcommittee Chair  
+</foreword>
 
-Organization Represented Name of Representative  
+<membership>
+Organization Represented|Name of Representative  
+ATHENA Programming, Inc. |Greg Bailey  
+Bradley Forthware |Mitch Bradley  
+Creative Solutions, Inc. |Don Colburn  
+Ford Motor Company|Leonard F. Zettel, Jr.  
+FORTH, Inc. |Elizabeth Rather  
+            |Dennis Ruffer (Alt.)  
+Institute for Applied Forth Research|Lawrence Forsley  
+                                    |Horace Simmons (Alt.)  
+Johns Hopkins University, Applied Physics Lab|John Hayes  
+Mephistopheles Systems |Dave Harralson  
+NASA/Goddard Space Flight Center|James Rash  
+Nomadic Software|John K. Stevenson  
+Unisyn, Inc|Gary Betts  
+           |Stephen Egbert (Alt.)  
+Up and Running |Martin Tracy  
+Vesta Technology|Jack Woehr  
+Individual Members|Loring Craymer  
+                  |John Rible 
+                  |J. E. (Jet) Thomas 
+X3 Liasons|Clyde R. Camp  
+          |Kathleen McMillan 
+</membership>
 
-ATHENA Programming, Inc. ...............................................Greg Bailey  
-Bradley Forthware ...............................................................Mitch Bradley  
-Creative Solutions, Inc. .......................................................Don Colburn  
-Ford Motor Company ..........................................................Leonard F. Zettel, Jr.  
- Dennis Ruffer (Alt.)  
- Horace Simmons (Alt.)  
- Stephen Egbert (Alt.)  
- John Rible 
- J. E. (Jet) Thomas 
- Kathleen McMillan 
-
-FORTH, Inc. ........................................................................Elizabeth Rather  
-Institute for Applied Forth Research....................................Lawrence Forsley  
-Johns Hopkins University, Applied Physics Lab..................John Hayes  
-Mephistopheles Systems ....................................................Dave Harralson  
-NASA/Goddard Space Flight Center...................................James Rash  
-Nomadic Software...............................................................John K. Stevenson  
-Unisyn, Inc...........................................................................Gary Betts  
-Up and Running ..................................................................Martin Tracy  
-Vesta Technology................................................................Jack Woehr  
-Individual Members .............................................................Loring Craymer  X3  
-Liasons ..........................................................................Clyde R. Camp  
-
+<foreword>
+|| ||
 The following organizations and individuals have also participated in this project as  Technical Committee members, alternates, or observers. The Technical Committee  recognizes and respects their contributions:  
 
-Organizations  
+<organizations>
 
-British Columbia Inst. of Tech. MCI Telecommunications Corp.
-Computer Cowboys Micromotion  
-Computer Sciences Corp. MicroProcessor Engineering Ltd.  
-Computer Strategies, Inc. National Institute of Standards & Technology  
-Digalog Corp. NCR Medical Systems Group  
-Embedded Sys. Programming Mag. Performance Packages, Inc.  
-Forth Interest Group (FIG) Purdue University  
-H.B. Pascal & Co., Inc. Robert Berkey Services  
-Harris Semiconductor Shaw Laboratories  
-IBM Corporation Social Security Administration  
-IEEE Software Engineering  
-Kelly Enterprises Texas Instruments  
-Laboratory Microsystems, Inc. The Dickens Company  
-Maxtor Corp.
+ |Organizations  ||
+ |--|--|
+ |British Columbia Inst. of Tech.|MCI Telecommunications Corp.
+ |Computer Cowboys|Micromotion  
+ |Computer Sciences Corp.|MicroProcessor Engineering Ltd.  
+ |Computer Strategies, Inc.|National Institute of Standards & Technology  
+ |Digalog Corp.|NCR Medical Systems Group  
+ |Embedded Sys. Programming Mag.|Performance Packages, Inc.  
+ |Forth Interest Group (FIG)|Purdue University  
+ |H.B. Pascal & Co., Inc.|Robert Berkey Services  
+ |Harris Semiconductor|Shaw Laboratories  
+ |IBM Corporation|Social Security Administration  
+ |IEEE|Software Engineering  
+ |Kelly Enterprises|Texas Instruments  
+ |Laboratory Microsystems, Inc.|The Dickens Company  
+ |Maxtor Corp.|
+
+</organizations>
 
 </foreword>
 

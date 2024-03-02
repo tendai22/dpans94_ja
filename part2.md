@@ -7,62 +7,77 @@
 
 ## 7.2 Additional terms 
 
-block: 1024 characters of data on mass storage, designated by a block number. 
-block buffer: A block-sized region of data space where a block is made temporarily available for use. The  current block buffer is the block buffer most recently accessed by BLOCK, BUFFER, LOAD, LIST, or  THRU. 
+<miniterm>
+||block:||
+1024 characters of data on mass storage, designated by a block number. 
+
+||block buffer:||
+A block-sized region of data space where a block is made temporarily available for use. The  current block buffer is the block buffer most recently accessed by BLOCK, BUFFER, LOAD, LIST, or  THRU. 
+
+</miniterm>
 
 ## 7.3 Additional usage requirements 
-
 
 ### 7.3.1 Environmental queries 
 
 Append table 7.1 to table 3.5. 
-See: 3.2.6 Environmental queries.
+See: **3.2.6 Environmental queries**.
 
 
-<NOTOUCH>
-Table 7.1 – Environmental Query Strings 
-String Value data type Constant? Meaning 
-BLOCK flag no block word set present 
-BLOCK-EXT flag no block extensions word set present
-</NOTOUCH>
+<table>
+
+Table 7.1 - Environmental Query Strings 
+
+ String|Value data type|Constant?|Meaning
+ |--|--|--|--|
+ BLOCK|flag|no|block word set present 
+ BLOCK-EXT|flag|no|block extensions word set present
+
+</table>
 
 
 ### 7.3.2 Data space 
 
 A program may access memory within a valid block buffer. 
-See: 3.3.3 Data Space. 
+See: **3.3.3 Data Space**. 
 
 ### 7.3.3 Block buffer regions 
 
-The address of a block buffer returned by BLOCK or BUFFER is transient. A call to BLOCK or BUFFER may render a previously-obtained block-buffer address invalid, as may a call to any word that: 
-– parses: 
-– displays characters on the user output device, such as TYPE or EMIT; 
-– controls the user output device, such as CR or AT-XY; 
-– receives or tests for the presence of characters from the user input device such as ACCEPT or KEY; 
-– waits for a condition or event, such as MS or EKEY; 
-– manages the block buffers, such as FLUSH, SAVE-BUFFERS, or EMPTY-BUFFERS; 
+The address of a block buffer returned by `BLOCK` or `BUFFER` is transient. A call to `BLOCK` or `BUFFER` may render a previously-obtained block-buffer address invalid, as may a call to any word that:
 
-- performs any operation on a file or file-name directory that implies I/O, such as REFILL or any word  that returns an ior; 
+- parses: 
+- displays characters on the user output device, such as `TYPE` or `EMIT`; 
+- controls the user output device, such as `CR` or `AT-XY`; 
+- receives or tests for the presence of characters from the user input device such as `ACCEPT` or `KEY`; 
+- waits for a condition or event, such as `MS` or `EKEY`; 
+- manages the block buffers, such as `FLUSH`, `SAVE-BUFFERS`, or `EMPTY-BUFFERS`; 
 
-- implicitly performs I/O, such as text interpreter nesting and un-nesting when files are being used  (including un-nesting implied by THROW). 
-If the input source is a block, these restrictions also apply to the address returned by SOURCE. 
+- performs any operation on a file or file-name directory that implies I/O, such as `REFILL` or any word  that returns an ior; 
+
+- implicitly performs I/O, such as text interpreter nesting and un-nesting when files are being used  (including un-nesting implied by `THROW`). 
+
+If the input source is a block, these restrictions also apply to the address returned by `SOURCE`. 
+
 Block buffers are uniquely assigned to blocks. 
-
-TRAILER ANSI X3.215-1994 60 Collating Sequence: 
 
 
 ### 7.3.4 Parsing 
 
-The Block word set implements an alternative input source for the text interpreter. When the input source is  a block, BLK shall contain the non-zero block number and the input buffer is the 1024-character buffer  containing that block. 
+The Block word set implements an alternative input source for the text interpreter. When the input source is  a block, `BLK` shall contain the non-zero block number and the input buffer is the 1024-character buffer  containing that block. 
+
 A block is conventionally displayed as 16 lines of 64 characters. 
-A program may switch the input source to a block by using LOAD or THRU. Input sources may be nested  using LOAD and EVALUATE in any order. 
-A program may reposition the parse area within a block by manipulating >IN. More extensive  repositioning can be accomplished using SAVE-INPUT and RESTORE-INPUT. 
-See: 3.4.1 Parsing. 
+
+A program may switch the input source to a block by using LOAD or THRU. Input sources may be nested  using `LOAD` and `EVALUATE` in any order. 
+
+A program may reposition the parse area within a block by manipulating `>IN`. More extensive  repositioning can be accomplished using `SAVE-INPUT` and `RESTORE-INPUT`. 
+
+See: **3.4.1 Parsing**. 
 
 ### 7.3.5 Possible action on an ambiguous condition 
 
-See: 3.4.4 Possible action on an ambiguous condition. 
-– A system with the Block word set may set interpretation state and interpret a block. 
+See: `3.4.4 Possible action on an ambiguous condition`. 
+
+- A system with the Block word set may set interpretation state and interpret a block. 
 
 ## 7.4 Additional documentation requirements 
 
@@ -72,25 +87,25 @@ See: 3.4.4 Possible action on an ambiguous condition.
 
 #### 7.4.1.1 Implementation-defined options 
 
-– the format used for display by 7.6.2.1770 LIST (if implemented); 
-– the length of a line affected by 7.6.2.2535 \ (if implemented). 
+- the format used for display by **7.6.2.1770 LIST** (if implemented); 
+- the length of a line affected by **7.6.2.2535 \\** (if implemented). 
 
 #### 7.4.1.2 Ambiguous conditions 
 
-– Correct block read was not possible; 
-– I/O exception in block transfer; 
-– Invalid block number (7.6.1.0800 BLOCK, 7.6.1.0820 BUFFER, 7.6.1.1790 LOAD); 
-– A program directly alters the contents of 7.6.1.0790 BLK; 
-– No current block buffer for 7.6.1.2400 UPDATE.
+- Correct block read was not possible; 
+- I/O exception in block transfer; 
+- Invalid block number (**7.6.1.0800 BLOCK**, **7.6.1.0820 BUFFER**, **7.6.1.1790 LOAD**); 
+- A program directly alters the contents of **7.6.1.0790 BLK**; 
+- No current block buffer for **7.6.1.2400 UPDATE**.
 
 #### 7.4.1.3 Other system documentation 
 
-– any restrictions a multiprogramming system places on the use of buffer addresses; 
-– the number of blocks available for source text and data. 
+- any restrictions a multiprogramming system places on the use of buffer addresses; 
+- the number of blocks available for source text and data. 
 
 ### 7.4.2 Program documentation 
 
-– the number of blocks required by the program. 
+- the number of blocks required by the program. 
 
 ## 7.5 Compliance and labeling 
 
@@ -98,108 +113,100 @@ See: 3.4.4 Possible action on an ambiguous condition.
 ### 7.5.1 ANS Forth systems 
 
 The phrase “Providing the Block word set” shall be appended to the label of any Standard System that  provides all of the Block word set. 
+
 The phrase “Providing name(s) from the Block Extensions word set” shall be appended to the label of any  Standard System that provides portions of the Block Extensions word set. 
 
-TRAILER  ANSI X3.215-1994 61
 The phrase “Providing the Block Extensions word set” shall be appended to the label of any Standard  System that provides all of the Block and Block Extensions word sets. 
 
 ### 7.5.2 ANS Forth programs 
 
 The phrase “Requiring the Block word set” shall be appended to the label of Standard Programs that require  the system to provide the Block word set. 
+
 The phrase “Requiring name(s) from the Block Extensions word set” shall be appended to the label of  Standard Programs that require the system to provide portions of the Block Extensions word set. 
+
 The phrase “Requiring the Block Extensions word set” shall be appended to the label of Standard Programs  that require the system to provide all of the Block and Block Extensions word sets. 
 
-TRAILER ANSI X3.215-1994 62 Collating Sequence: 
-
+<hr class="page-wrap" />
 
 ## 7.6 Glossary 
 
-
 ### 7.6.1 Block words 
 
-7.6.1.0790 BLK “b-l-k” BLOCK  ( -- a-addr )  a-addr is the address of a cell containing zero or the number of the mass-storage block being  interpreted. If BLK contains zero, the input source is not a block and can be identified by  SOURCE-ID, if SOURCE-ID is available. An ambiguous condition exists if a program directly  alters the contents of BLK. 
- See: 7.3.3 Block buffer regions. 
-7.6.1.0800 BLOCK BLOCK  ( u -- a-addr )  a-addr is the address of the first character of the block buffer assigned to mass-storage block u. 
+||7.6.1.0790||BLK||“b-l-k”||BLOCK||( -- a-addr )||
+a-addr is the address of a cell containing zero or the number of the mass-storage block being  interpreted. If BLK contains zero, the input source is not a block and can be identified by  SOURCE-ID, if SOURCE-ID is available. An ambiguous condition exists if a program directly  alters the contents of BLK. 
+
+See: 7.3.3 Block buffer regions. 
+
+||7.6.1.0800 BLOCK BLOCK  ( u -- a-addr )  a-addr is the address of the first character of the block buffer assigned to mass-storage block u. 
+
 An ambiguous condition exists if u is not an available block number. 
+
 If block u is already in a block buffer, a-addr is the address of that block buffer. 
+
 If block u is not already in memory and there is an unassigned block buffer, transfer block u from mass storage to an unassigned block buffer. a-addr is the address of that block buffer. 
+
 If block u is not already in memory and there are no unassigned block buffers, unassign a block  buffer. If the block in that buffer has been UPDATEd, transfer the block to mass storage and  transfer block u from mass storage into that buffer. a-addr is the address of that block buffer. 
+
 At the conclusion of the operation, the block buffer pointed to by a-addr is the current block  buffer and is assigned to u. 
-7.6.1.0820 BUFFER BLOCK  ( u -- a-addr )  a-addr is the address of the first character of the block buffer assigned to block u. The contents  of the block are unspecified. An ambiguous condition exists if u is not an available block  number. 
+
+||7.6.1.0820 BUFFER BLOCK  ( u -- a-addr )  a-addr is the address of the first character of the block buffer assigned to block u. The contents  of the block are unspecified. An ambiguous condition exists if u is not an available block  number. 
+
 If block u is already in a block buffer, a-addr is the address of that block buffer. 
+
 If block u is not already in memory and there is an unassigned buffer, a-addr is the address of  that block buffer. 
+
 If block u is not already in memory and there are no unassigned block buffers, unassign a block  buffer. If the block in that buffer has been UPDATEd, transfer the block to mass storage. aaddr is the address of that block buffer. 
+
 At the conclusion of the operation, the block buffer pointed to by a-addr is the current block  buffer and is assigned to u. 
- See: 7.6.1.0800 BLOCK.
 
-TRAILER  ANSI X3.215-1994 63
+See: 7.6.1.0800 BLOCK.
 
-#### 7.6.1.1360 EVALUATE BLOCK 
+||7.6.1.1360 EVALUATE BLOCK 
 
 Extend the semantics of 6.1.1360 EVALUATE to include: 
 Store zero in BLK. 
 
-#### 7.6.1.1559 FLUSH BLOCK 
+||7.6.1.1559 FLUSH BLOCK ( -- )  Perform the function of SAVE-BUFFERS, then unassign all block buffers. 
 
-( -- )  Perform the function of SAVE-BUFFERS, then unassign all block buffers. 
+||7.6.1.1790 LOAD BLOCK ( i*x u -- j*x )  Save the current input-source specification. Store u in BLK (thus making block u the input  source and setting the input buffer to encompass its contents), set >IN to zero, and interpret. 
 
-#### 7.6.1.1790 LOAD BLOCK 
-
-( i*x u -- j*x )  Save the current input-source specification. Store u in BLK (thus making block u the input  source and setting the input buffer to encompass its contents), set >IN to zero, and interpret. 
 When the parse area is exhausted, restore the prior input source specification. Other stack  effects are due to the words LOADed. 
 An ambiguous condition exists if u is zero or is not a valid block number. 
+
  See: 3.4 The Forth text interpreter. 
 
-#### 7.6.1.2180 SAVE-BUFFERS BLOCK 
+||7.6.1.2180 SAVE-BUFFERS BLOCK ( -- )  Transfer the contents of each UPDATEd block buffer to mass storage. Mark all buffers as  unmodified. 
 
-( -- )  Transfer the contents of each UPDATEd block buffer to mass storage. Mark all buffers as  unmodified. 
-
-#### 7.6.1.2400 UPDATE BLOCK 
-
-( -- )  Mark the current block buffer as modified. An ambiguous condition exists if there is no current  block buffer. 
+||7.6.1.2400 UPDATE BLOCK ( -- )  Mark the current block buffer as modified. An ambiguous condition exists if there is no current  block buffer. 
 UPDATE does not immediately cause I/O. 
- See: 7.6.1.0800 BLOCK, 7.6.1.0820 BUFFER, 7.6.1.1559 FLUSH, 7.6.1.2180 SAVE-BUFFERS. 
+
+See: 7.6.1.0800 BLOCK, 7.6.1.0820 BUFFER, 7.6.1.1559 FLUSH, 7.6.1.2180 SAVE-BUFFERS. 
 
 ### 7.6.2 Block extension words 
 
 
-#### 7.6.2.1330 EMPTY-BUFFERS BLOCK EXT 
-
-( -- )  Unassign all block buffers. Do not transfer the contents of any UPDATEd block buffer to mass  storage. 
+||7.6.2.1330 EMPTY-BUFFERS BLOCK EXT ( -- )  Unassign all block buffers. Do not transfer the contents of any UPDATEd block buffer to mass  storage. 
  See: 7.6.1.0800 BLOCK. 
 
-TRAILER ANSI X3.215-1994 64 Collating Sequence: 
-
-
-#### 7.6.2.1770 LIST BLOCK EXT 
-
-( u -- )  Display block u in an implementation-defined format. Store u in SCR. 
+||7.6.2.1770 LIST BLOCK EXT ( u -- )  Display block u in an implementation-defined format. Store u in SCR. 
  See: 7.6.1.0800 BLOCK. 
 
-#### 7.6.2.2125 REFILL BLOCK EXT 
-
-( -- flag )  Extend the execution semantics of 6.2.2125 REFILL with the following: 
+||7.6.2.2125 REFILL BLOCK EXT ( -- flag )  Extend the execution semantics of 6.2.2125 REFILL with the following: 
 When the input source is a block, make the next block the input source and current input buffer  by adding one to the value of BLK and setting >IN to zero. Return true if the new value of BLK is a valid block number, otherwise false. 
  See: 6.2.2125 REFILL, 11.6.2.2125 REFILL. 
 
-#### 7.6.2.2190 SCR “s-c-r” BLOCK EXT 
+||7.6.2.2190 SCR “s-c-r” BLOCK EXT ( -- a-addr )  a-addr is the address of a cell containing the block number of the block most recently LISTed. 
 
-( -- a-addr )  a-addr is the address of a cell containing the block number of the block most recently LISTed. 
+||7.6.2.2280 THRU BLOCK EXT ( i*x u1 u2 -- j*x )  LOAD the mass storage blocks numbered u1 through u2 in sequence. Other stack effects are due  to the words LOADed. 
 
-#### 7.6.2.2280 THRU BLOCK EXT 
-
-( i*x u1 u2 -- j*x )  LOAD the mass storage blocks numbered u1 through u2 in sequence. Other stack effects are due  to the words LOADed. 
-
-#### 7.6.2.2535 \ “backslash” BLOCK EXT 
-
+||7.6.2.2535 \\ “backslash” BLOCK EXT 
 Extend the semantics of 6.2.2535 \ to be: 
- Compilation: Perform the execution semantics given below. 
- Execution: ( “ccc<eol>”-- )  If BLK contains zero, parse and discard the remainder of the parse area; otherwise parse and  discard the portion of the parse area corresponding to the remainder of the current line. \ is an  immediate word. 
 
-TRAILER  ANSI X3.215-1994 65
+Compilation: Perform the execution semantics given below. 
+
+Execution: ( “ccc<eol>”-- )  If BLK contains zero, parse and discard the remainder of the parse area; otherwise parse and  discard the portion of the parse area corresponding to the remainder of the current line. \\ is an  immediate word. 
 
 # 8. The optional Double-Number word set 
-
 
 ## 8.1 Introduction 
 
@@ -215,21 +222,28 @@ None.
 ### 8.3.1 Environmental queries 
 
 Append table 8.1 to table 3.5. 
+
 See: 3.2.6 Environmental queries.
 
 
-<NOTOUCH>
-Table 8.1 – Environmental Query Strings 
-String Value data type Constant? Meaning 
-DOUBLE flag no double-number word set present 
-DOUBLE-EXT flag no double-number extensions word set present 
-</NOTOUCH>
+<table>
+
+Table 8.1 - Environmental Query Strings 
+
+ String|Value data type|Constant?|Meaning
+ |--|--|--|--|
+ DOUBLE|flag|no|double-number word set present 
+ DOUBLE-EXT|flag|no|double-number extensions word set present 
+
+</table>
 
 
 ### 8.3.2 Text interpreter input number conversion 
 
 When the text interpreter processes a number that is immediately followed by a decimal point and is not  found as a definition name, the text interpreter shall convert it to a double-cell number. 
+
 For example, entering DECIMAL 1234 leaves the single-cell number 1234 on the stack,  and entering DECIMAL 1234. leaves the double-cell number 1234 0 on the stack. 
+
 See: 3.4.1.3 Text interpreter input number conversion. 
 
 ## 8.4 Additional documentation requirements 
@@ -240,146 +254,108 @@ See: 3.4.1.3 Text interpreter input number conversion.
 
 #### 8.4.1.1 Implementation-defined options 
 
-– no additional requirements. 
+- no additional requirements. 
 
 #### 8.4.1.2 Ambiguous conditions 
 
-– d outside range of n in 8.6.1.1140 D>S. 
+- d outside range of n in 8.6.1.1140 D>S. 
 
 #### 8.4.1.3 Other system documentation 
 
-– no additional requirements. 
+- no additional requirements. 
 
 ### 8.4.2 Program documentation 
 
-– no additional requirements. 
-
-TRAILER ANSI X3.215-1994 66 Collating Sequence: 
+- no additional requirements. 
 
 
 ## 8.5 Compliance and labeling 
 
-
 ### 8.5.1 ANS Forth systems 
 
 The phrase “Providing the Double-Number word set” shall be appended to the label of any Standard System  that provides all of the Double-Number word set. 
+
 The phrase “Providing name(s) from the Double-Number Extensions word set” shall be appended to the  label of any Standard System that provides portions of the Double-Number Extensions word set. 
+
 The phrase “Providing the Double-Number Extensions word set” shall be appended to the label of any  Standard System that provides all of the Double-Number and Double-Number Extensions word sets. 
 
 ### 8.5.2 ANS Forth programs 
 
 The phrase “Requiring the Double-Number word set” shall be appended to the label of Standard Programs  that require the system to provide the Double-Number word set. 
+
 The phrase “Requiring name(s) from the Double-Number Extensions word set” shall be appended to the  label of Standard Programs that require the system to provide portions of the Double-Number Extensions  word set. 
+
 The phrase “Requiring the Double-Number Extensions word set” shall be appended to the label of Standard  Programs that require the system to provide all of the Double-Number and Double-Number Extensions  word sets. 
 
 ## 8.6 Glossary 
 
-
 ### 8.6.1 Double-Number words 
 
-8.6.1.0360 2CONSTANT “two-constant” DOUBLE ( x1 x2 “<spaces>name” -- )  Skip leading space delimiters. Parse name delimited by a space. Create a definition for name with the execution semantics defined below. 
+||8.6.1.0360 2CONSTANT “two-constant” DOUBLE ( x1 x2 “<spaces>name” -- )  Skip leading space delimiters. Parse name delimited by a space. Create a definition for name with the execution semantics defined below. 
+
 name is referred to as a “two-constant”. 
+
 name Execution: ( -- x1 x2 )  Place cell pair x1 x2 on the stack. 
+
 See: 3.4.1 Parsing. 
-8.6.1.0390 2LITERAL “two-literal” DOUBLE   Interpretation: Interpretation semantics for this word are undefined. 
+
+||8.6.1.0390 2LITERAL “two-literal” DOUBLE   Interpretation: Interpretation semantics for this word are undefined. 
+
 Compilation: ( x1 x2 -- )  Append the run-time semantics below to the current definition. 
- Run-time: ( -- x1 x2 )  Place cell pair x1 x2 on the stack. 
 
-TRAILER  ANSI X3.215-1994 67
-8.6.1.0440 2VARIABLE “two-variable” DOUBLE  ( “<spaces>name” -- )  Skip leading space delimiters. Parse name delimited by a space. Create a definition for name with the execution semantics defined below. Reserve two consecutive cells of data space. 
+Run-time: ( -- x1 x2 )  Place cell pair x1 x2 on the stack. 
+
+||8.6.1.0440 2VARIABLE “two-variable” DOUBLE  ( “<spaces>name” -- )  Skip leading space delimiters. Parse name delimited by a space. Create a definition for name with the execution semantics defined below. Reserve two consecutive cells of data space. 
+
 name is referred to as a “two-variable”. 
+
 name Execution: ( -- a-addr )  a-addr is the address of the first (lowest address) cell of two consecutive cells in data space  reserved by 2VARIABLE when it defined name. A program is responsible for initializing the  contents. 
- See: 3.4.1 Parsing, 6.1.2410 VARIABLE. 
 
-#### 8.6.1.1040 D+ “d-plus” DOUBLE 
+See: 3.4.1 Parsing, 6.1.2410 VARIABLE. 
 
-( d1|ud1 d2|ud2 -- d3|ud3 )  Add d2|ud2 to d1|ud1, giving the sum d3|ud3. 
+||8.6.1.1040 D+ “d-plus” DOUBLE ( d1|ud1 d2|ud2 -- d3|ud3 )  Add d2|ud2 to d1|ud1, giving the sum d3|ud3. 
 
-#### 8.6.1.1050 D- “d-minus” DOUBLE 
+||8.6.1.1050 D- “d-minus” DOUBLE ( d1|ud1 d2|ud2 -- d3|ud3 )  Subtract d2|ud2 from d1|ud1, giving the difference d3|ud3. 
 
-( d1|ud1 d2|ud2 -- d3|ud3 )  Subtract d2|ud2 from d1|ud1, giving the difference d3|ud3. 
+||8.6.1.1060 D. “d-dot” DOUBLE ( d -- )  Display d in free field format. 
 
-#### 8.6.1.1060 D. “d-dot” DOUBLE 
+||8.6.1.1070 D.R “d-dot-r” DOUBLE ( d n -- )  Display d right aligned in a field n characters wide. If the number of characters required to  display d is greater than n, all digits are displayed with no leading spaces in a field as wide as  necessary. 
 
-( d -- )  Display d in free field format. 
+||8.6.1.1075 D0< “d-zero-less” DOUBLE ( d -- flag )  flag is true if and only if d is less than zero. 
 
-#### 8.6.1.1070 D.R “d-dot-r” DOUBLE 
+||8.6.1.1080 D0= “d-zero-equals” DOUBLE ( xd -- flag )  flag is true if and only if xd is equal to zero. 
 
-( d n -- )  Display d right aligned in a field n characters wide. If the number of characters required to  display d is greater than n, all digits are displayed with no leading spaces in a field as wide as  necessary. 
+||8.6.1.1090 D2* “d-two-star” DOUBLE ( xd1 -- xd2 )  xd2 is the result of shifting xd1 one bit toward the most-significant bit, filling the vacated leastsignificant bit with zero. 
 
-#### 8.6.1.1075 D0< “d-zero-less” DOUBLE 
+||8.6.1.1100 D2/ “d-two-slash” DOUBLE ( xd1 -- xd2 )  xd2 is the result of shifting xd1 one bit toward the least-significant bit, leaving the mostsignificant bit unchanged. 
 
-( d -- flag )  flag is true if and only if d is less than zero. 
+||8.6.1.1110 D< “d-less-than” DOUBLE ( d1 d2 -- flag )  flag is true if and only if d1 is less than d2. 
 
-#### 8.6.1.1080 D0= “d-zero-equals” DOUBLE 
+||8.6.1.1120 D= “d-equals” DOUBLE ( xd1 xd2 -- flag )  flag is true if and only if xd1 is bit-for-bit the same as xd2. 
 
-( xd -- flag )  flag is true if and only if xd is equal to zero. 
+||8.6.1.1140 D>S “d-to-s” DOUBLE ( d -- n )  n is the equivalent of d. An ambiguous condition exists if d lies outside the range of a signed  single-cell number. 
 
-TRAILER ANSI X3.215-1994 68 Collating Sequence: 
+||8.6.1.1160 DABS “d-abs” DOUBLE ( d -- ud )  ud is the absolute value of d. 
 
+||8.6.1.1210 DMAX “d-max” DOUBLE ( d1 d2 -- d3 )  d3 is the greater of d1 and d2. 
 
-#### 8.6.1.1090 D2* “d-two-star” DOUBLE 
+||8.6.1.1220 DMIN “d-min” DOUBLE ( d1 d2 -- d3 )  d3 is the lesser of d1 and d2. 
 
-( xd1 -- xd2 )  xd2 is the result of shifting xd1 one bit toward the most-significant bit, filling the vacated leastsignificant bit with zero. 
+||8.6.1.1230 DNEGATE “d-negate” DOUBLE ( d1 -- d2 )  d2 is the negation of d1. 
 
-#### 8.6.1.1100 D2/ “d-two-slash” DOUBLE 
+||8.6.1.1820 M*/ “m-star-slash” DOUBLE ( d1 n1 +n2 -- d2 )  Multiply d1 by n1 producing the triple-cell intermediate result t. Divide t by +n2 giving the  double-cell quotient d2. An ambiguous condition exists if +n2 is zero or negative, or the  quotient lies outside of the range of a double-precision signed integer. 
 
-( xd1 -- xd2 )  xd2 is the result of shifting xd1 one bit toward the least-significant bit, leaving the mostsignificant bit unchanged. 
-
-#### 8.6.1.1110 D< “d-less-than” DOUBLE 
-
-( d1 d2 -- flag )  flag is true if and only if d1 is less than d2. 
-
-#### 8.6.1.1120 D= “d-equals” DOUBLE 
-
-( xd1 xd2 -- flag )  flag is true if and only if xd1 is bit-for-bit the same as xd2. 
-
-#### 8.6.1.1140 D>S “d-to-s” DOUBLE 
-
-( d -- n )  n is the equivalent of d. An ambiguous condition exists if d lies outside the range of a signed  single-cell number. 
-
-#### 8.6.1.1160 DABS “d-abs” DOUBLE 
-
-( d -- ud )  ud is the absolute value of d. 
-
-#### 8.6.1.1210 DMAX “d-max” DOUBLE 
-
-( d1 d2 -- d3 )  d3 is the greater of d1 and d2. 
-
-TRAILER  ANSI X3.215-1994 69
-
-#### 8.6.1.1220 DMIN “d-min” DOUBLE 
-
-( d1 d2 -- d3 )  d3 is the lesser of d1 and d2. 
-
-#### 8.6.1.1230 DNEGATE “d-negate” DOUBLE 
-
-( d1 -- d2 )  d2 is the negation of d1. 
-
-#### 8.6.1.1820 M*/ “m-star-slash” DOUBLE 
-
-( d1 n1 +n2 -- d2 )  Multiply d1 by n1 producing the triple-cell intermediate result t. Divide t by +n2 giving the  double-cell quotient d2. An ambiguous condition exists if +n2 is zero or negative, or the  quotient lies outside of the range of a double-precision signed integer. 
-
-#### 8.6.1.1830 M+ “m-plus” DOUBLE 
-
-( d1|ud1 n -- d2|ud2 )  Add n to d1|ud1, giving the sum d2|ud2. 
+||8.6.1.1830 M+ “m-plus” DOUBLE ( d1|ud1 n -- d2|ud2 )  Add n to d1|ud1, giving the sum d2|ud2. 
 
 ### 8.6.2 Double-Number extension words 
 
-8.6.2.0420 2ROT “two-rote” DOUBLE EXT  ( x1 x2 x3 x4 x5 x6 -- x3 x4 x5 x6 x1 x2 )  Rotate the top three cell pairs on the stack bringing cell pair x1 x2 to the top of the stack. 
+||8.6.2.0420 2ROT “two-rote” DOUBLE EXT  ( x1 x2 x3 x4 x5 x6 -- x3 x4 x5 x6 x1 x2 )  Rotate the top three cell pairs on the stack bringing cell pair x1 x2 to the top of the stack. 
 
-#### 8.6.2.1270 DU< “d-u-less” DOUBLE EXT 
-
-( ud1 ud2 -- flag )  flag is true if and only if ud1 is less than ud2. 
-
-TRAILER ANSI X3.215-1994 70 Collating Sequence: 
-
+||8.6.2.1270 DU< “d-u-less” DOUBLE EXT ( ud1 ud2 -- flag )  flag is true if and only if ud1 is less than ud2. 
 
 # 9. The optional Exception word set 
 
-
 ## 9.1 Introduction 
-
 
 ## 9.2 Additional terms and notation 
 
@@ -387,11 +363,12 @@ None.
 
 ## 9.3 Additional usage requirements 
 
-
 ### 9.3.1 THROW values 
 
 The THROW values {-255...-1} shall be used only as assigned by this Standard. The values {-4095...-256}  shall be used only as assigned by a system. 
+
 If the File-Access or Memory-Allocation word sets are implemented, it is recommended that the non-zero  values of ior lie within the range of system THROW values, as defined above. In an operating-system  environment, this can sometimes be accomplished by “biasing” the range of operating-system exceptioncodes to fall within the THROW range. 
+
 Programs shall not define values for use with THROW in the range {-4095...-1}. 
 
 ### 9.3.2 Exception frame 
@@ -408,12 +385,16 @@ Append table 9.1 to table 3.5.
 See: 3.2.6 Environmental queries. 
 
 
-<NOTOUCH>
-Table 9.1 – Environmental query strings 
-String Value data type Constant? Meaning 
-EXCEPTION flag no Exception word set present 
-EXCEPTION-EXT flag no Exception extensions word set present 
-</NOTOUCH>
+<table>
+
+Table 9.1 - Environmental query strings 
+
+ String|Value data type|Constant?|Meaning
+ |--|--|--|--| 
+ EXCEPTION|flag|no|Exception word set present 
+ EXCEPTION-EXT|flag|no|Exception extensions word set present 
+
+</table>
 
 
 ### 9.3.5 Possible actions on an ambiguous condition 
@@ -421,157 +402,124 @@ EXCEPTION-EXT flag no Exception extensions word set present
 A system choosing to execute THROW when detecting one of the ambiguous conditions listed in table 9.3.6  shall use the throw code listed there. 
 See: 3.4.4 Possible actions on an ambiguous condition. 
 
-TRAILER  ANSI X3.215-1994 71
+<table>
 
+Table 9.2 - THROW code assignments 
 
-<NOTOUCH>
-Table 9.2 – THROW code assignments 
-Code Reserved for Code Reserved for 
- -1 ABORT
- -2 ABORT"
- -3 stack overflow 
- -4 stack underflow 
- -5 return stack overflow 
- -6 return stack underflow 
- -7 do-loops nested too deeply during execution 
- -8 dictionary overflow 
- -9 invalid memory address 
- -10 division by zero 
- -11 result out of range 
- -12 argument type mismatch 
- -13 undefined word 
- -14 interpreting a compile-only word 
- -15 invalid FORGET
- -16 attempt to use zero-length string as a name 
- -17 pictured numeric output string overflow 
- -18 parsed string overflow 
- -19 definition name too long 
- -20 write to a read-only location 
- -21 unsupported operation 
-(e.g., AT-XY on a too-dumb terminal) 
- -22 control structure mismatch 
- -23 address alignment exception 
- -24 invalid numeric argument 
- -25 return stack imbalance 
- -26 loop parameters unavailable 
- -27 invalid recursion 
- -28 user interrupt 
- -29 compiler nesting 
- -30 obsolescent feature 
- -31 >BODY used on non-CREATEd definition 
- -32 invalid name argument (e.g., TO xxx) 
- -33 block read exception 
- -34 block write exception 
- -35 invalid block number 
- -36 invalid file position 
- -37 file I/O exception 
- -38 non-existent file 
- -39 unexpected end of file 
- -40 invalid BASE for floating point conversion 
- -41 loss of precision 
- -42 floating-point divide by zero 
- -43 floating-point result out of range 
- -44 floating-point stack overflow 
- -45 floating-point stack underflow 
- -46 floating-point invalid argument 
- -47 compilation word list deleted 
- -48 invalid POSTPONE
- -49 search-order overflow 
- -50 search-order underflow 
- -51 compilation word list changed 
- -52 control-flow stack overflow 
- -53 exception stack overflow 
- -54 floating-point underflow 
- -55 floating-point unidentified fault 
- -56 QUIT
- -57 exception in sending or receiving a character 
- -58 [IF], [ELSE], or [THEN] exception 
-</NOTOUCH>
+ Code|Reserved for|Code|Reserved for
+ |--|--|--|--| 
+ -1|`ABORT`| -30|obsolescent feature 
+ -2|`ABORT"`| -31|`>BODY` used on non-`CREATE`d definition 
+ -3|stack overflow | -32|invalid name argument (e.g., `TO xxx`) 
+ -4|stack underflow | -33|block read exception 
+ -5|return stack overflow | -34|block write exception 
+ -6|return stack underflow| -35|invalid block number | 
+ -7|do-loops nested too deeply during execution | -36|invalid file position | 
+ -8|dictionary overflow | -37|file I/O exception 
+ -9|invalid memory address| -38|non-existent file 
+ -10|division by zero | -39|unexpected end of file 
+ -11|result out of range| -40|invalid `BASE` for floating point conversion 
+ -12|argument type mismatch | -41|loss of precision 
+ -13|undefined word | -42|floating-point divide by zero 
+ -14|interpreting a compile-only word | -43|floating-point result out of range 
+ -15|invalid `FORGET`| -44|floating-point stack overflow 
+ -16|attempt to use zero-length string as a name | -45|floating-point stack underflow 
+ -17|pictured numeric output string overflow | -46|floating-point invalid argument 
+ -18|parsed string overflow | -47|compilation word list deleted 
+ -19|definition name too long | -48|invalid `POSTPONE`
+ -20|write to a read-only location | -49|search-order overflow 
+ -21|unsupported operation| -50|search-order underflow 
+    |(e.g., `AT-XY` on a too-dumb terminal) | -51|compilation word list changed 
+ -23|address alignment exception | -53|exception stack overflow 
+ -24|invalid numeric argument | -54|floating-point underflow 
+ -25|return stack imbalance | -55|floating-point unidentified fault 
+ -26|loop parameters unavailable | -56|`QUIT`
+ -27|invalid recursion | -57|exception in sending or receiving a character 
+ -28|user interrupt | -58|`[IF]`, `[ELSE]`, or `[THEN]` exception 
+ -29|compiler nesting ||
+ 
+ </table>
 
 
 ### 9.3.6 Exception handling 
 
-There are several methods of coupling CATCH and THROW to other procedural nestings. The usual nestings  are the execution of definitions, use of the return stack, use of loops, instantiation of locals and nesting of  input sources (i.e., with LOAD, EVALUATE, or INCLUDE-FILE). 
+There are several methods of coupling CATCH and THROW to other procedural nestings. The usual nestings  are the execution of definitions, use of the return stack, use of loops, instantiation of locals and nesting of  input sources (i.e., with LOAD, EVALUATE, or INCLUDE-FILE).
+
 When a THROW returns control to a CATCH, the system shall un-nest not only definitions, but also, if  present, locals and input source specifications, to return the system to its proper state for continued  execution past the CATCH. 
 
 ## 9.4 Additional documentation requirements 
 
-
 ### 9.4.1 System documentation 
-
 
 #### 9.4.1.1 Implementation-defined options 
 
-
 - Values used in the system by 9.6.1.0875 CATCH and 9.6.1.2275 THROW (9.3.1 THROW values, 9.3.5  Possible actions on an ambiguous condition). 
-
-TRAILER ANSI X3.215-1994 72 Collating Sequence: 
-
 
 #### 9.4.1.2 Ambiguous conditions 
 
-– no additional requirements. 
+- no additional requirements. 
 
 #### 9.4.1.3 Other system documentation 
 
-– no additional requirements. 
+- no additional requirements. 
 
 ### 9.4.2 Program documentation 
 
-– no additional requirements. 
+- no additional requirements. 
 
 ## 9.5 Compliance and labeling 
-
 
 ### 9.5.1 ANS Forth systems 
 
 The phrase “Providing the Exception word set” shall be appended to the label of any Standard System that  provides all of the Exception word set. 
+
 The phrase “Providing name(s) from the Exception Extensions word set” shall be appended to the label of  any Standard System that provides portions of the Exception Extensions word set. 
+
 The phrase “Providing the Exception Extensions word set” shall be appended to the label of any Standard  System that provides all of the Exception and Exception Extensions word sets. 
 
 ### 9.5.2 ANS Forth programs 
 
 The phrase “Requiring the Exception word set” shall be appended to the label of Standard Programs that  require the system to provide the Exception word set. 
+
 The phrase “Requiring name(s) from the Exception Extensions word set” shall be appended to the label of  Standard Programs that require the system to provide portions of the Exception Extensions word set. 
+
 The phrase “Requiring the Exception Extensions word set” shall be appended to the label of Standard  Programs that require the system to provide all of the Exception and Exception Extensions word sets. 
 
 ## 9.6 Glossary 
 
-
 ### 9.6.1 Exception words 
 
-9.6.1.0875 CATCH EXCEPTION  ( i*x xt -- j*x 0 | i*x n )  Push an exception frame on the exception stack and then execute the execution token xt (as with  EXECUTE) in such a way that control can be transferred to a point just after CATCH if THROW is executed during the execution of xt. 
+||9.6.1.0875 CATCH EXCEPTION  ( i*x xt -- j*x 0 | i*x n )  Push an exception frame on the exception stack and then execute the execution token xt (as with  EXECUTE) in such a way that control can be transferred to a point just after CATCH if THROW is executed during the execution of xt. 
+
 If the execution of xt completes normally (i.e., the exception frame pushed by this CATCH is not  popped by an execution of THROW) pop the exception frame and return zero on top of the data  stack, above whatever stack items would have been returned by xt EXECUTE. Otherwise, the  remainder of the execution semantics are given by THROW. 
 
-TRAILER  ANSI X3.215-1994 73
+||9.6.1.2275 THROW EXCEPTION ( k*x n -- k*x | i*x n )  If any bits of n are non-zero, pop the topmost exception frame from the exception stack, along  with everything on the return stack above that frame. Then restore the input source  specification in use before the corresponding CATCH and adjust the depths of all stacks defined  by this Standard so that they are the same as the depths saved in the exception frame (i is the  same number as the i in the input arguments to the corresponding CATCH), put n on top of the  data stack, and transfer control to a point just after the CATCH that pushed that exception frame. 
 
-#### 9.6.1.2275 THROW EXCEPTION 
-
-( k*x n -- k*x | i*x n )  If any bits of n are non-zero, pop the topmost exception frame from the exception stack, along  with everything on the return stack above that frame. Then restore the input source  specification in use before the corresponding CATCH and adjust the depths of all stacks defined  by this Standard so that they are the same as the depths saved in the exception frame (i is the  same number as the i in the input arguments to the corresponding CATCH), put n on top of the  data stack, and transfer control to a point just after the CATCH that pushed that exception frame. 
 If the top of the stack is non zero and there is no exception frame on the exception stack, the  behavior is as follows: 
+
 If n is minus-one (-1), perform the function of 6.1.0670 ABORT (the version of ABORT in  the Core word set), displaying no message. 
+
 If n is minus-two, perform the function of 6.1.0680 ABORT" (the version of ABORT" in  the Core word set), displaying the characters ccc associated with the ABORT" that  generated the THROW. 
+
 Otherwise, the system may display an implementation-dependent message giving  information about the condition associated with the THROW code n. Subsequently, the  system shall perform the function of 6.1.0670 ABORT (the version of ABORT in the Core  word set). 
 
 ### 9.6.2 Exception extension words 
 
-9.6.2.0670 ABORT EXCEPTION EXT  Extend the semantics of 6.1.0670 ABORT to be: 
+||9.6.2.0670 ABORT EXCEPTION EXT  Extend the semantics of 6.1.0670 ABORT to be: 
 ( i*x -- ) ( R: j*x -- )  Perform the function of -1 THROW . 
+
 See: 6.1.0670 ABORT. 
-9.6.2.0680 ABORT" “abort-quote” EXCEPTION EXT  Extend the semantics of 6.1.0680 ABORT" to be: 
+
+||9.6.2.0680 ABORT" “abort-quote” EXCEPTION EXT  Extend the semantics of 6.1.0680 ABORT" to be: 
  Interpretation: Interpretation semantics for this word are undefined. 
  Compilation: ( “ccc<quote>” -- )  Parse ccc delimited by a " (double-quote). Append the run-time semantics given below to the  current definition. 
  Run-time: ( i*x x1 -- | i*x ) ( R: j*x -- | j*x )  Remove x1 from the stack. If any bit of x1 is not zero, perform the function of -2 THROW,  displaying ccc if there is no exception frame on the exception stack. 
+
 See: 3.4.1 Parsing, 6.1.0680 ABORT".
-
-TRAILER ANSI X3.215-1994 74 Collating Sequence: 
-
 
 # 10. The optional Facility word set 
 
-
 ## 10.1 Introduction 
-
 
 ## 10.2 Additional terms and notation 
 
@@ -579,161 +527,153 @@ None.
 
 ## 10.3 Additional usage requirements 
 
-
 ### 10.3.1 Character types 
 
 Programs that use more than seven bits of a character by 10.6.2.1305 EKEY have an environmental  dependency. 
+
 See: 3.1.2 Character types. 
 
 ### 10.3.2 Environmental queries 
 
 Append table 10.1 to table 3.5. 
+
 See: 3.2.6 Environmental queries. 
 
 
-<NOTOUCH>
-Table 10.1 – Environmental query strings 
-String Value data type Constant? Meaning 
-FACILITY flag no facility word set present 
-FACILITY-EXT flag no facility extensions word set present 
-</NOTOUCH>
+<table>
 
+Table 10.1 - Environmental query strings 
+
+ String|Value data type|Constant?|Meaning 
+ FACILITY|flag|no|facility word set present 
+ FACILITY-EXT|flag|no|facility extensions word set present 
+
+</table>
 
 ## 10.4 Additional documentation requirements 
 
-
 ### 10.4.1 System documentation 
-
 
 #### 10.4.1.1 Implementation-defined options 
 
-– encoding of keyboard events (10.6.2.1305 EKEY); 
-– duration of a system clock tick; 
-– repeatability to be expected from execution of 10.6.2.1905 MS. 
+- encoding of keyboard events (**10.6.2.1305 EKEY**); 
+- duration of a system clock tick; 
+- repeatability to be expected from execution of **10.6.2.1905 MS**. 
 
 #### 10.4.1.2 Ambiguous conditions 
 
-– 10.6.1.0742 AT-XY operation can't be performed on user output device. 
+- **10.6.1.0742 AT-XY** operation can't be performed on user output device. 
 
 #### 10.4.1.3 Other system documentation 
 
-– no additional requirements. 
+- no additional requirements. 
 
 ### 10.4.2 Program documentation 
 
-
 #### 10.4.2.1 Environmental dependencies 
 
-– using more than seven bits of a character in 10.6.2.1305 EKEY. 
+- using more than seven bits of a character in **10.6.2.1305 EKEY**. 
 
 #### 10.4.2.2 Other program documentation 
 
-– no additional requirements. 
-
-TRAILER  ANSI X3.215-1994 75
+- no additional requirements. 
 
 ## 10.5 Compliance and labeling 
-
 
 ### 10.5.1 ANS Forth systems 
 
 The phrase “Providing the Facility word set” shall be appended to the label of any Standard System that  provides all of the Facility word set. 
+
 The phrase “Providing name(s) from the Facility Extensions word set” shall be appended to the label of any  Standard System that provides portions of the Facility Extensions word set. 
+
 The phrase “Providing the Facility Extensions word set” shall be appended to the label of any Standard  System that provides all of the Facility and Facility Extensions word sets. 
 
 ### 10.5.2 ANS Forth programs 
 
 The phrase “Requiring the Facility word set” shall be appended to the label of Standard Programs that  require the system to provide the Facility word set. 
+
 The phrase “Requiring name(s) from the Facility Extensions word set” shall be appended to the label of  Standard Programs that require the system to provide portions of the Facility Extensions word set. 
+
 The phrase “Requiring the Facility Extensions word set” shall be appended to the label of Standard  Programs that require the system to provide all of the Facility and Facility Extensions word sets. 
 
 ## 10.6 Glossary 
 
-
 ### 10.6.1 Facility words 
 
-10.6.1.0742 AT-XY “at-x-y” FACILITY  ( u1 u2 -- )  Perform implementation-dependent steps so that the next character displayed will appear in  column u1, row u2 of the user output device, the upper left corner of which is column zero, row  zero. An ambiguous condition exists if the operation cannot be performed on the user output  device with the specified parameters. 
+||10.6.1.0742 AT-XY “at-x-y” FACILITY  ( u1 u2 -- )  Perform implementation-dependent steps so that the next character displayed will appear in  column u1, row u2 of the user output device, the upper left corner of which is column zero, row  zero. An ambiguous condition exists if the operation cannot be performed on the user output  device with the specified parameters. 
 
-#### 10.6.1.1755 KEY? “key-question” FACILITY 
+||10.6.1.1755 KEY? “key-question” FACILITY ( -- flag )  If a character is available, return true. Otherwise, return false. If non-character keyboard  events are available before the first valid character, they are discarded and are subsequently  unavailable. The character shall be returned by the next execution of KEY. 
 
-( -- flag )  If a character is available, return true. Otherwise, return false. If non-character keyboard  events are available before the first valid character, they are discarded and are subsequently  unavailable. The character shall be returned by the next execution of KEY. 
 After KEY? returns with a value of true, subsequent executions of KEY? prior to the execution  of KEY or EKEY also return true, without discarding keyboard events. 
 
-#### 10.6.1.2005 PAGE FACILITY 
-
-( -- )  Move to another page for output. Actual function depends on the output device. On a terminal,  PAGE clears the screen and resets the cursor position to the upper left corner. On a printer,  PAGE performs a form feed. 
-
-TRAILER ANSI X3.215-1994 76 Collating Sequence: 
-
+||10.6.1.2005 PAGE FACILITY ( -- )  Move to another page for output. Actual function depends on the output device. On a terminal,  PAGE clears the screen and resets the cursor position to the upper left corner. On a printer,  PAGE performs a form feed. 
 
 ### 10.6.2 Facility extension words 
 
 
-#### 10.6.2.1305 EKEY “e-key” FACILITY EXT 
+||10.6.2.1305 EKEY “e-key” FACILITY EXT ( -- u )  Receive one keyboard event u. The encoding of keyboard events is implementation defined. 
 
-( -- u )  Receive one keyboard event u. The encoding of keyboard events is implementation defined. 
  See: 10.6.1.1755 KEY?, 6.1.1750 KEY. 
 
-#### 10.6.2.1306 EKEY>CHAR “e-key-to-char” FACILITY EXT 
+||10.6.2.1306 EKEY>CHAR “e-key-to-char” FACILITY EXT ( u -- u false | char true )  If the keyboard event u corresponds to a character in the implementation-defined character set,  return that character and true. Otherwise return u and false. 
 
-( u -- u false | char true )  If the keyboard event u corresponds to a character in the implementation-defined character set,  return that character and true. Otherwise return u and false. 
+||10.6.2.1307 EKEY? “e-key-question” FACILITY EXT ( -- flag )  If a keyboard event is available, return true. Otherwise return false. The event shall be returned  by the next execution of EKEY. 
 
-#### 10.6.2.1307 EKEY? “e-key-question” FACILITY EXT 
-
-( -- flag )  If a keyboard event is available, return true. Otherwise return false. The event shall be returned  by the next execution of EKEY. 
 After EKEY? returns with a value of true, subsequent executions of EKEY? prior to the  execution of KEY, KEY? or EKEY also return true, referring to the same event. 
 
-#### 10.6.2.1325 EMIT? “emit-question” FACILITY EXT 
+||10.6.2.1325 EMIT? “emit-question” FACILITY EXT ( -- flag )  flag is true if the user output device is ready to accept data and the execution of EMIT in place  of EMIT? would not have suffered an indefinite delay. If the device status is indeterminate,  flag is true. 
 
-( -- flag )  flag is true if the user output device is ready to accept data and the execution of EMIT in place  of EMIT? would not have suffered an indefinite delay. If the device status is indeterminate,  flag is true. 
-
-#### 10.6.2.1905 MS FACILITY EXT 
-
-( u -- )  Wait at least u milliseconds. 
+||10.6.2.1905 MS FACILITY EXT ( u -- )  Wait at least u milliseconds. 
 Note: The actual length and variability of the time period depends upon the implementation-defined  resolution of the system clock and upon other system and computer characteristics beyond the  scope of this Standard. 
 
-#### 10.6.2.2292 TIME&DATE “time-and-date” FACILITY EXT 
-
-( -- +n1 +n2 +n3 +n4 +n5 +n6 )  Return the current time and date. +n1 is the second {0...59}, +n2 is the minute {0...59}, +n3 is  the hour {0...23}, +n4 is the day {1...31} +n5 is the month {1...12}, and +n6 is the year (e.g.,  1991). 
-
-TRAILER  ANSI X3.215-1994 77
+||10.6.2.2292 TIME&DATE “time-and-date” FACILITY EXT ( -- +n1 +n2 +n3 +n4 +n5 +n6 )  Return the current time and date. +n1 is the second {0...59}, +n2 is the minute {0...59}, +n3 is  the hour {0...23}, +n4 is the day {1...31} +n5 is the month {1...12}, and +n6 is the year (e.g.,  1991). 
 
 # 11. The optional File-Access word set 
-
 
 ## 11.1 Introduction 
 
 These words provide access to mass storage in the form of “files” under the following assumptions: 
-– files are provided by a host operating system; 
-– file names are represented as character strings; 
-– the format of file names is determined by the host operating system; 
-– an open file is identified by a single-cell file identifier (fileid); 
-– file-state information (e.g., position, size) is managed by the host operating system; 
-– file contents are accessed as a sequence of characters; 
-– file read operations return an actual transfer count, which can differ from the requested transfer count. 
+
+- files are provided by a host operating system; 
+- file names are represented as character strings; 
+- the format of file names is determined by the host operating system; 
+- an open file is identified by a single-cell file identifier (fileid); 
+- file-state information (e.g., position, size) is managed by the host operating system; 
+- file contents are accessed as a sequence of characters; 
+- file read operations return an actual transfer count, which can differ from the requested transfer count. 
 
 ## 11.2 Additional terms 
 
-file-access method: A permissible means of accessing a file, such as “read/write” or “read only”. 
-file position: The character offset from the start of the file. 
-input file: The file, containing a sequence of lines, that is the input source. 
+<miniterm>
+
+||file-access method:||
+A permissible means of accessing a file, such as “read/write” or “read only”. 
+
+||file position:||
+The character offset from the start of the file. 
+
+||input file:||
+The file, containing a sequence of lines, that is the input source. 
+
+</miniterm>
 
 ## 11.3 Additional usage requirements 
-
 
 ### 11.3.1 Data types 
 
 Append table 11.1 to table 3.1.
 
+<table>
 
-<NOTOUCH>
-Table 11.1 – Data types 
-Symbol Data type Size on stack 
-ior I/O results 1 cell 
-fam file access method 1 cell 
-fileid file identifiers 1 cell 
-</NOTOUCH>
+Table 11.1 - Data types 
 
+ Symbol|Data type Size|on stack 
+ |--|--|--|
+ ior|I/O results|1 cell 
+ fam|file access method|1 cell 
+ fileid|file identifiers|1 cell 
+
+</table>
 
 #### 11.3.1.1 File identifiers 
 
@@ -742,15 +682,14 @@ File identifiers are implementation-dependent single-cell values that are passed
 #### 11.3.1.2 I/O results 
 
 I/O results are single-cell numbers indicating the result of I/O operations. A value of zero indicates that the  I/O operation completed successfully; other values and their meanings are implementation-defined. 
+
 Reaching the end of a file shall be reported as zero. 
+
 An I/O exception in the execution of a File-Access word that can return an I/O result shall not cause a  THROW; exception indications are returned in the ior. 
 
 #### 11.3.1.3 File access methods 
 
 File access methods are implementation-defined single-cell values. 
-
-TRAILER ANSI X3.215-1994 78 Collating Sequence: 
-
 
 #### 11.3.1.4 File names 
 
@@ -762,288 +701,273 @@ If the File-Access word set is implemented, the Block word set shall be implemen
 Blocks may, but need not, reside in files. When they do: 
 
 - Block numbers may be mapped to one or more files by implementation-defined means. An ambiguous  condition exists if a requested block number is not currently mapped; 
-– An UPDATEd block that came from a file shall be transferred back to the same file. 
+- An UPDATEd block that came from a file shall be transferred back to the same file. 
 
 ### 11.3.3 Environmental queries 
 
 Append table 11.2 to table 3.5. 
+
 See: 3.2.6 Environmental queries. 
 
+<table>
 
-<NOTOUCH>
-Table 11.2 – Environmental query strings 
-String Value data type Constant? Meaning 
-FILE flag no file word set present 
-FILE-EXT flag no file extensions word set present 
-</NOTOUCH>
+Table 11.2 - Environmental query strings 
 
+ String|Value data type|Constant?|Meaning 
+ |--|--|--|--|
+ FILE|flag|no|file word set present 
+ FILE-EXT|flag|no|file extensions word set present 
+
+</table>
 
 ### 11.3.4 Input source 
 
 The File-Access word set creates another input source for the text interpreter. When the input source is a  text file, BLK shall contain zero, SOURCE-ID shall contain the fileid of that text file, and the input buffer  shall contain one line of the text file. 
+
 Input with INCLUDED, INCLUDE-FILE, LOAD and EVALUATE shall be nestable in any order to at least  eight levels. 
+
 A program that uses more than eight levels of input-file nesting has an environmental dependency. 
+
 See: 3.3.3.5 Input buffers, 9. Optional Exception word set. 
 
 ### 11.3.5 Other transient regions 
 
 The list of words using memory in transient regions is extended to include 11.6.1.2165 S". 
+
 See: 3.3.3.6 Other transient regions. 
 
 ### 11.3.6 Parsing 
 
 When parsing from a text file using a space delimiter, control characters shall be treated the same as the  space character. 
-Lines of at least 128 characters shall be supported. A program that requires lines of more than 128  characters has an environmental dependency. 
-A program may reposition the parse area within the input buffer by manipulating the contents of >IN. More  extensive repositioning can be accomplished using SAVE-INPUT and RESTORE-INPUT. 
-See: 3.4.1 Parsing. 
 
-TRAILER  ANSI X3.215-1994 79
+Lines of at least 128 characters shall be supported. A program that requires lines of more than 128  characters has an environmental dependency. 
+
+A program may reposition the parse area within the input buffer by manipulating the contents of `>IN`. More  extensive repositioning can be accomplished using SAVE-INPUT and RESTORE-INPUT. 
+
+See: 3.4.1 Parsing. 
 
 ## 11.4 Additional documentation requirements 
 
-
 ### 11.4.1 System documentation 
-
 
 #### 11.4.1.1 Implementation-defined options 
 
-
-- file access methods used by 11.6.1.0765 BIN, 11.6.1.1010 CREATE-FILE, 11.6.1.1970 OPEN-FILE,  #### 11.6.1.2054 R/O, 11.6.1.2056 R/W, and 11.6.1.2425 W/O; 
-– file exceptions; 
-– file line terminator (11.6.1.2090 READ-LINE); 
-– file name format (11.3.1.4 File names); 
-– information returned by 11.6.2.1524 FILE-STATUS; 
-– input file state after an exception (11.6.1.1717 INCLUDE-FILE, 11.6.1.1718 INCLUDED); 
-– ior values and meaning (11.3.1.2 I/O results); 
-– maximum depth of file input nesting (11.3.4 Input source); 
-– maximum size of input line (11.3.6 Parsing); 
-– methods for mapping block ranges to files (11.3.2 Blocks in files); 
-– number of string buffers provided (11.6.1.2165 S"); 
-– size of string buffer used by 11.6.1.2165 S". 
+- file access methods used by 11.6.1.0765 BIN, 11.6.1.1010 CREATE-FILE, 11.6.1.1970 OPEN-FILE,  11.6.1.2054 R/O, 11.6.1.2056 R/W, and 11.6.1.2425 W/O; 
+- file exceptions; 
+- file line terminator (11.6.1.2090 READ-LINE); 
+- file name format (11.3.1.4 File names); 
+- information returned by 11.6.2.1524 FILE-STATUS; 
+- input file state after an exception (11.6.1.1717 INCLUDE-FILE, 11.6.1.1718 INCLUDED); 
+- ior values and meaning (11.3.1.2 I/O results); 
+- maximum depth of file input nesting (11.3.4 Input source); 
+- maximum size of input line (11.3.6 Parsing); 
+- methods for mapping block ranges to files (11.3.2 Blocks in files); 
+- number of string buffers provided (11.6.1.2165 S"); 
+- size of string buffer used by 11.6.1.2165 S". 
 
 #### 11.4.1.2 Ambiguous conditions 
 
-– attempting to position a file outside its boundaries (11.6.1.2142 REPOSITION-FILE); 
-
+- attempting to position a file outside its boundaries (11.6.1.2142 REPOSITION-FILE); 
 - attempting to read from file positions not yet written (11.6.1.2080 READ-FILE,  #### 11.6.1.2090 READ-LINE); 
-– fileid is invalid (11.6.1.1717 INCLUDE-FILE); 
-– I/O exception reading or closing fileid (11.6.1.1717 INCLUDE-FILE, 11.6.1.1718 INCLUDED); 
-– named file cannot be opened (11.6.1.1718 INCLUDED); 
-– requesting an unmapped block number (11.3.2 Blocks in files); 
-– using 11.6.1.2218 SOURCE-ID when 7.6.1.0790 BLK is not zero. 
+- fileid is invalid (11.6.1.1717 INCLUDE-FILE); 
+- I/O exception reading or closing fileid (11.6.1.1717 INCLUDE-FILE, 11.6.1.1718 INCLUDED); 
+- named file cannot be opened (11.6.1.1718 INCLUDED); 
+- requesting an unmapped block number (11.3.2 Blocks in files); 
+- using 11.6.1.2218 SOURCE-ID when 7.6.1.0790 BLK is not zero. 
 
 #### 11.4.1.3 Other system documentation 
 
-– no additional requirements. 
+- no additional requirements. 
 
 ### 11.4.2 Program documentation 
 
 
 #### 11.4.2.1 Environmental dependencies 
 
-– requiring lines longer than 128 characters (11.3.6 Parsing); 
-– using more than eight levels of input-file nesting (11.3.4 Input source). 
+- requiring lines longer than 128 characters (11.3.6 Parsing); 
+- using more than eight levels of input-file nesting (11.3.4 Input source). 
 
 #### 11.4.2.2 Other program documentation 
 
-– no additional requirements. 
+- no additional requirements. 
 
 ## 11.5 Compliance and labeling 
-
 
 ### 11.5.1 ANS Forth systems 
 
 The phrase “Providing the File Access word set” shall be appended to the label of any Standard System that  provides all of the File Access word set. 
 
-TRAILER ANSI X3.215-1994 80 Collating Sequence: 
-
 The phrase “Providing name(s) from the File Access Extensions word set” shall be appended to the label of  any Standard System that provides portions of the File Access Extensions word set. 
+
 The phrase “Providing the File Access Extensions word set” shall be appended to the label of any Standard  System that provides all of the File Access and File Access Extensions word sets. 
 
 ### 11.5.2 ANS Forth programs 
 
 The phrase “Requiring the File Access word set” shall be appended to the label of Standard Programs that  require the system to provide the File Access word set. 
+
 The phrase “Requiring name(s) from the File Access Extensions word set” shall be appended to the label of  Standard Programs that require the system to provide portions of the File Access Extensions word set. 
+
 The phrase “Requiring the File Access Extensions word set” shall be appended to the label of Standard  Programs that require the system to provide all of the File Access and File Access Extensions word sets. 
 
 ## 11.6 Glossary 
 
-
 ### 11.6.1 File Access words 
 
-11.6.1.0080 ( “paren” FILE  ( “ccc<paren>” -- )  Extend the semantics of 6.1.0080 ( to include: 
+||11.6.1.0080 ( “paren” FILE  ( “ccc<paren>” -- )  Extend the semantics of 6.1.0080 ( to include: 
+
 When parsing from a text file, if the end of the parse area is reached before a right parenthesis is  found, refill the input buffer from the next line of the file, set >IN to zero, and resume parsing,  repeating this process until either a right parenthesis is found or the end of the file is reached. 
-11.6.1.0765 BIN FILE  ( fam1 -- fam2 )  Modify the implementation-defined file access method fam1 to additionally select a “binary”,  i.e., not line oriented, file access method, giving access method fam2. 
- See: 11.6.1.2054 R/O, 11.6.1.2056 R/W, 11.6.1.2425 W/O.
-11.6.1.0900 CLOSE-FILE FILE  ( fileid -- ior )  Close the file identified by fileid. ior is the implementation-defined I/O result code. 
 
-#### 11.6.1.1010 CREATE-FILE FILE 
+||11.6.1.0765 BIN FILE  ( fam1 -- fam2 )  Modify the implementation-defined file access method fam1 to additionally select a “binary”,  i.e., not line oriented, file access method, giving access method fam2. 
 
-( c-addr u fam -- fileid ior )  Create the file named in the character string specified by c-addr and u, and open it with file  access method fam. The meaning of values of fam is implementation defined. If a file with the  same name already exists, recreate it as an empty file. 
+See: 11.6.1.2054 R/O, 11.6.1.2056 R/W, 11.6.1.2425 W/O.
+
+||11.6.1.0900 CLOSE-FILE FILE  ( fileid -- ior )  Close the file identified by fileid. ior is the implementation-defined I/O result code. 
+
+||11.6.1.1010 CREATE-FILE FILE ( c-addr u fam -- fileid ior )  Create the file named in the character string specified by c-addr and u, and open it with file  access method fam. The meaning of values of fam is implementation defined. If a file with the  same name already exists, recreate it as an empty file. 
+
 If the file was successfully created and opened, ior is zero, fileid is its identifier, and the file has  been positioned to the start of the file. 
+
 Otherwise, ior is the implementation-defined I/O result code and fileid is undefined. 
 
-TRAILER  ANSI X3.215-1994 81
+||11.6.1.1190 DELETE-FILE FILE ( c-addr u -- ior )  Delete the file named in the character string specified by c-addr u. ior is the implementationdefined I/O result code. 
 
-#### 11.6.1.1190 DELETE-FILE FILE 
+||11.6.1.1520 FILE-POSITION FILE ( fileid -- ud ior )  ud is the current file position for the file identified by fileid. ior is the implementation-defined  I/O result code. ud is undefined if ior is non-zero. 
 
-( c-addr u -- ior )  Delete the file named in the character string specified by c-addr u. ior is the implementationdefined I/O result code. 
+||11.6.1.1522 FILE-SIZE FILE ( fileid -- ud ior )  ud is the size, in characters, of the file identified by fileid. ior is the implementation-defined I/O  result code. This operation does not affect the value returned by FILE-POSITION. ud is  undefined if ior is non-zero. 
 
-#### 11.6.1.1520 FILE-POSITION FILE 
+||11.6.1.1717 INCLUDE-FILE FILE ( i*x fileid -- j*x )  Remove fileid from the stack. Save the current input source specification, including the current  value of SOURCE-ID. Store fileid in SOURCE-ID. Make the file specified by fileid the input  source. Store zero in BLK. Other stack effects are due to the words INCLUDEd. 
 
-( fileid -- ud ior )  ud is the current file position for the file identified by fileid. ior is the implementation-defined  I/O result code. ud is undefined if ior is non-zero. 
-
-#### 11.6.1.1522 FILE-SIZE FILE 
-
-( fileid -- ud ior )  ud is the size, in characters, of the file identified by fileid. ior is the implementation-defined I/O  result code. This operation does not affect the value returned by FILE-POSITION. ud is  undefined if ior is non-zero. 
-
-#### 11.6.1.1717 INCLUDE-FILE FILE 
-
-( i*x fileid -- j*x )  Remove fileid from the stack. Save the current input source specification, including the current  value of SOURCE-ID. Store fileid in SOURCE-ID. Make the file specified by fileid the input  source. Store zero in BLK. Other stack effects are due to the words INCLUDEd. 
 Repeat until end of file: read a line from the file, fill the input buffer from the contents of that  line, set >IN to zero, and interpret. 
+
 Text interpretation begins at the file position where the next file read would occur. 
+
 When the end of the file is reached, close the file and restore the input source specification to its  saved value. 
+
 An ambiguous condition exists if fileid is invalid, if there is an I/O exception reading fileid, or if  an I/O exception occurs while closing fileid. When an ambiguous condition exists, the status  (open or closed) of any files that were being interpreted is implementation-defined. 
+
 See: 11.3.4 Input source. 
 
-TRAILER ANSI X3.215-1994 82 Collating Sequence: 
+||11.6.1.1718 INCLUDED FILE ( i*x c-addr u -- j*x )  Remove c-addr u from the stack. Save the current input source specification, including the  current value of SOURCE-ID. Open the file specified by c-addr u, store the resulting fileid in  SOURCE-ID, and make it the input source. Store zero in BLK. Other stack effects are due to  the words included. 
 
-
-#### 11.6.1.1718 INCLUDED FILE 
-
-( i*x c-addr u -- j*x )  Remove c-addr u from the stack. Save the current input source specification, including the  current value of SOURCE-ID. Open the file specified by c-addr u, store the resulting fileid in  SOURCE-ID, and make it the input source. Store zero in BLK. Other stack effects are due to  the words included. 
 Repeat until end of file: read a line from the file, fill the input buffer from the contents of that  line, set >IN to zero, and interpret. 
+
 Text interpretation begins at the file position where the next file read would occur. 
 When the end of the file is reached, close the file and restore the input source specification to its  saved value. 
+
 An ambiguous condition exists if the named file can not be opened, if an I/O exception occurs  reading the file, or if an I/O exception occurs while closing the file. When an ambiguous  condition exists, the status (open or closed) of any files that were being interpreted is  implementation-defined. 
- See: 11.6.1.1717 INCLUDE-FILE. 
 
-#### 11.6.1.1970 OPEN-FILE FILE 
+See: 11.6.1.1717 INCLUDE-FILE. 
 
-( c-addr u fam -- fileid ior )  Open the file named in the character string specified by c-addr u, with file access method  indicated by fam. The meaning of values of fam is implementation defined. 
+||11.6.1.1970 OPEN-FILE "xxxxx" FILE ( c-addr u fam -- fileid ior )  Open the file named in the character string specified by c-addr u, with file access method  indicated by fam. The meaning of values of fam is implementation defined. 
+
 If the file is successfully opened, ior is zero, fileid is its identifier, and the file has been  positioned to the start of the file. 
 Otherwise, ior is the implementation-defined I/O result code and fileid is undefined. 
 
-#### 11.6.1.2054 R/O “r-o” FILE 
+||11.6.1.2054 R/O “r-o” FILE ( -- fam )  fam is the implementation-defined value for selecting the “read only” file access method. 
 
-( -- fam )  fam is the implementation-defined value for selecting the “read only” file access method. 
+See: 11.6.1.1010 CREATE-FILE, 11.6.1.1970 OPEN-FILE. 
+
+||11.6.1.2056 R/W “r-w” FILE ( -- fam )  fam is the implementation-defined value for selecting the “read/write” file access method. 
  See: 11.6.1.1010 CREATE-FILE, 11.6.1.1970 OPEN-FILE. 
 
-#### 11.6.1.2056 R/W “r-w” FILE 
-
-( -- fam )  fam is the implementation-defined value for selecting the “read/write” file access method. 
- See: 11.6.1.1010 CREATE-FILE, 11.6.1.1970 OPEN-FILE. 
-
-TRAILER  ANSI X3.215-1994 83
-
-#### 11.6.1.2080 READ-FILE FILE 
-
-( c-addr u1 fileid -- u2 ior )  Read u1 consecutive characters to c-addr from the current position of the file identified by  fileid. 
+||11.6.1.2080 READ-FILE FILE ( c-addr u1 fileid -- u2 ior )  Read u1 consecutive characters to c-addr from the current position of the file identified by  fileid. 
 If u1 characters are read without an exception, ior is zero and u2 is equal to u1. 
 If the end of the file is reached before u1 characters are read, ior is zero and u2 is the number of  characters actually read. 
+
 If the operation is initiated when the value returned by FILE-POSITION is equal to the value  returned by FILE-SIZE for the file identified by fileid, ior is zero and u2 is zero. 
+
 If an exception occurs, ior is the implementation-defined I/O result code, and u2 is the number  of characters transferred to c-addr without an exception. 
+
 An ambiguous condition exists if the operation is initiated when the value returned by FILEPOSITION is greater than the value returned by FILE-SIZE for the file identified by fileid, or  if the requested operation attempts to read portions of the file not written. 
+
 At the conclusion of the operation, FILE-POSITION returns the next file position after the  last character read. 
 
-#### 11.6.1.2090 READ-LINE FILE 
+||11.6.1.2090 READ-LINE FILE ( c-addr u1 fileid -- u2 flag ior )  Read the next line from the file specified by fileid into memory at the address c-addr. At most  u1 characters are read. Up to two implementation-defined line-terminating characters may be  read into memory at the end of the line, but are not included in the count u2. The line buffer  provided by c-addr should be at least u1+2 characters long. 
 
-( c-addr u1 fileid -- u2 flag ior )  Read the next line from the file specified by fileid into memory at the address c-addr. At most  u1 characters are read. Up to two implementation-defined line-terminating characters may be  read into memory at the end of the line, but are not included in the count u2. The line buffer  provided by c-addr should be at least u1+2 characters long. 
 If the operation succeeded, flag is true and ior is zero. If a line terminator was received before  u1 characters were read, then u2 is the number of characters, not including the line terminator,  actually read (0 <= u2 <= u1). When u1 = u2, the line terminator has yet to be reached. 
+
 If the operation is initiated when the value returned by FILE-POSITION is equal to the value  returned by FILE-SIZE for the file identified by fileid, flag is false, ior is zero, and u2 is zero. 
+
 If ior is non-zero, an exception occurred during the operation and ior is the implementationdefined I/O result code. 
+
 An ambiguous condition exists if the operation is initiated when the value returned by FILEPOSITION is greater than the value returned by FILE-SIZE for the file identified by fileid, or  if the requested operation attempts to read portions of the file not written. 
+
 At the conclusion of the operation, FILE-POSITION returns the next file position after the  last character read. 
 
-#### 11.6.1.2142 REPOSITION-FILE FILE 
-
-( ud fileid -- ior )  Reposition the file identified by fileid to ud. ior is the implementation-defined I/O result code. 
+||11.6.1.2142 REPOSITION-FILE FILE ( ud fileid -- ior )  Reposition the file identified by fileid to ud. ior is the implementation-defined I/O result code. 
 An ambiguous condition exists if the file is positioned outside the file boundaries. 
 At the conclusion of the operation, FILE-POSITION returns the value ud. 
 
-TRAILER ANSI X3.215-1994 84 Collating Sequence: 
-
-
-#### 11.6.1.2147 RESIZE-FILE FILE 
-
-( ud fileid -- ior )  Set the size of the file identified by fileid to ud. ior is the implementation-defined I/O result  code. 
+||11.6.1.2147 RESIZE-FILE FILE ( ud fileid -- ior )  Set the size of the file identified by fileid to ud. ior is the implementation-defined I/O result  code. 
 If the resultant file is larger than the file before the operation, the portion of the file added as a  result of the operation might not have been written. 
 At the conclusion of the operation, FILE-SIZE returns the value ud and FILE-POSITION returns an unspecified value. 
- See: 11.6.1.2080 READ-FILE, 11.6.1.2090 READ-LINE. 
 
-#### 11.6.1.2165 S" “s-quote” FILE 
+See: 11.6.1.2080 READ-FILE, 11.6.1.2090 READ-LINE. 
 
+||11.6.1.2165 S" “s-quote” FILE 
 Extend the semantics of 6.1.2165 S" to be: 
 Interpretation: ( “ccc<quote>” -- c-addr u )  Parse ccc delimited by " (double quote). Store the resulting string c-addr u at a temporary  location. The maximum length of the temporary buffer is implementation-dependent but shall  be no less than 80 characters. Subsequent uses of S" may overwrite the temporary buffer. At  least one such buffer shall be provided. 
+
 Compilation: ( “ccc<quote>” -- )  Parse ccc delimited by " (double quote). Append the run-time semantics given below to the  current definition. 
- Run-time: ( -- c-addr u )  Return c-addr and u that describe a string consisting of the characters ccc.
+
+Run-time: ( -- c-addr u )  Return c-addr and u that describe a string consisting of the characters ccc.
+
  See: 3.4.1 Parsing, 6.2.0855 C", 6.1.2165 S", 11.3.5 Other transient regions. 
 
-#### 11.6.1.2218 SOURCE-ID “source-i-d” FILE 
+||11.6.1.2218 SOURCE-ID “source-i-d” FILE ( -- 0 | -1 | fileid )  Extend 6.2.2218 SOURCE-ID to include text-file input as follows: 
 
-( -- 0 | -1 | fileid )  Extend 6.2.2218 SOURCE-ID to include text-file input as follows: 
 SOURCE-ID Input source   fileid Text file “fileid”   -1 String (via EVALUATE)   0 User input device  An ambiguous condition exists if SOURCE-ID is used when BLK contains a non-zero value. 
 
-#### 11.6.1.2425 W/O “w-o” FILE 
-
-( -- fam )  fam is the implementation-defined value for selecting the “write only” file access method. 
+||11.6.1.2425 W/O “w-o” FILE ( -- fam )  fam is the implementation-defined value for selecting the “write only” file access method. 
+ 
  See: 11.6.1.1010 CREATE-FILE, 11.6.1.1970 OPEN-FILE. 
 
-TRAILER  ANSI X3.215-1994 85
+||11.6.1.2480 WRITE-FILE FILE ( c-addr u fileid -- ior )  Write u characters from c-addr to the file identified by fileid starting at its current position. ior is the implementation-defined I/O result code. 
 
-#### 11.6.1.2480 WRITE-FILE FILE 
-
-( c-addr u fileid -- ior )  Write u characters from c-addr to the file identified by fileid starting at its current position. ior is the implementation-defined I/O result code. 
 At the conclusion of the operation, FILE-POSITION returns the next file position after the  last character written to the file, and FILE-SIZE returns a value greater than or equal to the  value returned by FILE-POSITION. 
- See: 11.6.1.2080 READ-FILE, 11.6.1.2090 READ-LINE. 
 
-#### 11.6.1.2485 WRITE-LINE FILE 
+See: 11.6.1.2080 READ-FILE, 11.6.1.2090 READ-LINE. 
 
-( c-addr u fileid -- ior )  Write u characters from c-addr followed by the implementation-dependent line terminator to the  file identified by fileid starting at its current position. ior is the implementation-defined I/O  result code. 
+||11.6.1.2485 WRITE-LINE FILE ( c-addr u fileid -- ior )  Write u characters from c-addr followed by the implementation-dependent line terminator to the  file identified by fileid starting at its current position. ior is the implementation-defined I/O  result code. 
+
 At the conclusion of the operation, FILE-POSITION returns the next file position after the  last character written to the file, and FILE-SIZE returns a value greater than or equal to the  value returned by FILE-POSITION. 
+
  See: 11.6.1.2080 READ-FILE, 11.6.1.2090 READ-LINE. 
 
 ### 11.6.2 File-Access extension words 
 
 
-#### 11.6.2.1524 FILE-STATUS FILE EXT 
+||11.6.2.1524 FILE-STATUS FILE EXT (c-addr u -- x ior )  Return the status of the file identified by the character string c-addr u. If the file exists, ior is  zero; otherwise ior is the implementation-defined I/O result code. x contains implementationdefined information about the file. 
 
-(c-addr u -- x ior )  Return the status of the file identified by the character string c-addr u. If the file exists, ior is  zero; otherwise ior is the implementation-defined I/O result code. x contains implementationdefined information about the file. 
+||11.6.2.1560 FLUSH-FILE FILE EXT ( fileid -- ior )  Attempt to force any buffered information written to the file referred to by fileid to be written to  mass storage, and the size information for the file to be recorded in the storage directory if  changed. If the operation is successful, ior is zero. Otherwise, it is an implementation-defined  I/O result code. 
 
-#### 11.6.2.1560 FLUSH-FILE FILE EXT 
+||11.6.2.2125 REFILL FILE EXT ( -- flag )  Extend the execution semantics of 6.2.2125 REFILL with the following: 
 
-( fileid -- ior )  Attempt to force any buffered information written to the file referred to by fileid to be written to  mass storage, and the size information for the file to be recorded in the storage directory if  changed. If the operation is successful, ior is zero. Otherwise, it is an implementation-defined  I/O result code. 
-
-TRAILER ANSI X3.215-1994 86 Collating Sequence: 
-
-
-#### 11.6.2.2125 REFILL FILE EXT 
-
-( -- flag )  Extend the execution semantics of 6.2.2125 REFILL with the following: 
 When the input source is a text file, attempt to read the next line from the text-input file. If  successful, make the result the current input buffer, set >IN to zero, and return true. Otherwise  return false. 
- See: 6.2.2125 REFILL, 7.6.2.2125 REFILL. 
 
-#### 11.6.2.2130 RENAME-FILE FILE EXT 
+See: 6.2.2125 REFILL, 7.6.2.2125 REFILL. 
 
-( c-addr1 u1 c-addr2 u2 -- ior )  Rename the file named by the character string c-addr1 u1 to the name in the character string caddr2 u2. ior is the implementation-defined I/O result code. 
-
-TRAILER  ANSI X3.215-1994 87
+||11.6.2.2130 RENAME-FILE FILE EXT ( c-addr1 u1 c-addr2 u2 -- ior )  Rename the file named by the character string c-addr1 u1 to the name in the character string caddr2 u2. ior is the implementation-defined I/O result code. 
 
 # 12. The optional Floating-Point word set 
 
-
 ## 12.1 Introduction 
-
 
 ## 12.2 Additional terms and notation 
 
-
 ### 12.2.1 Definition of terms 
 
-float-aligned address: The address of a memory location at which a floating-point number can be  accessed. 
-double-float-aligned address: The address of a memory location at which a 64-bit IEEE double-precision  floating-point number can be accessed. 
-single-float-aligned address: The address of a memory location at which a 32-bit IEEE single-precision  floating-point number can be accessed. 
-IEEE floating-point number: A single- or double-precision floating-point number as defined in  ANSI/IEEE 754-1985. 
+<miniterm>
+
+||float-aligned address:||
+The address of a memory location at which a floating-point number can be  accessed. 
+
+||double-float-aligned address:||
+The address of a memory location at which a 64-bit IEEE double-precision  floating-point number can be accessed. 
+
+||single-float-aligned address:||The address of a memory location at which a 32-bit IEEE single-precision  floating-point number can be accessed. 
+
+||IEEE floating-point number:||A single- or double-precision floating-point number as defined in  ANSI/IEEE 754-1985. 
 
 ### 12.2.2 Notation 
 
@@ -1053,15 +977,16 @@ IEEE floating-point number: A single- or double-precision floating-point number 
 The following notation is used to define the syntax of the external representation of floating-point numbers: 
 
 - Each component of a floating-point number is defined with a rule consisting of the name of the  component (italicized in angle-brackets, e.g., <sign>), the characters := and a concatenation of tokens  and metacharacters; 
-– Tokens may be literal characters (in bold face, e.g., E) or rule names in angle brackets (e.g., <digit>); 
-– The metacharacter * is used to specify zero or more occurrences of the preceding token (e.g., <digit>*); 
-– Tokens enclosed with [ and ] are optional (e.g., [<sign>]); 
-– Vertical bars separate choices from a list of tokens enclosed with braces (e.g., { + | - }). 
+- Tokens may be literal characters (in bold face, e.g., E) or rule names in angle brackets (e.g., <digit>); 
+- The metacharacter * is used to specify zero or more occurrences of the preceding token (e.g., <digit>*); 
+- Tokens enclosed with [ and ] are optional (e.g., [<sign>]); 
+- Vertical bars separate choices from a list of tokens enclosed with braces (e.g., { + | - }). 
 
 #### 12.2.2.2 Stack notation 
 
 Floating-point stack notation when the floating-point stack is separate from the data stack is: 
 ( F: before -- after )
+
 ## 12.3 Additional usage requirements 
 
 
@@ -1070,132 +995,138 @@ Floating-point stack notation when the floating-point stack is separate from the
 Append table 12.1 to table 3.1. 
 
 
-<NOTOUCH>
-Table 12.1 – Data Types 
-Symbol Data type Size on stack 
-r floating-point number implementation-defined 
-f-addr float-aligned address 1 cell 
-sf-addr single-float-aligned address 1 cell 
-df-addr double-float-aligned address 1 cell 
-</NOTOUCH>
+<table>
 
+Table 12.1 - Data Types 
 
-TRAILER ANSI X3.215-1994 88 Collating Sequence: 
+ Symbol|Data type|Size on stack
+ |--|--|--|
+ r|floating-point number|implementation-defined 
+ f-addr|float-aligned address|1 cell 
+ sf-addr|single-float-aligned address|1 cell 
+ df-addr|double-float-aligned address|1 cell 
+
+</table>
 
 
 #### 12.3.1.1 Addresses 
 
 The set of float-aligned addresses is an implementation-defined subset of the set of aligned addresses. 
+
 Adding the size of a floating-point number to a float-aligned address shall produce a float-aligned address. 
+
 The set of double-float-aligned addresses is an implementation-defined subset of the set of aligned  addresses. Adding the size of a 64-bit IEEE double-precision floating-point number to a double-floataligned address shall produce a double-float-aligned address. 
+
 The set of single-float-aligned addresses is an implementation-defined subset of the set of aligned addresses. 
+
 Adding the size of a 32-bit IEEE single-precision floating-point number to a single-float-aligned address  shall produce a single-float-aligned address. 
 
 #### 12.3.1.2 Floating-point numbers 
 
 The internal representation of a floating-point number, including the format and precision of the significand  and the format and range of the exponent, is implementation defined. 
+
 Any rounding or truncation of floating-point numbers is implementation defined. 
 
 ### 12.3.2 Floating-point operations 
 
 “Round to nearest” means round the result of a floating-point operation to the representable value nearest  the result. If the two nearest representable values are equally near the result, the one having zero as its least  significant bit shall be delivered. 
+
 “Round toward negative infinity” means round the result of a floating-point operation to the representable  value nearest to and no greater than the result. 
 
 ### 12.3.3 Floating-point stack 
 
 A last in, first out list that shall be used by all floating-point operators. 
+
 The width of the floating-point stack is implementation-defined. By default the floating-point stack shall be  separate from the data and return stacks. A program may determine whether floating-point numbers are  kept on the data stack by passing the string “FLOATING-STACK” to ENVIRONMENT?. 
+
 The size of a floating-point stack shall be at least 6 items. 
+
 A program that depends on the floating-point stack being larger than six items has an environmental  dependency. 
 
 ### 12.3.4 Environmental queries 
 
 Append table 12.2 to table 3.5. 
+
 See: 3.2.6 Environmental queries. 
 
 
-<NOTOUCH>
-Table 12.2 – Environmental query strings 
-String Value Data type Constant? Meaning 
-FLOATING flag no floating-point word set present 
-FLOATING-EXT flag no floating-point extensions word set present 
-FLOATING-STACK n yes If n = zero, floating-point numbers are kept 
-on the data stack; otherwise n is the 
-maximum depth of the separate floatingpoint stack. 
-MAX-FLOAT r yes largest usable floating-point number 
-</NOTOUCH>
+<table>
 
+Table 12.2 - Environmental query strings 
 
-TRAILER  ANSI X3.215-1994 89
+ String|Value Data type|Constant?|Meaning
+ |--|--|--|--| 
+ FLOATING|flag|no|floating-point word set present 
+ FLOATING-EXT|flag|no|floating-point extensions word set present 
+ FLOATING-STACK|n|yes|If n = zero, floating-point numbers are kept on the data stack; otherwise n is the maximum depth of the separate floatingpoint stack. 
+ MAX-FLOAT|r|yes|largest usable floating-point number 
+
+</table>
 
 ### 12.3.5 Address alignment 
 
 Since the address returned by a CREATEd word is not necessarily aligned for any particular class of  floating-point data, a program shall align the address (to be float aligned, single-float aligned, or doublefloat aligned) before accessing floating-point data at the address. 
+
 See: 3.3.3.1 Address Alignment, 12.3.1.1 Addresses. 
 
 ### 12.3.6 Variables 
 
 A program may address memory in data space regions made available by FVARIABLE. These regions may  be non-contiguous with regions subsequently allocated with , (comma) or ALLOT. 
+
 See: 3.3.3.3 Variables. 
 
 ### 12.3.7 Text interpreter input number conversion 
 
 If the Floating-Point word set is present in the dictionary and the current base is DECIMAL, the input  number-conversion algorithm shall be extended to recognize floating-point numbers in this form: 
+
 Convertible string := <significand><exponent>  <significand> := [<sign>]<digits>[.<digits0>]  <exponent> := E[<sign>]<digits0>  <sign> := { + | - }  <digits> := <digit><digits0>  <digits0> := <digit>*  <digit> := { 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 }  These are examples of valid representations of floating-point numbers in program source: 
 1E 1.E 1.E0 +1.23E-1 -1.23E+1  See: 3.4.1.3 Text interpreter input number conversion, 12.6.1.0558 >FLOAT. 
 
 ## 12.4 Additional documentation requirements 
 
-
 ### 12.4.1 System documentation 
-
 
 #### 12.4.1.1 Implementation-defined options 
 
-– format and range of floating-point numbers (12.3.1 Data types, 12.6.1.2143 REPRESENT); 
-– results of 12.6.1.2143 REPRESENT when float is out of range; 
-– rounding or truncation of floating-point numbers (12.3.1.2 Floating-point numbers); 
-– size of floating-point stack (12.3.3 Floating-point stack); 
-– width of floating-point stack (12.3.3 Floating-point stack). 
+- format and range of floating-point numbers (12.3.1 Data types, 12.6.1.2143 REPRESENT); 
+- results of 12.6.1.2143 REPRESENT when float is out of range; 
+- rounding or truncation of floating-point numbers (12.3.1.2 Floating-point numbers); 
+- size of floating-point stack (12.3.3 Floating-point stack); 
+- width of floating-point stack (12.3.3 Floating-point stack). 
 
 #### 12.4.1.2 Ambiguous conditions 
 
-– DF@ or DF! is used with an address that is not double-float aligned; 
-– F@ or F! is used with an address that is not float aligned; 
-– floating point result out of range (e.g., in 12.6.1.1430 F/); 
-– SF@ or SF! is used with an address that is not single-float aligned; 
-– BASE is not decimal (12.6.1.2143 REPRESENT, 12.6.2.1427 F., 12.6.2.1513 FE., 12.6.2.1613 FS.); 
-– both arguments equal zero (12.6.2.1489 FATAN2); 
-– cosine of argument is zero for 12.6.2.1625 FTAN; 
-– d can't be precisely represented as float in 12.6.1.1130 D>F; 
-– dividing by zero (12.6.1.1430 F/); 
-
-TRAILER ANSI X3.215-1994 90 Collating Sequence: 
-
-
+- DF@ or DF! is used with an address that is not double-float aligned; 
+- F@ or F! is used with an address that is not float aligned; 
+- floating point result out of range (e.g., in 12.6.1.1430 F/); 
+- SF@ or SF! is used with an address that is not single-float aligned; 
+- BASE is not decimal (12.6.1.2143 REPRESENT, 12.6.2.1427 F., 12.6.2.1513 FE., 12.6.2.1613 FS.); 
+- both arguments equal zero (12.6.2.1489 FATAN2); 
+- cosine of argument is zero for 12.6.2.1625 FTAN; 
+- d can't be precisely represented as float in 12.6.1.1130 D>F; 
+- dividing by zero (12.6.1.1430 F/); 
 - exponent too big for conversion (12.6.2.1203 DF!, 12.6.2.1204 DF@, 12.6.2.2202 SF!,  #### 12.6.2.2203 SF@); 
-– float less than one (12.6.2.1477 FACOSH); 
-– float less than or equal to minus-one (12.6.2.1554 FLNP1); 
-– float less than or equal to zero (12.6.2.1553 FLN, 12.6.2.1557 FLOG); 
-– float less than zero (12.6.2.1487 FASINH, 12.6.2.1618 FSQRT); 
-– float magnitude greater than one (12.6.2.1476 FACOS, 12.6.2.1486 FASIN, 12.6.2.1491 FATANH); 
-– integer part of float can't be represented by d in 12.6.1.1470 F>D; 
-– string larger than pictured-numeric output area (12.6.2.1427 F., 12.6.2.1513 FE., 12.6.2.1613 FS.). 
+- float less than one (12.6.2.1477 FACOSH); 
+- float less than or equal to minus-one (12.6.2.1554 FLNP1); 
+- float less than or equal to zero (12.6.2.1553 FLN, 12.6.2.1557 FLOG); 
+- float less than zero (12.6.2.1487 FASINH, 12.6.2.1618 FSQRT); 
+- float magnitude greater than one (12.6.2.1476 FACOS, 12.6.2.1486 FASIN, 12.6.2.1491 FATANH); 
+- integer part of float can't be represented by d in 12.6.1.1470 F>D; 
+- string larger than pictured-numeric output area (12.6.2.1427 F., 12.6.2.1513 FE., 12.6.2.1613 FS.). 
 
 #### 12.4.1.3 Other system documentation 
 
-– no additional requirements. 
+- no additional requirements. 
 
 ### 12.4.2 Program documentation 
 
-
 #### 12.4.2.1 Environmental dependencies 
 
-– requiring the floating-point stack to be larger than six items (12.3.3 Floating-point stack). 
+- requiring the floating-point stack to be larger than six items (12.3.3 Floating-point stack). 
 
 #### 12.4.2.2 Other program documentation 
 
-– no additional requirements. 
+- no additional requirements. 
 
 ## 12.5 Compliance and labeling 
 
@@ -1203,146 +1134,108 @@ TRAILER ANSI X3.215-1994 90 Collating Sequence:
 ### 12.5.1 ANS Forth systems 
 
 The phrase “Providing the Floating-Point word set” shall be appended to the label of any Standard System  that provides all of the Floating-Point word set. 
+
 The phrase “Providing name(s) from the Floating-Point Extensions word set” shall be appended to the label  of any Standard System that provides portions of the Floating-Point Extensions word set. 
+
 The phrase “Providing the Floating-Point Extensions word set” shall be appended to the label of any  Standard System that provides all of the Floating-Point and Floating-Point Extensions word sets. 
 
 ### 12.5.2 ANS Forth programs 
 
 The phrase “Requiring the Floating-Point word set” shall be appended to the label of Standard Programs  that require the system to provide the Floating-Point word set. 
-The phrase “Requiring name(s) from the Floating-Point Extensions word set” shall be appended to the label  of Standard Programs that require the system to provide portions of the Floating-Point Extensions word set. 
-The phrase “Requiring the Floating-Point Extensions word set” shall be appended to the label of Standard  Programs that require the system to provide all of the Floating-Point and Floating-Point Extensions word  sets. 
 
-TRAILER  ANSI X3.215-1994 91
+The phrase “Requiring name(s) from the Floating-Point Extensions word set” shall be appended to the label  of Standard Programs that require the system to provide portions of the Floating-Point Extensions word set. 
+
+The phrase “Requiring the Floating-Point Extensions word set” shall be appended to the label of Standard  Programs that require the system to provide all of the Floating-Point and Floating-Point Extensions word  sets. 
 
 ## 12.6 Glossary 
 
-
 ### 12.6.1 Floating-Point words 
 
-12.6.1.0558 >FLOAT “to-float” FLOATING  ( c-addr u -- true | false ) ( F: -- r | ) or ( c-addr u -- r true | false )  An attempt is made to convert the string specified by c-addr and u to internal floating-point  representation. If the string represents a valid floating-point number in the syntax below, its  value r and true are returned. If the string does not represent a valid floating-point number only  false is returned. 
+||12.6.1.0558||>FLOAT||“to-float”||FLOATING||( c-addr u -- true | false ) ( F: -- r | ) or ( c-addr u -- r true | false )||
+An attempt is made to convert the string specified by c-addr and u to internal floating-point  representation. If the string represents a valid floating-point number in the syntax below, its  value r and true are returned. If the string does not represent a valid floating-point number only  false is returned. 
+
 A string of blanks should be treated as a special case representing zero. 
-The syntax of a convertible string := <significand>[<exponent>]  <significand> := [<sign>]{<digits>[.<digits0>] | .<digits> }  <exponent> := <marker><digits0>  <marker> := {<e-form> | <sign-form>}  <e-form> := <e-char>[<sign-form>]  <sign-form> := { + | – }  <e-char>:= { D | d | E | e }
-#### 12.6.1.1130 D>F “d-to-f” FLOATING 
+The syntax of a convertible string := <significand>[<exponent>]  <significand> := [<sign>]{<digits>[.<digits0>] | .<digits> }  <exponent> := <marker><digits0>  <marker> := {<e-form> | <sign-form>}  <e-form> := <e-char>[<sign-form>]  <sign-form> := { + | - }  <e-char>:= { D | d | E | e }
 
-( d -- ) ( F: -- r ) or ( d -- r )  r is the floating-point equivalent of d. An ambiguous condition exists if d cannot be precisely  represented as a floating-point value. 
+||12.6.1.1130||D>F||“d-to-f”||FLOATING||( d -- ) ( F: -- r ) or ( d -- r )  r is the floating-point equivalent of d.||
+An ambiguous condition exists if d cannot be precisely  represented as a floating-point value. 
 
-#### 12.6.1.1400 F! “f-store” FLOATING 
+||12.6.1.1400||F!||“f-store”||FLOATING||( f-addr -- ) ( F: r -- ) or ( r f-addr -- )||
+Store r at f-addr. 
 
-( f-addr -- ) ( F: r -- ) or ( r f-addr -- )   Store r at f-addr. 
+||12.6.1.1410||F*||“f-star”||FLOATING ||( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )||
+Multiply r1 by r2 giving r3. 
 
-#### 12.6.1.1410 F* “f-star” FLOATING 
+||12.6.1.1420||F+|||“f-plus”||FLOATING||( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )||
+Add r1 to r2 giving the sum r3. 
 
-( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )  Multiply r1 by r2 giving r3. 
+||12.6.1.1425 F- “f-minus” FLOATING ( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )||
+Subtract r2 from r1, giving r3. 
 
-#### 12.6.1.1420 F+ “f-plus” FLOATING 
+||12.6.1.1430 F/ “f-slash” FLOATING ( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )
+Divide r1 by r2, giving the quotient r3. An ambiguous condition exists if r2 is zero, or the  quotient lies outside of the range of a floating-point number. 
 
-( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )  Add r1 to r2 giving the sum r3. 
+||12.6.1.1440 F0< “f-zero-less-than” FLOATING ( -- flag ) ( F: r -- ) or ( r -- flag )  
+flag is true if and only if r is less than zero. 
 
-#### 12.6.1.1425 F- “f-minus” FLOATING 
+||12.6.1.1450 F0= “f-zero-equals” FLOATING ( -- flag ) ( F: r -- ) or ( r -- flag )  
+flag is true if and only if r is equal to zero. 
 
-( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )  Subtract r2 from r1, giving r3. 
+||12.6.1.1460 F< “f-less-than” FLOATING ( -- flag ) ( F: r1 r2 -- ) or ( r1 r2 -- flag )  
+flag is true if and only if r1 is less than r2. 
 
-TRAILER ANSI X3.215-1994 92 Collating Sequence: 
+||12.6.1.1470 F>D “f-to-d” FLOATING ( -- d ) ( F: r -- ) or ( r -- d )||
+d is the double-cell signed-integer equivalent of the integer portion of r. The fractional portion  of r is discarded. An ambiguous condition exists if the integer portion of r cannot be precisely  represented as a double-cell signed integer. 
 
+||12.6.1.1472 F@ “f-fetch” FLOATING ( f-addr -- ) ( F: -- r ) or ( f-addr -- r )
+r is the value stored at f-addr. 
 
-#### 12.6.1.1430 F/ “f-slash” FLOATING 
+||12.6.1.1479 FALIGN “f-align” FLOATING ( -- )  If the data-space pointer is not float aligned, reserve enough data space to make it so. 
 
-( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )  Divide r1 by r2, giving the quotient r3. An ambiguous condition exists if r2 is zero, or the  quotient lies outside of the range of a floating-point number. 
+||12.6.1.1483 FALIGNED “f-aligned” FLOATING ( addr -- f-addr )  f-addr is the first float-aligned address greater than or equal to addr. 
 
-#### 12.6.1.1440 F0< “f-zero-less-than” FLOATING 
+||12.6.1.1492 FCONSTANT “f-constant” FLOATING||( “<spaces>name” -- ) ( F: r -- ) or ( r “<spaces>name” -- )||
+Skip leading space delimiters. Parse name delimited by a space. Create a definition for name with the execution semantics defined below. 
 
-( -- flag ) ( F: r -- ) or ( r -- flag )  flag is true if and only if r is less than zero. 
-
-#### 12.6.1.1450 F0= “f-zero-equals” FLOATING 
-
-( -- flag ) ( F: r -- ) or ( r -- flag )  flag is true if and only if r is equal to zero. 
-
-#### 12.6.1.1460 F< “f-less-than” FLOATING 
-
-( -- flag ) ( F: r1 r2 -- ) or ( r1 r2 -- flag )  flag is true if and only if r1 is less than r2. 
-
-#### 12.6.1.1470 F>D “f-to-d” FLOATING 
-
-( -- d ) ( F: r -- ) or ( r -- d )  d is the double-cell signed-integer equivalent of the integer portion of r. The fractional portion  of r is discarded. An ambiguous condition exists if the integer portion of r cannot be precisely  represented as a double-cell signed integer. 
-
-#### 12.6.1.1472 F@ “f-fetch” FLOATING 
-
-( f-addr -- ) ( F: -- r ) or ( f-addr -- r )  r is the value stored at f-addr. 
-
-#### 12.6.1.1479 FALIGN “f-align” FLOATING 
-
-( -- )  If the data-space pointer is not float aligned, reserve enough data space to make it so. 
-
-#### 12.6.1.1483 FALIGNED “f-aligned” FLOATING 
-
-( addr -- f-addr )  f-addr is the first float-aligned address greater than or equal to addr. 
-
-TRAILER  ANSI X3.215-1994 93
-
-#### 12.6.1.1492 FCONSTANT “f-constant” FLOATING 
-
-( “<spaces>name” -- ) ( F: r -- ) or ( r “<spaces>name” -- )  Skip leading space delimiters. Parse name delimited by a space. Create a definition for name with the execution semantics defined below. 
 name is referred to as an “f-constant”. 
+
 name Execution: ( -- ) ( F: -- r ) or ( -- r )  Place r on the floating-point stack. 
+
 See: 3.4.1 Parsing.
 
-#### 12.6.1.1497 FDEPTH “f-depth” FLOATING 
+||12.6.1.1497 FDEPTH “f-depth” FLOATING ( -- +n )  +n is the number of values contained on the default separate floating-point stack. If floatingpoint numbers are kept on the data stack, +n is the current number of possible floating-point  values contained on the data stack. 
 
-( -- +n )  +n is the number of values contained on the default separate floating-point stack. If floatingpoint numbers are kept on the data stack, +n is the current number of possible floating-point  values contained on the data stack. 
+||12.6.1.1500 FDROP “f-drop” FLOATING ( F: r -- ) or ( r -- )  Remove r from the floating-point stack. 
 
-#### 12.6.1.1500 FDROP “f-drop” FLOATING 
+||12.6.1.1510 FDUP “f-dupe” FLOATING ( F: r -- r r ) or ( r -- r r )  Duplicate r. 
 
-( F: r -- ) or ( r -- )  Remove r from the floating-point stack. 
+||12.6.1.1552 FLITERAL “f-literal” FLOATING 
+Interpretation: Interpretation semantics for this word are undefined. 
 
-#### 12.6.1.1510 FDUP “f-dupe” FLOATING 
+Compilation: ( F: r -- ) or ( r -- )  Append the run-time semantics given below to the current definition. 
 
-( F: r -- r r ) or ( r -- r r )  Duplicate r. 
+Run-time: ( F: -- r ) or ( -- r )  Place r on the floating-point stack. 
 
-#### 12.6.1.1552 FLITERAL “f-literal” FLOATING 
+||12.6.1.1555 FLOAT+ “float-plus” FLOATING ( f-addr1 -- f-addr2 )||
+Add the size in address units of a floating-point number to f-addr1, giving f-addr2. 
 
- Interpretation: Interpretation semantics for this word are undefined. 
- Compilation: ( F: r -- ) or ( r -- )  Append the run-time semantics given below to the current definition. 
- Run-time: ( F: -- r ) or ( -- r )  Place r on the floating-point stack. 
+||12.6.1.1556 FLOATS FLOATING ( n1 -- n2 )  n2 is the size in address units of n1 floating-point numbers. 
 
-#### 12.6.1.1555 FLOAT+ “float-plus” FLOATING 
+||12.6.1.1558 FLOOR FLOATING ( F: r1 -- r2 ) or ( r1 -- r2 )  Round r1 to an integral value using the “round toward negative infinity” rule, giving r2. 
 
-( f-addr1 -- f-addr2 )  Add the size in address units of a floating-point number to f-addr1, giving f-addr2. 
+||12.6.1.1562 FMAX “f-max” FLOATING ( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )  r3 is the greater of r1 and r2. 
 
-TRAILER ANSI X3.215-1994 94 Collating Sequence: 
+||12.6.1.1565 FMIN “f-min” FLOATING ( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )  r3 is the lesser of r1 and r2. 
 
+||12.6.1.1567 FNEGATE “f-negate” FLOATING ( F: r1 -- r2 ) or ( r1 -- r2 )  r2 is the negation of r1. 
 
-#### 12.6.1.1556 FLOATS FLOATING 
+||12.6.1.1600 FOVER “f-over” FLOATING ( F: r1 r2 -- r1 r2 r1 ) or ( r1 r2 -- r1 r2 r1 )  Place a copy of r1 on top of the floating-point stack. 
 
-( n1 -- n2 )  n2 is the size in address units of n1 floating-point numbers. 
+||12.6.1.1610 FROT “f-rote” FLOATING ( F: r1 r2 r3 -- r2 r3 r1 ) or ( r1 r2 r3 -- r2 r3 r1 )  Rotate the top three floating-point stack entries. 
 
-#### 12.6.1.1558 FLOOR FLOATING 
-
-( F: r1 -- r2 ) or ( r1 -- r2 )  Round r1 to an integral value using the “round toward negative infinity” rule, giving r2. 
-
-#### 12.6.1.1562 FMAX “f-max” FLOATING 
-
-( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )  r3 is the greater of r1 and r2. 
-
-#### 12.6.1.1565 FMIN “f-min” FLOATING 
-
-( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )  r3 is the lesser of r1 and r2. 
-
-#### 12.6.1.1567 FNEGATE “f-negate” FLOATING 
-
-( F: r1 -- r2 ) or ( r1 -- r2 )  r2 is the negation of r1. 
-
-#### 12.6.1.1600 FOVER “f-over” FLOATING 
-
-( F: r1 r2 -- r1 r2 r1 ) or ( r1 r2 -- r1 r2 r1 )  Place a copy of r1 on top of the floating-point stack. 
-
-#### 12.6.1.1610 FROT “f-rote” FLOATING 
-
-( F: r1 r2 r3 -- r2 r3 r1 ) or ( r1 r2 r3 -- r2 r3 r1 )  Rotate the top three floating-point stack entries. 
-
-#### 12.6.1.1612 FROUND “f-round” FLOATING 
-
-( F: r1 -- r2 ) or ( r1 -- r2 )  Round r1 to an integral value using the “round to nearest” rule, giving r2. 
- See: 12.3.2 Floating-point operations. 
+||12.6.1.1612 FROUND “f-round” FLOATING ( F: r1 -- r2 ) or ( r1 -- r2 )  Round r1 to an integral value using the “round to nearest” rule, giving r2. 
+ 
+See: 12.3.2 Floating-point operations. 
 
 #### 12.6.1.1620 FSWAP “f-swap” FLOATING 
 
@@ -1491,7 +1384,7 @@ TRAILER  ANSI X3.215-1994 99
 
 ( -- ) ( F: r -- ) or ( r -- )  Display, with a trailing space, the top number on the floating-point stack in scientific notation: 
 <significand><exponent>  where: 
-<significand> := [–]<digit>.<digits0>  <exponent> := E[–]<digits>  An ambiguous condition exists if the value of BASE is not (decimal) ten or if the character  string representation exceeds the size of the pictured numeric output string buffer. 
+<significand> := [-]<digit>.<digits0>  <exponent> := E[-]<digits>  An ambiguous condition exists if the value of BASE is not (decimal) ten or if the character  string representation exceeds the size of the pictured numeric output string buffer. 
 See: 6.1.0750 BASE, 12.3.2 Floating-point operations, 12.6.1.2143 REPRESENT. 
 
 #### 12.6.2.1614 FSIN “f-sine” FLOATING EXT 
@@ -1595,7 +1488,7 @@ See: 3.2.6 Environmental queries.
 
 
 <NOTOUCH>
-Table 13.1 – Environmental query strings 
+Table 13.1 - Environmental query strings 
 String Value data type Constant? Meaning 
 #LOCALS n yes maximum number of local variables in a 
 definition 
@@ -1646,16 +1539,16 @@ See: 3.4 The Forth text interpreter.
 
 #### 13.4.1.1 Implementation-defined options 
 
-– maximum number of locals in a definition (13.3.3 Processing locals, 13.6.2.1795 LOCALS|). 
+- maximum number of locals in a definition (13.3.3 Processing locals, 13.6.2.1795 LOCALS|). 
 
 #### 13.4.1.2 Ambiguous conditions 
 
-– executing a named local while in interpretation state (13.6.1.0086 (LOCAL)); 
-– name not defined by VALUE or LOCAL (13.6.1.2295 TO). 
+- executing a named local while in interpretation state (13.6.1.0086 (LOCAL)); 
+- name not defined by VALUE or LOCAL (13.6.1.2295 TO). 
 
 #### 13.4.1.3 Other system documentation 
 
-– no additional requirements. 
+- no additional requirements. 
 
 TRAILER ANSI X3.215-1994 104 Collating Sequence: 
 
@@ -1665,11 +1558,11 @@ TRAILER ANSI X3.215-1994 104 Collating Sequence:
 
 #### 13.4.2.1 Environmental dependencies 
 
-– declaring more than eight locals in a single definition (13.3.3 Processing locals). 
+- declaring more than eight locals in a single definition (13.3.3 Processing locals). 
 
 #### 13.4.2.2 Other program documentation 
 
-– no additional requirements. 
+- no additional requirements. 
 
 ## 13.5 Compliance and labeling 
 
@@ -1746,7 +1639,7 @@ Append table 14.1 to table 3.1.
 
 
 <NOTOUCH>
-Table 14.1 – Data types 
+Table 14.1 - Data types 
 Symbol Data type Size on stack 
 ior I/O results 1 cell 
 </NOTOUCH>
@@ -1759,7 +1652,7 @@ See: 3.2.6 Environmental queries.
 
 
 <NOTOUCH>
-Table 14.2 – Environmental query strings 
+Table 14.2 - Environmental query strings 
 String Value data type Constant? Meaning 
 MEMORY-ALLOC flag no memory-allocation word set present 
 MEMORY-ALLOC-EXT flag no memory-allocation extensions word set 
@@ -1785,18 +1678,18 @@ See: 3.3.3 Data space.
 
 #### 14.4.1.2 Ambiguous conditions 
 
-– no additional requirements. 
+- no additional requirements. 
 
 TRAILER ANSI X3.215-1994 108 Collating Sequence: 
 
 
 #### 14.4.1.3 Other system documentation 
 
-– no additional requirements. 
+- no additional requirements. 
 
 ### 14.4.2 Program documentation 
 
-– no additional requirements. 
+- no additional requirements. 
 
 ## 14.5 Compliance and labeling 
 
@@ -1865,7 +1758,7 @@ See: 3.2.6 Environmental queries.
 
 
 <NOTOUCH>
-Table 15.1 – Environmental query strings 
+Table 15.1 - Environmental query strings 
 String Value data type Constant? Meaning 
 TOOLS flag no programming-tools word set present 
 TOOLS-EXT flag no programming-tools extensions word set 
@@ -1887,39 +1780,39 @@ See: 3.3 The Forth dictionary.
 
 #### 15.4.1.1 Implementation-defined options 
 
-– ending sequence for input following 15.6.2.0470 ;CODE and 15.6.2.0930 CODE; 
-– manner of processing input following 15.6.2.0470 ;CODE and 15.6.2.0930 CODE; 
+- ending sequence for input following 15.6.2.0470 ;CODE and 15.6.2.0930 CODE; 
+- manner of processing input following 15.6.2.0470 ;CODE and 15.6.2.0930 CODE; 
 
 - search-order capability for 15.6.2.1300 EDITOR and 15.6.2.0740 ASSEMBLER (15.3.3 The Forth  dictionary); 
-– source and format of display by 15.6.1.2194 SEE. 
+- source and format of display by 15.6.1.2194 SEE. 
 
 #### 15.4.1.2 Ambiguous conditions 
 
-– deleting the compilation word-list (15.6.2.1580 FORGET); 
-– fewer than u+1 items on control-flow stack (15.6.2.1015 CSPICK, 15.6.2.1020 CSROLL); 
-– name can't be found (15.6.2.1580 FORGET); 
-– name not defined via 6.1.1000 CREATE (15.6.2.0470 ;CODE); 
-– 6.1.2033 POSTPONE applied to 15.6.2.2532 [IF]; 
+- deleting the compilation word-list (15.6.2.1580 FORGET); 
+- fewer than u+1 items on control-flow stack (15.6.2.1015 CSPICK, 15.6.2.1020 CSROLL); 
+- name can't be found (15.6.2.1580 FORGET); 
+- name not defined via 6.1.1000 CREATE (15.6.2.0470 ;CODE); 
+- 6.1.2033 POSTPONE applied to 15.6.2.2532 [IF]; 
 
 TRAILER  ANSI X3.215-1994 111
 
 - reaching the end of the input source before matching 15.6.2.2531 [ELSE] or 15.6.2.2533 [THEN] (15.6.2.2532 [IF]); 
-– removing a needed definition (15.6.2.1580 FORGET). 
+- removing a needed definition (15.6.2.1580 FORGET). 
 
 #### 15.4.1.3 Other system documentation 
 
-– no additional requirements. 
+- no additional requirements. 
 
 ### 15.4.2 Program documentation 
 
 
 #### 15.4.2.1 Environmental dependencies 
 
-– using the words 15.6.2.0470 ;CODE or 15.6.2.0930 CODE. 
+- using the words 15.6.2.0470 ;CODE or 15.6.2.0930 CODE. 
 
 #### 15.4.2.2 Other program documentation 
 
-– no additional requirements. 
+- no additional requirements. 
 
 ## 15.5 Compliance and labeling 
 
@@ -2071,7 +1964,7 @@ Append table 16.1 to table 3.1.
 
 
 <NOTOUCH>
-Table 16.1 – Data types 
+Table 16.1 - Data types 
 Symbol Data type Size on stack 
 wid word list identifiers 1 cell 
 </NOTOUCH>
@@ -2085,7 +1978,7 @@ See: 3.2.6 Environmental queries.
 
 
 <NOTOUCH>
-Table 16.2 – Environmental query strings 
+Table 16.2 - Environmental query strings 
 String Value data type Constant? Meaning 
 SEARCH-ORDER flag no search-order word set present 
 SEARCH-ORDER-EXT flag no search-order extensions word set present 
@@ -2119,28 +2012,28 @@ The regions of data space produced by the operations described in 3.3.3.2 Contig
 
 
 - maximum number of word lists in the search order (16.3.3 Finding definition names, 16.6.1.2197  SET-ORDER); 
-– minimum search order (16.6.1.2197 SET-ORDER, 16.6.2.1965 ONLY). 
+- minimum search order (16.6.1.2197 SET-ORDER, 16.6.2.1965 ONLY). 
 
 #### 16.4.1.2 Ambiguous conditions 
 
-– changing the compilation word list (16.3.3 Finding definition names); 
-– search order empty (16.6.2.2037 PREVIOUS); 
-– too many word lists in search order (16.6.2.0715 ALSO). 
+- changing the compilation word list (16.3.3 Finding definition names); 
+- search order empty (16.6.2.2037 PREVIOUS); 
+- too many word lists in search order (16.6.2.0715 ALSO). 
 
 #### 16.4.1.3 Other system documentation 
 
-– no additional requirements. 
+- no additional requirements. 
 
 ### 16.4.2 Program documentation 
 
 
 #### 16.4.2.1 Environmental dependencies 
 
-– requiring more than eight word-lists in the search order (16.3.3 Finding definition names). 
+- requiring more than eight word-lists in the search order (16.3.3 Finding definition names). 
 
 #### 16.4.2.2 Other program documentation 
 
-– no additional requirements. 
+- no additional requirements. 
 
 ## 16.5 Compliance and labeling 
 
@@ -2252,7 +2145,7 @@ See: 3.2.6 Environmental queries.
 
 
 <NOTOUCH>
-Table 17.1 – Environmental query strings 
+Table 17.1 - Environmental query strings 
 String Value data type Constant? Meaning 
 STRING flag no string word set present 
 STRING-EXT flag no string extensions word set present 

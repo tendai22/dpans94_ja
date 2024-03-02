@@ -32,76 +32,10 @@ img {
 	/* border: solid 0.5mm #000;*/
 }
 
-/* foreword style */
-.foreword-grid {
-	display: grid;
-    grid-template-columns: 10em 0.1em 1fr;
-	margin-bottom: 1em;
-}
-
-.foreword-word {
-	font-size: 14Q;
-	font-weight: 700;
-}
-
-/* miniterm style */
-.miniterm-grid {
-	margin-block: 1rem;
-	margin-left: 4em;
-}
-
-.miniterm-grid > p {
-	margin-left: 0;
-}
-
-.miniterm-word {
-	font-weight: 700;
-}
-
 /* table */
 .table {
 	margin-left: 4em;
 	float: center;
-}
-
-/* membership .. grid version */
-/*
-.membership-line {
-	display: grid;
-	grid-template-columns: 20em 1fr 10em;
-	width: 100%;
-}
-
-.membership-organization {
-	display: inline-block;
-	grid-column: 1;
-	border: 1px solid;
-}
-.membership-name {
-	display: inline-block;
-	width: 12em;
-	grid-column: 3;
-	border: 1px solid;
-}
-
-*/
-
-/* flex verison */
-.membership-line {
-	width: 100%;
-}
-
-.membership-organization {
-	float: left;
-	display: inline-block;
-	width: 25em;
-}
-
-.membership-name {
-	float: right;
-	display: inline-block;
-	width: 12em;
-	border: 1px solid;
 }
 
 /* coverpage grid */
@@ -462,6 +396,136 @@ blockquote {
  * しまい、ワード名だけがこっそり顔を出すようになってしまった。
  * divを使うことで横に回ることはなくなった。
  */
+
+/* membership .. grid version */
+/*
+.membership-line {
+	display: grid;
+	grid-template-columns: 20em 1fr 10em;
+	width: 100%;
+}
+
+.membership-organization {
+	display: inline-block;
+	grid-column: 1;
+	border: 1px solid;
+}
+.membership-name {
+	display: inline-block;
+	width: 12em;
+	grid-column: 3;
+	border: 1px solid;
+}
+
+*/
+
+/* foreword style */
+.foreword-grid {
+	display: grid;
+    grid-template-columns: 10em 0.1em 1fr;
+	margin-bottom: 1em;
+}
+
+.foreword-word {
+	font-size: 14Q;
+	font-weight: 700;
+	grid-column: 1;
+}
+
+.foreword-desc {
+	grid-column: 3;
+}
+
+.foreword-desc > p {
+	margin-left: 0;
+	grid-column: 3;
+}
+
+/* miniterm style */
+.miniterm-grid {
+	margin-block: 1rem;
+	margin-left: 4em;
+}
+
+.miniterm-desc > p {
+	margin-left: 0;
+}
+
+.miniterm-word {
+	font-size: 14Q;
+	font-weight: 700;
+}
+
+
+/* flex verison */
+.membership {
+	margin-left: 10em;
+}
+
+.membership > p {
+	margin-left: 0;
+}
+
+.membership-grid {
+	display: grid;
+	grid-template-columns: 20em 1fr;
+}
+
+.membership-organization {
+	grid-column: 1;
+	border: 1px solid;
+}
+
+.membership-name {
+	grid-column: 2;
+	border: 1px solid;
+}
+
+.organizations {
+	/*margin-left: 10em;*/
+}
+
+.std-glossary-grid {
+	display: grid;
+    grid-template-columns: 12% 7% 30% 40% 1fr;
+	margin-bottom: 0.5em;
+}
+
+.std-glossary-word {
+	grid-column: 1;
+	font-weight: 700;
+}
+
+.std-glossary-option1 {
+	grid-column: 2 / 4;
+}
+
+.std-glossary-option2 {
+	grid-column: 4;
+}
+
+.std-glossary-option3 {
+	grid-column: 5;
+}
+
+.std-glossary-option4 {
+	grid-column: 3 / 6;
+	margin-bottom: 0.5em;
+}
+
+.std-glossary-desc {
+	grid-column: 3 / 6;
+	margin-left: 0;
+}
+
+.std-glossary-desc > p {
+	grid-column: 3 / 6;
+	margin-left: 0;
+}
+
+
+
+
 
 .x3-grid {
 	display: grid;

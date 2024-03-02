@@ -12,98 +12,78 @@ sed '
 <figcaption>\1<\/figcaption>\
 <\/figure>/
     }
-# word/desc
-    /^<glossary>/,/^<\/glossary>/{
-        /^<glossary>/{
-            s/.*/<div class="glossary">/
-            x
-            s/.*//
-            x
-            b
-        }
-        /^<\/glossary>/{
+# word/desc environment
+    /^<std-glossary>/,/^<\/std-glossary>/b do_env
+    /^<foreword>/,/^<\/foreword>/b do_env
+    /^<miniterm>/,/^<\/miniterm>/b do_env
+    b
+    {
+:do_env
+        /^<\/[^>][^>]*>/{
             x
             p
             x
             s/.*/<\/div>/
             b
         }
+        /^<[^>][^>]*>/{
+            s/<\(.*\)>/<div class="\1">/
+            x
+            s/.*//
+            x
+            b
+        }
         /^||/!{
+# normal/non-entry line, pass-through
             /^ *$/b
             #s/^/<div>/
             #s/$/<\/div>/
-            s/\([^ ]\)$/\1 /
             b
         }
         /^||/{
             x
             p
             x
-            s/^||\([^|][^|]*\)|| *-- \(.*\)$/<div class="x2-grid">\
-  <div class="x-word"><code>\1<\/code><\/div>\
-  <div class="x-desc">\
-        \2 /
-            s/^||\([^|][^|]*\)|| *\([^ ].*\)$/<div class="x3-grid">\
-  <div class="x-word"><code>\1<\/code><\/div>\
-  <div class="x-stack">\2<\/div>\
-  <div class="x-desc">/
-            s/^||\([^|][^|]*\)|| *$/<div class="x2-grid">\
-  <div class="x-word"><code>\1<\/code><\/div> \
-  <div class="x-desc">/
-            x
-            s/^$/  <\/div>\
-<\/div>/
-            x
-        }
-    }
-# handy-hint
-    /^<handy-hint>/{
-        s/<handy-hint>[^{]*{/<div class="handy-hint">{/
-        s/{\([^}][^}]*\)}/\
-<h4 style="text-align: center;">\1<\/h4>}/
-        s/}.*$//
-    }
-    /^<\/handy-hint>/{
-        s/<\/handy-hint>/<\/div>/
-    }
-' |
-sed '/^<review-of-terms*>/,/^<\/review-of-terms*>/{
-        /^<review-of-terms*>/{
-            s/.*/<div class="review-of-terms">/
-            x
-            s/.*//
-            x
-            b
-        }
-        /^<\/review-of-terms*>/{
-            x
-            p
-            x
-            s/.*/<\/div>/
-            b
-        }
-        /^||/!{
-            /^> /{
-                s/^/\
-\
-/
-                s/$/\
-\
-/
-            }
-            /^ *$/b
-            s/^/<div>/
-            s/$/<\/div>/
-            b
-        }
-        /^||/{
-            x
-            p
-            x
-            s/^||\([^|][^|]*\)||\(.*\)$/<div class="x2-grid">\
-  <span class="x-word">\1<\/span>\
-  <span class="x-desc">\
-        \2/
+            s/^||{{\([^}]*\)}}||\([^|][^|]*\)||\([^|][^|]*\)||\([^|][^|]*\)||\([^|][^|]*\)||\([^|].*\)|| *$/<div class="\1-grid">\
+  <span class="\1-word"><code>\2<\/code><\/span>\
+  <span class="\1-option1">\3<\/span>\
+  <span class="\1-option2">\4<\/span>\
+  <span class="\1-option3">\5<\/span>\
+  <span class="\1-option4">\6<\/span>\
+  <span class="\1-desc">/
+            s/^||{{\([^}]*\)}}||\([^|][^|]*\)||\([^|][^|]*\)||\([^|][^|]*\)||\([^|].*\)|| *$/<div class="\1-grid">\
+  <span class="\1-word"><code>\2<\/code><\/span>\
+  <span class="\1-option1">\3<\/span>\
+  <span class="\1-option2">\4<\/span>\
+  <span class="\1-option3">\5<\/span>\
+  <span class="\1-desc">/
+            s/^||{{\([^}]*\)}}||\([^|][^|]*\)||\([^|][^|]*\)||\([^|][^|]*\)|| *\([^ ].*\)$/<div class="\1-grid">\
+  <span class="\1-word"><code>\2<\/code><\/span>\
+  <span class="\1-option1">\3<\/span>\
+  <span class="\1-option2">\4<\/span>\
+  <span class="\1-desc">\
+        \5 /
+            s/^||{{\([^}]*\)}}||\([^|][^|]*\)||\([^|][^|]*\)||\([^|][^|]*\)|| *$/<div class="\1-grid">\
+  <span class="\1-word"><code>\2<\/code><\/span>\
+  <span class="\1-option1">\3<\/span>\
+  <span class="\1-option2">\4<\/span>\
+  <span class="\1-desc">/
+            s/^||{{\([^}]*\)}}||\([^|][^|]*\)||\([^|][^|]*\)|| *\([^ ].*\)$/<div class="\1-grid">\
+  <span class="\1-word"><code>\2<\/code><\/span>\
+  <span class="\1-option1">\3<\/span>\
+  <span class="\1-desc">\
+        \4 /
+            s/^||{{\([^}]*\)}}||\([^|][^|]*\)||\([^|][^|]*\)|| *$/<div class="\1-grid">\
+  <span class="\1-word"><code>\2<\/code><\/span>\
+  <span class="\1-option1">\3<\/span>\
+  <span class="\1-desc">/
+            s/^||{{\([^}]*\)}}||\([^|][^|]*\)|| *\([^ ].*\)$/<div class="\1-grid">\
+  <span class="\1-word"><code>\2<\/code><\/span>\
+  <span class="\1-desc">\
+        \3 /
+            s/^||{{\([^}]*\)}}||\([^|][^|]*\)|| *$/<div class="\1-grid">\
+  <span class="\1-word"><code>\2<\/code><\/span>\
+  <span class="\1-desc">/
             x
             s/^$/  <\/span>\
 <\/div>/
@@ -111,96 +91,15 @@ sed '/^<review-of-terms*>/,/^<\/review-of-terms*>/{
         }
     }
 ' |
-sed '/^<foreword>/,/^<\/foreword>/{
-        /^<foreword>/{
-            s/.*/<foreword>/
-            x
-            s/.*//
-            x
-            b
-        }
-        /^<\/foreword>/{
-            x
-            p
-            x
-            s/.*/<\/foreword>/
-            b
-        }
-        /^||/!{
-            /^ *$/b
-            b
-        }
-        /^||/{
-            x
-            p
-            x
-            s/^||\([^|][^|]*\)||\(.*\)$/<div class="foreword-grid">\
-  <span class="foreword-word">\1<\/span>\
-  <span class="x-desc">\
-        \2/
-            x
-            s/^$/  <\/span>\
-<\/div>/
-            x
-        }
-    }
-/^<miniterm>/,/^<\/miniterm>/{
-        /^<miniterm>/{
-            s/.*/<miniterm>/
-            x
-            s/.*//
-            x
-            b
-        }
-        /^<\/miniterm>/{
-            x
-            p
-            x
-            s/.*/<\/miniterm>/
-            b
-        }
-        /^||/!{
-            /^ *$/b
-            s/^/<p style="margin-left: 0;">/
-            s/$/<\/p>/
-            b
-        }
-        /^||/{
-            x
-            p
-            x
-            /^||[^|][^|]*|| *$/N
-            s/\n/ /
-            s/^||\([^|][^|]*\)||\(.*\)$/<div class="miniterm-grid">\
-  <span class="miniterm-word">\1<\/span>\
-  <span style="display: inline-block; width: 0.5em;"> <\/span>\
-  <span class="miniterm-desc">\
-\2/
-            x
-            s/^$/  <\/span>\
-<\/div>/
-            x
-        }
-    }
-/^<table>/,/<\table>/{
-    /^<table>/s/<table>/<div class="table">/
-    /^<\/table>/s/<\/table>/<\/div>/
-}
+sed '# postprocess for dpan94 only
+    /std-glossary-word/s/<\/*code>//g
+    /std-glossary-option1/s/>\([^<]*\)</><code>\1<\/code></g
 ' |
-sed '/^<membership>/,/^<\/membership>/{
-    /|/{
-        s/^\([^|]*\)|\(.*\)$/<div><div class="membership-line">\
-  <span class="membership-organization">\1 <hr> <\/span>\
-  <span class="membership-name">\2<\/span>\
-<\/div><\/div>\
-a \
-/
-        s/>  */>/g
-        s/  *</</g
-        s/^<span/^  <span/
+sed '/^<table>/,/<\table>/{
+        /^<table>/s/<table>/<div class="table">/
+        /^<\/table>/s/<\/table>/<\/div>/
     }
-}' |
-sed 's/<figcaption> *<\/figcaption>//
-         s/<div><\/div>//'
-
-
+    s/<figcaption> *<\/figcaption>//
+    s/<div><\/div>//
+'
+# end of script
