@@ -220,7 +220,7 @@ h3::before {
 
 
 /* h4 ... no number prefix but same format as h3 */
-h4 {
+h4, h5 {
 	font-size: 14Q;
 	line-height: 18Q;
 	margin-block: 1rlh 0;
@@ -318,11 +318,12 @@ tr:nth-child(even) {
 	margin-block: 0. 0.5em;
 }
 
+/*
 h5::before {
 	counter-increment: column-counter;
 	content: "コラム" counter(column-counter) ".  ";
 }
-
+*/
 /* toc */
 
 
@@ -526,9 +527,24 @@ blockquote {
 	margin-left: 0;
 }
 
+/* miniterm style */
+.description {
+	margin-left: 2em;
+}
 
+.description-grid {
+	display: grid;
+    grid-template-columns: 10em 1fr;
+	margin-left: 4em;
+	margin-bottom: 1em;
+}
 
+.description-desc > p {
+	margin-left: 0;
+}
 
+.description-word {
+}
 
 .x3-grid {
 	display: grid;
@@ -872,12 +888,16 @@ dd.glossary {
 
 /* multiitemize */
 .itemize > ol {
-	margin-left: 4em;
+	margin-left: 3em;
 	/*margin-left: 5em;*/
 }
 
+.itemize > ol > li {
+	margin-bottom: 1em;
+}
+
 .itemize > p {
-	margin-left: 4em;
+	margin-left: 0;
 }
 
 p > ol {

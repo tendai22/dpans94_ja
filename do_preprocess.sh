@@ -6,6 +6,7 @@ sed '/^<std-glossary>/,/^<\/std-glossary>/b preprocess
 /^<miniterm>/,/^<\/miniterm>/b preprocess
 /^<membership>/,/^<\/membership>/b preprocess
 /^<foreword>/,/^<\/foreword>/b preprocess
+/^<description>/,/^<\/description>/b preprocess
 b
 {
 :preprocess

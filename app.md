@@ -10,9 +10,9 @@
 
 This Standard is more extensive than previous industory standards for the Forth language.  Several things made this necessary:
 
-– the desire to resolve conflicts between previous standards; 
-– the need to eliminate semantic ambiguities and other inadequacies; 
-– the requirement to standardize common practice, where possible resolving divergences in a way that minimizes the cost of compliance;
+- the desire to resolve conflicts between previous standards; 
+- the need to eliminate semantic ambiguities and other inadequacies; 
+- the requirement to standardize common practice, where possible resolving divergences in a way that minimizes the cost of compliance;
 - the desire to standardize common system techniques, including those germane to hardware.
 
 The result of the effort to satisfy all of these objectives is a Standard arranged so that the required word set  remains small. Thus ANS Forth can be provided for resource-constrained embedded systems. Words  beyond those in the required word set are organized into a number of optional word sets and their  extensions, enabling implementation of tailored systems that are Standard.
@@ -31,13 +31,13 @@ When judging relative merits, the members of the X3J14 Technical Committee were 
 ||Readability||Forth definition names should clearly delineate their behavior. That behavior  should have an apparent simplicity which supports rapid understanding. Forth  should be easily taught and support readily maintained code.
 
 ||Utility||Be judged to have sufficiently essential functionality and frequency of use to be  deemed suitable for inclusion.
-</decription>
+</description>
 
 ### A.1.3 Document organization 
 
 #### A.1.3.1 Word sets 
 
-From the beginning, the X3J14 Technical Committee faced not only conflicting ideas as to what “real”  Forth is, but also conflicting needs of the various groups within the Forth community. At one extreme were  those who pressed for a “bare” Forth. At the other extreme were those who wanted a “fat” Forth. Many  were somewhere in between. All were convinced of the rightness of their own position and of the  wrongness of at least one of the two extremes. The committee’s composition reflected this full range of  interests.
+From the beginning, the X3J14 Technical Committee faced not only conflicting ideas as to what "real"  Forth is, but also conflicting needs of the various groups within the Forth community. At one extreme were  those who pressed for a "bare" Forth. At the other extreme were those who wanted a "fat" Forth. Many  were somewhere in between. All were convinced of the rightness of their own position and of the  wrongness of at least one of the two extremes. The committee’s composition reflected this full range of  interests.
 
 The approach we have taken is to define a Core word set establishing a greatest lower bound for required  system functionality and to provide a portfolio of optional word sets for special purposes. This simple  approach parallels the fundamental nature of Forth as an extensible language, and thereby achieves a kind of  meta-extensibility.
 
@@ -47,13 +47,13 @@ Several implications of this scheme of optional word sets are significant.
 
 First, ANS Forth systems can continue to be implemented on a greater range of hardware than could be  claimed by almost any other single language. Since only the Core word set is required, very limited  hardware will be able to accommodate an ANS Forth implementation.
 
-Second, a greater degree of portability of applications, and of programmers, is anticipated. The optional  word sets standardize various functions (e.g., floating point) that were widely implemented before, but not  with uniform definition names and methodologies, nor the same levels of completeness. With such words  now standardized in the optional word sets, communications between programmers – verbally, via magazine  or journal articles, etc. – will leap to a new level of facility, and the shareability of code and applications  should rise dramatically.
+Second, a greater degree of portability of applications, and of programmers, is anticipated. The optional  word sets standardize various functions (e.g., floating point) that were widely implemented before, but not  with uniform definition names and methodologies, nor the same levels of completeness. With such words  now standardized in the optional word sets, communications between programmers - verbally, via magazine  or journal articles, etc. - will leap to a new level of facility, and the shareability of code and applications  should rise dramatically.
 
 Third, ANS Forth systems may be designed to offer the user the power to selectively, even dynamically,  include or exclude one or more of the optional word sets or portions thereof. Also, lower-priced products  may be offered for the user who needs the Core word set and not much more. Thus, virtually unlimited  flexibility will be available to the user.
 
 But these advantages have a price. The burden is on the user to decide what capabilities are desired, and to  select product offerings accordingly, especially when portability of applications is important. We do not  expect most implementors to attempt to provide all word sets, but rather to select those most valuable to  their intended markets.
 
-The basic requirement is that if the implementor claims to have a particular optional word set the entire  required portion of that word set must be available. If the implementor wishes to offer only part of an  optional word set, it is acceptable to say, for example, “This system offers portions of the [named] word  set”, particularly if the selected or excluded words are itemized clearly.
+The basic requirement is that if the implementor claims to have a particular optional word set the entire  required portion of that word set must be available. If the implementor wishes to offer only part of an  optional word set, it is acceptable to say, for example, "This system offers portions of the [named] word  set", particularly if the selected or excluded words are itemized clearly.
 
 Each optional word set will probably appeal to a particular constituency. For example, scientists  performing complex mathematical analysis may place a higher value on the Floating-Point word set than  programmers developing simple embedded controllers. As in the case of the core extensions, we expect  implementors to offer those word sets they expect will be valued by their users.
 
@@ -67,7 +67,7 @@ The extensions to the optional word sets include words which are deemed less ess
 ### A.2.1 Definitions of terms 
 
 
-<term>
+<miniterm>
 ||ambiguous condition||
 The response of a Standard System to an ambiguous condition is left to the discretion of the implementor.
 A Standard System need not explicitly detect or report the occurrence of ambiguous conditions.
@@ -76,13 +76,15 @@ A Standard System need not explicitly detect or report the occurrence of ambiguo
 Cross-compilers may be used to prepare a program for execution in an embedded system, or may be used to  generate Forth kernels either for the same or a different run-time environment.
 
 ||data field||
-In earlier standards, data fields were known as “parameter fields”.
+In earlier standards, data fields were known as "parameter fields".
 On subroutine threaded Forth systems, everything is object code. There are no traditional code or data  fields. Only a word defined by CREATE or by a word that calls CREATE has a data field. Only a data field  defined via CREATE can be manipulated portably.
 
 ||word set||
 This Standard recognizes that some functions, while useful in certain application areas, are not sufficiently  general to justify requiring them in all Forth systems. Further, it is helpful to group Forth words according  to related functions. These issues are dealt with using the concept of word sets.
 
-The “Core” word set contains the essential body of words in a Forth system. It is the only “required” word  set. Other word sets defined in this Standard are optional additions to make it possible to provide Standard  Systems with tailored levels of functionality.
+The "Core" word set contains the essential body of words in a Forth system. It is the only "required" word  set. Other word sets defined in this Standard are optional additions to make it possible to provide Standard  Systems with tailored levels of functionality.
+
+</miniterm>
 
 ### A.2.2 Notation 
 
@@ -115,13 +117,15 @@ The correct identification and proper manipulation of the character data type is
 
 ##### a) Standard Character Set
 
+<itemize>
+
 1) The storage unit for the character data type (C@, C!, FILL, etc.) must be able to contain unsigned numbers from 0 through 255.
 
 2) An implementation is not required to restrict character storage to that range, but a Standard Program without environmental dependencies cannot assume the ability to store numbers outside that range in a  "char" location.
 
 3) The allowed number representations are two’s-complement, one’s-complement, and signed-magnitude.  Note that all of these number systems agree on the representation of positive numbers.
 
-4) Since a "char" can store small positive numbers and since the character data type is a sub-range of the unsigned integer data type, `C!` must store the n least-significant bits of a cell (8 <= n <= bits/cell).  Given  the enumeration of allowed number representations and their known encodings, "`TRUE xx C! xx C@`"  must leave a stack item with some number of bits set, which will thus will be accepted as non-zero by IF.
+4) Since a "char" can store small positive numbers and since the character data type is a sub-range of the unsigned integer data type, `C!` must store the n least-significant bits of a cell (8 &le; n &lt;= bits/cell).  Given  the enumeration of allowed number representations and their known encodings, "`TRUE xx C! xx C@`"  must leave a stack item with some number of bits set, which will thus will be accepted as non-zero by IF.
 
 5) For the purposes of input (KEY, ACCEPT, etc.) and output (EMIT, TYPE, etc.), the encoding between numbers and human-readable symbols is ISO646/IRV (ASCII) within the range from 32 to 126 (space to ~).  EBCDIC is out (most "EBCDIC" computer systems support ASCII too). Outside that range, it is up to the  implementation. The obvious implementation choice is to use ASCII control characters for the range from 0  to 31, at least for the "displayable" characters in that range (TAB, RETURN, LINEFEED, FORMFEED).  However, this is not as clear-cut as it may seem, because of the variation between operating systems on the  treatment of those characters. For example, some systems TAB to 4 character boundaries, others to 8  character boundaries, and others to preset tab stops. Some systems perform an automatic linefeed after a  carriage return, others perform an automatic carriage return after a linefeed, and others do neither.
 
@@ -130,6 +134,8 @@ The codes from 128 to 255 may eventually be standardized, either formally or inf
 6) A Standard Program can depend on the ability to receive any character in the range 32 ... 126 through `KEY`, and similarly to display the same set of characters with `EMIT`. If a program must be able to receive or  display any particular character outside that range, it can declare an environmental dependency on the  ability to receive or display that character.
 
 7) A Standard Program cannot use control characters in definition names. However, a Standard System is not required to enforce this prohibition. Thus, existing systems that currently allow control characters in  words names from `BLOCK` source may continue to allow them, and programs running on those systems will  continue to work. In text file source, the parsing action with space as a delimiter (e.g., `BL` `WORD`) treats  control characters the same as spaces. This effectively implies that you cannot use control characters in  definition names from text-file source, since the text interpreter will treat the control characters as  delimiters. Note that this "control-character folding" applies only when space is the delimiter, thus the  phrase "`CHAR ) WORD`" may collect a string containing control characters.
+
+</itemize>
 
 ##### b) Storage and retrieval 
 
@@ -163,7 +169,9 @@ Here is a selection of the most important words which move single-cell data to, 
 
     ! @ >R ?DUP DROP DUP OVER PICK R> R@ ROLL ROT SWAP 
 
-c) Comparison operators  The following comparison operators are universally valid for one or more single cells:  
+##### c) Comparison operators
+
+The following comparison operators are universally valid for one or more single cells:  
 
     = <> 0= 0<> 
 
@@ -177,7 +185,7 @@ In addition to the words which move, fetch and store single-cell items, the foll
 
 ##### A.3.1.3.2 Integers 
 
-A single-cell datum may be treated by a Standard Program as a signed integer. Moving and storing such  data is performed as for any single-cell data. In addition to the universally-applicable operators for singlecell data specified above, the following mathematical and comparison operators are valid for single-cell  signed integers:  
+A single-cell datum may be treated by a Standard Program as a signed integer. Moving and storing such  data is performed as for any single-cell data. In addition to the universally-applicable operators for single-cell data specified above, the following mathematical and comparison operators are valid for single-cell  signed integers:  
 
     * */ */MOD /MOD MOD + +! - / 1+ 1- ABS MAX MIN NEGATE 
     0< 0> < > 
@@ -249,13 +257,15 @@ If a double-cell integer is to be treated as unsigned, the following comparison 
 
 ##### A.3.1.4.2 Character strings 
 
-See: A.3.1.3.4 Counted Strings.
+See: **A.3.1.3.4 Counted Strings**.
 
 ### A.3.2 The Implementation environment 
 
 #### A.3.2.1 Numbers 
 
-Traditionally, Forth has been implemented on two’s-complement machines where there is a one-to-one  mapping of signed numbers to unsigned numbers – any single cell item can be viewed either as a signed or  unsigned number. Indeed, the signed representation of any positive number is identical to the equivalent  unsigned representation. Further, addresses are treated as unsigned numbers: there is no distinct pointer  type. Arithmetic ordering on two’s complement machines allows + and - to work on both signed and  unsigned numbers. This arithmetic behavior is deeply embedded in common Forth practice. As a  consequence of these behaviors, the likely ranges of signed and unsigned numbers for implementations  hosted on each of the permissible arithmetic architectures is:  
+Traditionally, Forth has been implemented on two’s-complement machines where there is a one-to-one  mapping of signed numbers to unsigned numbers - any single cell item can be viewed either as a signed or  unsigned number. Indeed, the signed representation of any positive number is identical to the equivalent  unsigned representation. Further, addresses are treated as unsigned numbers: there is no distinct pointer  type. Arithmetic ordering on two’s complement machines allows + and - to work on both signed and  unsigned numbers. This arithmetic behavior is deeply embedded in common Forth practice. As a  consequence of these behaviors, the likely ranges of signed and unsigned numbers for implementations  hosted on each of the permissible arithmetic architectures is:  
+
+<table>
 
  |Arithmetic architecture|signed numbers|unsigned numbers  
  |--|--|--|
@@ -263,6 +273,8 @@ Traditionally, Forth has been implemented on two’s-complement machines where t
  |One’s complement|-n to n|0 to n
  |Signed magnitude|-n to n|0 to n|
  
+</table>
+
 where *n* is the largest positive signed number. For all three architectures, signed numbers in the 0 to n range  are bitwise identical to the corresponding unsigned number. Note that unsigned numbers on a signed  magnitude machine are equivalent to signed non-negative numbers as a consequence of the forced  correspondence between addresses and unsigned numbers and of the required behavior of `+` and `-`.
 
 For reference, these number representations may be defined by the way that `NEGATE` is implemented:  
@@ -273,7 +285,7 @@ For reference, these number representations may be defined by the way that `NEGA
 
 where `HIGH-BIT` is a bit mask with only the most-significant bit set. Note that all of these number systems  agree on the representation of non-negative numbers.
 
-Per `3.2.1.1 Internal number representation` and `6.1.0270 0=`, the implementor must ensure that no  standard or supported word return negative zero for any numeric (non-Boolean or flag) result. Many  existing programmer assumptions will be violated otherwise.
+Per **3.2.1.1  Internal number representation** and **6.1.0270  0=**, the implementor must ensure that no  standard or supported word return negative zero for any numeric (non-Boolean or flag) result. Many  existing programmer assumptions will be violated otherwise.
 
 There is no requirement to implement circular unsigned arithmetic, nor to set the range of unsigned numbers  to the full size of a cell. There is historical precedent for limiting the range of u to that of +n, which is  permissible when the cell size is greater than 16 bits.
 
@@ -304,8 +316,7 @@ For these reasons and a host of other reasons, the one unambiguous, uncontrovers
 The simplest use of control-flow words is to implement the basic control structures shown in figure A.1.
 
 <figure>
-<img src="img/fig-A1-the-basic-control-flow-patterns.png">
-<figcaption>Figure A.1 – The basic control-flow patterns.</figcaption>
+<img width=400 src="img/fig-A1-the-basic-control-flow-patterns.png">
 </figure>
 
 In control flow every branch, or transfer of control, must terminate at some destination. A natural  implementation uses a stack to remember the origin of forward branches and the destination of backward  branches. At a minimum, only the location of each origin or destination must be indicated, although other  implementation-dependent information also may be maintained.
@@ -316,18 +327,23 @@ With the addition of just three words (`AHEAD`, `CS-ROLL` and `CS-PICK`), the ba
 
 The requirement that control-flow words are properly balanced by other control-flow words makes  reasonable the description of a compile-time implementation-defined control-flow stack. There is no  prescription as to how the control-flow stack is implemented, e.g., data stack, linked list, special array.  Each element of the control-flow stack mentioned above is the same size.
 
-Table A.1 – Compilation behavior of control-flow words  
+<table>
+
+Table A.1 - Compilation behavior of control-flow words  
 
  |at compile time,<br>word:|supplies:|resolves:|is used to:|
- |IF|orig|| mark origin of forward conditional branch  
- |THEN||orig|resolve IF or AHEAD 
- |BEGIN|dest|| mark backward destination  
- |AGAIN|| dest|resolve with backward unconditional branch  
- |UNTIL|| dest|resolve with backward conditional branch  
- |AHEAD|orig||mark origin of forward unconditional branch  
- |CS-PICK||| copy item on control-flow stack  
- |CS-ROLL|||reorder items on control-flow stack
+ |--|:--:|:--:|--|
+ |`IF`|orig|| mark origin of forward conditional branch  
+ |`THEN`||orig|resolve IF or AHEAD 
+ |`BEGIN`|dest|| mark backward destination  
+ |`AGAIN`|| dest|resolve with backward unconditional branch  
+ |`UNTIL`|| dest|resolve with backward conditional branch  
+ |`AHEAD`|orig||mark origin of forward unconditional branch  
+ |`CS-PICK`||| copy item on control-flow stack  
+ |`CS-ROLL`|||reorder items on control-flow stack
  
+</table>
+
  With these tools, the remaining basic control-structure elements, shown in figure A.2, can be defined. The  stack notation used here for immediate words is ( compilation / execution ).
 
     : WHILE ( dest -- orig dest / flag -- ) 
@@ -348,8 +364,8 @@ Table A.1 – Compilation behavior of control-flow words
     ; IMMEDIATE 
 
 <figure>
-<img src="img/fig-A2-additional-control-flow-pattern.png">
-<figcaption>Figure A.2 – Additional basic control-flow patterns.</figcaption>
+<img width=250 src="img/fig-A2-additional-control-flow-pattern.png">
+<figcaption>Figure A.2 - Additional basic control-flow patterns.</figcaption>
 </figure>
 
 Forth control flow provides a solution for well-known problems with strictly structured programming.
@@ -359,9 +375,9 @@ The basic control structures can be supplemented, as shown in the examples in fi
 Additional actions may be performed between the control flow word (the `REPEAT` or `UNTIL`) and the  `THEN` that matches the additional `WHILE`. Further, if additional actions are desired for normal termination  and early termination, the alternative actions may be separated by the ordinary Forth `ELSE`. The  termination actions are all specified after the body of the loop.
 
 <figure>
-<img src="img/fig-A3-extended-control-flow-pattern-examples.png" >
-<figcaption>Figure A.3 – Extended control-flow pattern examples.</figcaption>
-<figure>
+<img width=250 src="img/fig-A3-extended-control-flow-pattern-examples.png" >
+<figcaption>Figure A.3 - Extended control-flow pattern examples.</figcaption>
+</figure>
 
 Note that `REPEAT` creates an anomaly when matching the `WHILE` with `ELSE` or `THEN`, most notable when  compared with the `BEGIN`...`UNTIL` case. That is, there will be one less `ELSE` or `THEN` than there are  WHILEs because `REPEAT` resolves one `THEN`. As above, if the user finds this count mismatch undesirable,  `REPEAT` could be replaced in-line by its own definition.
 
@@ -397,7 +413,7 @@ The simple implementation of the ANS Forth `CASE` structure below is an example 
 
 ##### A.3.2.3.3 Return stack 
 
-The restrictions in section 3.2.3.3 Return stack are necessary if implementations are to be allowed to place  loop parameters on the return stack.
+The restrictions in section **3.2.3.3  Return stack** are necessary if implementations are to be allowed to place  loop parameters on the return stack.
 
 #### A.3.2.6 Environmental queries 
 
@@ -434,8 +450,8 @@ There is no point in specifying (in the Standard) both what is and what is not a
 
 A Standard Program may NOT address:  
 
-– Directly into the data or return stacks; 
-– Into a definition’s data field if not stored by the application.
+- Directly into the data or return stacks; 
+- Into a definition’s data field if not stored by the application.
 
 The read-only restrictions arise because some Forth systems run from ROM and some share I/O buffers with  other users or systems. Portable programs cannot know which areas are affected, hence the general  restrictions.
 
@@ -449,7 +465,7 @@ An implementor of ANS Forth can handle these alignment restrictions in one of tw
 
 The data space of a Forth system comes in discontinuous regions! The location of some regions is provided  by the system, some by the program. Data space is contiguous within regions, allowing address arithmetic  to generate valid addresses only within a single region. A Standard Program cannot make any assumptions  about the relative placement of multiple regions in memory.
 
-Section 3.3.3.2 does prescribe conditions under which contiguous regions of data space may be obtained.
+Section **3.3.3.2**  does prescribe conditions under which contiguous regions of data space may be obtained.
 
 For example:  
 
@@ -512,7 +528,7 @@ Compiler recursion at the definition level consumes excessive resources, especia
 
 ### A.5.1 ANS Forth systems 
 
-Section 5.1 defines the criteria that a system must meet in order to justify the label “ANS Forth System”.  Briefly, the minimum requirement is that the system must “implement” the Core word set. There are several  ways in which this requirement may be met. The most obvious is that all Core words may be in a pre-compiled kernel. This is not the only way of satisfying the requirement, however. For example, some  words may be provided in source blocks or files with instructions explaining how to add them to the system  if they are needed. So long as the words are provided in such a way that the user can obtain access to them  with a clear and straightforward procedure, they may be considered to be present.
+Section 5.1 defines the criteria that a system must meet in order to justify the label "ANS Forth System".  Briefly, the minimum requirement is that the system must "implement" the Core word set. There are several  ways in which this requirement may be met. The most obvious is that all Core words may be in a pre-compiled kernel. This is not the only way of satisfying the requirement, however. For example, some  words may be provided in source blocks or files with instructions explaining how to add them to the system  if they are needed. So long as the words are provided in such a way that the user can obtain access to them  with a clear and straightforward procedure, they may be considered to be present.
 
 A Forth cross-compiler has many characteristics in common with an ANS Forth System, in that both use  similar compiling tools to process a program. However, in order to fully specify an ANS Forth cross  compiler it would be necessary to address complex issues dealing with compilation and execution semantics  in both host and target environments as well as ROMability issues. The level of effort to do this properly  has proved to be impractical at this time. As a result, although it may be possible for a Forth cross-compiler  to correctly prepare an ANS Forth program for execution in a target environment, it is inappropriate for a  cross-compiler to be labeled an ANS Forth System.
 
@@ -526,7 +542,7 @@ Because all programs require space for data and instructions, and time to execut
 
 On the other hand, as a program requires increasing levels of resources, there will probably be sucessively  fewer systems on which it will execute sucessfully. An algorithm requiring an array of 109 cells might run  on fewer computers than one requiring only 103.
 
-Since there is also no way of knowing what minimum level of resources will be implemented in a system  useful for at least some tasks, any program performing real work labeled simply an “ANS Forth Program” is  unlikely to be labeled correctly.
+Since there is also no way of knowing what minimum level of resources will be implemented in a system  useful for at least some tasks, any program performing real work labeled simply an "ANS Forth Program" is  unlikely to be labeled correctly.
 
 ## A.6 Glossary 
 
@@ -534,21 +550,21 @@ In this and following sections we present rationales for the handling of specifi
 
 Words in this section are organized by word set, retaining their index numbers for easy cross-referencing to  the glossary.
 
-Historically, many Forth systems have been written in Forth. Many of the words in Forth originally had as  their primary purpose support of the Forth system itself. For example, `WORD` and `FIND` are often used as  the principle instruments of the Forth text interpreter, and `CREATE` in many systems is the primitive for  building dictionary entries. In defining words such as these in a standard way, we have endeavored not to  do so in such a way as to preclude their use by implementors. One of the features of Forth that has endeared  it to its users is that the same tools that are used to implement the system are available to the application  programmer – a result of this approach is the compactness and efficiency that characterizes most Forth  implementations.
+Historically, many Forth systems have been written in Forth. Many of the words in Forth originally had as  their primary purpose support of the Forth system itself. For example, `WORD` and `FIND` are often used as  the principle instruments of the Forth text interpreter, and `CREATE` in many systems is the primitive for  building dictionary entries. In defining words such as these in a standard way, we have endeavored not to  do so in such a way as to preclude their use by implementors. One of the features of Forth that has endeared  it to its users is that the same tools that are used to implement the system are available to the application  programmer - a result of this approach is the compactness and efficiency that characterizes most Forth  implementations.
 
 ### A.6.1 Core words 
 
 #### A.6.1.0070 `'` 
 
-Typical use: ... ' name .
+Typical use: `... ' name `.
 
 Many Forth systems use a state-smart tick. Many do not. ANS Forth follows the usage of Forth 83.
 
-See: A.3.4.3..2 Interpretation semantics, A.6.1.1550 FIND.
+**See: A.3.4.3..2 Interpretation semantics, A.6.1.1550 FIND**.
 
 #### A.6.1.0080 `(` 
 
-Typical use: ... `( ccc)` ...
+Typical use: `... ( ccc) ...`
 
 #### A.6.1.0140 `+LOOP` 
 
@@ -562,7 +578,7 @@ Typical use:
 
 The use of , (comma) for compiling execution tokens is not portable.
 
-See: 6.2.0945 COMPILE,.
+See: **6.2.0945 COMPILE,**.
 
 #### A.6.1.0190 ." 
 
@@ -626,7 +642,7 @@ In this Standard we have attempted to provide transportability across various CP
 
 #### A.6.1.0706 `ALIGNED` 
 
-See: A.6.1.0705 `ALIGN`.
+See: **A.6.1.0705 `ALIGN`**.
 
 #### A.6.1.0760 `BEGIN` 
 
@@ -655,7 +671,7 @@ Example:
 
 #### A.6.1.0890 CELLS 
 
-See: A.6.1.0880 CELL+.
+See: **A.6.1.0880 CELL+**.
 
 Example: `CREATE NUMBERS 100 CELLS ALLOT` 
 
@@ -697,9 +713,9 @@ Typical use: : `X ... test IF ... ELSE ... THEN ;`
 
 #### A.6.1.1345 `ENVIRONMENT?` 
 
-In a Standard System that contains only the Core word set, effective use of ENVIRONMENT? requires either  its use within a definition, or the use of user-supplied auxiliary definitions. The Core word set lacks both a  direct method for collecting a string in interpretation state (11.6.1.2165 `S"` is in an optional word set) and  also a means to test the returned flag in interpretation state (e.g. the optional 15.6.2.2532 `[IF]`).
+In a Standard System that contains only the Core word set, effective use of ENVIRONMENT? requires either  its use within a definition, or the use of user-supplied auxiliary definitions. The Core word set lacks both a  direct method for collecting a string in interpretation state (**11.6.1.2165  `S"`** is in an optional word set) and  also a means to test the returned flag in interpretation state (e.g. the optional 15.6.2.2532 `[IF]`).
 
-The combination of 6.1.1345 ENVIRONMENT?, 11.6.1.2165 `S"`, 15.6.2.2532 `[IF]`, 15.6.2.2531 `[ELSE]`,  and 15.6.2.2533 `[THEN]` constitutes an effective suite of words for conditional compilation that works in  interpretation state.
+The combination of **6.1.1345 ENVIRONMENT?**, **11.6.1.2165 `S"`**, **15.6.2.2532 `[IF]`**, **15.6.2.2531 `[ELSE]`**,  and **15.6.2.2533 `[THEN]`** constitutes an effective suite of words for conditional compilation that works in  interpretation state.
 
 #### A.6.1.1360 `EVALUATE` 
 
@@ -761,7 +777,7 @@ The word NOT was originally provided in Forth as a flag operator to make control
 
 This was common usage prior to the Forth-83 Standard which redefined NOT as a cell-wide one's-complement operation, functionally equivalent to the phrase -1 XOR. At the same time, the data type  manipulated by this word was changed from a flag to a cell-wide collection of bits and the standard value  for true was changed from "1" (rightmost bit only set) to "-1" (all bits set). As these definitions of TRUE and NOT were incompatible with their previous definitions, many Forth users continue to rely on the old  definitions. Hence both versions are in common use.
 
-Therefore, usage of NOT cannot be standardized at this time. The two traditional meanings of NOT – that of  negating the sense of a flag and that of doing a one's complement operation – are made available by 0= and  INVERT, respectively.
+Therefore, usage of NOT cannot be standardized at this time. The two traditional meanings of NOT - that of  negating the sense of a flag and that of doing a one's complement operation - are made available by 0= and  INVERT, respectively.
 
 #### A.6.1.1730 J 
 
@@ -925,7 +941,7 @@ Typical use: : X ... BEGIN ... test WHILE ... REPEAT ... ;
 
 #### A.6.1.2450 WORD 
 
-Typical use: *char* `WORD` *ccc<char>* 
+Typical use: *char* `WORD` *ccc&lt;char>* 
 
 #### A.6.1.2500 [ 
 
@@ -935,7 +951,7 @@ Typical use: : X ... [ 4321 ] LITERAL ... ;
 
 Typical use: : X ... ['] name ... ; 
 
-See: A.6.1.1550 FIND.
+See: **A.6.1.1550 FIND**.
 
 #### A.6.1.2520 [CHAR] 
 
@@ -949,10 +965,10 @@ Typical use: : X ... [ 1234 ] LITERAL ... ;
 
 The words in this collection fall into several categories:  
 
-– Words that are in common use but are deemed less essential than Core words (e.g., 0<>); 
-– Words that are in common use but can be trivially defined from Core words (e.g., FALSE); 
-– Words that are primarily useful in narrowly defined types of applications or are in less frequent use (e.g., PARSE); 
-– Words that are being deprecated in favor of new words introduced to solve specific problems (e.g., CONVERT).
+- Words that are in common use but are deemed less essential than Core words (e.g., 0&lt;>); 
+- Words that are in common use but can be trivially defined from Core words (e.g., FALSE); 
+- Words that are primarily useful in narrowly defined types of applications or are in less frequent use (e.g., PARSE); 
+- Words that are being deprecated in favor of new words introduced to solve specific problems (e.g., CONVERT).
 
 Because of the varied justifications for inclusion of these words, the Technical Committee does not  encourage implementors to offer the complete collection, but to select those words deemed most valuable to  their clientele.
 
@@ -1062,7 +1078,7 @@ It is easy to convert counted strings to pointer/length but hard to do the oppos
 
 Users of C" are encouraged to migrate their application code toward the consistent use of the preferred "c-addr u" stack representation with the alternate word S". This may be accomplished by converting application words with counted string input arguments to use the preferred "c-addr u" representation, thus  eliminating the need for C" .
 
-See: A.3.1.3.4 Counted strings.
+See: **A.3.1.3.4 Counted strings**.
 
 #### A.6.2.0873 CASE 
 
@@ -1080,8 +1096,8 @@ Typical use:
 
 COMPILE, is the compilation equivalent of EXECUTE. In many cases, it is possible to compile a word by  using POSTPONE without resorting to the use of COMPILE,. However, the use of POSTPONE requires  that the name of the word must be known at compile time, whereas COMPILE, allows the word to be  located at any time. It is sometime possible to use EVALUATE to compile a word whose name is not known  until run time. This has two possible problems:  
 
-– EVALUATE is slower than COMPILE, because a dictionary search is required.
-– The current search order affects the outcome of EVALUATE.
+- EVALUATE is slower than COMPILE, because a dictionary search is required.
+- The current search order affects the outcome of EVALUATE.
 
 In traditional threaded-code implementations, compilation is performed by , (comma). This usage is not  portable; it doesn't work for subroutine-threaded, native code, or relocatable implementations. Use of  COMPILE, is portable.
 
@@ -1144,7 +1160,7 @@ PAD has been available as scratch storage for strings since the earliest Forth i
 
 #### A.6.2.2008 PARSE 
 
-Typical use: char PARSE ccc<char> 
+Typical use: char PARSE ccc&lt;char> 
 
 The traditional Forth word for parsing is WORD. PARSE solves the following problems with WORD:  
 
@@ -1226,7 +1242,7 @@ The following code is allowed:
  
 After EVALUATE returns, the input source specification is restored to its previous state, thus SAVE-INPUT and RESTORE-INPUT are called with the same input source in effect.
 
-In the above examples, the EVALUATE phrase could have been replaced by a phrase involving INCLUDEFILE and the same rules would apply.
+In the above examples, the EVALUATE phrase could have been replaced by a phrase involving INCLUDE-FILE and the same rules would apply.
 
 The Standard does not specify what happens if a program violates the above rules. A Standard System  might check for the violation and return an exception indication from RESTORE-INPUT, or it might fail in  an unpredictable way.
 
@@ -1319,11 +1335,11 @@ Assume two's-complement arithmetic on a 16-bit machine, and consider the followi
 
 The above implementation returns false for that test, even though the unsigned number 33000 is clearly  within the range {{32000 .. 34000}}.
 
-The problem is that, in the incorrect implementation, the signed comparison < gives the wrong answer when 32000 is compared to 33000, because when those numbers are treated as signed numbers, 33000 is treated as negative 32536, while 32000 remains positive.
+The problem is that, in the incorrect implementation, the signed comparison &lt; gives the wrong answer when 32000 is compared to 33000, because when those numbers are treated as signed numbers, 33000 is treated as negative 32536, while 32000 remains positive.
 
     1 -5 5 WITHIN 
 
-Replacing < with U< in the above implementation makes it work with unsigned numbers, but causes  problems with certain signed number ranges; in particular, the test:  would give an incorrect answer.
+Replacing &lt; with `U<` in the above implementation makes it work with unsigned numbers, but causes  problems with certain signed number ranges; in particular, the test:  would give an incorrect answer.
 
 For two’s-complement machines that ignore arithmetic overflow (most machines), the following  implementation works in all cases:  
 
@@ -1347,16 +1363,19 @@ In order to guarantee that Standard Programs that need access to mass storage ha
 
 ### A.7.2 Additional terms 
 
-<term>
+<miniterm>
+
 ||block||
-Many Forth systems use blocks to contain program source. Conventionally such blocks are formatted for  editing as 16 lines of 64 characters. Source blocks are often referred to as “screens”.
-</term>
+Many Forth systems use blocks to contain program source. Conventionally such blocks are formatted for  editing as 16 lines of 64 characters. Source blocks are often referred to as "screens".
+
+</miniterm>
 
 ### A.7.6 Glossary 
 
 ##### A.7.6.2.2190 SCR 
 
 SCR is short for screen.
+
 ## A.8 The optional Double-Number word set 
 
 Forth systems on 8-bit and 16-bit processors often find it necessary to deal with double-length numbers.  But many Forths on small embedded systems do not, and many users of Forth on systems with a cell size of  32-bits or more find that the necessity for double-length numbers is much diminished. Therefore, we have factored the words that manipulate double-length entities into this optional word set.
@@ -1385,51 +1404,57 @@ Typical use: 2VARIABLE name
 
 ##### A.8.6.1.1070 D.R 
 
-In D.R, the “R” is short for RIGHT.
+In D.R, the "R" is short for RIGHT.
 
 ##### A.8.6.1.1090 D2* 
 
-See: A.6.1.0320 2* for applicable discussion.
+See: **A.6.1.0320 2* for applicable discussion**.
 
 ##### A.8.6.1.1100 D2/ 
 
-See: A.6.1.0330 2/ for applicable discussion.
+See: **A.6.1.0330 2/ for applicable discussion**.
 
 ##### A.8.6.1.1140 D>S 
 
-There exist number representations, e.g., the sign-magnitude representation, where reduction from double to single-precision cannot simply be done with DROP. This word, equivalent to DROP on two’s complement  systems, desensitizes application code to number representation and facilitates portability.
+There exist number representations, e.g., the sign-magnitude representation, where reduction from double to single-precision cannot simply be done with `DROP`. This word, equivalent to `DROP` on two’s complement  systems, desensitizes application code to number representation and facilitates portability.
 
 ##### A.8.6.1.1820 M*/ 
 
-M*/ was once described by Chuck Moore as the most useful arithmetic operator in Forth. It is the main  workhorse in most computations involving double-cell numbers. Note that some systems allow signed  divisors. This can cost a lot in performance on some CPUs. The requirement for a positive divisor has not  proven to be a problem.
+`M*/` was once described by Chuck Moore as the most useful arithmetic operator in Forth. It is the main  workhorse in most computations involving double-cell numbers. Note that some systems allow signed  divisors. This can cost a lot in performance on some CPUs. The requirement for a positive divisor has not  proven to be a problem.
 
 ##### A.8.6.1.1830 M+ 
 
 M+ is the classical method for integrating.
+
 ## A.9 The optional Exception word set 
 
-CATCH and THROW provide a reliable mechanism for handling exceptions, without having to propagate  exception flags through multiple levels of word nesting. It is similar in spirit to the “non-local return”  mechanisms of many other languages, such as C’s setjmp() and longjmp(), and LISP’s CATCH and  THROW. In the Forth context, THROW may be described as a “multi-level EXIT”, with CATCH marking a  location to which a THROW may return.
+`CATCH` and `THROW` provide a reliable mechanism for handling exceptions, without having to propagate  exception flags through multiple levels of word nesting. It is similar in spirit to the "non-local return"  mechanisms of many other languages, such as C’s setjmp() and longjmp(), and LISP’s `CATCH` and  `THROW`. In the Forth context, `THROW` may be described as a "multi-level `EXIT`", with `CATCH` marking a  location to which a `THROW` may return.
 
-Several similar Forth “multi-level EXIT” exception-handling schemes have been described and used in past  years. It is not possible to implement such a scheme using only standard words (other than CATCH and  THROW), because there is no portable way to “unwind” the return stack to a predetermined place.
+Several similar Forth "multi-level `EXIT`" exception-handling schemes have been described and used in past  years. It is not possible to implement such a scheme using only standard words (other than `CATCH` and  `THROW`), because there is no portable way to "unwind" the return stack to a predetermined place.
 
-THROW also provides a convenient implementation technique for the standard words ABORT and ABORT",  allowing an application to define, through the use of CATCH, the behavior in the event of a system ABORT.
+THROW also provides a convenient implementation technique for the standard words `ABORT` and `ABORT"`,  allowing an application to define, through the use of CATCH, the behavior in the event of a system `ABORT`.
 
-This sample implementation of CATCH and THROW uses the non-standard words described below. They or  their equivalents are available in many systems. Other implementation strategies, including directly saving  the value of DEPTH, are possible if such words are not available.
+This sample implementation of `CATCH` and `THROW` uses the non-standard words described below. They or  their equivalents are available in many systems. Other implementation strategies, including directly saving  the value of `DEPTH`, are possible if such words are not available.
 
-<term>
-||SP@||( -- addr )||
+<miniterm>
+
+||SP@||
+( -- addr )
 returns the address corresponding to the top of data stack.
 
-||SP!||( addr -- )||
-sets the stack pointer to addr, thus restoring the stack depth to the same depth that  existed just before addr was acquired by executing SP@.
+||SP!||
+( addr -- )
+sets the stack pointer to addr, thus restoring the stack depth to the same depth that  existed just before addr was acquired by executing `SP@`.
 
-||RP@||( -- addr )||
+||RP@||
+( -- addr )
 returns the address corresponding to the top of return stack.
 
-||RP!||( addr -- )||
-sets the return stack pointer to addr, thus restoring the return stack depth to the same  depth that existed just before addr was acquired by executing RP@.
+||RP!||
+( addr -- )
+sets the return stack pointer to addr, thus restoring the return stack depth to the same  depth that existed just before addr was acquired by executing `RP@`.
 
-</term>
+</miniterm>
 
     VARIABLE HANDLER 0 HANDLER ! \ last exception handler  
     : CATCH ( xt -- exception# | 0 ) \ return addr on stack 
@@ -1453,13 +1478,13 @@ sets the return stack pointer to addr, thus restoring the return stack depth to 
         THEN 
     ;
 
-In a multi-tasking system, the HANDLER variable should be in the per-task variable area (i.e., a user  variable).
+In a multi-tasking system, the `HANDLER` variable should be in the per-task variable area (i.e., a user  variable).
 
-This sample implementation does not explicitly handle the case in which CATCH has never been called (i.e.,  the ABORT behavior). One solution is to add the following code after the IF in THROW:  
+This sample implementation does not explicitly handle the case in which `CATCH` has never been called (i.e.,  the `ABORT` behavior). One solution is to add the following code after the `IF` in `THROW`:  
 
     HANDLER @ 0= IF ( empty the stack ) QUIT THEN  
 
-Another solution is to execute CATCH within QUIT, so that there is always an “exception handler of last  resort” present. For example:   
+Another solution is to execute `CATCH` within `QUIT`, so that there is always an "exception handler of last  resort" present. For example:   
 
     : QUIT 
         ( empty the return stack and ) 
@@ -1478,32 +1503,32 @@ Another solution is to execute CATCH within QUIT, so that there is always an “
         REPEAT BYE 
     ;
  
-This example assumes the existance of a system-implementation word INTERPRET that embodies the text  interpreter semantics described in 3.4 The Forth text interpreter. Note that this implementation of QUIT automatically handles the emptying of the stack and return stack, due to THROW’s inherent restoration of the  data and return stacks. Given this definition of QUIT, it’s easy to define:  
+This example assumes the existance of a system-implementation word `INTERPRET` that embodies the text  interpreter semantics described in 3.4 The Forth text interpreter. Note that this implementation of `QUIT` automatically handles the emptying of the stack and return stack, due to `THROW`’s inherent restoration of the  data and return stacks. Given this definition of `QUIT`, it’s easy to define:  
 
     : ABORT -1 THROW ; 
 
-In systems with other stacks in addition to the data and return stacks, the implementation of CATCH and  THROW must save and restore those stack pointers as well. Such an “extended version” can be built on top  of this basic implementation. For example, with another stack pointer accessed with FP@ and FP! only  CATCH needs to be redefined:  
+In systems with other stacks in addition to the data and return stacks, the implementation of `CATCH` and  `THROW` must save and restore those stack pointers as well. Such an "extended version" can be built on top  of this basic implementation. For example, with another stack pointer accessed with `FP@` and `FP!` only  `CATCH` needs to be redefined:  
 
     : CATCH ( xt -- exception# | 0 ) 
         FP@ >R CATCH R> OVER IF FP! ELSE DROP THEN ; 
 
-No change to THROW is necessary in this case. Note that, as with all redefinitions, the redefined version of  CATCH will only be available to definitions compiled after the redefinition of CATCH.
+No change to `THROW` is necessary in this case. Note that, as with all redefinitions, the redefined version of  `CATCH` will only be available to definitions compiled after the redefinition of `CATCH`.
 
-CATCH and THROW provide a convenient way for an implementation to “clean up” the state of open files if  an exception occurs during the text interpretation of a file with INCLUDE-FILE. The implementation of  INCLUDE-FILE may guard (with CATCH) the word that performs the text interpretation, and if CATCH returns an exception code, the file may be closed and the exception reTHROWn so that the files being  included at an outer nesting level may be closed also. Note that the Standard allows, but does not require,  INCLUDE-FILE to close its open files if an exception occurs. However, it does require INCLUDE-FILE to unnest the input source specification if an exception is THROWn.
+`CATCH` and `THROW` provide a convenient way for an implementation to "clean up" the state of open files if  an exception occurs during the text interpretation of a file with `INCLUDE-FILE`. The implementation of  `INCLUDE-FILE` may guard (with `CATCH`) the word that performs the text interpretation, and if `CATCH` returns an exception code, the file may be closed and the exception re`THROW`n so that the files being  included at an outer nesting level may be closed also. Note that the Standard allows, but does not require,  `INCLUDE-FILE` to close its open files if an exception occurs. However, it does require `INCLUDE-FILE` to unnest the input source specification if an exception is THROWn.
 
 ### A.9.3 Additional usage requirements 
 
-One important use of an exception handler is to maintain program control under many conditions which  ABORT. This is practicable only if a range of codes is reserved. Note that an application may overload  many standard words in such a way as to THROW ambiguous conditions not normally THROWn by a  particular system.
+One important use of an exception handler is to maintain program control under many conditions which  `ABORT`. This is practicable only if a range of codes is reserved. Note that an application may overload  many standard words in such a way as to `THROW` ambiguous conditions not normally `THROW`n by a  particular system.
 
 #### A.9.3.6 Exception handling 
 
-The method of accomplishing this coupling is implementation dependent. For example, LOAD could “know” about CATCH and THROW (by using CATCH itself, for example), or CATCH and THROW could “know” about LOAD (by maintaining input source nesting information in a data structure known to THROW, for example). Under these circumstances it is not possible for a Standard Program to define words such as  LOAD in a completely portable way.
+The method of accomplishing this coupling is implementation dependent. For example, LOAD could "know" about `CATCH` and `THROW` (by using `CATCH` itself, for example), or `CATCH` and `THROW` could "know" about `LOAD` (by maintaining input source nesting information in a data structure known to `THROW`, for example). Under these circumstances it is not possible for a Standard Program to define words such as  `LOAD` in a completely portable way.
 
 ### A.9.6 Glossary 
 
 ##### A.9.6.1.2275 THROW 
 
-If THROW is executed with a non zero argument, the effect is as if the corresponding CATCH had returned it.  In that case, the stack depth is the same as it was just before CATCH began execution. The values of the i*x stack arguments could have been modified arbitrarily during the execution of xt. In general, nothing useful  may be done with those stack items, but since their number is known (because the stack depth is  deterministic), the application may DROP them to return to a predictable stack state.
+If THROW is executed with a non zero argument, the effect is as if the corresponding `CATCH` had returned it.  In that case, the stack depth is the same as it was just before `CATCH` began execution. The values of the *i\*x* stack arguments could have been modified arbitrarily during the execution of xt. In general, nothing useful  may be done with those stack items, but since their number is known (because the stack depth is  deterministic), the application may `DROP` them to return to a predictable stack state.
 
 Typical use: 
 
@@ -1535,27 +1560,27 @@ Most implementors supply a method of positioning a cursor on a CRT screen, but t
 
 The Technical Committee has gone around several times on the stack effects. Whatever is decided will  violate somebody’s practice and penalize some machine. This way doesn’t interfere with type-ahead on  some systems, while requiring the implementation of a single-character buffer on machines where polling  the keyboard inevitably results in the destruction of the character.
 
-Use of KEY or KEY? indicates that the application does not wish to bother with non-character events, so  they are discarded, in anticipation of eventually receiving a valid character. Applications wishing to handle  non-character events must use EKEY and EKEY?. It is possible to mix uses of KEY? / KEY and EKEY? /  EKEY within a single application, but the application must use KEY? and KEY only when it wishes to  discard non-character events until a valid character is received.
+Use of `KEY` or `KEY?` indicates that the application does not wish to bother with non-character events, so  they are discarded, in anticipation of eventually receiving a valid character. Applications wishing to handle  non-character events must use EKEY and EKEY?. It is possible to mix uses of `KEY?` / `KEY` and `EKEY?` /  `EKEY` within a single application, but the application must use `KEY?` and `KEY` only when it wishes to  discard non-character events until a valid character is received.
 
 ##### A.10.6.2.1305 EKEY 
 
-EKEY provides a standard word to access a system-dependent set of “raw” keyboard events, including  events corresponding to members of the standard character set, events corresponding to other members of  the implementation-defined character set, and keystrokes that do not correspond to members of the  character set.
+`EKEY` provides a standard word to access a system-dependent set of "raw" keyboard events, including  events corresponding to members of the standard character set, events corresponding to other members of  the implementation-defined character set, and keystrokes that do not correspond to members of the  character set.
 
-EKEY assumes no particular numerical correspondence between particular event code values and the values  representing standard characters. On some systems, this may allow two separate keys that correspond to the  same standard character to be distinguished from one another.
+`EKEY` assumes no particular numerical correspondence between particular event code values and the values  representing standard characters. On some systems, this may allow two separate keys that correspond to the  same standard character to be distinguished from one another.
 
-In systems that combine both keyboard and mouse events into a single “event stream”, the single number  returned by EKEY may be inadequate to represent the full range of input possibilities. In such systems, a  single “event record” may include a time stamp, the x,y coordinates of the mouse position, the keyboard  state, and the state of the mouse buttons. In such systems, it might be appropriate for EKEY to return the  address of an “event record” from which the other information could be extracted.
+In systems that combine both keyboard and mouse events into a single "event stream", the single number  returned by `EKEY` may be inadequate to represent the full range of input possibilities. In such systems, a  single "event record" may include a time stamp, the x,y coordinates of the mouse position, the keyboard  state, and the state of the mouse buttons. In such systems, it might be appropriate for `EKEY` to return the  address of an "event record" from which the other information could be extracted.
 
-Also, consider a hypothetical Forth system running under MS-DOS on a PC-compatible computer. Assume  that the implementation-defined character set is the “normal” 8-bit PC character set. In that character set,  the codes from 0 to 127 correspond to ASCII characters. The codes from 128 to 255 represent characters  from various non-English languages, mathematical symbols, and some graphical symbols used for line  drawing. In addition to those characters, the keyboard can generate various other “scan codes”, representing  such non-character events as arrow keys and function keys.
+Also, consider a hypothetical Forth system running under MS-DOS on a PC-compatible computer. Assume  that the implementation-defined character set is the "normal" 8-bit PC character set. In that character set,  the codes from 0 to 127 correspond to ASCII characters. The codes from 128 to 255 represent characters  from various non-English languages, mathematical symbols, and some graphical symbols used for line  drawing. In addition to those characters, the keyboard can generate various other "scan codes", representing  such non-character events as arrow keys and function keys.
 
-There may be multiple keys, with different scan codes, corresponding to the same standard character. For  example, the character representing the number “1” often appears both in the row of number keys above the  alphabetic keys, and also in the separate numeric keypad.
+There may be multiple keys, with different scan codes, corresponding to the same standard character. For  example, the character representing the number "1" often appears both in the row of number keys above the  alphabetic keys, and also in the separate numeric keypad.
 
-When a program asks the MS-DOS operating system for a keyboard event, it receives either a single non-zero byte, representing a character, or a zero byte followed by a “scan code” byte, representing a non character keyboard event (e.g., a function key).
+When a program asks the MS-DOS operating system for a keyboard event, it receives either a single non-zero byte, representing a character, or a zero byte followed by a "scan code" byte, representing a non character keyboard event (e.g., a function key).
 
-EKEY represents each keyboard event as a single number, rather than as a sequence of numbers. For the  system described above, the following would be a reasonable implementation of EKEY and related words:  
+`EKEY` represents each keyboard event as a single number, rather than as a sequence of numbers. For the  system described above, the following would be a reasonable implementation of `EKEY` and related words:  
 
 The MAX-CHAR environmental query would return 255.
 
-Assume the existence of a word DOS-KEY ( -- char ) which executes the MS-DOS “Direct STDIN  Input” system call (Interrupt 21h, Function 07h) and a word DOS-KEY? ( -- flag) which executes the  MS-DOS “Check STDIN Status” system call (Interrupt 21h, Function 0Bh).
+Assume the existence of a word DOS-KEY ( -- char ) which executes the MS-DOS "Direct STDIN  Input" system call (Interrupt 21h, Function 07h) and a word `DOS-KEY?` ( -- flag) which executes the  MS-DOS "Check STDIN Status" system call (Interrupt 21h, Function 0Bh).
 
     : EKEY? ( -- flag ) DOS-KEY? 0<> ; 
     : EKEY ( -- u ) DOS-KEY ?DUP 0= IF DOS-KEY 256 + THEN ; 
@@ -1584,13 +1609,13 @@ Assume the existence of a word DOS-KEY ( -- char ) which executes the MS-DOS “
         THEN PENDING-CHAR @ -1 PENDING-CHAR ! 
     ;
  
-This is a full-featured implementation, providing the application program with an easy way to either handle  non-character events (with EKEY), or to ignore them and to only consider “real” characters (with KEY).
+This is a full-featured implementation, providing the application program with an easy way to either handle  non-character events (with `EKEY`), or to ignore them and to only consider "real" characters (with `KEY`).
 
-Note that EKEY maps scan codes from 0 to 255 into numbers from 256 to 511. EKEY maps the number 259, representing the keyboard combination Ctrl-Shift-@, to the character whose numerical value is 0 (ASCII NUL). Many ASCII keyboards generate ASCII NUL for Ctrl-Shift-@, so we use that key combination for ASCII NUL (which is otherwise unavailable from MS-DOS, because the zero byte signifies  that another scan-code byte follows).
+Note that `EKEY` maps scan codes from 0 to 255 into numbers from 256 to 511. `EKEY` maps the number 259, representing the keyboard combination Ctrl-Shift-@, to the character whose numerical value is 0 (ASCII NUL). Many ASCII keyboards generate ASCII NUL for Ctrl-Shift-@, so we use that key combination for ASCII NUL (which is otherwise unavailable from MS-DOS, because the zero byte signifies  that another scan-code byte follows).
 
-One consequence of using the “Direct STDIN Input” system call (function 7) instead of the “STDIN Input”  system call (function 8) is that the normal DOS “Ctrl-C interrupt” behavior is disabled when the system is  waiting for input (Ctrl-C would still cause an interrupt while characters are being output). On the other  hand, if the “STDIN Input” system call (function 8) were used to implement EKEY, Ctrl-C interrupts would  be enabled, but Ctrl-Shift-@ would also cause an interrupt, because the operating system would treat the  second byte of the 0,3 sequence as a Ctrl-C, even though the 3 is really a scan code and not a character.
+One consequence of using the "Direct STDIN Input" system call (function 7) instead of the "STDIN Input"  system call (function 8) is that the normal DOS "Ctrl-C interrupt" behavior is disabled when the system is  waiting for input (Ctrl-C would still cause an interrupt while characters are being output). On the other  hand, if the "STDIN Input" system call (function 8) were used to implement `EKEY`, Ctrl-C interrupts would  be enabled, but Ctrl-Shift-@ would also cause an interrupt, because the operating system would treat the  second byte of the 0,3 sequence as a Ctrl-C, even though the 3 is really a scan code and not a character.
 
-One “best of both worlds” solution is to use function 8 for the first byte received by EKEY, and function 7  for the scan code byte. For example:  
+One "best of both worlds" solution is to use function 8 for the first byte received by `EKEY`, and function 7  for the scan code byte. For example:  
 
     : EKEY ( -- u ) 
         DOS-KEY-FUNCTION-8 ?DUP 0= IF 
@@ -1602,22 +1627,22 @@ One “best of both worlds” solution is to use function 8 for the first byte r
  
 Of course, if the Forth implementor chooses to pass Ctrl-C through to the program, without using it for its  usual interrupt function, then DOS function 7 is appropriate in both cases (and some additional care must be  taken to prevent a typed-ahead Ctrl-C from interrupting the Forth system during output operations).
 
-A Forth system might also choose a simpler implementation of KEY, without implementing EKEY, as  follows:  
+A Forth system might also choose a simpler implementation of KEY, without implementing `EKEY`, as  follows:  
 
     : KEY ( -- char ) DOS-KEY ; 
     : KEY? ( -- flag ) DOS-KEY? 0<> ; 
 
 The disadvantages of the simpler version are:  
 
-a) An application program that uses KEY, expecting to receive only valid characters, might receive a  sequence of bytes (e.g., a zero byte followed by a byte with the same numerical value as the letter “A”)  that appears to contain a valid character, even though the user pressed a key (e.g., function key 4) that  does not correspond to any valid character.
+a) An application program that uses `KEY`, expecting to receive only valid characters, might receive a  sequence of bytes (e.g., a zero byte followed by a byte with the same numerical value as the letter "A")  that appears to contain a valid character, even though the user pressed a key (e.g., function key 4) that  does not correspond to any valid character.
 
-b) An application program that wishes to handle non-character events will have to execute KEY twice  if it returns zero the first time. This might appear to be a reasonable and easy thing to do. However,  such code is not portable to other systems that do not use a zero byte as an “escape” code. Using the  EKEY approach, the algorithm for handling keyboard events can be the same for all systems; the system  dependencies can be reduced to a table or set of constants listing the system-dependent key codes used  to access particular application functions. Without EKEY, the algorithm, not just the table, is likely to  be system dependent.
+b) An application program that wishes to handle non-character events will have to execute `KEY` twice  if it returns zero the first time. This might appear to be a reasonable and easy thing to do. However,  such code is not portable to other systems that do not use a zero byte as an "escape" code. Using the  `EKEY` approach, the algorithm for handling keyboard events can be the same for all systems; the system  dependencies can be reduced to a table or set of constants listing the system-dependent key codes used  to access particular application functions. Without `EKEY`, the algorithm, not just the table, is likely to  be system dependent.
 
-Another approach to EKEY on MS-DOS is to use the BIOS “Read Keyboard Status” function (Interrupt 16h, Function 01h) or the related “Check Keyboard” function (Interrupt 16h, Function 11h). The advantage of this function is that it allows the program to distinguish between different keys that correspond to the  same character (e.g. the two “1” keys). The disadvantage is that the BIOS keyboard functions read only the  keyboard. They cannot be “redirected” to another “standard input” source, as can the DOS STDIN Input  functions.
+Another approach to `EKEY` on MS-DOS is to use the BIOS "Read Keyboard Status" function (Interrupt 16h, Function 01h) or the related "Check Keyboard" function (Interrupt 16h, Function 11h). The advantage of this function is that it allows the program to distinguish between different keys that correspond to the  same character (e.g. the two "1" keys). The disadvantage is that the BIOS keyboard functions read only the  keyboard. They cannot be "redirected" to another "standard input" source, as can the DOS STDIN Input  functions.
 
 ##### A.10.6.2.1306 EKEY>CHAR 
 
-EKEY>CHAR translates a keyboard event into the corresponding member of the character set, if such a  correspondence exists for that event.
+`EKEY>CHAR` translates a keyboard event into the corresponding member of the character set, if such a  correspondence exists for that event.
 
 It is possible that several different keyboard events may correspond to the same character, and other  keyboard events may correspond to no character.
 
@@ -1627,7 +1652,7 @@ An indefinite delay is a device related condition, such as printer off-line, tha
 
 ##### A.10.6.2.1905 MS 
 
-Although their frequencies vary, every system has a clock. Since many programs need to time intervals, this  word is offered. Use of milliseconds as an internal unit of time is a practical “least common denominator”  external unit. It is assumed implementors will use “clock ticks” (whatever size they are) as an internal unit  and convert as appropriate.
+Although their frequencies vary, every system has a clock. Since many programs need to time intervals, this  word is offered. Use of milliseconds as an internal unit of time is a practical "least common denominator"  external unit. It is assumed implementors will use "clock ticks" (whatever size they are) as an internal unit  and convert as appropriate.
 
 ##### A.10.6.2.2292 TIME&DATE 
 
@@ -1656,7 +1681,7 @@ Many systems reuse file identifiers; when a file is closed, a subsequently opene
 
 Some operating systems require that files be opened in a different mode to access their contents as an  unstructured stream of binary data rather than as a sequence of lines.
 
-The arguments to READ-FILE and WRITE-FILE are arrays of character storage elements, each  element consisting of at least 8 bits. The Technical Committee intends that, in BIN mode, the contents of  these storage elements can be written to a file and later read back without alteration. The Technical  Committee has declined to address issues regarding the impact of “wide” characters on the File and Block  word sets.
+The arguments to `READ-FILE` and `WRITE-FILE` are arrays of character storage elements, each  element consisting of at least 8 bits. The Technical Committee intends that, in BIN mode, the contents of  these storage elements can be written to a file and later read back without alteration. The Technical  Committee has declined to address issues regarding the impact of "wide" characters on the File and Block  word sets.
 
 ##### A.11.6.1.1010 CREATE-FILE 
 
@@ -1668,9 +1693,9 @@ Typical use:
 
 Here are two implementation alternatives for saving the input source specification in the presence of text file  input:  
 
-1) Save the file position (as returned by FILE-POSITION) of the beginning of the line being interpreted. To restore the input source specification, seek to that position and re-read the line into the  input buffer.
+1) Save the file position (as returned by `FILE-POSITION`) of the beginning of the line being interpreted. To restore the input source specification, seek to that position and re-read the line into the  input buffer.
 
-2) Allocate a separate line buffer for each active text input file, using that buffer as the input buffer.  This method avoids the “seek and reread” step, and allows the use of “pseudo-files” such as pipes and  other sequential-access-only communication channels.
+2) Allocate a separate line buffer for each active text input file, using that buffer as the input buffer.  This method avoids the "seek and reread" step, and allows the use of "pseudo-files" such as pipes and  other sequential-access-only communication channels.
 
 ##### A.11.6.1.1718 INCLUDED 
 
@@ -1692,7 +1717,7 @@ A typical sequential file-processing algorithm might look like:
         ...                 ( ) 
     REPEAT                  ( )  
 
-In this example, THROW is used to handle (unexpected) exception conditions, which are reported as non-zero values of the ior return value from READ-FILE. End-of-file is reported as a zero value of the  “length” return value.
+In this example, `THROW` is used to handle (unexpected) exception conditions, which are reported as non-zero values of the ior return value from `READ-FILE`. End-of-file is reported as a zero value of the  "length" return value.
 
 ##### A.11.6.1.2090 READ-LINE 
 
@@ -1708,7 +1733,7 @@ A typical line-oriented sequential file-processing algorithm might look like:
         . . .           ( ) 
     REPEAT DROP         ( )  
 
-In this example, THROW is used to handle (unexpected) I/O exception condition, which are reported as non-zero values of the “ior” return value from READ-LINE.
+In this example, THROW is used to handle (unexpected) I/O exception condition, which are reported as non-zero values of the "ior" return value from READ-LINE.
 
 READ-LINE needs a separate end-of-file flag because empty (zero-length) lines are a routine occurrence,  so a zero-length line cannot be used to signify end-of-file.
 
@@ -1716,31 +1741,34 @@ READ-LINE needs a separate end-of-file flag because empty (zero-length) lines ar
 
 Typical use: ... S" ccc" ...
 
-The interpretation semantics for S" are intended to provide a simple mechanism for entering a string in the  interpretation state. Since an implementation may choose to provide only one buffer for interpreted strings,  an interpreted string is subject to being overwritten by the next execution of S" in interpretation state. It is  intended that no standard words other than S" should in themselves cause the interpreted string to be  overwritten. However, since words such as EVALUATE, LOAD, INCLUDE-FILE and INCLUDED can  result in the interpretation of arbitrary text, possibly including instances of S", the interpreted string may be  invalidated by some uses of these words.
+The interpretation semantics for `S"` are intended to provide a simple mechanism for entering a string in the  interpretation state. Since an implementation may choose to provide only one buffer for interpreted strings,  an interpreted string is subject to being overwritten by the next execution of `S"` in interpretation state. It is  intended that no standard words other than `S"` should in themselves cause the interpreted string to be  overwritten. However, since words such as `EVALUATE`, `LOAD`, `INCLUDE-FILE` and `INCLUDED` can  result in the interpretation of arbitrary text, possibly including instances of `S"`, the interpreted string may be  invalidated by some uses of these words.
 
-When the possibility of overwriting a string can arise, it is prudent to copy the string to a “safe” buffer  allocated by the application.
+When the possibility of overwriting a string can arise, it is prudent to copy the string to a "safe" buffer  allocated by the application.
 
-Programs wishing to parse in the fashion of S" are advised to use PARSE or WORD COUNT instead of S",  preventing the overwriting of the interpreted string buffer.
+Programs wishing to parse in the fashion of `S"` are advised to use `PARSE` or `WORD` `COUNT` instead of `S"`,  preventing the overwriting of the interpreted string buffer.
+
 ## A.12 The optional Floating-Point word set 
 
 The Technical Committee has considered many proposals dealing with the inclusion and makeup of the  Floating-Point Word Sets in ANS Forth. Although it has been argued that ANS Forth should not address  floating-point arithmetic and numerous Forth applications do not need floating-point, there are a growing  number of important Forth applications from spread sheets to scientific computations that require the use of  floating-point arithmetic. Initially the Technical Committee adopted proposals that made the Forth Vendors  Group Floating-Point Standard, first published in 1984, the framework for inclusion of Floating-Point in  ANS Forth. There is substantial common practice and experience with the Forth Vendors Group Floating-Point Standard. Subsequently the Technical Committee adopted proposals that placed the basic floating-point arithmetic, stack and support words in the Floating-Point word set and the floating-point  transcendental functions in the Floating-Point Extensions word set. The Technical Committee also adopted  proposals that:  
 
-– changed names for clarity and consistency; e.g., REALS to FLOATS, and REAL+ to FLOAT+ .
-– removed words; e.g., FPICK .
-– added words for completeness and increased functionality; e.g., FSINCOS, F~, DF@, DF!, SF@ and 
-SF! 
+- changed names for clarity and consistency; e.g., `REALS` to `FLOATS`, and `REAL+` to `FLOAT+` .
+- removed words; e.g., `FPICK` .
+- added words for completeness and increased functionality; e.g., `FSINCOS`, `F~`, `DF@`, `DF!`, `SF@` and `SF!` 
 
 Several issues concerning the Floating-Point word set were resolved by consensus in the Technical  Committee:  
 
-<desc>
+<miniterm>
+
 ||Floating-point stack:||
-By default the floating-point stack is separate from the data and return stacks;  however, an implementation may keep floating-point numbers on the data stack. A program can  determine whether floating-point numbers are kept on the data stack by passing the string FLOATING-STACK to ENVIRONMENT? It is the experience of several members of the Technical Committee that  with proper coding practices it is possible to write floating-point code that will run identically on  systems with a separate floating-point stack and with floating-point numbers kept on the data stack.
+By default the floating-point stack is separate from the data and return stacks;  however, an implementation may keep floating-point numbers on the data stack. A program can  determine whether floating-point numbers are kept on the data stack by passing the string `FLOATING-STACK` to `ENVIRONMENT?` It is the experience of several members of the Technical Committee that  with proper coding practices it is possible to write floating-point code that will run identically on  systems with a separate floating-point stack and with floating-point numbers kept on the data stack.
 
 ||Floating-point input:||
-The current base must be DECIMAL. Floating-point input is not allowed in an  arbitrary base. All floating-point numbers to be interpreted by an ANS Forth system must contain the  exponent indicator “E” (see 12.3.7 Text interpreter input number conversion). Consensus in the  Technical Committee deemed this form of floating-point input to be in more common use than the  alternative that would have a floating-point input mode that would allow numbers with embedded  decimal points to be treated as floating-point numbers.
+The current base must be `DECIMAL`. Floating-point input is not allowed in an  arbitrary base. All floating-point numbers to be interpreted by an ANS Forth system must contain the  exponent indicator "E" (see **12.3.7  Text interpreter input number conversion**). Consensus in the  Technical Committee deemed this form of floating-point input to be in more common use than the  alternative that would have a floating-point input mode that would allow numbers with embedded  decimal points to be treated as floating-point numbers.
 
 ||Floating-point representation:||
-Although the format and precision of the significand and the format and  range of the exponent of a floating-point number are implementation defined in ANS Forth, the  Floating-Point Extensions word set contains the words DF@, SF@, DF!, and SF! for fetching and  storing double- and single-precision IEEE floating-point-format numbers to memory. The IEEE  floating-point format is commonly used by numeric math co-processors and for exchange of floating-point data between programs and systems.
+Although the format and precision of the significand and the format and  range of the exponent of a floating-point number are implementation defined in ANS Forth, the  Floating-Point Extensions word set contains the words `DF@`, `SF@`, `DF!`, and `SF!` for fetching and  storing double- and single-precision IEEE floating-point-format numbers to memory. The IEEE  floating-point format is commonly used by numeric math co-processors and for exchange of floating-point data between programs and systems.
+
+</miniterm>
 
 ### A.12.3 Additional usage requirements 
 
@@ -1776,31 +1804,31 @@ Typical use: r FCONSTANT name
 
 ##### A.12.6.1.1552 FLITERAL 
 
-Typical use: : X ... [ ... ( r ) ] FLITERAL ... ; 
+Typical use: : `X ... [ ... ( r ) ] FLITERAL ... ;` 
 
 ##### A.12.6.1.1630 FVARIABLE 
 
-Typical use: FVARIABLE name 
+Typical use: `FVARIABLE name` 
 
 ##### A.12.6.1.2143 REPRESENT 
 
-This word provides a primitive for floating-point display. Some floating-point formats, including those  specified by IEEE-754, allow representations of numbers outside of an implementation-defined range.  These include plus and minus infinities, denormalized numbers, and others. In these cases we expect that  REPRESENT will usually be implemented to return appropriate character strings, such as “+infinity” or  “nan”, possibly truncated.
+This word provides a primitive for floating-point display. Some floating-point formats, including those  specified by IEEE-754, allow representations of numbers outside of an implementation-defined range.  These include plus and minus infinities, denormalized numbers, and others. In these cases we expect that  REPRESENT will usually be implemented to return appropriate character strings, such as "+infinity" or  "nan", possibly truncated.
 
 ##### A.12.6.2.1489 FATAN2 
 
-FSINCOS and FATAN2 are a complementary pair of operators which convert angles to 2-vectors and vice-versa. They are essential to most geometric and physical applications since they correctly and  unambiguously handle this conversion in all cases except null vectors, even when the tangent of the angle  would be infinite.
+`FSINCOS` and `FATAN2` are a complementary pair of operators which convert angles to 2-vectors and vice-versa. They are essential to most geometric and physical applications since they correctly and  unambiguously handle this conversion in all cases except null vectors, even when the tangent of the angle  would be infinite.
 
-FSINCOS returns a Cartesian unit vector in the direction of the given angle, measured counter-clockwise  from the positive X-axis. The order of results on the stack, namely y underneath x, permits the 2-vector  data type to be additionally viewed and used as a ratio approximating the tangent of the angle. Thus the  phrase FSINCOS F/ is functionally equivalent to FTAN, but is useful over only a limited and  discontinuous range of angles, whereas FSINCOS and FATAN2 are useful for all angles. This ordering has  been found convenient for nearly two decades, and has the added benefit of being easy to remember. A  corollary to this observation is that vectors in general should appear on the stack in this order.
+FSINCOS returns a Cartesian unit vector in the direction of the given angle, measured counter-clockwise  from the positive X-axis. The order of results on the stack, namely y underneath x, permits the 2-vector  data type to be additionally viewed and used as a ratio approximating the tangent of the angle. Thus the  phrase `FSINCOS` `F/` is functionally equivalent to `FTAN`, but is useful over only a limited and  discontinuous range of angles, whereas `FSINCOS` and `FATAN2` are useful for all angles. This ordering has  been found convenient for nearly two decades, and has the added benefit of being easy to remember. A  corollary to this observation is that vectors in general should appear on the stack in this order.
 
-The argument order for FATAN2 is the same, converting a vector in the conventional representation to a  scalar angle. Thus, for all angles, FSINCOS FATAN2 is an identity within the accuracy of the arithmetic  and the argument range of FSINCOS. Note that while FSINCOS always returns a valid unit vector,  FATAN2 will accept any non-null vector. An ambiguous condition exists if the vector argument to FATAN2 has zero magnitude.
+The argument order for `FATAN2` is the same, converting a vector in the conventional representation to a  scalar angle. Thus, for all angles, `FSINCOS` `FATAN2` is an identity within the accuracy of the arithmetic  and the argument range of `FSINCOS`. Note that while `FSINCOS` always returns a valid unit vector,  `FATAN2` will accept any non-null vector. An ambiguous condition exists if the vector argument to `FATAN2` has zero magnitude.
 
 ##### A.12.6.2.1516 FEXPM1 
 
-This function allows accurate computation when its arguments are close to zero, and provides a useful base  for the standard exponential functions. Hyperbolic functions such as cosh(x) can be efficiently and  accurately implemented by using FEXPM1; accuracy is lost in this function for small values of x if the word  FEXP is used.
+This function allows accurate computation when its arguments are close to zero, and provides a useful base  for the standard exponential functions. Hyperbolic functions such as cosh(x) can be efficiently and  accurately implemented by using `FEXPM1`; accuracy is lost in this function for small values of x if the word  `FEXP` is used.
 
 An important application of this word is in finance; say a loan is repaid at 15% per year; what is the daily  rate? On a computer with single precision (six decimal digit) accuracy:  
 
-1. Using FLN and FEXP: 
+1. Using `FLN` and `FEXP`: 
 
     FLN of 1.15 = 0.139762,  
     divide by 365 = 3.82910E-4,  
@@ -1809,7 +1837,7 @@ An important application of this word is in finance; say a loan is repaid at 15%
 
 Thus we only have two digit accuracy.
 
-2. Using FLNP1 and FEXPM1: 
+2. Using `FLNP1` and `FEXPM1`: 
 
     FLNP1 of 0.15 = 0.139762, (this is the same value as in the first example, although with the argument  closer to zero it may not be so)  
     divide by 365 = 3.82910E-4,  
@@ -1829,39 +1857,39 @@ This function allows accurate compilation when its arguments are close to zero, 
 
     : FLN 1.0E0 F- FLNP1 ; 
 
-See: A.12.6.2.1516 FEXPM1.
+**See: A.12.6.2.1516 FEXPM1**.
 
 ##### A.12.6.2.1616 FSINCOS 
 
-See: A.12.6.2.1489 FATAN2.
+See: **A.12.6.2.1489 FATAN2**.
 
 ##### A.12.6.2.1640 F~ 
 
-This provides the three types of “floating point equality” in common use -- “close” in absolute terms, exact  equality as represented, and “relatively close”.
+This provides the three types of "floating point equality" in common use -- "close" in absolute terms, exact  equality as represented, and "relatively close".
 
 ## A.13 The optional Locals word set 
 
 The Technical Committee has had a problem with locals. It has been argued forcefully that ANS Forth  should say nothing about locals since:  
 
-– there is no clear accepted practice in this area; 
-– not all Forth programmers use them or even know what they are; and 
-– few implementations use the same syntax, let alone the same broad usage rules and general approaches.
+- there is no clear accepted practice in this area; 
+- not all Forth programmers use them or even know what they are; and 
+- few implementations use the same syntax, let alone the same broad usage rules and general approaches.
 
-It has also been argued, it would seem equally forcefully, that the lack of any standard approach to locals is  precisely the reason for this lack of accepted practice since locals are at best non-trivial to implement in a  portable and useful way. It has been further argued that users who have elected to become dependent on  locals tend to be locked into a single vendor and have little motivation to join the group that it is hoped will  “broadly accept” ANS Forth unless the Standard addresses their problems.
+It has also been argued, it would seem equally forcefully, that the lack of any standard approach to locals is  precisely the reason for this lack of accepted practice since locals are at best non-trivial to implement in a  portable and useful way. It has been further argued that users who have elected to become dependent on  locals tend to be locked into a single vendor and have little motivation to join the group that it is hoped will  "broadly accept" ANS Forth unless the Standard addresses their problems.
 
 Since the Technical Committee has been unable to reach a strong consensus on either leaving locals out or  on adopting any particular vendor’s syntax, it has sought some way to deal with an issue that it has been  unable to simply dismiss. Realizing that no single mechanism or syntax can simultaneously meet the desires  expressed in all the locals proposals that have been received, it has simplified the problem statement to be to  define a locals mechanism that:  
 
-– is independent of any particular syntax; 
-– is user extensible; 
-– enables use of arbitrary identifiers, local in scope to a single definition; 
-– supports the fundamental cell size data types of Forth; and 
-– works consistently, especially with respect to re-entrancy and recursion.
+- is independent of any particular syntax; 
+- is user extensible; 
+- enables use of arbitrary identifiers, local in scope to a single definition; 
+- supports the fundamental cell size data types of Forth; and 
+- works consistently, especially with respect to re-entrancy and recursion.
 
 This appears to the Technical Committee to be what most of those who actively use locals are trying to  achieve with them, and it is at present the consensus of the Technical Committee that if ANS Forth has  anything to say on the subject this is an acceptable thing for it to say.
 
-This approach, defining (LOCAL), is proposed as one that can be used with a small amount of user coding  to implement some, but not all, of the locals schemes in use. The following coding examples illustrate how  it can be used to implement two syntaxes.
+This approach, defining `(LOCAL)`, is proposed as one that can be used with a small amount of user coding  to implement some, but not all, of the locals schemes in use. The following coding examples illustrate how  it can be used to implement two syntaxes.
 
-– The syntax defined by this Standard and used in the systems of Creative Solutions, Inc.: 
+- The syntax defined by this Standard and used in the systems of Creative Solutions, Inc.: 
 
     : LOCALS| ( "name...name |" -- ) 
         BEGIN 
@@ -1873,7 +1901,7 @@ This approach, defining (LOCAL), is proposed as one that can be used with a smal
     : EXAMPLE ( n -- n**2 n**3 ) 
         LOCALS| N | N DUP N * DUP N * ; 
 
-– A proposed syntax: ( LOCAL name ) with additional usage rules: 
+- A proposed syntax: ( LOCAL name ) with additional usage rules: 
 
     : LOCAL ( "name" -- ) BL WORD COUNT (LOCAL) ; IMMEDIATE 
     : END-LOCALS ( -- ) 0 0 (LOCAL) ; IMMEDIATE 
@@ -1900,7 +1928,7 @@ b) : JOE ( a b c -- n )
 
 c) 100 300 10 JOE .
 
-The word { at a) defines a local declaration syntax that surrounds the list of locals with braces. It doesn’t  do anything fancy, such as reordering locals or providing initial values for some of them, so locals are  initialized from the stack in the default order. The definition of JOE at b) illustrates a use of this syntax.  Note that work is performed at execution time in that definition before locals are declared. It’s OK to use  the return stack as long as whatever is placed there is removed before the declarations begin.
+The word \{ at a) defines a local declaration syntax that surrounds the list of locals with braces. It doesn’t  do anything fancy, such as reordering locals or providing initial values for some of them, so locals are  initialized from the stack in the default order. The definition of JOE at b) illustrates a use of this syntax.  Note that work is performed at execution time in that definition before locals are declared. It’s OK to use  the return stack as long as whatever is placed there is removed before the declarations begin.
 
 Note that before declaring locals, B is doubled, a subexpression (2B+C) is computed, and an initial value (zero) for ANS is provided. After locals have been declared, JOE proceeds to use them. Note that locals may be accessed and updated within do-loops. The effect of interpreting line c) is to display the following  values:  
 
@@ -1915,12 +1943,16 @@ A second set of examples illustrates various things that break the rules. We ass
 
 d) : ZERO 0 POSTPONE LITERAL POSTPONE LOCAL ; IMMEDIATE  
 
-e) : MOE ( a b )  f) : BOB ( a b c d ) { D C } { B A } ;  
+e) : MOE ( a b )  
         ZERO TEMP LOCAL B 1+ LOCAL A+ ZERO ANSWER ; 
 
+f) : BOB ( a b c d ) \{ D C } \{ B A } ;  
+
 Here are two definitions with various violations of rule 13.3.3.2a. In e) the declaration of TEMP is legal and  creates a local whose initial value is zero. It’s OK because the executable code that ZERO generates  precedes the first use of (LOCAL) in the definition. However, the 1+ preceding the declaration of A+ is  illegal. Likewise the use of ZERO to define ANSWER is illegal because it generates executable code  between uses of (LOCAL). Finally, MOE terminates illegally (no END-LOCALS). BOB inf) violates the  rule against declaring two sets of locals.
-g) : ANN ( a b -- b ) DUP >R DUP IF { B A } THEN R> ;  
-h) : JANE ( a b -- n ) { B A } A B + >R A B - R> / ;  
+
+g) : ANN ( a b -- b ) DUP >R DUP IF \{ B A } THEN R> ;  
+
+h) : JANE ( a b -- n ) \{ B A } A B + >R A B - R> / ;  
 
 ANN in g) violates two rules. The IF ... THEN around the declaration of its locals violates 13.3.3.2b, and  the copy of B left on the return stack before declaring locals violates 13.3.3.2c. JANE in h) violates  13.3.3.2d by accessing locals after placing the sum of A and B on the return stack without first removing that sum.
 
@@ -1949,13 +1981,14 @@ Access to Locals within DO..LOOPs is expressly permitted as an additional requir
 
 ##### A.13.6.1.2295 TO 
 
-Typical use: x TO name 
+Typical use: `x TO name` 
 
-See: A.6.2.2295 TO.
+See: **A.6.2.2295 TO**.
 
 ##### A.13.6.2.1795 LOCALS| 
 
 A possible implementation of this word and an example of usage is given in A.13, above. It is intended as  an example only; any implementation yielding the described semantics is acceptable.
+
 ## A.14 The optional Memory-Allocation word set 
 
 The Memory-Allocation word set provides a means for acquiring memory other than the contiguous data  space that is allocated by ALLOT. In many operating system environments it is inappropriate for a process  to pre-allocate large amounts of contiguous memory (as would be necessary for the use of ALLOT). The  Memory-Allocation word set can acquire memory from the system at any time, without knowing in advance  the address of the memory that will be acquired.
@@ -1968,27 +2001,27 @@ Although there are environmental dependencies intrinsic to programs using an ass
 
 Similarly, the programming aids DUMP, etc., are valuable tools even though their specific formats will differ  between CPUs and Forth implementations. These words are primarily intended for use by the programmer,  and are rarely invoked in programs.
 
-One of the original aims of Forth was to erase the boundary between “user” and “programmer” – to give all  possible power to anyone who had occasion to use a computer. Nothing in the above labeling or remarks  should be construed to mean that this goal has been abandoned.
+One of the original aims of Forth was to erase the boundary between "user" and "programmer" - to give all  possible power to anyone who had occasion to use a computer. Nothing in the above labeling or remarks  should be construed to mean that this goal has been abandoned.
 
 ### A.15.6 Glossary 
 
 ##### A.15.6.1.0220 .S 
 
-.S is a debugging convenience found on almost all Forth systems. It is universally mentioned in Forth texts.
+`.S` is a debugging convenience found on almost all Forth systems. It is universally mentioned in Forth texts.
 
 ##### A.15.6.1.2194 SEE 
 
-SEE acts as an on-line form of documentation of words, allowing modification of words by decompiling  and regenerating with appropriate changes.
+`SEE` acts as an on-line form of documentation of words, allowing modification of words by decompiling  and regenerating with appropriate changes.
 
 ##### A.15.6.1.2465 WORDS 
 
-WORDS is a debugging convenience found on almost all Forth systems. It is universally referred to in Forth  texts.
+`WORDS` is a debugging convenience found on almost all Forth systems. It is universally referred to in Forth  texts.
 
 ##### A.15.6.2.0470 ;CODE 
 
-Typical use: : namex ... <create> ... ;CODE ...
+Typical use: : namex ... &lt;create> ... ;CODE ...
 
-where namex is a defining word, and <create> is CREATE or any user defined word that calls CREATE.
+where namex is a defining word, and &lt;create> is CREATE or any user defined word that calls `CREATE`.
 
 ##### A.15.6.2.0930 CODE 
 
@@ -2041,9 +2074,9 @@ Typical use: ... flag [IF] ... [ELSE] ... [THEN] ...
 
 Typical use: ... flag [IF] ... [ELSE] ... [THEN] ...
 
-Software that runs in several system environments often contains some source code that is environmentally  dependent. Conditional compilation – the selective inclusion or exclusion of portions of the source code at  compile time – is one technique that is often used to assist in the maintenance of such source code.
+Software that runs in several system environments often contains some source code that is environmentally  dependent. Conditional compilation - the selective inclusion or exclusion of portions of the source code at  compile time - is one technique that is often used to assist in the maintenance of such source code.
 
-Conditional compilation is sometimes done with “smart comments” – definitions that either skip or do not  skip the remainder of the line based on some test. For example:  
+Conditional compilation is sometimes done with "smart comments" - definitions that either skip or do not  skip the remainder of the line based on some test. For example:  
 
     \ If 16-Bit? contains TRUE, lines preceded by 16BIT\ 
     \ will be skipped. Otherwise, they will not be skipped.
@@ -2083,13 +2116,13 @@ More complicated conditional compilation problems suggest a nestable method that
 
 Search-order specification and control mechanisms vary widely. The FIG-Forth, Forth-79, polyFORTH,  and Forth-83 vocabulary and search order mechanisms are all mutually incompatible. The complete list of  incompatible mechanisms, in use or proposed, is much longer. The ALSO/ONLY scheme described in a  Forth-83 Experimental Proposal has substantial community support. However, many consider it to be  fundamentally flawed, and oppose it vigorously.
 
-Recognizing this variation, this Standard specifies a new “primitive” set of tools from which various  schemes may be constructed. This primitive search-order word set is intended to be a portable  “construction set” from which search-order words may be built, rather than a user interface. ALSO/ONLY or the various “vocabulary” schemes supported by the major Forth vendors can be defined in terms of the  primitive search-order word set.
+Recognizing this variation, this Standard specifies a new "primitive" set of tools from which various  schemes may be constructed. This primitive search-order word set is intended to be a portable  "construction set" from which search-order words may be built, rather than a user interface. ALSO/ONLY or the various "vocabulary" schemes supported by the major Forth vendors can be defined in terms of the  primitive search-order word set.
 
 The encoding for word list identifiers wid might be a small-integer index into an array of word-list  definition records, the data-space address of such a record, a user-area offset, the execution token of a  Forth-83 style sealed vocabulary, the link-field address of the first definition in a word list, or anything else.  It is entirely up to the system implementor.
 
-In some systems the interpretation of numeric literals is controlled by including “pseudo word lists” that  recognize numbers at the end of the search order. This technique is accommodated by the “default search  order” behavior of SET-ORDER when given an argument of -1. In a system using the traditional  implementation of ALSO/ONLY , the minimum search order would be equivalent to the word ONLY.
+In some systems the interpretation of numeric literals is controlled by including "pseudo word lists" that  recognize numbers at the end of the search order. This technique is accommodated by the "default search  order" behavior of SET-ORDER when given an argument of -1. In a system using the traditional  implementation of ALSO/ONLY , the minimum search order would be equivalent to the word ONLY.
 
-There has never been a portable way to restore a saved search order. F83 (not Forth 83) introduced the  word PREVIOUS , which almost made it possible to “unload” the search order by repeatedly executing the  phrase CONTEXT @ PREVIOUS. The search order could be “reloaded” by repeating ALSO CONTEXT  !. Unfortunately there was no portable way to determine how many word lists were in the search order.
+There has never been a portable way to restore a saved search order. F83 (not Forth 83) introduced the  word PREVIOUS , which almost made it possible to "unload" the search order by repeatedly executing the  phrase CONTEXT @ PREVIOUS. The search order could be "reloaded" by repeating ALSO CONTEXT  !. Unfortunately there was no portable way to determine how many word lists were in the search order.
 
 ANS Forth has removed the word CONTEXT because in many systems its contents refer to more than one  word list, compounding portability problems.
 
@@ -2101,7 +2134,7 @@ Note that : (colon) no longer affects the search order. The previous behavior, w
 
 <term>
 ||search order||
-Note that the use of the term “list” does not necessarily imply implementation as a linked list.
+Note that the use of the term "list" does not necessarily imply implementation as a linked list.
 </term>
 
 #### A.16.3.3 Finding definition names 
@@ -2145,7 +2178,7 @@ Here is an implementation of ALSO/ONLY in terms of the primitive search-order wo
     \ F83 and F-PC version; leaves only CONTEXT 
     : SEAL ( -- ) GET-ORDER OVER 1 SET-ORDER DISCARD ; 
 
-The preceding definition of ONLY in terms of a “ROOT” word list follows F83 usage, and assumes that the  default search order just includes ROOT and FORTH. A more portable definition of FORTH and ONLY,  without the assumptions, is:  
+The preceding definition of ONLY in terms of a "ROOT" word list follows F83 usage, and assumes that the  default search order just includes ROOT and FORTH. A more portable definition of FORTH and ONLY,  without the assumptions, is:  
 
     <omit the ... WORDLIST CONSTANT ROOT ... line> 
     CREATE FORTH GET-ORDER OVER , DISCARD DO-VOCABULARY  
@@ -2191,15 +2224,15 @@ In an implementation where the dictionary search mechanism uses a hash table or 
 
 ##### A.17.6.1.0245 /STRING 
 
-/STRING is used to remove or add characters relative to the “left” end of the character string. Positive values of n will exclude characters from the string while negative values of n will include characters to the  left of the string. /STRING is a natural factor of WORD and commonly available.
+/STRING is used to remove or add characters relative to the "left" end of the character string. Positive values of n will exclude characters from the string while negative values of n will include characters to the  left of the string. /STRING is a natural factor of WORD and commonly available.
 
 ##### A.17.6.1.0910 CMOVE 
 
 If c-addr2 lies within the source region (i.e., when c-addr2 is not less than c-addr1 and c-addr2 is less than  the quantity c-addr1 u CHARS +), memory propagation occurs.
 
-Typical use: Assume a character string at address 100: “ABCD”. Then after  
+Typical use: Assume a character string at address 100: "ABCD". Then after  
 
-    100 DUP CHAR+ 3 CMOVE the string at address 100 is “AAAA”.
+    100 DUP CHAR+ 3 CMOVE the string at address 100 is "AAAA".
 
 Rationale for CMOVE and CMOVE> follows MOVE.
 
@@ -2207,9 +2240,9 @@ Rationale for CMOVE and CMOVE> follows MOVE.
 
 If c-addr1 lies within the destination region (i.e., when c-addr1 is greater than or equal to c-addr2 and c-addr2 is less than the quantity c-addr1 u CHARS +), memory propagation occurs.
 
-Typical use: Assume a character string at address 100: “ABCD”. Then after   
+Typical use: Assume a character string at address 100: "ABCD". Then after   
 
-    100 DUP CHAR+ SWAP 3 CMOVE> the string at address 100 is “DDDD”.
+    100 DUP CHAR+ SWAP 3 CMOVE> the string at address 100 is "DDDD".
 
 ##### A.17.6.1.0935 COMPARE 
 
@@ -2221,7 +2254,7 @@ Existing Forth systems perform string searching operations using words that diff
 
 ##### A.17.6.1.2212 SLITERAL 
 
-The current functionality of 6.1.2165 S" may be provided by the following definition:  
+The current functionality of **6.1.2165  S"** may be provided by the following definition:  
 
     : S" ( "ccc<quote>" -- ) 
         [CHAR] " PARSE POSTPONE SLITERAL 
@@ -2287,20 +2320,20 @@ Ting, Dr. C. H., editor. More on Forth Engines. San Mateo, CA: Offete Enterprise
 
 ## Selected articles  
 
-Hayes, J.R. “Postpone” Proceedings of the 1989 Rochester Forth Conference. Rochester, New York:  Institute for Applied Forth Research, 1989.
+Hayes, J.R. "Postpone" Proceedings of the 1989 Rochester Forth Conference. Rochester, New York:  Institute for Applied Forth Research, 1989.
 
-Kelly, Guy M. “Forth.” McGraw-Hill Personal Computer Programming Encyclopedia – Languages and Operation Systems. New York: McGraw-Hill, 1985.
+Kelly, Guy M. "Forth." McGraw-Hill Personal Computer Programming Encyclopedia - Languages and Operation Systems. New York: McGraw-Hill, 1985.
 
-Kogge, P. M. “An Architectural Trail to Threaded Code Systems.” IEEE Computer (March, 1982).
+Kogge, P. M. "An Architectural Trail to Threaded Code Systems." IEEE Computer (March, 1982).
 
-Moore, C. H. “The Evolution of FORTH – An Unusual Language.” Byte (August 1980).
+Moore, C. H. "The Evolution of FORTH - An Unusual Language." Byte (August 1980).
 
-Rather, E. D. “Forth Programming Language.” Encyclopedia of Physical Science & Technology (Vol. 5).
+Rather, E. D. "Forth Programming Language." Encyclopedia of Physical Science & Technology (Vol. 5).
 New York: Academic Press, 1987.
 
-Rather, E. D. “FORTH.” Computer Programming Management. Auerbach Publishers, Inc., 1985.
+Rather, E. D. "FORTH." Computer Programming Management. Auerbach Publishers, Inc., 1985.
 
-Rather, E. D.; Colburn, D. R.; Moore, C. H. “The Evolution of FORTH.” ACM SIGPLAN Notices.
+Rather, E. D.; Colburn, D. R.; Moore, C. H. "The Evolution of FORTH." ACM SIGPLAN Notices.
 (Vol. 28, No. 3, March 1993).
 # C. Perspective (informative annex)  
 
@@ -2310,19 +2343,19 @@ The purpose of this section is to provide an informal overview of Forth as a lan
 
 Forth provides an interactive programming environment. Its primary uses have been in scientific and  industrial applications such as instrumentation, robotics, process control, graphics and image processing,  artificial intelligence and business applications. The principal advantages of Forth include rapid, interactive  software development and efficient use of computer hardware.
 Forth is often spoken of as a language because that is its most visible aspect. But in fact, Forth is both more  and less than a conventional programming language: more in that all the capabilities normally associated  with a large portfolio of separate programs (compilers, editors, etc.) are included within its range and less in  that it lacks (deliberately) the complex syntax characteristic of most high-level languages.
-The original implementations of Forth were stand-alone systems that included functions normally performed  by separate operating systems, editors, compilers, assemblers, debuggers and other utilities. A single  simple, consistent set of rules governed this entire range of capabilities. Today, although very fast standalone versions are still marketed for many processors, there are also many versions that run co-resident with  conventional operating systems such as MS-DOS and UNIX.
+The original implementations of Forth were stand-alone systems that included functions normally performed  by separate operating systems, editors, compilers, assemblers, debuggers and other utilities. A single  simple, consistent set of rules governed this entire range of capabilities. Today, although very fast stand-alone versions are still marketed for many processors, there are also many versions that run co-resident with  conventional operating systems such as MS-DOS and UNIX.
 Forth is not derived from any other language. As a result, its appearance and internal characteristics may  seem unfamiliar to new users. But Forth’s simplicity, extreme modularity, and interactive nature offset the  initial strangeness, making it easy to learn and use. A new Forth programmer must invest some time  mastering its large command repertoire. After a month or so of full-time use of Forth, that programmer  could understand more of its internal working than is possible with conventional operating systems and  compilers.
-The most unconventional feature of Forth is its extensibility. The programming process in Forth consists of  defining new “words” – actually new commands in the language. These may be defined in terms of  previously defined words, much as one teaches a child concepts by explaining them in terms of previously  understood concepts. Such words are called “high-level definitions”. Alternatively, new words may also be  defined in assembly code, since most Forth implementations include an assembler for the host processor.
+The most unconventional feature of Forth is its extensibility. The programming process in Forth consists of  defining new "words" - actually new commands in the language. These may be defined in terms of  previously defined words, much as one teaches a child concepts by explaining them in terms of previously  understood concepts. Such words are called "high-level definitions". Alternatively, new words may also be  defined in assembly code, since most Forth implementations include an assembler for the host processor.
 This extensibility facilitates the development of special application languages for particular problem areas  or disciplines.
 Forth’s extensibility goes beyond just adding new commands to the language. With equivalent ease, one  can also add new kinds of words. That is, one may create a word which itself will define words. In creating  such a defining word the programmer may specify a specialized behavior for the words it will create which  will be effective at compile time, at run-time, or both. This capability allows one to define specialized data  types, with complete control over both structure and behavior. Since the run-time behavior of such words  may be defined either in high-level or in code, the words created by this new defining word are equivalent to  all other kinds of Forth words in performance. Moreover, it is even easy to add new compiler directives to  implement special kinds of loops or other control structures.
-Most professional implementations of Forth are written in Forth. Many Forth systems include a “metacompiler” which allows the user to modify the internal structure of the Forth system itself.
+Most professional implementations of Forth are written in Forth. Many Forth systems include a "meta-compiler" which allows the user to modify the internal structure of the Forth system itself.
 
 ## C.2 History of Forth 
 
 Forth was invented by Charles H. Moore. A direct outgrowth of Moore’s work in the 1960’s, the first  program to be called Forth was written in about 1970. The first complete implementation was used in 1971  at the National Radio Astronomy Observatory’s 11-meter radio telescope in Arizona. This system was  responsible for pointing and tracking the telescope, collecting data and recording it on magnetic tape, and  supporting an interactive graphics terminal on which an astronomer could analyze previously recorded data.
-The multi-tasking nature of the system allowed all these functions to be performed concurrently, without  timing conflicts or other interference – a very advanced concept for that time.
+The multi-tasking nature of the system allowed all these functions to be performed concurrently, without  timing conflicts or other interference - a very advanced concept for that time.
 The system was so useful that astronomers from all over the world began asking for copies. Its use spread  rapidly, and in 1976 Forth was adopted as a standard language by the International Astronomical Union.
-In 1973, Moore and colleagues formed FORTH, Inc. to explore commercial uses of the language. FORTH,  Inc. developed multi-user versions of Forth on minicomputers for diverse projects ranging from data bases  to scientific applications such as image processing. In 1977, FORTH, Inc. developed a version for the  newly introduced 8-bit microprocessors called “microFORTH”, which was successfully used in embedded  microprocessor applications in the United States, Britain and Japan.
+In 1973, Moore and colleagues formed FORTH, Inc. to explore commercial uses of the language. FORTH,  Inc. developed multi-user versions of Forth on minicomputers for diverse projects ranging from data bases  to scientific applications such as image processing. In 1977, FORTH, Inc. developed a version for the  newly introduced 8-bit microprocessors called "microFORTH", which was successfully used in embedded  microprocessor applications in the United States, Britain and Japan.
 Stimulated by the volume marketing of microFORTH, a group of computer hobbyists in Northern California  became interested in Forth, and in 1978 formed the Forth Interest Group (FIG). They developed a  simplified model which they implemented on several microprocessors and published listings and disks at  very low cost. Interest in Forth spread rapidly, and today there are chapters of the Forth Interest Group  throughout the U.S. and in over fifteen countries.
 By 1980, a number of new Forth vendors had entered the market with versions of Forth based upon the FIG  model. Primarily designed for personal computers, these relatively inexpensive Forth systems have been  distributed very widely.
 
@@ -2340,20 +2373,20 @@ Encouraged by the widespread acceptance of Forth 83, a group of users and vendor
 
 ## C.5 Programming in Forth 
 
-Forth is an English-like language whose elements (called “words”) are named data items, procedures, and  defining words capable of creating data items with customized characteristics. Procedures and defining  words may be defined in terms of previously defined words or in machine code, using an embedded  assembler.
-Forth “words” are functionally analogous to subroutines in other languages. They are also equivalent to  commands in other languages – Forth blurs the distinction between linguistic elements and functional  elements.
-Words are referred to either from the keyboard or in program source by name. As a result, the term “word”  is applied both to program (and linguistic) units and to their text names. In parsing text, Forth considers a  word to be any string of characters bounded by spaces. There are a few special characters that cannot be  included in a word or start a word: space (the universal delimiter), CR (which ends terminal input), and  backspace or DEL (for backspacing during keyboard input). Many groups adopt naming conventions to  improve readability. Words encountered in text fall into three categories: defined words (i.e., Forth  routines), numbers, and undefined words. For example, here are four words:  HERE DOES> ! 8493  The first three are standard-defined words. This means that they have entries in Forth’s dictionary,  described below, explaining what Forth is to do when these words are encountered. The number “8493”  will presumably not be found in the dictionary, and Forth will convert it to binary and place it on its pushdown stack for parameters. When Forth encounters an undefined word and cannot convert it to a number,  the word is returned to the user with an exception message.
-Architecturally, Forth words adhere strictly to the principles of “structured programming”:  – Words must be defined before they are used.
-– Logical flow is restricted to sequential, conditional, and iterative patterns. Words are included to 
+Forth is an English-like language whose elements (called "words") are named data items, procedures, and  defining words capable of creating data items with customized characteristics. Procedures and defining  words may be defined in terms of previously defined words or in machine code, using an embedded  assembler.
+Forth "words" are functionally analogous to subroutines in other languages. They are also equivalent to  commands in other languages - Forth blurs the distinction between linguistic elements and functional  elements.
+Words are referred to either from the keyboard or in program source by name. As a result, the term "word"  is applied both to program (and linguistic) units and to their text names. In parsing text, Forth considers a  word to be any string of characters bounded by spaces. There are a few special characters that cannot be  included in a word or start a word: space (the universal delimiter), CR (which ends terminal input), and  backspace or DEL (for backspacing during keyboard input). Many groups adopt naming conventions to  improve readability. Words encountered in text fall into three categories: defined words (i.e., Forth  routines), numbers, and undefined words. For example, here are four words:  HERE DOES> ! 8493  The first three are standard-defined words. This means that they have entries in Forth’s dictionary,  described below, explaining what Forth is to do when these words are encountered. The number "8493"  will presumably not be found in the dictionary, and Forth will convert it to binary and place it on its push-down stack for parameters. When Forth encounters an undefined word and cannot convert it to a number,  the word is returned to the user with an exception message.
+Architecturally, Forth words adhere strictly to the principles of "structured programming":  - Words must be defined before they are used.
+- Logical flow is restricted to sequential, conditional, and iterative patterns. Words are included to 
 implement the most useful program control structures.
-– The programmer works with many small, independent modules (words) for maximum testability and 
+- The programmer works with many small, independent modules (words) for maximum testability and 
 reliability.
 Forth is characterized by five major elements: a dictionary, two push-down stacks, interpreters, an  assembler, and virtual storage. Although each of these may be found in other systems, the combination  produces a synergy that yields a powerful and flexible system.
 
 ### C.5.1 The Forth dictionary 
 
 A Forth program is organized into a dictionary that occupies most of the memory used by the system. This  dictionary is a threaded list of variable-length items, each of which defines a word. The content of each  definition depends upon the type of word (data item, constant, sequence of operations, etc.). The dictionary  is extensible, usually growing toward high memory. On some multi-user systems individual users have  private dictionaries, each of which is connected to a shared system dictionary.
-Words are added to the dictionary by “defining words”, of which the most commonly used is : (colon).
+Words are added to the dictionary by "defining words", of which the most commonly used is : (colon).
  the 
 : RECEIVE ( -- addr n ) PAD DUP 32 ACCEPT ; 
  
@@ -2368,14 +2401,14 @@ Forth maintains two push-down stacks, or LIFO lists. These provide communication
 Stacks are of indefinite size, and usually grow towards low memory.
 Although the structure of both stacks is the same, they have very different uses. The user interacts most  directly with the Data Stack, which contains arguments passed between words. This function replaces the  calling sequences used by conventional languages. It is efficient internally, and makes routines intrinsically  re-entrant. The second stack is called the Return Stack, as its main function is to hold return addresses for  nested definitions, although other kinds of data are sometimes kept there temporarily.
 100 SAMPLES 
-The use of the Data Stack (often called just “the stack”) leads to a notation in which operands precede  operators. The word ACCEPT in the example above took an address and count from the stack and left  another address there. Similarly, a word called BLANK expects an address and count, and will place the  specified number of space characters (20H) in the region starting at that address. Thus,  PAD 25 BLANK  will fill the scratch region whose address is pushed on the stack by PAD with 25 spaces. Application words  are usually defined to work similarly. For example,  might be defined to record 100 measurements in a data array.
+The use of the Data Stack (often called just "the stack") leads to a notation in which operands precede  operators. The word ACCEPT in the example above took an address and count from the stack and left  another address there. Similarly, a word called BLANK expects an address and count, and will place the  specified number of space characters (20H) in the region starting at that address. Thus,  PAD 25 BLANK  will fill the scratch region whose address is pushed on the stack by PAD with 25 spaces. Application words  are usually defined to work similarly. For example,  might be defined to record 100 measurements in a data array.
 Arithmetic operators also expect values and leave results on the stack. For example, + adds the top two  numbers on the stack, replacing them both by their sum. Since results of operations are left on the stack,  operations may be strung together without a need to define variables to use for temporary storage.
 
 ### C.5.3 Interpreters 
 
 Forth is traditionally an interpretive system, in that program execution is controlled by data items rather than  machine code. Interpreters can be slow, but Forth maintains the high speed required of real-time  applications by having two levels of interpretation.
 The first is the text interpreter, which parses strings from the terminal or mass storage and looks each word  up in the dictionary. When a word is found it is executed by invoking the second level, the address  interpreter.
-The second is an “address interpreter”. Although not all Forth systems are implemented in this way, it was  the first and is still the primary implementation technology. For a small cost in performance, an address  interpreter can yield a very compact object program, which has been a major factor in Forth’s wide  acceptance in embedded systems and other applications where small object size is desirable.
+The second is an "address interpreter". Although not all Forth systems are implemented in this way, it was  the first and is still the primary implementation technology. For a small cost in performance, an address  interpreter can yield a very compact object program, which has been a major factor in Forth’s wide  acceptance in embedded systems and other applications where small object size is desirable.
 (colon), by executing the definition pointed to by each. The content of most definitions is a sequence of 
 The address interpreter processes strings of addresses or tokens compiled in definitions created by : addresses of previously defined words, which will be executed by the address interpreter in turn. Thus,  when the word RECEIVE (defined above) is executed, the word PAD, the word DUP, the literal 32, and the  word ACCEPT will be executed in sequence. The process is terminated by the semicolon. This execution  requires no dictionary searches, parsing, or other logic, because when RECEIVE was compiled the  dictionary was searched for each word, and its address (or other token) was placed in the next successive  cell of the entry. The text was not stored in memory, not even in condensed form.
 The address interpreter has two important properties. First, it is fast. Although the actual speed depends  upon the specific implementation, professional implementations are highly optimized, often requiring only  one or two machine instructions per address. On most benchmarks, a good Forth implementation  substantially out-performs interpretive languages such as BASIC or LISP, and will compare favorably with  other compiled high-level languages.
@@ -2390,11 +2423,11 @@ Forth assemblers are so compact (typically a few Kbytes) that they can be reside
 
 ### C.5.5 Virtual memory 
 
-The final unique element of Forth is its way of using disk or other mass storage as a form of “virtual  memory” for data and program source. As in the case of the address interpreter, this approach is historically  characteristic of Forth, but is by no means universal. Disk is divided into 1024-byte blocks. Two or more  buffers are provided in memory, into which blocks are read automatically when referred to. Each block has  a fixed block number, which in native systems is a direct function of its physical location. If a block is  changed in memory, it will be automatically written out when its buffer must be reused. Explicit reads and  writes are not needed; the program will find the data in memory whenever it accesses it.
+The final unique element of Forth is its way of using disk or other mass storage as a form of "virtual  memory" for data and program source. As in the case of the address interpreter, this approach is historically  characteristic of Forth, but is by no means universal. Disk is divided into 1024-byte blocks. Two or more  buffers are provided in memory, into which blocks are read automatically when referred to. Each block has  a fixed block number, which in native systems is a direct function of its physical location. If a block is  changed in memory, it will be automatically written out when its buffer must be reused. Explicit reads and  writes are not needed; the program will find the data in memory whenever it accesses it.
 Block-oriented disk handling is efficient and easy for native Forth systems to implement. As a result, blocks  provide a completely transportable mechanism for handling program source and data across both native and  co-resident versions of Forth on different host operating systems.
 Definitions in program source blocks are compiled into memory by the word LOAD. Most implementations  include an editor, which formats a block for display into 16 lines of 64 characters each, and provides  commands modifying the source. An example of a Forth source block is given in Fig. C.1 below.
 Source blocks have historically been an important element in Forth style. Just as Forth definitions may be  considered the linguistic equivalent of sentences in natural languages, a block is analogous to a paragraph.
-A block normally contains definitions related to a common theme, such as “vector arithmetic”. A comment  on the top line of the block identifies this theme. An application may selectively load the blocks it needs.
+A block normally contains definitions related to a common theme, such as "vector arithmetic". A comment  on the top line of the block identifies this theme. An application may selectively load the blocks it needs.
 Blocks are also used to store data. Small records can be combined into a block, or large records spread over  several blocks. The programmer may allocate blocks in whatever way suits the application, and on native  systems can increase performance by organizing data to minimize disk head motion. Several Forth vendors  have developed sophisticated file and data base systems based on Forth blocks.
 Versions of Forth that run co-resident with a host OS often implement blocks in host OS files. Others use  the host files exclusively. The Standard requires that blocks be available on systems providing any disk  access method, as they are the only means of referencing disk that can be transportable across both native  and co-resident implementations.
 
@@ -2407,20 +2440,20 @@ The combination of resident editor, integrated debugging tools, and direct execu
 
 ### C.5.7 Advanced programming features 
 
-One of the unusual characteristics of Forth is that the words the programmer defines in building an  application become integral elements of the language itself, adding more and more powerful applicationoriented features.
-For example, Forth includes the words VARIABLE and 2VARIABLE to name locations in which data may  be stored, as well as CONSTANT and 2CONSTANT to name single and double-cell values. Suppose a  programmer finds that an application needs arrays that would be automatically indexed through a number of  two-cell items. Such an array might be called 2ARRAY. The prefix “2” in the name indicates that each  element in this array will occupy two cells (as would the contents of a 2VARIABLE or 2CONSTANT). The  prefix “2”, however, has significance only to a human and is no more significant to the text interpreter than  any other character that may be used in a definition name.
-Such a definition has two parts, as there are two “behaviors” associated with this new word 2ARRAY, one at  compile time, and one at run or execute time. These are best understood if we look at how 2ARRAY is used  to define its arrays, and then how the array might be used in an application. In fact, this is how one would  design and implement this word.
+One of the unusual characteristics of Forth is that the words the programmer defines in building an  application become integral elements of the language itself, adding more and more powerful application-oriented features.
+For example, Forth includes the words VARIABLE and 2VARIABLE to name locations in which data may  be stored, as well as CONSTANT and 2CONSTANT to name single and double-cell values. Suppose a  programmer finds that an application needs arrays that would be automatically indexed through a number of  two-cell items. Such an array might be called 2ARRAY. The prefix "2" in the name indicates that each  element in this array will occupy two cells (as would the contents of a 2VARIABLE or 2CONSTANT). The  prefix "2", however, has significance only to a human and is no more significant to the text interpreter than  any other character that may be used in a definition name.
+Such a definition has two parts, as there are two "behaviors" associated with this new word 2ARRAY, one at  compile time, and one at run or execute time. These are best understood if we look at how 2ARRAY is used  to define its arrays, and then how the array might be used in an application. In fact, this is how one would  design and implement this word.
 100 2ARRAY RAW 50 2ARRAY REFINED 
 50 elements long, and is named REFINED. In each case, a size parameter is supplied to 2ARRAY on the 
 Beginning the top-down design process, here’s how we would like to use 2ARRAY:  In the first case, we are defining an array 100 elements long, whose name is RAW. In the second, the array is  data stack (Forth’s text interpreter automatically puts numbers there when it encounters them), and the name  of the word immediately follows. This order is typical of Forth defining words.
 : ACQUIRE 100 0 DO DATA I RAW 2! LOOP ; 
-When we use RAW or REFINED, we would like to supply on the stack the index of the element we want,  and get back the address of that element on the stack. Such a reference would characteristically take place  in a loop. Here’s a representative loop that accepts a two-cell value from a hypothetical application word  DATA and stores it in the next element of RAW:  The name of this definition is ACQUIRE. The loop begins with DO, ends with LOOP, and will execute with  index values running from 0 through 99. Within the loop, DATA gets a value. The word I returns the  current value of the loop index, which is the argument to RAW. The address of the selected element,  returned by RAW, and the value, which has remained on the stack since DATA, are passed to the word 2! (pronounced “two-store”), which stores two stack items in the address.
+When we use RAW or REFINED, we would like to supply on the stack the index of the element we want,  and get back the address of that element on the stack. Such a reference would characteristically take place  in a loop. Here’s a representative loop that accepts a two-cell value from a hypothetical application word  DATA and stores it in the next element of RAW:  The name of this definition is ACQUIRE. The loop begins with DO, ends with LOOP, and will execute with  index values running from 0 through 99. Within the loop, DATA gets a value. The word I returns the  current value of the loop index, which is the argument to RAW. The address of the selected element,  returned by RAW, and the value, which has remained on the stack since DATA, are passed to the word 2! (pronounced "two-store"), which stores two stack items in the address.
 : 2ARRAY ( n -- ) 
  CREATE 2* CELLS ALLOT 
  DOES> ( i a -- a') SWAP 2* CELLS + ; 
 2ARRAY will do when it us used to define a word such as RAW. The comment indicates that this part 
-Now that we have specified exactly what 2ARRAY does and how the words it defines are to behave, we are  ready to write the two parts of its definition:  The part of the definition before the word DOES> specifies the “compile-time” behavior, that is, what the  expects a number on the stack, which is the size parameter. The word CREATE constructs the definition for  the new word. The phrase 2* CELLS converts the size parameter from two-cell units to the internal  addressing units of the system (normally characters). ALLOT then allocates the specified amount of  memory to contain the data to be associated with the newly defined array.
-The second line defines the “run-time” behavior that will be shared by all words defined by 2ARRAY, such  as RAW and REFINED. The word DOES> terminates the first part of the definition and begins the second  part. A second comment here indicates that this code expects an index and an address on the stack, and will  return a different address. The index is supplied on the stack by the caller (of RAW in the example), while  the address of the content of a word defined in this way (the ALLOTted region) is automatically pushed on  top of the stack before this section of the code is to be executed. This code works as follows: SWAP reverses the order of the two stack items, to get the index on top. 2* CELLS converts the index to the  internal addressing units as in the compile-time section, to yield an offset from the beginning of the array.
+Now that we have specified exactly what 2ARRAY does and how the words it defines are to behave, we are  ready to write the two parts of its definition:  The part of the definition before the word DOES> specifies the "compile-time" behavior, that is, what the  expects a number on the stack, which is the size parameter. The word CREATE constructs the definition for  the new word. The phrase 2* CELLS converts the size parameter from two-cell units to the internal  addressing units of the system (normally characters). ALLOT then allocates the specified amount of  memory to contain the data to be associated with the newly defined array.
+The second line defines the "run-time" behavior that will be shared by all words defined by 2ARRAY, such  as RAW and REFINED. The word DOES> terminates the first part of the definition and begins the second  part. A second comment here indicates that this code expects an index and an address on the stack, and will  return a different address. The index is supplied on the stack by the caller (of RAW in the example), while  the address of the content of a word defined in this way (the ALLOTted region) is automatically pushed on  top of the stack before this section of the code is to be executed. This code works as follows: SWAP reverses the order of the two stack items, to get the index on top. 2* CELLS converts the index to the  internal addressing units as in the compile-time section, to yield an offset from the beginning of the array.
 The word + then adds the offset to the address of the start of the array to give the effective address, which is  the desired result.
 Given this basic definition, one could easily modify it to do more sophisticated things. For example, the  compile-time code could be changed to initialize the array to zeros, spaces, or any other desired initial  value. The size of the array could be compiled at its beginning, so that the run-time code could compare the  index against it to ensure it is within range, or the entire array could be made to reside on disk instead of  main memory. None of these changes would affect the run-time usage we have specified in any way. This  illustrates a little of the flexibility available with these defining words.
 
@@ -2445,25 +2478,25 @@ Block 180   3.
 13. VARIABLE LAMPS 
 14. : TOGGLE ( n -- ) LAMPS @ XOR DUP LAMPS ! LIGHT ; 
 15.
-Figure C.1 – Forth source block containing words that control a set of LEDs.
-Lines 4 - 7 contain a simple diagnostic of the sort one might type in from the terminal to confirm that  everything is working. The variable DELAY contains a delay time in milliseconds – execution of the word  DELAY returns the address of this variable. Two values of DELAY are set by the definitions SLOW and  FAST, using the Forth operator ! (pronounced “store”) which takes a value and an address, and stores the  value in the address. The definition COUNTS runs a loop from 0 through 255 (Forth loops of this type are  exclusive at the upper end of the range), sending each value to the lights and then waiting for the period  specified by DELAY. The word @ (pronounced “fetch”) fetches a value from an address, in this case the  address supplied by DELAY. This value is passed to MS, which waits the specified number of milliseconds.
+Figure C.1 - Forth source block containing words that control a set of LEDs.
+Lines 4 - 7 contain a simple diagnostic of the sort one might type in from the terminal to confirm that  everything is working. The variable DELAY contains a delay time in milliseconds - execution of the word  DELAY returns the address of this variable. Two values of DELAY are set by the definitions SLOW and  FAST, using the Forth operator ! (pronounced "store") which takes a value and an address, and stores the  value in the address. The definition COUNTS runs a loop from 0 through 255 (Forth loops of this type are  exclusive at the upper end of the range), sending each value to the lights and then waiting for the period  specified by DELAY. The word @ (pronounced "fetch") fetches a value from an address, in this case the  address supplied by DELAY. This value is passed to MS, which waits the specified number of milliseconds.
 The result of executing COUNTS is that the lights will count from 0 to 255 at the desired rate. To run this,  one would type:  SLOW COUNTS or FAST COUNTS  at the terminal.
 Line 9 provides the capability of naming individual lamps. In this application they are being used as  indicator lights. The word LAMP is a defining word which takes as an argument a mask which represents a  particular lamp, and compiles it as a named entity. Lines 10 and 11 contain five uses of LAMP to name  particular indicators. When one of these words such as POWER is executed, the mask is returned on the  stack. In fact, the behavior of defining a value such that when the word is invoked the value is returned, is  identical to the behavior of a Forth CONSTANT. We created a new defining word here, however, to  illustrate how this would be done.
 Finally, on lines 13 and 14, we have the words that will control the light panel. LAMPS is a variable that  contains the current state of the lamps. The word TOGGLE takes a mask (which might be supplied by one of  the LAMP words) and changes the state of that particular lamp, saving the result in LAMPS.
 In the remainder of the application, the lamp names and TOGGLE are probably the only words that will be  executed directly. The usage there will be, for example:  POWER TOGGLE or SAMPLING TOGGLE  as appropriate, whenever the system indicators need to be changed.
 The time to compile this block of code on that system was about half a second, including the time to fetch it  from disk. So it is quite practical (and normal practice) for a programmer to simply type in a definition and  try it immediately.
-In addition, one always has the capability of communicating with external devices directly. The first thing  one would do when told about the lamps would be to type:  HEX FF 40 OUTPUT  and see if all the lamps come on. If not, the presumption is that something is amiss with the hardware, since  this phrase directly transmits the “all ones” mask to the device. This type of direct interaction is useful in  applications involving custom hardware, as it reduces hardware debugging time.
+In addition, one always has the capability of communicating with external devices directly. The first thing  one would do when told about the lamps would be to type:  HEX FF 40 OUTPUT  and see if all the lamps come on. If not, the presumption is that something is amiss with the hardware, since  this phrase directly transmits the "all ones" mask to the device. This type of direct interaction is useful in  applications involving custom hardware, as it reduces hardware debugging time.
 
 ## C.6 Multiprogrammed systems 
 
-Multiprogrammed Forth systems have existed since about 1970. The earliest public Forth systems  propagated the “hooks” for this capability despite the fact that many did not use them. Nevertheless the  underlying assumptions have been common knowledge in the community, and there exists considerable  common ground among these multiprogrammed systems. These systems are not just language processors,  but contain operating system characteristics as well. Many of these integrated systems run entirely standalone, performing all necessary operating system functions.
+Multiprogrammed Forth systems have existed since about 1970. The earliest public Forth systems  propagated the "hooks" for this capability despite the fact that many did not use them. Nevertheless the  underlying assumptions have been common knowledge in the community, and there exists considerable  common ground among these multiprogrammed systems. These systems are not just language processors,  but contain operating system characteristics as well. Many of these integrated systems run entirely stand-alone, performing all necessary operating system functions.
 Some Forth systems are very fast, and can support both multi-tasking and multi-user operation even on  computers whose hardware is usually thought incapable of such advanced operation. For example, one  producer of telephone switchboards is running over 50 tasks on a Z80. There are several multiprogrammed  products for PC’s, some of which even support multiple users. Even on computers that are commonly used  in multi-user operations, the number of users that can be supported may be much larger than expected. One  large data-base application running on a single 68000 has over 100 terminals updating and querying its  data-base, with no significant degradation.
 Multi-user systems may also support multiple programmers, each of which has a private dictionary, stacks,  and a set of variables controlling that task. The private dictionary is linked to a shared, re-entrant dictionary  containing all the standard Forth functions. The private dictionary can be used to develop application code  which may later be integrated into the shared dictionary. It may also be used to perform functions requiring  text interpretation, including compilation and execution of source code.
 
 ## C.7 Design and management considerations 
 
 Just as the choice of building materials has a strong effect on the design and construction of a building, the  choice of language and operating system will affect both application design and project management  decisions.
-“successive prototyping” wherein high-level Forth is used as an executable design tool, with “stubs” 
+"successive prototyping" wherein high-level Forth is used as an executable design tool, with "stubs" 
 Conventionally, software projects progress through four stages: analysis, design, coding, and testing. A  Forth project necessarily incorporates these activities as well. Forth is optimized for a project-management  methodology featuring small teams of skilled professionals. Forth encourages an iterative process of  replacing lower-level routines as necessary (e.g., for hardware that isn’t built yet).
 In many cases successive prototyping can produce a sounder, more useful product. As the project  progresses, implementors learn things that could lead to a better design. Wiser decisions can be made if  true relative costs are known, and often this isn’t possible until prototype code can be written and tried.
 Using Forth can shorten the time required for software development, and reduce the level of effort required  for maintenance and modifications during the life of the product as well.
@@ -2480,17 +2513,17 @@ Prior to ANS Forth, there were several industry standards for Forth.  The most i
 
 ## D.1 FIG Forth (circa 1978) 
 
-FIG Forth was a “model” implementation of the Forth language developed by the Forth Interest Group(FIG). In FIG Forth, a relatively small number of words were implemented in processor-dependent machine language and the rest of the words were implemented in Forth. The FIG model was placed in the public  domain, and was ported to a wide variety of computer systems. Because the bulk of the FIG Forth  implementation was the same across all machines, programs written in FIG Forth enjoyed a substantial  degree of portability, even for “system-level” programs that directly manipulate the internals of the Forth  system implementation.
+FIG Forth was a "model" implementation of the Forth language developed by the Forth Interest Group(FIG). In FIG Forth, a relatively small number of words were implemented in processor-dependent machine language and the rest of the words were implemented in Forth. The FIG model was placed in the public  domain, and was ported to a wide variety of computer systems. Because the bulk of the FIG Forth  implementation was the same across all machines, programs written in FIG Forth enjoyed a substantial  degree of portability, even for "system-level" programs that directly manipulate the internals of the Forth  system implementation.
 
-FIG Forth implementations were influential in increasing the number of people interested in using Forth.  Many people associate the implementation techniques embodied in the FIG Forth model with “the nature of Forth”.
+FIG Forth implementations were influential in increasing the number of people interested in using Forth.  Many people associate the implementation techniques embodied in the FIG Forth model with "the nature of Forth".
 
-However, FIG Forth was not necessarily representative of commercial Forth implementations of the same  era. Some of the most successful commercial Forth systems used implementation techniques different from  the FIG Forth “model”.
+However, FIG Forth was not necessarily representative of commercial Forth implementations of the same  era. Some of the most successful commercial Forth systems used implementation techniques different from  the FIG Forth "model".
 
 ## D.2 Forth 79 
 
 The Forth-79 Standard resulted from a series of meetings from 1978 to 1980, by the Forth Standards Team, an international group of Forth users and vendors (interim versions known as Forth 77 and Forth 78 were also released by the group).
 
-Forth 79 described a set of words defined on a 16-bit, twos-complement, unaligned, linear byte-addressing  virtual machine. It prescribed an implementation technique known as “indirect threaded code”, and used the  ASCII character set.
+Forth 79 described a set of words defined on a 16-bit, twos-complement, unaligned, linear byte-addressing  virtual machine. It prescribed an implementation technique known as "indirect threaded code", and used the  ASCII character set.
 
 The Forth-79 Standard served as the basis for several public domain and commercial implementations,  some of which are still available and supported today.
 
@@ -2498,9 +2531,9 @@ The Forth-79 Standard served as the basis for several public domain and commerci
 
 The Forth-83 Standard, also by the Forth Standards Team, was released in 1983. Forth 83 attempted to fix  some of the deficiencies of Forth 79.
 
-Forth 83 was similar to Forth 79 in most respects. However, Forth 83 changed the definition of several  well-defined features of Forth 79. For example, the rounding behavior of integer division, the base value of  the operands of PICK and ROLL, the meaning of the address returned by ', the compilation behavior of ',  the value of a “true” flag, the meaning of NOT, and the “chaining” behavior of words defined by  VOCABULARY were all changed. Forth 83 relaxed the implementation restrictions of Forth 79 to allow any  kind of threaded code, but it did not fully allow compilation to native machine code (this was not  specifically prohibited, but rather was an indirect consequence of another provision).
+Forth 83 was similar to Forth 79 in most respects. However, Forth 83 changed the definition of several  well-defined features of Forth 79. For example, the rounding behavior of integer division, the base value of  the operands of PICK and ROLL, the meaning of the address returned by ', the compilation behavior of ',  the value of a "true" flag, the meaning of NOT, and the "chaining" behavior of words defined by  VOCABULARY were all changed. Forth 83 relaxed the implementation restrictions of Forth 79 to allow any  kind of threaded code, but it did not fully allow compilation to native machine code (this was not  specifically prohibited, but rather was an indirect consequence of another provision).
 
-Many new Forth implementations were based on the Forth-83 Standard, but few “strictly compliant”  Forth-83 implementations exist.
+Many new Forth implementations were based on the Forth-83 Standard, but few "strictly compliant"  Forth-83 implementations exist.
 
 Although the incompatibilities resulting from the changes between Forth 79 and Forth 83 were usually  relatively easy to fix, a number of successful Forth vendors did not convert their implementations to be  Forth 83 compliant. For example, the most successful commercial Forth for Apple Macintosh computers is  based on Forth 79.
 
@@ -2510,26 +2543,26 @@ Since the Forth-83 Standard was published, the computer industry has undergone r
 
 The operating systems and programming-language environments of small systems are much more powerful  than they were in the early 80’s.
 
-The personal-computer marketplace has changed from a predominantly “hobbyist” market to a mature  business and commercial market.
+The personal-computer marketplace has changed from a predominantly "hobbyist" market to a mature  business and commercial market.
 
-Improved technology for designing custom microprocessors has resulted in the design of numerous “Forth  chips”, computers optimized for the execution of the Forth language.
+Improved technology for designing custom microprocessors has resulted in the design of numerous "Forth  chips", computers optimized for the execution of the Forth language.
 
 The market for ROM-based embedded control computers has grown substantially.
 
-In order to take full advantage of this evolving technology, and to better compete with other programming  languages, many recent Forth implementations have ignored some of the “rules” of previous Forth  standards. In particular:  
+In order to take full advantage of this evolving technology, and to better compete with other programming  languages, many recent Forth implementations have ignored some of the "rules" of previous Forth  standards. In particular:  
 
-– 32-bit Forth implementations are now common.  
-– Some Forth systems adopt the address-alignment restrictions of the hardware on which they run.  
-– Some Forth systems use native-code generation, microcode generation, and optimization techniques, 
-rather than the traditional “threaded code”.  
-– Some Forth systems exploit segmented addressing architectures, placing portions of the Forth 
-“dictionary” in different segments.  
-– More and more Forth systems now run in the environment of another “standard” operating system, 
-using OS text files for source code, rather than the traditional Forth “blocks”.  
-– Some Forth systems allow external operating system software, windowing software, terminal 
+- 32-bit Forth implementations are now common.  
+- Some Forth systems adopt the address-alignment restrictions of the hardware on which they run.  
+- Some Forth systems use native-code generation, microcode generation, and optimization techniques, 
+rather than the traditional "threaded code".  
+- Some Forth systems exploit segmented addressing architectures, placing portions of the Forth 
+"dictionary" in different segments.  
+- More and more Forth systems now run in the environment of another "standard" operating system, 
+using OS text files for source code, rather than the traditional Forth "blocks".  
+- Some Forth systems allow external operating system software, windowing software, terminal 
 concentrators, or communications channels to handle or preprocess user input, resulting in deviations  from the input editing, character set availability, and screen management behavior prescribed by  Forth 83.  
 
-Competitive pressure from other programming languages (predominantly “C”) and from other Forth  vendors have led Forth vendors to optimizations that do not fit in well with the “virtual machine model”  implied by existing Forth standards.
+Competitive pressure from other programming languages (predominantly "C") and from other Forth  vendors have led Forth vendors to optimizations that do not fit in well with the "virtual machine model"  implied by existing Forth standards.
 
 ## D.5 ANS Forth approach 
 
@@ -2539,11 +2572,11 @@ Consequently, the committee has chosen to base its compatibility decisions not u
 
 The committee feels that, if ANS Forth prescribes stringent requirements upon the virtual machine model,  as did the previous standards, then many implementors will chose not to comply with ANS Forth. The  committee hopes that ANS Forth will serve to unify rather than to further divide the Forth community, and  thus has chosen to encompass rather than invalidate popular implementation techniques.
 
-Many of the changes from Forth 83 are justified by this rationale. Most fall into the category that “an ANS  Forth Standard Program may not assume x”, where “x” is an entitlement resulting from the virtual machine  model prescribed by the Forth-83 Standard. The committee feels that these restrictions are reasonable,  especially considering that a substantial number of existing Forth implementations do not correctly  implement the Forth-83 virtual model, thus the Forth-83 entitlements exist “in theory” but not “in practice”.
+Many of the changes from Forth 83 are justified by this rationale. Most fall into the category that "an ANS  Forth Standard Program may not assume x", where "x" is an entitlement resulting from the virtual machine  model prescribed by the Forth-83 Standard. The committee feels that these restrictions are reasonable,  especially considering that a substantial number of existing Forth implementations do not correctly  implement the Forth-83 virtual model, thus the Forth-83 entitlements exist "in theory" but not "in practice".
 
-Another way of looking at this is that while ANS Forth acknowledges the diversity of current Forth practice,  it attempts to document the similarity therein. In some sense, ANS Forth is thus a “description of reality”  rather than a “prescription for a particular virtual machine”.
+Another way of looking at this is that while ANS Forth acknowledges the diversity of current Forth practice,  it attempts to document the similarity therein. In some sense, ANS Forth is thus a "description of reality"  rather than a "prescription for a particular virtual machine".
 
-Since there is no previous American National Standard for Forth, the action requirements prescribed by  section 3.4 of X3/SD-9, “Policy and Guidelines”, regarding previous standards do not apply.
+Since there is no previous American National Standard for Forth, the action requirements prescribed by  section 3.4 of X3/SD-9, "Policy and Guidelines", regarding previous standards do not apply.
 
 The following discussion describes differences between ANS Forth and Forth 83. In most cases, Forth 83 is  representative of Forth 79 and FIG Forth for the purposes of this discussion. In many of these cases,  however, ANS Forth is more representative of the existing state of the Forth industry than the previously-published standards.
 
@@ -2561,7 +2594,7 @@ all arithmetic, logical and addressing operators
 32-bit machines are becoming commonplace. A 16-bit Forth system on a 32-bit  machine is not competitive.
 
 ||Impact:||
-Programs that assume 16-bit stack width will continue to run on 16-bit machines;  ANS Forth does not require a different stack width, but simply allows it. Many programs will be unaffected  (but see “address unit”).
+Programs that assume 16-bit stack width will continue to run on 16-bit machines;  ANS Forth does not require a different stack width, but simply allows it. Many programs will be unaffected  (but see "address unit").
 
 ||Transition/Conversion:||
 Programs which use bit masks with the high bits set may have to be changed,  substituting either an implementation-defined bit-mask constant, or a procedure to calculate a bit mask in a  stack-width-independent way. Here are some procedures for constructing width-independent bit masks:  
@@ -2573,7 +2606,7 @@ Programs which use bit masks with the high bits set may have to be changed,  sub
     : LO-BITS ( n -- mask ) 0 SWAP 0 ?DO 1 LSHIFT LO-BIT OR LOOP ; 
     : HI-BITS ( n -- mask ) 0 SWAP 0 ?DO 1 RSHIFT HI-BIT OR LOOP ; 
 
-Programs that depend upon the “modulo 65536” behavior implicit in 16-bit arithmetic operations will need  to be rewritten to explicitly perform the modulus operation in the appropriate places. The committee  believes that such assumptions occur infrequently. Examples: some checksum or CRC calculations, some  random number generators and most fixed-point fractional math.
+Programs that depend upon the "modulo 65536" behavior implicit in 16-bit arithmetic operations will need  to be rewritten to explicitly perform the modulus operation in the appropriate places. The committee  believes that such assumptions occur infrequently. Examples: some checksum or CRC calculations, some  random number generators and most fixed-point fractional math.
 
 ### D.6.2 Number representation 
 
@@ -2587,7 +2620,7 @@ all arithmetic and logical operators, LOOP, +LOOP
 Some computers use one’s-complement or signed-magnitude. The committee  did not wish to force Forth implementations for those machines to emulate two’s-complement arithmetic,  and thus incur severe performance penalties. The experience of some committee members with such  machines indicates that the usage restrictions necessary to support their number representations are not  overly burdensome.
 
 ||Impact:||
-An ANS Forth Standard Program may declare an “environmental dependency on  two’s-complement arithmetic”. This means that the otherwise-Standard Program is only guaranteed to work  on two’s-complement machines. Effectively, this is not a severe restriction, because the overwhelming  majority of current computers use two’s-complement. The committee knows of no Forth-83 compliant  implementations for non-two’s-complement machines at present, so existing Forth-83 programs will still  work on the same class of machines on which they currently work.
+An ANS Forth Standard Program may declare an "environmental dependency on  two’s-complement arithmetic". This means that the otherwise-Standard Program is only guaranteed to work  on two’s-complement machines. Effectively, this is not a severe restriction, because the overwhelming  majority of current computers use two’s-complement. The committee knows of no Forth-83 compliant  implementations for non-two’s-complement machines at present, so existing Forth-83 programs will still  work on the same class of machines on which they currently work.
 
 ||Transition/Conversion:||
 Existing programs wishing to take advantage of the possibility of ANS Forth  Standard Systems on non-two’s-complement machines may do so by eliminating the use of arithmetic  operators to perform logical functions, by deriving bit-mask constants from bit operations as described in  the section about stack width, by restricting the usage range of unsigned numbers to the range of positive  numbers, and by using the provided operators for conversion from single numbers to double numbers.
@@ -2598,8 +2631,9 @@ Existing programs wishing to take advantage of the possibility of ANS Forth  Sta
 
 Forth 83 specifies that each unique address refers to an 8-bit byte in memory. ANS Forth specifies that the  size of the item referred to by each unique address is implementation-defined, but, by default, is the size of  one character. Forth 83 describes many memory operations in terms of a number of bytes. ANS Forth  describes those operations in terms of a number of either characters or address units.
 
-<desc>
-||Words affected:||those with “address unit” arguments  
+<miniterm>
+
+||Words affected:||those with "address unit" arguments  
 
 ||Reason:||
 Some machines, including the most popular Forth chip, address 16-bit memory  locations instead of 8-bit bytes.
@@ -2610,25 +2644,25 @@ Programs may choose to declare an environmental dependency on byte  addressing, 
 ||Transition/Conversion:||
 The new CHARS and CHAR+ address arithmetic operators should be used for  programs that require portability to non-byte-addressed machines. The places where such conversion is  necessary may be identified by searching for occurrences of words that accept a number of address units as  an argument (e.g., MOVE , ALLOT).
 
-</desc>
+</miniterm>
 
 ### D.6.4 Address increment for a cell is no longer two 
 
 As a consequence of Forth-83’s simultaneous specification of 16-bit stack width and byte addressing, the  number two could reliably be used in address calculations involving memory arrays containing items from  the stack. Since ANS Forth requires neither 16-bit stack width nor byte addressing, the number two is no  longer necessarily appropriate for such calculations.
 
-<desc>
+<miniterm>
 ||Words affected:||
 @ ! +! 2+ 2* 2- +LOOP 
 
 ||Reason:||
-See reasons for “Address Units” and “Stack Width”  
+See reasons for "Address Units" and "Stack Width"  
 
 ||Impact:||
 In this respect, existing programs will continue to work on machines where a  stack cell occupies two address units when stored in memory. This includes most machines for which  Forth 83 compliant implementations currently exist. In principle, it would also include 16-bit-word-addressed machines with 32-bit stack width, but the committee knows of no examples of such machines.
 
-||Transition/Conversion:||The new CELLS and CELL+ address arithmetic operators should be used for  portable programs. The places where such conversion is necessary may be identified by searching for the  character “2” and determining whether or not it is used as part of an address calculation. The following  substitutions are appropriate within address calculations:  
+||Transition/Conversion:||The new CELLS and CELL+ address arithmetic operators should be used for  portable programs. The places where such conversion is necessary may be identified by searching for the  character "2" and determining whether or not it is used as part of an address calculation. The following  substitutions are appropriate within address calculations:  
 
-</desc>
+</miniterm>
 
  |Old<br><div style="width: 10em;"></div>|New<br><div style="width: 10em;"></div>| 
  |--|--|
@@ -2638,11 +2672,11 @@ In this respect, existing programs will continue to work on machines where a  st
  |2/ or 2 /|1 CELLS / 
  |2|1 CELLS 
 
-The number “2” by itself is sometimes used for address calculations as an argument to +LOOP, when the  loop index is an address. When converting the word 2/ which operates on negative dividends, one should  be cognizant of the rounding method used.
+The number "2" by itself is sometimes used for address calculations as an argument to +LOOP, when the  loop index is an address. When converting the word 2/ which operates on negative dividends, one should  be cognizant of the rounding method used.
 
 ### D.6.5 Address alignment 
 
-Forth 83 imposes no restriction upon the alignment of addresses to any boundary. ANS Forth specifies that  a Standard System may require alignment of addresses for use with various “@” and “!” operators.
+Forth 83 imposes no restriction upon the alignment of addresses to any boundary. ANS Forth specifies that  a Standard System may require alignment of addresses for use with various "@" and "!" operators.
 
 <desc>
 ||Words Affected:||
@@ -2652,7 +2686,7 @@ Forth 83 imposes no restriction upon the alignment of addresses to any boundary.
 Many computers have hardware restrictions that favor the use of aligned  addresses. On some machines, the native memory-access instructions will cause an exception trap if used  with an unaligned address. Even on machines where unaligned accesses do not cause exception traps,  aligned accesses are usually faster.
 
 ||Impact:||
-All of the ANS Forth words that return addresses suitable for use with aligned “@” and “!” words must return aligned addresses. In most cases, there will be no problem. Problems can arise from the use of user-defined data structures containing a mixture of character data and cell-sized data.
+All of the ANS Forth words that return addresses suitable for use with aligned "@" and "!" words must return aligned addresses. In most cases, there will be no problem. Problems can arise from the use of user-defined data structures containing a mixture of character data and cell-sized data.
 
 Many existing Forth systems, especially those currently in use on computers with strong alignment  requirements, already require alignment. Much existing Forth code that is currently in use on such  machines has already been converted for use in an aligned environment.
 
@@ -2661,20 +2695,20 @@ There are two possible approaches to conversion of programs for use on a system 
 
 </desc>
 
-The easiest approach is to redefine the system’s aligned “@” and “!” operators so that they do not require  alignment. For example, on a 16-bit little-endian byte-addressed machine, unaligned “@” and “!” could be  defined:  
+The easiest approach is to redefine the system’s aligned "@" and "!" operators so that they do not require  alignment. For example, on a 16-bit little-endian byte-addressed machine, unaligned "@" and "!" could be  defined:  
 
     : @ ( addr -- x ) DUP C@ SWAP CHAR+ C@ 8 LSHIFT OR ; 
     : ! ( x addr -- ) OVER 8 RSHIFT OVER CHAR+ C! C! ; 
 
-These definitions, and similar ones for “+!”, “2@”, “2!”, “,”, and “?” as needed, can be compiled before  an unaligned application, which will then work as expected.
+These definitions, and similar ones for "+!", "2@", "2!", ",", and "?" as needed, can be compiled before  an unaligned application, which will then work as expected.
 
 This approach may conserve memory if the application uses substantial numbers of data structures  containing unaligned fields.
 
-Another approach is to modify the application’s source code to eliminate unaligned data fields. The ANS  Forth words ALIGN and ALIGNED may be used to force alignment of data fields. The places where such  alignment is needed may be determined by inspecting the parts of the application where data structures  (other than simple variables) are defined, or by “smart compiler” techniques (see the “Smart Compiler” discussion below).
+Another approach is to modify the application’s source code to eliminate unaligned data fields. The ANS  Forth words ALIGN and ALIGNED may be used to force alignment of data fields. The places where such  alignment is needed may be determined by inspecting the parts of the application where data structures  (other than simple variables) are defined, or by "smart compiler" techniques (see the "Smart Compiler" discussion below).
 
 This approach will probably result in faster application execution speed, at the possible expense of  increased memory utilization for data structures.
 
-Finally, it is possible to combine the preceding techniques by identifying exactly those data fields that are  unaligned, and using “unaligned” versions of the memory access operators for only those fields. This  “hybrid” approach affects a compromise between execution speed and memory utilization.
+Finally, it is possible to combine the preceding techniques by identifying exactly those data fields that are  unaligned, and using "unaligned" versions of the memory access operators for only those fields. This  "hybrid" approach affects a compromise between execution speed and memory utilization.
 
 ### D.6.6 Division/modulus rounding direction 
 
@@ -2704,7 +2738,7 @@ For programs that require a specific rounding behavior with division operands of
 
 ### D.6.7 Immediacy 
 
-Forth 83 specified that a number of “compiling words” are “immediate”, meaning that they are executed  instead of compiled during compilation. ANS Forth is less specific about most of these words, stating that  their behavior is only defined during compilation, and specifying their results rather than their specific  compile-time actions.
+Forth 83 specified that a number of "compiling words" are "immediate", meaning that they are executed  instead of compiled during compilation. ANS Forth is less specific about most of these words, stating that  their behavior is only defined during compilation, and specifying their results rather than their specific  compile-time actions.
 
 To force the compilation of a word that would normally be executed, Forth 83 provided the words  COMPILE , used with non-immediate words, and [COMPILE] , used with immediate words. ANS Forth  provides the single word POSTPONE , which is used with both immediate and non-immediate words,  automatically selecting the appropriate behavior.
 
@@ -2713,9 +2747,9 @@ To force the compilation of a word that would normally be executed, Forth 83 pro
 `COMPILE [COMPILE] ['] '`
 
 ||Reason:||
-The designation of particular words as either immediate or not depends upon the  implementation technique chosen for the Forth system. With traditional “threaded code” implementations,  the choice was generally quite clear (with the single exception of the word LEAVE), and the standard could  specify which words should be immediate. However, some of the currently popular implementation  techniques, such as native-code generation with optimization, require the immediacy attribute on a different  set of words than the set of immediate words of a threaded code implementation. ANS Forth,  acknowledging the validity of these other implementation techniques, specifies the immediacy attribute in as  few cases as possible.
+The designation of particular words as either immediate or not depends upon the  implementation technique chosen for the Forth system. With traditional "threaded code" implementations,  the choice was generally quite clear (with the single exception of the word LEAVE), and the standard could  specify which words should be immediate. However, some of the currently popular implementation  techniques, such as native-code generation with optimization, require the immediacy attribute on a different  set of words than the set of immediate words of a threaded code implementation. ANS Forth,  acknowledging the validity of these other implementation techniques, specifies the immediacy attribute in as  few cases as possible.
 
-When the membership of the set of immediate words is unclear, the decision about whether to use  COMPILE or [COMPILE] becomes unclear. Consequently, ANS Forth provides a “general purpose”  replacement word POSTPONE that serves the purpose of the vast majority of uses of both COMPILE and  [COMPILE], without requiring that the user know whether or not the “postponed” word is immediate.
+When the membership of the set of immediate words is unclear, the decision about whether to use  COMPILE or [COMPILE] becomes unclear. Consequently, ANS Forth provides a "general purpose"  replacement word POSTPONE that serves the purpose of the vast majority of uses of both COMPILE and  [COMPILE], without requiring that the user know whether or not the "postponed" word is immediate.
 
 Similarly, the use of ' and ['] with compiling words is unclear if the precise compilation behavior of those  words is not specified, so ANS Forth does not permit a Standard Program to use ' or ['] with compiling  words.
 
@@ -2723,18 +2757,18 @@ The traditional (non-immediate) definition of the word COMPILE has an additional
 
 Impact: [COMPILE] remains in ANS Forth, since its proper use does not depend on  knowledge of whether or not a word is immediate (Use of [COMPILE] with a non-immediate word is and  has always been a no-op). Whether or not you need to use [COMPILE] requires knowledge of whether or  not its target word is immediate, but it is always safe to use [COMPILE]. [COMPILE] is no longer in the  (required) core word set, having been moved to the Core Extensions word set, but the committee anticipates that most vendors will supply it anyway.
 
-In nearly all cases, it is correct to replace both [COMPILE] and COMPILE with POSTPONE. Uses of  [COMPILE] and COMPILE that are not suitable for “mindless” replacement by POSTPONE are quite infrequent, and fall into the following two categories:  
+In nearly all cases, it is correct to replace both [COMPILE] and COMPILE with POSTPONE. Uses of  [COMPILE] and COMPILE that are not suitable for "mindless" replacement by POSTPONE are quite infrequent, and fall into the following two categories:  
 
 a) Use of [COMPILE] with non-immediate words. This is sometimes done with the words ' (tick, which  was immediate in Forth 79 but not in Forth 83) and LEAVE (which was immediate in Forth 83 but not  in Forth 79), in order to force the compilation of those words without regard to whether you are using a  Forth 79 or Forth 83 system.
 
-b) Use of the phrase COMPILE [COMPILE] <immediate word> to “doubly postpone” an  immediate word.
+b) Use of the phrase COMPILE [COMPILE] &lt;immediate word> to "doubly postpone" an  immediate word.
 
 ||Transition/Conversion:||
 Many ANS Forth implementations will continue to implement both [COMPILE] and COMPILE in forms compatible with existing usage. In those environments, no conversion is necessary.
 
-For complete portability, uses of COMPILE and [COMPILE] should be changed to POSTPONE , except in  the rare cases indicated above. Uses of [COMPILE] with non-immediate words may be left as-is, and the  program may declare a requirement for the word [COMPILE] from the Core Extensions word set, or the  [COMPILE] before the non-immediate word may be simply deleted if the target word is known to be nonimmediate.
+For complete portability, uses of COMPILE and [COMPILE] should be changed to POSTPONE , except in  the rare cases indicated above. Uses of [COMPILE] with non-immediate words may be left as-is, and the  program may declare a requirement for the word [COMPILE] from the Core Extensions word set, or the  [COMPILE] before the non-immediate word may be simply deleted if the target word is known to be non-immediate.
 
-Uses of the phrase COMPILE [COMPILE] <immediate-word> may be handled by introducing an “intermediate word” (XX in the example below) and then postponing that word. For example: 
+Uses of the phrase COMPILE [COMPILE] &lt;immediate-word> may be handled by introducing an "intermediate word" (XX in the example below) and then postponing that word. For example: 
 
     : ABC COMPILE [COMPILE] IF ; 
 
@@ -2743,7 +2777,7 @@ changes to:
     : XX POSTPONE IF ; 
     : ABC POSTPONE XX ; 
 
-A non-standard case can occur with programs that “switch out of compilation state” to explicitly compile a  thread in the dictionary following a COMPILE . For example:  
+A non-standard case can occur with programs that "switch out of compilation state" to explicitly compile a  thread in the dictionary following a COMPILE . For example:  
 
     : XYZ COMPILE [ ' ABC , ] ; 
 
@@ -2763,7 +2797,7 @@ Forth 83 specifies that the full 7-bit ASCII character set is available through 
 KEY
 
 ||Reason:||
-Many system environments “consume” certain control characters for such  purposes as input editing, job control, or flow control. A Forth implementation cannot always control this  system behavior.
+Many system environments "consume" certain control characters for such  purposes as input editing, job control, or flow control. A Forth implementation cannot always control this  system behavior.
 
 ||Impact:||
 Standard Programs which require the ability to receive particular control  characters through KEY must declare an environmental dependency on the input character set.
@@ -2790,7 +2824,7 @@ The problem with UM/MOD is a result of allowing non-two’s-complement  number r
 ANS Forth provides the words LSHIFT and RSHIFT to perform logical shifts. This is usually more  efficient, and certainly more descriptive, than the use of UM/MOD for logical shifting.
 
 ||Impact:||
-Programs running on ANS Forth systems with two’s-complement arithmetic (the  majority of machines), will not experience any incompatibility with UM/MOD . Existing Forth-83 Standard  programs intended to run on non-two’s-complement machines will not be able to use UM/MOD for shifting  on a non-two’s-complement ANS Forth system. This should not affect a significant number of existing  programs (perhaps none at all), since the committee knows of no existing Forth-83 implementations on nontwo’s-complement machines.
+Programs running on ANS Forth systems with two’s-complement arithmetic (the  majority of machines), will not experience any incompatibility with UM/MOD . Existing Forth-83 Standard  programs intended to run on non-two’s-complement machines will not be able to use UM/MOD for shifting  on a non-two’s-complement ANS Forth system. This should not affect a significant number of existing  programs (perhaps none at all), since the committee knows of no existing Forth-83 implementations on non-two’s-complement machines.
 
 ||Transition/Conversion:||
 A program that requires UM/MOD to behave as a shift operation may declare an  environmental dependency on two’s-complement arithmetic.
@@ -2803,7 +2837,7 @@ A program that cannot declare an environmental dependency on two’s-complement 
 
 ANS Forth does not define the words VOCABULARY, CONTEXT, and CURRENT , which were present in  Forth 83. Instead, ANS Forth defines a primitive word set for search order specification and control,  including words which have not existed in any previous standard.
 
-Forth-83’s “ALSO/ONLY” experimental search order word set is specified for the most part as the extension  portion of the ANS Forth Search Order word set.
+Forth-83’s "ALSO/ONLY" experimental search order word set is specified for the most part as the extension  portion of the ANS Forth Search Order word set.
 
 <desc>
 
@@ -2813,9 +2847,9 @@ VOCABULARY CONTEXT CURRENT
 ||Reason:||
 Vocabularies are an area of much divergence among existing systems.
 
-Considering major vendors’ systems and previous standards, there are at least 5 different and mutually  incompatible behaviors of words defined by VOCABULARY. Forth 83 took a step in the direction of “run-time search-order specification” by declining to specify a specific relationship between the hierarchy of  compiled vocabularies and the run-time search order. Forth 83 also specified an experimental mechanism  for run-time search-order specification, the ALSO/ONLY scheme. ALSO/ONLY was implemented in  numerous systems, and has achieved some measure of popularity in the Forth community.
+Considering major vendors’ systems and previous standards, there are at least 5 different and mutually  incompatible behaviors of words defined by VOCABULARY. Forth 83 took a step in the direction of "run-time search-order specification" by declining to specify a specific relationship between the hierarchy of  compiled vocabularies and the run-time search order. Forth 83 also specified an experimental mechanism  for run-time search-order specification, the ALSO/ONLY scheme. ALSO/ONLY was implemented in  numerous systems, and has achieved some measure of popularity in the Forth community.
 
-However, several vendors refuse to implement it, citing technical limitations. In an effort to address those  limitations and thus hopefully make ALSO/ONLY more palatable to its critics, the committee specified a  simple “primitive word set” that not only fixes some of the objections to ALSO/ONLY, but also provides  sufficient power to implement ALSO/ONLY and all of the other search-order word sets that are currently  popular.
+However, several vendors refuse to implement it, citing technical limitations. In an effort to address those  limitations and thus hopefully make ALSO/ONLY more palatable to its critics, the committee specified a  simple "primitive word set" that not only fixes some of the objections to ALSO/ONLY, but also provides  sufficient power to implement ALSO/ONLY and all of the other search-order word sets that are currently  popular.
 
 The Forth 83 ALSO/ONLY word set is provided as an optional extension to the search-order word set. This  allows implementors that are so inclined to provide this word set, with well-defined standard behavior, but  does not compel implementors to do so. Some vendors have publicly stated that they will not implement  ALSO/ONLY, no matter what, and one major vendor stated an unwillingness to implement ANS Forth at all  if ALSO/ONLY is mandated. The committee feels that its actions are prudent, specifying ALSO/ONLY to the  extent possible without mandating its inclusion in all systems, and also providing a primitive search-order  word set that vendors may be more likely to implement, and which can be used to synthesize ALSO/ONLY.
 
@@ -2827,7 +2861,7 @@ Since Forth 83 did not mandate precise semantics for VOCABULARY, existing  Forth
 
 ### D.6.11 Multiprogramming impact 
 
-Forth 83 marked words with “multiprogramming impact” by the letter “M” in the first lines of their  descriptions. ANS Forth has removed the “M” designation from the word descriptions, moving the  discussion of multiprogramming impact to this non-normative annex.
+Forth 83 marked words with "multiprogramming impact" by the letter "M" in the first lines of their  descriptions. ANS Forth has removed the "M" designation from the word descriptions, moving the  discussion of multiprogramming impact to this non-normative annex.
 
 <desc>
 
@@ -2835,11 +2869,11 @@ Forth 83 marked words with “multiprogramming impact” by the letter “M” i
 none
 
 ||Reason:||
-The meaning of “multiprogramming impact” is precise only in the context of a  specific model for multiprogramming. Although many Forth systems do provide multiprogramming  capabilities using a particular round-robin, cooperative, block-buffer sharing model, that model is not  universal. Even assuming the classical model, the “M” designations did not contain enough information to  enable writing of applications that interacted in a multiprogrammed system.
+The meaning of "multiprogramming impact" is precise only in the context of a  specific model for multiprogramming. Although many Forth systems do provide multiprogramming  capabilities using a particular round-robin, cooperative, block-buffer sharing model, that model is not  universal. Even assuming the classical model, the "M" designations did not contain enough information to  enable writing of applications that interacted in a multiprogrammed system.
 
-Practically speaking, the “M” designations in Forth 83 served to document usage rules for block buffer  addresses in multiprogrammed systems. These addresses often become meaningless after a task has  relinquished the CPU for any reason, most often for the purposes of performing I/O, awaiting an event, or  voluntarily sharing CPU resources using the word PAUSE. It was essential that portable applications  respect those usage rules to make it practical to run them on multiprogrammed systems; failure to adhere to  the rules could easily compromise the integrity of other applications running on those systems as well as the  applications actually in error. Thus, “M” appeared on all words that by design gave up the CPU, with the  understanding that other words NEVER gave it up.
+Practically speaking, the "M" designations in Forth 83 served to document usage rules for block buffer  addresses in multiprogrammed systems. These addresses often become meaningless after a task has  relinquished the CPU for any reason, most often for the purposes of performing I/O, awaiting an event, or  voluntarily sharing CPU resources using the word PAUSE. It was essential that portable applications  respect those usage rules to make it practical to run them on multiprogrammed systems; failure to adhere to  the rules could easily compromise the integrity of other applications running on those systems as well as the  applications actually in error. Thus, "M" appeared on all words that by design gave up the CPU, with the  understanding that other words NEVER gave it up.
 
-These usage rules have been explicitly documented in the Block word set where they are relevant. The “M”  designations have been removed entirely.
+These usage rules have been explicitly documented in the Block word set where they are relevant. The "M"  designations have been removed entirely.
 
 ||Impact:||
 In practice, none.
@@ -2848,7 +2882,7 @@ In the sense that any application that depends on multiprogramming must consist 
 
 Non-multiprogrammed applications in Forth 83 were required to respect usage rules for BLOCK so that they  could be run properly on multiprogrammed systems. The same is true of ANS Forth.
 
-The only difference is the documentation method used to define the BLOCK usage rules. The Technical  Committee believes that the current method is clearer than the concept of “multiprogramming impact”.
+The only difference is the documentation method used to define the BLOCK usage rules. The Technical  Committee believes that the current method is clearer than the concept of "multiprogramming impact".
 
 ||Transition/Conversion:||
 none needed.
@@ -2857,7 +2891,7 @@ none needed.
 
 ### D.6.12 Words not provided in executable form 
 
-ANS Forth allows an implementation to supply some words in source code or “load as needed” form, rather  than requiring all supplied words to be available with no additional programmer action.
+ANS Forth allows an implementation to supply some words in source code or "load as needed" form, rather  than requiring all supplied words to be available with no additional programmer action.
 
 <desc>
 
@@ -2868,9 +2902,9 @@ all
 Forth systems are often used in environments where memory space is at a  premium. Every word included in the system in executable form consumes memory space. The committee  believes that allowing standard words to be provided in source form will increase the probability that  implementors will provide complete ANS Forth implementations even in systems designed for use in  constrained environments.
 
 ||Impact:||
-In order to use a Standard Program with a given ANS Forth implementation, it  may be necessary to precede the program with an implementation-dependent “preface” to make “source  form” words executable. This is similar to the methods that other computer languages require for selecting  the library routines needed by a particular application.
+In order to use a Standard Program with a given ANS Forth implementation, it  may be necessary to precede the program with an implementation-dependent "preface" to make "source  form" words executable. This is similar to the methods that other computer languages require for selecting  the library routines needed by a particular application.
 
-In languages like C, the goal of eliminating unnecessary routines from the memory image of an application  is usually accomplished by providing libraries of routines, using a “linker” program to incorporate only the  necessary routines into an executable application. The method of invoking and controlling the linker is  outside the scope of the language definition.
+In languages like C, the goal of eliminating unnecessary routines from the memory image of an application  is usually accomplished by providing libraries of routines, using a "linker" program to incorporate only the  necessary routines into an executable application. The method of invoking and controlling the linker is  outside the scope of the language definition.
 
 ||Transition/Conversion:||
 Before compiling a program, the programmer may need to perform some action  to make the words required by that program available for execution.
@@ -2885,7 +2919,7 @@ Before compiling a program, the programmer may need to perform some action  to m
 
 The most popular architectures used to implement Forth have had byte-addressed memory, 16-bit  operations, and two’s-complement number representation. The Forth-83 Standard dictates that these  particular features must be present in a Forth-83 Standard system and that Forth-83 programs may exploit  these features freely.
 
-However, there are many beasts in the architectural jungle that are bit addressed or cell addressed, or prefer  32-bit operations, or represent numbers in one’s complement. Since one of Forth’s strengths is its usefulness in “strange” environments on “unusual” hardware with “peculiar” features, it is important that a  Standard Forth run on these machines too.
+However, there are many beasts in the architectural jungle that are bit addressed or cell addressed, or prefer  32-bit operations, or represent numbers in one’s complement. Since one of Forth’s strengths is its usefulness in "strange" environments on "unusual" hardware with "peculiar" features, it is important that a  Standard Forth run on these machines too.
 
 A primary goal of the ANS Forth Standard is to increase the types of machines that can support a Standard  Forth. This is accomplished by allowing some key Forth terms to be implementation-defined (e.g., how big  is a cell?) and by providing Forth operators (words) that conceal the implementation. This frees the  implementor to produce the Forth system that most effectively utilizes the native hardware. The machine  independent operators, together with some programmer discipline, enable a programmer to write Forth  programs that work on a wide variety of machines.
 
@@ -2901,7 +2935,7 @@ Data and memory are the stones and mortar of program construction. Unfortunately
 
 Three terms defined by ANS Forth are address unit, cell, and character. The address space of an ANS Forth  system is divided into an array of address units; an address unit is the smallest collection of bits that can be  addressed. In other words, an address unit is the number of bits spanned by the addresses addr and addr+1.
 
-The most prevalent machines use 8-bit address units. Such “byte addressed” machines include the Intel  8086 and Motorola 68000 families. However, other address unit sizes exist. There are machines that are bit addressed and machines that are 4-bit nibble addressed. There are also machines with address units larger  than 8-bits. For example, several Forth-in-hardware computers are cell addressed.
+The most prevalent machines use 8-bit address units. Such "byte addressed" machines include the Intel  8086 and Motorola 68000 families. However, other address unit sizes exist. There are machines that are bit addressed and machines that are 4-bit nibble addressed. There are also machines with address units larger  than 8-bits. For example, several Forth-in-hardware computers are cell addressed.
 
 The cell is the fundamental data type of a Forth system. A cell can be a single-cell integer or a memory address. Forth’s parameter and return stacks are stacks of cells. Forth 83 specifies that a cell is 16-bits. In  ANS Forth the size of a cell is an implementation-defined number of address units. Thus, an ANS Forth  implemented on a 16-bit microprocessor could use a 16-bit cell and an implementation on a 32-bit machine  could use a 32-bit cell. Also 18-bit machines, 36-bit machines, etc., could support ANS Forth systems with  18 or 36-bit cells respectively. In all of these systems, DUP does the same thing: it duplicates the top of the data stack. ! (store) behaves consistently too: given two cells on the data stack it stores the second cell in  the memory location designated by the top cell.
 
@@ -2930,7 +2964,7 @@ The memory-block-move word also uses address units:
     
 ### E.2.4 Alignment problems  
 
-Not all addresses are created equal. Many processors have restrictions on the addresses that can be used by  memory access instructions. This Standard does not require an implementor of an ANS Forth to make  alignment transparent; on the contrary, it requires (in Section 3.3.3.1 Address alignment) that an ANS  Forth program assume that character and cell alignment may be required.
+Not all addresses are created equal. Many processors have restrictions on the addresses that can be used by  memory access instructions. This Standard does not require an implementor of an ANS Forth to make  alignment transparent; on the contrary, it requires (in Section **3.3.3.1  Address alignment**) that an ANS  Forth program assume that character and cell alignment may be required.
 
 One of the most common problems caused by alignment restrictions is in creating tables containing both  characters and cells. When , (comma) or C, is used to initialize a table, data is stored at the data-space  pointer. Consequently, it must be suitably aligned. For example, a non-portable table definition would be:  
 
@@ -2954,11 +2988,11 @@ Different computers represent numbers in different ways. An awareness of these d
 
 ### E.3.1 Big endian vs. little endian  
 
-The constituent bits of a number in memory are kept in different orders on different machines. Some  machines place the most-significant part of a number at an address in memory with less-significant parts  following it at higher addresses. Other machines do the opposite — the least-significant part is stored at the  lowest address. For example, the following code for a 16-bit 8086 “little endian” Forth would produce the  answer 34 (hex):  
+The constituent bits of a number in memory are kept in different orders on different machines. Some  machines place the most-significant part of a number at an address in memory with less-significant parts  following it at higher addresses. Other machines do the opposite — the least-significant part is stored at the  lowest address. For example, the following code for a 16-bit 8086 "little endian" Forth would produce the  answer 34 (hex):  
 
     VARIABLE FOO HEX 1234 FOO ! FOO C@  
 
-The same code on a 16-bit 68000 “big endian” Forth would produce the answer 12 (hex). A portable  program cannot exploit the representation of a number in memory.
+The same code on a 16-bit 68000 "big endian" Forth would produce the answer 12 (hex). A portable  program cannot exploit the representation of a number in memory.
 
 A related issue is the representation of cell pairs and double-cell numbers in memory. When a cell pair is  moved from the stack to memory with 2!, the cell that was on top of the stack is placed at the lower  memory address. It is useful and reasonable to manipulate the individual cells when they are in memory.
 
@@ -2984,7 +3018,7 @@ Traditionally, Forth definitions have consisted of the name of the Forth word, a
 
 Only words defined with CREATE or with other defining words that call CREATE have data fields. The  other defining words in the Standard (VARIABLE, CONSTANT, :, etc.) might not be implemented with  CREATE. Consequently, a Standard Program must assume that words defined by VARIABLE, CONSTANT, : , etc., may have no data fields. There is no way for a Standard Program to modify the value of a constant or to change the meaning of a colon definition. The DOES> part of a defining word operates on a data field.  Since only CREATEd words have data fields, DOES> can only be paired with CREATE or words that call  CREATE.
 
-In ANS Forth, FIND, ['] and ' (tick) return an unspecified entity called an “execution token”. There are  only a few things that may be done with an execution token. The token may be passed to EXECUTE to  execute the word ticked or compiled into the current definition with COMPILE,. The token can also be  stored in a variable and used later. Finally, if the word ticked was defined via CREATE, >BODY converts  the execution token into the word’s data-field address.
+In ANS Forth, FIND, ['] and ' (tick) return an unspecified entity called an "execution token". There are  only a few things that may be done with an execution token. The token may be passed to EXECUTE to  execute the word ticked or compiled into the current definition with COMPILE,. The token can also be  stored in a variable and used later. Finally, if the word ticked was defined via CREATE, >BODY converts  the execution token into the word’s data-field address.
 
 One thing that definitely cannot be done with an execution token is use ! or , to store it into the object code  of a Forth definition. This technique is sometimes used in implementations where the object code is a list of  addresses (threaded code) and an execution token is also an address. However, ANS Forth permits native  code implementations where this will not work.
 
@@ -2994,13 +3028,13 @@ In some Forth implementations, it is possible to find the address of a stack in 
 
 > 3 footnote These terms are not defined in the Standard. They are mentioned here for historical continuity.
 
-A Standard Program may use the return stack directly only for temporarily storing values. Every value  examined or removed from the return stack using R@, R>, or 2R> must have been put on the stack explicitly using >R or 2>R. Even this must be done carefully since the system may use the return stack to hold return  addresses and loop-control parameters. Section 3.2.3.3 Return stack of the Standard has a list of  restrictions.
+A Standard Program may use the return stack directly only for temporarily storing values. Every value  examined or removed from the return stack using R@, R>, or 2R> must have been put on the stack explicitly using >R or 2>R. Even this must be done carefully since the system may use the return stack to hold return  addresses and loop-control parameters. Section **3.2.3.3  Return stack** of the Standard has a list of  restrictions.
 
 ## E.5 ROMed application disciplines and conventions  
 
-When a Standard System provides a data space which is uniformly readable and writeable we may term this  environment “RAM-only”.
+When a Standard System provides a data space which is uniformly readable and writeable we may term this  environment "RAM-only".
 
-Programs designed for ROMed application must divide data space into at least two parts: a writeable and  readable uninitialized part, called “RAM”, and a read-only initialized part, called “ROM”. A third  possibility, a writeable and readable initialized part, normally called “initialized RAM”, is not addressed by  this discipline. A Standard Program must explicitly initialize the RAM data space as needed.
+Programs designed for ROMed application must divide data space into at least two parts: a writeable and  readable uninitialized part, called "RAM", and a read-only initialized part, called "ROM". A third  possibility, a writeable and readable initialized part, normally called "initialized RAM", is not addressed by  this discipline. A Standard Program must explicitly initialize the RAM data space as needed.
 
 The separation of data space into RAM and ROM is meaningful only during the generation of the ROMed  program. If the ROMed program is itself a standard development system, it has the same taxonomy as an  ordinary RAM-only system.
 

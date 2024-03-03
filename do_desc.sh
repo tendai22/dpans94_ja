@@ -22,6 +22,7 @@ sed '
     /^<miniterm>/,/^<\/miniterm>/{
         b do_env
     }
+    /^<description>/,/^<\/description>/b do_env
     b
     {
 :do_env
@@ -100,6 +101,8 @@ sed '
 sed '# postprocess for dpan94 only
     /std-glossary-word/s/<\/*code>//g
     /std-glossary-option1/s/>\([^<]*\)</><code>\1<\/code></g
+    # description for dpan94 only
+    /description-word/s/<\/*code>//g
 ' |
 sed '/^<table>/,/<\table>/{
         /^<table>/s/<table>/<div class="table">/

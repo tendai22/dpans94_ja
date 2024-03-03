@@ -5,6 +5,7 @@ VPATH = .
 TOC_TARGET =cover_x.md test_x.md \
 		part1_x.md \
 		part2_x.md \
+		app_x.md \
 		eob.md
 
 TARGET = $(TOC_TARGET)

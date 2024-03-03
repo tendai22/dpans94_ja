@@ -1,60 +1,33 @@
+#### 13.3.3.1 Compilation semantics 
 
-<membership>
-Producer Group|Name of Representative
-AMP Incorporated| Edward Kelly
-                |Charles Brill (Alt.) 
-AT&T/NCR Corporation | Thomas W. Kern
-                    |Thomas F. Frost (Alt.) 
-Apple Computer, Inc| Karen Higginbottom
-Compaq Computers| James Barnes
-Digital Equipment Corporation| Delbert Shoemaker
-                            |Kevin Lewis 
-Hitachi America Ltd| John Neumann
-                    |Kei Yamashita (Alt.) 
-Hewlett Packard| Donald C. Loughry
-Bull HN Information Systems Inc| William George
-IBM Corporation| Joel Urman
-                |Mary Anne Lawler (Alt.) 
-Unisys Corporation | John Hill
-                    |Stephen P. Oksala (Alt.) 
-Sony Corporation of America| Michael Deese
-Storage Technology Corporation| Joseph S. Zajaczkowski
-                            |Samuel D. Cheatham (Alt.) 
-Sun Microsystems, Inc| Scott Jameson
-                    |Gary S. Robinson (Alt.) 
-* Xerox Corporation |Dwight McBain 
-                    |Roy Pierce (Alt.) 
-3M Company |Edie T. Morioka 
-            |Paul D. Jahnke (Alt.
+The system, upon receipt of a sequence of local-identifier messages, shall take the following actions at  compile time: 
 
-Consumers Group|
-Boeing Company | Catherine Howells
-                | Andrea Vanosdoll (Alt.) 
-Eastman Kodak Company| James Converse
-                    |Michael Nier (Alt.) 
-General Services Administration | Douglas Arai
-                                |Larry L. Jackson (Alt.) 
-Guide International Inc| Frank Kirshenbaum
-                        | Harold Kuneke (Alt.) 
-* Hughes Aircraft Company | Harold Zebrack 
-National Communications Systems| Dennis Bodson
-Northern Telecom Inc. | Mel Woinsky
-                        |Subhash Patel (Alt.) 
-** Recognition Tech Users Association| Herbert P. Schantz 
-                        | G. Edwin Hale (Alt.) 
-Share Inc. | Gary Ainsworth
-            |David Thewis (Alt.) 
-U. S. Department of Defense| William Rinehuls
-                        | C. J. Pasquariello (Alt.) 
-U. S. Department of Energy| Alton Cox
-                        |Lawrence A. Wasson (Alt.) 
-Wintergreen Information Services | John Wheeler
+<ol type="a"> 
+  <li>Create temporary dictionary entries for each of the identifiers passed to (LOCAL), such that each  identifier will behave as a local. These temporary dictionary entries shall vanish at the end of the  definition, denoted by ; (semicolon), ;CODE, or DOES>. The system need not maintain these  identifiers in the same way it does other dictionary entries as long as they can be found by normal  dictionary searching processes. Furthermore, if the Search-Order word set is present, local identifiers  shall always be searched before any of the word lists in any definable search order, and none of the  Search-Order words shall change the locals’ privileged position in the search order. Local identifiers  may reside in mass storage.</li>
 
-General Interest Group|
-American Nuclear Society | Geraldine C. Main
-                        | Sally Hartzell (Alt.) 
-Assn. of the Institute for Certification of Computer Professionals| Kenneth Zemrowski 
-Nat'l Institute of Standards and Technology | Robert E. Rountree
-                                        | Micharl Hogan (Alt.) 
-Neville & Associates|Carlton Neville 
-</membership>
+  <li>For each identifier passed to (LOCAL), the system shall generate an appropriate code sequence that  does the following at execution time:
+
+  <ol>
+    <li> Allocate a storage resource adequate to contain the value of a local. The storage shall be allocated  in a way that does not preclude re-entrancy or recursion in the definition using the local. </li>
+    <li> Initialize the value using the top item on the data stack. If more than one local is declared, the top  item on the stack shall be moved into the first local identified, the next item shall be moved into the  second, and so on. </li>
+  </ol>
+
+The storage resource may be the return stack or may be implemented in other ways, such as in registers. 
+
+The storage resource shall not be the data stack. Use of locals shall not restrict use of the data stack  before or after the point of declaration. </li>
+</ol>
+
+<ol type="a" start="3">
+  <li>Arrange that any of the legitimate methods of terminating execution of a definition, specifically ;
+
+(semicolon), ;CODE, DOES> or EXIT, will release the storage resource allocated for the locals, if any,  declared in that definition. ABORT shall release all local storage resources, and CATCH / THROW (if  implemented) shall release such resources for all definitions whose execution is being terminated.</li>
+
+  <li>Separate sets of locals may be declared in defining words before DOES> for use by the defining word,  and after DOES> for use by the word defined.</li>
+</ol>
+
+A system implementing the Locals word set shall support the declaration of at least eight locals in a  definition. 
+
+
+#### 13.3.3.2 Syntax restrictions 
+
+Immediate words in a program may use (LOCAL) to implement syntaxes for local declarations with the  following restrictions: 
