@@ -1,0 +1,107 @@
+#! /bin/sh
+( sed 's/^ *\([^ ]*\) \([^ ]*\) \([^ ]*\)/\1|\2|\3|/
+/^20/s/$/||/
+' |
+awk '{ printf "%02d %s\n", n++ % 17, $0 }' |
+sort   ) <<"EOF"
+ Hex IRV ASCII 
+20 
+21 ! ! 
+22 " " 
+23 # # 
+24 ¤ $ 
+25 % % 
+26 & & 
+27 ' ' 
+28 ( ( 
+29 ) ) 
+2A * * 
+2B + + 
+2C , , 
+2D - - 
+2E . . 
+2F / / 
+ Hex IRV ASCII 
+30 0 0 
+31 1 1 
+32 2 2 
+33 3 3 
+34 4 4 
+35 5 5 
+36 6 6 
+37 7 7 
+38 8 8 
+39 9 9 
+3A : : 
+3B ; ; 
+3C < < 
+3D = = 
+3E > > 
+3F ? ? 
+ Hex IRV ASCII 
+40 @ @ 
+41 A A 
+42 B B 
+43 C C 
+44 D D 
+45 E E 
+46 F F 
+47 G G 
+48 H H 
+49 I I 
+4A J J 
+4B K K 
+4C L L 
+4D M M 
+4E N N 
+4F O O 
+ Hex IRV ASCII 
+50 P P 
+51 Q Q 
+52 R R 
+53 S S 
+54 T T 
+55 U U 
+56 V V 
+57 W W 
+58 X X 
+59 Y Y 
+5A Z Z 
+5B [ [ 
+5C \ \ 
+5D ] ] 
+5E ^ ^ 
+5F _ _ 
+ Hex IRV ASCII 
+60 ` ` 
+61 a a 
+62 b b 
+63 c c 
+64 d d 
+65 e e 
+66 f f 
+67 g g 
+68 h h 
+69 i i 
+6A j j 
+6B k k 
+6C l l 
+6D m m 
+6E n n 
+6F o o 
+ Hex IRV ASCII 
+70 p p 
+71 q q 
+72 r r 
+73 s s 
+74 t t 
+75 u u 
+76 v v 
+77 w w 
+78 x x 
+79 y y 
+7A z z 
+7B { { 
+7C | | 
+7D } } 
+7E ~ ~ 
