@@ -1,6 +1,6 @@
 module.exports = {
-  title: 'Starting FORTH', // populated into `publication.json`, default to `title` of the first entry or `name` in `package.json`.
-  author: 'Leo Brodie <tendai22plus@gmail.com>', // default to `author` in `package.json` or undefined.
+  title: 'ANSI X3.215-1994', // populated into `publication.json`, default to `title` of the first entry or `name` in `package.json`.
+  author: 'ANSI X3J14', // default to `author` in `package.json` or undefined.
   language: 'ja', // default to undefined.
   size: 'JIS-B5', // paper size.
   //theme: '@vivliostyle/theme-techbook', // .css or local dir or npm package. default to undefined.
@@ -8,9 +8,10 @@ module.exports = {
   theme: 'css/sample1.css',
   entry: [
     'cover_x.md', // `title` is automatically guessed from the file (frontmatter > first heading).
-  //  'test_x.md',
-  //  'toc.md',
-      'part1_x.md',
+    //  'test_x.md',
+    //  'toc.md',
+    //  'part1_x.md',
+    'part2_x.md',
     // {
     //   path: 'epigraph.md',
     //   title: 'Epigraph', // title can be overwritten (entry > file),

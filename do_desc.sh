@@ -13,9 +13,15 @@ sed '
 <\/figure>/
     }
 # word/desc environment
-    /^<std-glossary>/,/^<\/std-glossary>/b do_env
-    /^<foreword>/,/^<\/foreword>/b do_env
-    /^<miniterm>/,/^<\/miniterm>/b do_env
+    /^<std-glossary>/,/^<\/std-glossary>/{
+        b do_env
+    }
+    /^<foreword>/,/^<\/foreword>/{
+        b do_env
+    }
+    /^<miniterm>/,/^<\/miniterm>/{
+        b do_env
+    }
     b
     {
 :do_env

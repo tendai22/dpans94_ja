@@ -487,7 +487,7 @@ blockquote {
 
 .std-glossary-grid {
 	display: grid;
-    grid-template-columns: 12% 7% 30% 40% 1fr;
+    grid-template-columns: 16% 7% 27% 30% 1fr;
 	margin-bottom: 0.5em;
 }
 
@@ -497,6 +497,8 @@ blockquote {
 }
 
 .std-glossary-option1 {
+	font-size: 14Q;
+	font-weight: 700;
 	grid-column: 2 / 4;
 }
 
@@ -506,6 +508,7 @@ blockquote {
 
 .std-glossary-option3 {
 	grid-column: 5;
+	text-align: right;
 }
 
 .std-glossary-option4 {
@@ -869,7 +872,32 @@ dd.glossary {
 
 /* multiitemize */
 .itemize > ol {
+	margin-left: 4em;
 	/*margin-left: 5em;*/
+}
+
+.itemize > p {
+	margin-left: 4em;
+}
+
+p > ol {
+	margin-left: 3em;
+}
+
+li > p {
+	margin-left: 0;
+}
+
+li > ol {
+	margin-left: 0;
+}
+
+p > p {
+	margin-left: 0;
+}
+
+p > ul {
+	margin-left: 0;
 }
 
 /* A Handy Hint */
