@@ -78,11 +78,12 @@ Words are added to the dictionary by "defining words", of which the most commonl
 
 When : is executed, it constructs a definition for the word that follows it. In classical implementations,2 the content of this definition is a string of addresses of previously defined words which will be executed in turn whenever the word being defined is invoked. The definition is terminated by ; (semicolon). For example, here is a definition: 
 
+^^X{Other common implementation techniques include direct translation to code and other types of tokens.
+^^}
+
     : RECEIVE ( -- addr n ) PAD DUP 32 ACCEPT ; 
 
-The name of the new word is RECEIVE. The comment (in parentheses) indicates that it requires no parameters and will return an address and count on the data stack. When RECEIVE is executed, it will perform the words in the remainder of the definition in sequence. The word PAD places on the stack the address of a scratch pad used to handle strings. DUP duplicates the top stack item, so we now have two copies of the address. The number 32 is also placed on the stack. The word ACCEPT takes an address 2 Other common implementation techniques include direct translation to code and other types of tokens.
-
- (provided by PAD) and length (32) on the stack, accepts from the keyboard a string of up to 32 characters which will be placed at the specified address, and returns the number of characters received. The copy of the scratch-pad address remains on the stack below the count so that the routine that called RECEIVE can use it to pick up the received string.
+The name of the new word is RECEIVE. The comment (in parentheses) indicates that it requires no parameters and will return an address and count on the data stack. When RECEIVE is executed, it will perform the words in the remainder of the definition in sequence. The word PAD places on the stack the address of a scratch pad used to handle strings. DUP duplicates the top stack item, so we now have two copies of the address. The number 32 is also placed on the stack. The word ACCEPT takes an address  (provided by PAD) and length (32) on the stack, accepts from the keyboard a string of up to 32 characters which will be placed at the specified address, and returns the number of characters received. The copy of the scratch-pad address remains on the stack below the count so that the routine that called RECEIVE can use it to pick up the received string.
 
 ### C.5.2 Push-down stacks
 
@@ -134,11 +135,9 @@ Block-oriented disk handling is efficient and easy for native Forth systems to i
 
 Definitions in program source blocks are compiled into memory by the word LOAD. Most implementations include an editor, which formats a block for display into 16 lines of 64 characters each, and provides commands modifying the source. An example of a Forth source block is given in Fig. C.1 below.
 
-Source blocks have historically been an important element in Forth style. Just as Forth definitions may be considered the linguistic equivalent of sentences in natural languages, a block is analogous to a paragraph.
+Source blocks have historically been an important element in Forth style. Just as Forth definitions may be considered the linguistic equivalent of sentences in natural languages, a block is analogous to a paragraph.  A block normally contains definitions related to a common theme, such as "vector arithmetic". A comment on the top line of the block identifies this theme. An application may selectively load the blocks it needs.
 
-A block normally contains definitions related to a common theme, such as "vector arithmetic". A comment on the top line of the block identifies this theme. An application may selectively load the blocks it needs.
-
- Blocks are also used to store data. Small records can be combined into a block, or large records spread over several blocks. The programmer may allocate blocks in whatever way suits the application, and on native systems can increase performance by organizing data to minimize disk head motion. Several Forth vendors have developed sophisticated file and data base systems based on Forth blocks.
+Blocks are also used to store data. Small records can be combined into a block, or large records spread over several blocks. The programmer may allocate blocks in whatever way suits the application, and on native systems can increase performance by organizing data to minimize disk head motion. Several Forth vendors have developed sophisticated file and data base systems based on Forth blocks.
 
 Versions of Forth that run co-resident with a host OS often implement blocks in host OS files. Others use the host files exclusively. The Standard requires that blocks be available on systems providing any disk access method, as they are the only means of referencing disk that can be transportable across both native and co-resident implementations.
 
@@ -178,9 +177,7 @@ Now that we have specified exactly what 2ARRAY does and how the words it defines
 
 The part of the definition before the word DOES> specifies the "compile-time" behavior, that is, what the 2ARRAY will do when it us used to define a word such as RAW. The comment indicates that this part expects a number on the stack, which is the size parameter. The word CREATE constructs the definition for the new word. The phrase 2* CELLS converts the size parameter from two-cell units to the internal addressing units of the system (normally characters). ALLOT then allocates the specified amount of memory to contain the data to be associated with the newly defined array.
 
-The second line defines the "run-time" behavior that will be shared by all words defined by 2ARRAY, such as RAW and REFINED. The word DOES> terminates the first part of the definition and begins the second part. A second comment here indicates that this code expects an index and an address on the stack, and will return a different address. The index is supplied on the stack by the caller (of RAW in the example), while the address of the content of a word defined in this way (the ALLOTted region) is automatically pushed on top of the stack before this section of the code is to be executed. This code works as follows: SWAP reverses the order of the two stack items, to get the index on top. 2* CELLS converts the index to the internal addressing units as in the compile-time section, to yield an offset from the beginning of the array.
-
-The word + then adds the offset to the address of the start of the array to give the effective address, which is the desired result.
+The second line defines the "run-time" behavior that will be shared by all words defined by 2ARRAY, such as RAW and REFINED. The word DOES> terminates the first part of the definition and begins the second part. A second comment here indicates that this code expects an index and an address on the stack, and will return a different address. The index is supplied on the stack by the caller (of RAW in the example), while the address of the content of a word defined in this way (the ALLOTted region) is automatically pushed on top of the stack before this section of the code is to be executed. This code works as follows: SWAP reverses the order of the two stack items, to get the index on top. 2* CELLS converts the index to the internal addressing units as in the compile-time section, to yield an offset from the beginning of the array.  The word + then adds the offset to the address of the start of the array to give the effective address, which is the desired result.
 
 Given this basic definition, one could easily modify it to do more sophisticated things. For example, the compile-time code could be changed to initialize the array to zeros, spaces, or any other desired initial value. The size of the array could be compiled at its beginning, so that the run-time code could compare the index against it to ensure it is within range, or the entire array could be made to reside on disk instead of main memory. None of these changes would affect the run-time usage we have specified in any way. This illustrates a little of the flexibility available with these defining words.
 
@@ -232,7 +229,7 @@ as appropriate, whenever the system indicators need to be changed.
 
 The time to compile this block of code on that system was about half a second, including the time to fetch it from disk. So it is quite practical (and normal practice) for a programmer to simply type in a definition and try it immediately.
 
- In addition, one always has the capability of communicating with external devices directly. The first thing one would do when told about the lamps would be to type: 
+In addition, one always has the capability of communicating with external devices directly. The first thing one would do when told about the lamps would be to type: 
  
     HEX FF 40 OUTPUT 
 
@@ -268,9 +265,7 @@ Prior to ANS Forth, there were several industry standards for Forth. The most in
 
 FIG Forth was a "model" implementation of the Forth language developed by the Forth Interest Group (FIG). In FIG Forth, a relatively small number of words were implemented in processor-dependent machine language and the rest of the words were implemented in Forth. The FIG model was placed in the public domain, and was ported to a wide variety of computer systems. Because the bulk of the FIG Forth implementation was the same across all machines, programs written in FIG Forth enjoyed a substantial degree of portability, even for "system-level" programs that directly manipulate the internals of the Forth system implementation.
 
-FIG Forth implementations were influential in increasing the number of people interested in using Forth.
-
-Many people associate the implementation techniques embodied in the FIG Forth model with "the nature of Forth".
+FIG Forth implementations were influential in increasing the number of people interested in using Forth.  Many people associate the implementation techniques embodied in the FIG Forth model with "the nature of Forth".
 
 However, FIG Forth was not necessarily representative of commercial Forth implementations of the same era. Some of the most successful commercial Forth systems used implementation techniques different from the FIG Forth "model".
 
@@ -325,7 +320,7 @@ The committee feels that, if ANS Forth prescribes stringent requirements upon th
 
 Many of the changes from Forth 83 are justified by this rationale. Most fall into the category that "an ANS Forth Standard Program may not assume x", where "x" is an entitlement resulting from the virtual machine model prescribed by the Forth-83 Standard. The committee feels that these restrictions are reasonable, especially considering that a substantial number of existing Forth implementations do not correctly implement the Forth-83 virtual model, thus the Forth-83 entitlements exist "in theory" but not "in practice".
 
- Another way of looking at this is that while ANS Forth acknowledges the diversity of current Forth practice, it attempts to document the similarity therein. In some sense, ANS Forth is thus a "description of reality" rather than a "prescription for a particular virtual machine".
+Another way of looking at this is that while ANS Forth acknowledges the diversity of current Forth practice, it attempts to document the similarity therein. In some sense, ANS Forth is thus a "description of reality" rather than a "prescription for a particular virtual machine".
 
 Since there is no previous American National Standard for Forth, the action requirements prescribed by section 3.4 of X3/SD-9, "Policy and Guidelines", regarding previous standards do not apply.
 
@@ -337,16 +332,22 @@ The following discussion describes differences between ANS Forth and Forth 83. I
 
 Forth 83 specifies that stack items occupy 16 bits. This includes addresses, flags, and numbers. ANS Forth specifies that stack items are at least 16 bits; the actual size must be documented by the implementation.
 
-Words affected: all arithmetic, logical and addressing operators Reason: 32-bit machines are becoming commonplace. A 16-bit Forth system on a 32-bit machine is not competitive.
+Words affected: 
+all arithmetic, logical and addressing operators 
 
-Impact: Programs that assume 16-bit stack width will continue to run on 16-bit machines; ANS Forth does not require a different stack width, but simply allows it. Many programs will be unaffected (but see "address unit").
+Reason: 
+32-bit machines are becoming commonplace. A 16-bit Forth system on a 32-bit machine is not competitive.
 
-Transition/Conversion: Programs which use bit masks with the high bits set may have to be changed, substituting either an implementation-defined bit-mask constant, or a procedure to calculate a bit mask in a stack-width-independent way. Here are some procedures for constructing width-independent bit masks: 
+Impact: 
+Programs that assume 16-bit stack width will continue to run on 16-bit machines; ANS Forth does not require a different stack width, but simply allows it. Many programs will be unaffected (but see "address unit").
 
-1 CONSTANT LO-BIT 
-TRUE 1 RSHIFT INVERT CONSTANT HI-BIT 
-: LO-BITS ( n -- mask ) 0 SWAP 0 ?DO 1 LSHIFT LO-BIT OR LOOP ; 
-: HI-BITS ( n -- mask ) 0 SWAP 0 ?DO 1 RSHIFT HI-BIT OR LOOP ; 
+Transition/Conversion: 
+Programs which use bit masks with the high bits set may have to be changed, substituting either an implementation-defined bit-mask constant, or a procedure to calculate a bit mask in a stack-width-independent way. Here are some procedures for constructing width-independent bit masks: 
+
+    1 CONSTANT LO-BIT 
+    TRUE 1 RSHIFT INVERT CONSTANT HI-BIT 
+    : LO-BITS ( n -- mask ) 0 SWAP 0 ?DO 1 LSHIFT LO-BIT OR LOOP ; 
+    : HI-BITS ( n -- mask ) 0 SWAP 0 ?DO 1 RSHIFT HI-BIT OR LOOP ; 
 
 Programs that depend upon the "modulo 65536" behavior implicit in 16-bit arithmetic operations will need to be rewritten to explicitly perform the modulus operation in the appropriate places. The committee believes that such assumptions occur infrequently. Examples: some checksum or CRC calculations, some random number generators and most fixed-point fractional math.
 
@@ -354,53 +355,83 @@ Programs that depend upon the "modulo 65536" behavior implicit in 16-bit arithme
 
 Forth 83 specifies two’s-complement number representation and arithmetic. ANS Forth also allows one’s-complement and signed-magnitude.
 
-Words affected: all arithmetic and logical operators, LOOP, +LOOP 
+Words affected: 
+all arithmetic and logical operators, LOOP, +LOOP 
 
-Reason: Some computers use one’s-complement or signed-magnitude. The committee did not wish to force Forth implementations for those machines to emulate two’s-complement arithmetic, and thus incur severe performance penalties. The experience of some committee members with such machines indicates that the usage restrictions necessary to support their number representations are not overly burdensome.
+Reason: 
+Some computers use one’s-complement or signed-magnitude. The committee did not wish to force Forth implementations for those machines to emulate two’s-complement arithmetic, and thus incur severe performance penalties. The experience of some committee members with such machines indicates that the usage restrictions necessary to support their number representations are not overly burdensome.
 
-Impact: An ANS Forth Standard Program may declare an "environmental dependency on two’s-complement arithmetic". This means that the otherwise-Standard Program is only guaranteed to work on two’s-complement machines. Effectively, this is not a severe restriction, because the overwhelming majority of current computers use two’s-complement. The committee knows of no Forth-83 compliant implementations for non-two’s-complement machines at present, so existing Forth-83 programs will still work on the same class of machines on which they currently work.
+Impact: 
+An ANS Forth Standard Program may declare an "environmental dependency on two’s-complement arithmetic". This means that the otherwise-Standard Program is only guaranteed to work on two’s-complement machines. Effectively, this is not a severe restriction, because the overwhelming majority of current computers use two’s-complement. The committee knows of no Forth-83 compliant implementations for non-two’s-complement machines at present, so existing Forth-83 programs will still work on the same class of machines on which they currently work.
 
-Transition/Conversion: Existing programs wishing to take advantage of the possibility of ANS Forth Standard Systems on non-two’s-complement machines may do so by eliminating the use of arithmetic operators to perform logical functions, by deriving bit-mask constants from bit operations as described in the section about stack width, by restricting the usage range of unsigned numbers to the range of positive numbers, and by using the provided operators for conversion from single numbers to double numbers.
+Transition/Conversion: 
+Existing programs wishing to take advantage of the possibility of ANS Forth Standard Systems on non-two’s-complement machines may do so by eliminating the use of arithmetic operators to perform logical functions, by deriving bit-mask constants from bit operations as described in the section about stack width, by restricting the usage range of unsigned numbers to the range of positive numbers, and by using the provided operators for conversion from single numbers to double numbers.
 
 ### D.6.3 Address units
 
 Forth 83 specifies that each unique address refers to an 8-bit byte in memory. ANS Forth specifies that the size of the item referred to by each unique address is implementation-defined, but, by default, is the size of one character. Forth 83 describes many memory operations in terms of a number of bytes. ANS Forth describes those operations in terms of a number of either characters or address units.
 
-Words affected: those with "address unit" arguments 
+Words affected: 
+those with "address unit" arguments 
 
-Reason: Some machines, including the most popular Forth chip, address 16-bit memory locations instead of 8-bit bytes.
+Reason: 
+Some machines, including the most popular Forth chip, address 16-bit memory locations instead of 8-bit bytes.
 
-Impact: Programs may choose to declare an environmental dependency on byte addressing, and will continue to work on the class of machines for which they now work. In order for a Forth implementation on a word-addressed machine to be Forth 83 compliant, it would have to simulate byte addressing at considerable cost in speed and memory efficiency. The committee knows of no such Forth-83 implementations for such machines, thus an environmental dependency on byte addressing does not restrict a Standard Program beyond its current de facto restrictions.
+Impact: 
+Programs may choose to declare an environmental dependency on byte addressing, and will continue to work on the class of machines for which they now work. In order for a Forth implementation on a word-addressed machine to be Forth 83 compliant, it would have to simulate byte addressing at considerable cost in speed and memory efficiency. The committee knows of no such Forth-83 implementations for such machines, thus an environmental dependency on byte addressing does not restrict a Standard Program beyond its current de facto restrictions.
 
-Transition/Conversion: The new CHARS and CHAR+ address arithmetic operators should be used for programs that require portability to non-byte-addressed machines. The places where such conversion is necessary may be identified by searching for occurrences of words that accept a number of address units as an argument (e.g., MOVE , ALLOT).
+Transition/Conversion: 
+The new CHARS and CHAR+ address arithmetic operators should be used for programs that require portability to non-byte-addressed machines. The places where such conversion is necessary may be identified by searching for occurrences of words that accept a number of address units as an argument (e.g., MOVE , ALLOT).
 
 ### D.6.4 Address increment for a cell is no longer two
 
 As a consequence of Forth-83’s simultaneous specification of 16-bit stack width and byte addressing, the number two could reliably be used in address calculations involving memory arrays containing items from the stack. Since ANS Forth requires neither 16-bit stack width nor byte addressing, the number two is no longer necessarily appropriate for such calculations.
 
-Words affected: @ ! +! 2+ 2* 2- +LOOP 
+Words affected: 
+@ ! +! 2+ 2* 2- +LOOP 
 
-Reason: See reasons for "Address Units" and "Stack Width" 
+Reason: 
+See reasons for "Address Units" and "Stack Width" 
 
-Impact: In this respect, existing programs will continue to work on machines where a stack cell occupies two address units when stored in memory. This includes most machines for which Forth 83 compliant implementations currently exist. In principle, it would also include 16-bit-word-addressed machines with 32-bit stack width, but the committee knows of no examples of such machines.
+Impact: 
+In this respect, existing programs will continue to work on machines where a stack cell occupies two address units when stored in memory. This includes most machines for which Forth 83 compliant implementations currently exist. In principle, it would also include 16-bit-word-addressed machines with 32-bit stack width, but the committee knows of no examples of such machines.
 
-Transition/Conversion: The new CELLS and CELL+ address arithmetic operators should be used for portable programs. The places where such conversion is necessary may be identified by searching for the character "2" and determining whether or not it is used as part of an address calculation. The following substitutions are appropriate within address calculations: Old New 2+ or 2 + CELL+ 2* or 2 * CELLS 2- or 2 - 1 CELLS - 2/ or 2 / 1 CELLS / 2 1 CELLS The number "2" by itself is sometimes used for address calculations as an argument to +LOOP, when the loop index is an address. When converting the word 2/ which operates on negative dividends, one should be cognizant of the rounding method used.
+Transition/Conversion: 
+The new CELLS and CELL+ address arithmetic operators should be used for portable programs. The places where such conversion is necessary may be identified by searching for the character "2" and determining whether or not it is used as part of an address calculation. The following substitutions are appropriate within address calculations: 
+
+Old New 
+2+ or 2 + CELL+ 
+2* or 2 * CELLS 
+2- or 2 - 1 CELLS - 
+2/ or 2 / 1 CELLS /
+2 1 CELLS 
+
+The number "2" by itself is sometimes used for address calculations as an argument to +LOOP, when the loop index is an address. When converting the word 2/ which operates on negative dividends, one should be cognizant of the rounding method used.
 
 ### D.6.5 Address alignment
 
 Forth 83 imposes no restriction upon the alignment of addresses to any boundary. ANS Forth specifies that a Standard System may require alignment of addresses for use with various "@" and "!" operators.
 
-Words Affected: ! +! 2! 2@ @ ? , 
+Words Affected: 
+ ! +! 2! 2@ @ ? , 
 
-Reason: Many computers have hardware restrictions that favor the use of aligned addresses. On some machines, the native memory-access instructions will cause an exception trap if used with an unaligned address. Even on machines where unaligned accesses do not cause exception traps, aligned accesses are usually faster.
+Reason: 
+Many computers have hardware restrictions that favor the use of aligned addresses. On some machines, the native memory-access instructions will cause an exception trap if used with an unaligned address. Even on machines where unaligned accesses do not cause exception traps, aligned accesses are usually faster.
 
-Impact: All of the ANS Forth words that return addresses suitable for use with aligned "@" and "!" words must return aligned addresses. In most cases, there will be no problem. Problems can arise from the use of user-defined data structures containing a mixture of character data and cell-sized data.
+Impact: 
+All of the ANS Forth words that return addresses suitable for use with aligned "@" and "!" words must return aligned addresses. In most cases, there will be no problem. Problems can arise from the use of user-defined data structures containing a mixture of character data and cell-sized data.
 
 Many existing Forth systems, especially those currently in use on computers with strong alignment requirements, already require alignment. Much existing Forth code that is currently in use on such machines has already been converted for use in an aligned environment.
 
-Transition/Conversion: There are two possible approaches to conversion of programs for use on a system requiring address alignment.
+Transition/Conversion: 
+There are two possible approaches to conversion of programs for use on a system requiring address alignment.
 
-The easiest approach is to redefine the system’s aligned "@" and "!" operators so that they do not require alignment. For example, on a 16-bit little-endian byte-addressed machine, unaligned "@" and "!" could be defined: : @ ( addr -- x ) DUP C@ SWAP CHAR+ C@ 8 LSHIFT OR ; : ! ( x addr -- ) OVER 8 RSHIFT OVER CHAR+ C! C! ; These definitions, and similar ones for "+!", "2@", "2!", ",", and "?" as needed, can be compiled before an unaligned application, which will then work as expected.
+The easiest approach is to redefine the system’s aligned "@" and "!" operators so that they do not require alignment. For example, on a 16-bit little-endian byte-addressed machine, unaligned "@" and "!" could be defined: 
+
+    : @ ( addr -- x ) DUP C@ SWAP CHAR+ C@ 8 LSHIFT OR ; 
+    : ! ( x addr -- ) OVER 8 RSHIFT OVER CHAR+ C! C! ; 
+
+These definitions, and similar ones for "+!", "2@", "2!", ",", and "?" as needed, can be compiled before an unaligned application, which will then work as expected.
 
 This approach may conserve memory if the application uses substantial numbers of data structures containing unaligned fields.
 
@@ -416,11 +447,14 @@ Forth 79 specifies that division rounds toward 0 and the remainder carries the s
 
 Words Affected: / MOD /MOD */MOD */ 
 
-Reason: The difference between the division behaviors in Forth 79 and Forth 83 was a point of much contention, and many Forth implementations did not switch to the Forth 83 behavior. Both variants have vocal proponents, citing both application requirements and execution efficiency arguments on both sides. After extensive debate spanning many meetings, the committee was unable to reach a consensus for choosing one behavior over the other, and chose to allow either behavior as the default, while providing a means for the user to explicitly use both behaviors as needed. Since implementors are allowed to choose either behavior, they are not required to change the behavior exhibited by their current systems, thus preserving correct functioning of existing programs that run on those systems and depend on a particular behavior. New implementations could choose to supply the behavior that is supported by the native CPU instruction set, thus maximizing execution speed, or could choose the behavior that is most appropriate for the intended application domain of the system.
+Reason: 
+The difference between the division behaviors in Forth 79 and Forth 83 was a point of much contention, and many Forth implementations did not switch to the Forth 83 behavior. Both variants have vocal proponents, citing both application requirements and execution efficiency arguments on both sides. After extensive debate spanning many meetings, the committee was unable to reach a consensus for choosing one behavior over the other, and chose to allow either behavior as the default, while providing a means for the user to explicitly use both behaviors as needed. Since implementors are allowed to choose either behavior, they are not required to change the behavior exhibited by their current systems, thus preserving correct functioning of existing programs that run on those systems and depend on a particular behavior. New implementations could choose to supply the behavior that is supported by the native CPU instruction set, thus maximizing execution speed, or could choose the behavior that is most appropriate for the intended application domain of the system.
 
-Impact: The issue only affects programs that use a negative dividend with a positive divisor, or a positive dividend with a negative divisor. The vast majority of uses of division occur with both a positive dividend and a positive divisor; in that case, the results are the same for both allowed division behaviors.
+Impact: 
+The issue only affects programs that use a negative dividend with a positive divisor, or a positive dividend with a negative divisor. The vast majority of uses of division occur with both a positive dividend and a positive divisor; in that case, the results are the same for both allowed division behaviors.
 
-Transition/Conversion: For programs that require a specific rounding behavior with division operands of mixed sign, the division operators used by the program may be redefined in terms of one of the new ANS Forth division primitives SM/REM (symmetrical division, i.e., round toward zero) or FM/MOD (floored division, i.e., round toward negative infinity). Then the program may be recompiled without change. For example, the Forth 83 style division operators may be defined by: 
+Transition/Conversion: 
+For programs that require a specific rounding behavior with division operands of mixed sign, the division operators used by the program may be redefined in terms of one of the new ANS Forth division primitives SM/REM (symmetrical division, i.e., round toward zero) or FM/MOD (floored division, i.e., round toward negative infinity). Then the program may be recompiled without change. For example, the Forth 83 style division operators may be defined by: 
 
     : /MOD ( n1 n2 -- n3 n4 ) >R S>D R> FM/MOD ; 
     : MOD ( n1 n2 -- n3 ) /MOD DROP ; 
@@ -434,9 +468,11 @@ Forth 83 specified that a number of "compiling words" are "immediate", meaning t
 
 To force the compilation of a word that would normally be executed, Forth 83 provided the words COMPILE , used with non-immediate words, and [COMPILE] , used with immediate words. ANS Forth provides the single word POSTPONE , which is used with both immediate and non-immediate words, automatically selecting the appropriate behavior.
 
-Words Affected: COMPILE [COMPILE] ['] ' 
+Words Affected: 
+COMPILE [COMPILE] ['] ' 
 
-Reason: The designation of particular words as either immediate or not depends upon the implementation technique chosen for the Forth system. With traditional "threaded code" implementations, the choice was generally quite clear (with the single exception of the word LEAVE), and the standard could specify which words should be immediate. However, some of the currently popular implementation techniques, such as native-code generation with optimization, require the immediacy attribute on a different set of words than the set of immediate words of a threaded code implementation. ANS Forth, acknowledging the validity of these other implementation techniques, specifies the immediacy attribute in as few cases as possible.
+Reason: 
+The designation of particular words as either immediate or not depends upon the implementation technique chosen for the Forth system. With traditional "threaded code" implementations, the choice was generally quite clear (with the single exception of the word LEAVE), and the standard could specify which words should be immediate. However, some of the currently popular implementation techniques, such as native-code generation with optimization, require the immediacy attribute on a different set of words than the set of immediate words of a threaded code implementation. ANS Forth, acknowledging the validity of these other implementation techniques, specifies the immediacy attribute in as few cases as possible.
 
 When the membership of the set of immediate words is unclear, the decision about whether to use COMPILE or [COMPILE] becomes unclear. Consequently, ANS Forth provides a "general purpose" replacement word POSTPONE that serves the purpose of the vast majority of uses of both COMPILE and [COMPILE], without requiring that the user know whether or not the "postponed" word is immediate.
 
@@ -452,7 +488,8 @@ a) Use of [COMPILE] with non-immediate words. This is sometimes done with the wo
 
 b) Use of the phrase COMPILE [COMPILE] <immediate word> to "doubly postpone" an immediate word.
 
-Transition/Conversion: Many ANS Forth implementations will continue to implement both [COMPILE] and COMPILE in forms compatible with existing usage. In those environments, no conversion is necessary.
+Transition/Conversion:
+Many ANS Forth implementations will continue to implement both [COMPILE] and COMPILE in forms compatible with existing usage. In those environments, no conversion is necessary.
 
 For complete portability, uses of COMPILE and [COMPILE] should be changed to POSTPONE , except in the rare cases indicated above. Uses of [COMPILE] with non-immediate words may be left as-is, and the program may declare a requirement for the word [COMPILE] from the Core Extensions word set, or the [COMPILE] before the non-immediate word may be simply deleted if the target word is known to be non-immediate.
 
@@ -477,13 +514,17 @@ Use the phrase POSTPONE [COMPILE] to replace [COMPILE] [COMPILE].
 
 Forth 83 specifies that the full 7-bit ASCII character set is available through KEY . ANS Forth restricts it to the graphic characters of the ASCII set, with codes from hex 20 to hex 7E inclusive.
 
-Words Affected: KEY 
+Words Affected: 
+KEY 
 
-Reason: Many system environments "consume" certain control characters for such purposes as input editing, job control, or flow control. A Forth implementation cannot always control this system behavior.
+Reason: 
+Many system environments "consume" certain control characters for such purposes as input editing, job control, or flow control. A Forth implementation cannot always control this system behavior.
 
-Impact: Standard Programs which require the ability to receive particular control characters through KEY must declare an environmental dependency on the input character set.
+Impact: 
+Standard Programs which require the ability to receive particular control characters through KEY must declare an environmental dependency on the input character set.
 
-Transition/Conversion: For maximum portability, programs should restrict their required input character set to only the graphic characters. Control characters may be handled if available, but complete program functionality should be accessible using only graphic characters.
+Transition/Conversion: 
+For maximum portability, programs should restrict their required input character set to only the graphic characters. Control characters may be handled if available, but complete program functionality should be accessible using only graphic characters.
 
 As stated above, an environmental dependency on the input character set may be declared. Even so, it is recommended that the program should avoid the requirement for particularly-troublesome control characters, such as control-S and control-Q (often used for flow control, sometimes by communication hardware whose presence may be difficult to detect), ASCII NUL (difficult to type on many keyboards), and the distinction between carriage return and line feed (some systems translate carriage returns into line feeds, or vice versa).
 
@@ -509,29 +550,35 @@ ANS Forth does not define the words VOCABULARY, CONTEXT, and CURRENT , which wer
 
 Forth-83’s "ALSO/ONLY" experimental search order word set is specified for the most part as the extension portion of the ANS Forth Search Order word set.
 
-Words Affected: VOCABULARY CONTEXT CURRENT 
+Words Affected: 
+VOCABULARY CONTEXT CURRENT 
 
-Reason: Vocabularies are an area of much divergence among existing systems.  Considering major vendors’ systems and previous standards, there are at least 5 different and mutually incompatible behaviors of words defined by VOCABULARY. Forth 83 took a step in the direction of "run-time search-order specification" by declining to specify a specific relationship between the hierarchy of compiled vocabularies and the run-time search order. Forth 83 also specified an experimental mechanism for run-time search-order specification, the ALSO/ONLY scheme. ALSO/ONLY was implemented in numerous systems, and has achieved some measure of popularity in the Forth community.
+Reason: 
+Vocabularies are an area of much divergence among existing systems.  Considering major vendors’ systems and previous standards, there are at least 5 different and mutually incompatible behaviors of words defined by VOCABULARY. Forth 83 took a step in the direction of "run-time search-order specification" by declining to specify a specific relationship between the hierarchy of compiled vocabularies and the run-time search order. Forth 83 also specified an experimental mechanism for run-time search-order specification, the ALSO/ONLY scheme. ALSO/ONLY was implemented in numerous systems, and has achieved some measure of popularity in the Forth community.
 
 However, several vendors refuse to implement it, citing technical limitations. In an effort to address those limitations and thus hopefully make ALSO/ONLY more palatable to its critics, the committee specified a simple "primitive word set" that not only fixes some of the objections to ALSO/ONLY, but also provides sufficient power to implement ALSO/ONLY and all of the other search-order word sets that are currently popular.
 
 The Forth 83 ALSO/ONLY word set is provided as an optional extension to the search-order word set. This allows implementors that are so inclined to provide this word set, with well-defined standard behavior, but does not compel implementors to do so. Some vendors have publicly stated that they will not implement ALSO/ONLY, no matter what, and one major vendor stated an unwillingness to implement ANS Forth at all if ALSO/ONLY is mandated. The committee feels that its actions are prudent, specifying ALSO/ONLY to the extent possible without mandating its inclusion in all systems, and also providing a primitive search-order word set that vendors may be more likely to implement, and which can be used to synthesize ALSO/ONLY.
 
-Transition/Conversion: Since Forth 83 did not mandate precise semantics for VOCABULARY, existing Forth-83 Standard programs cannot use it except in a trivial way. Programs can declare a dependency on the existence of the Search Order word set, and can implement whatever semantics are required using that word set’s primitives. Forth 83 programs that need ALSO/ONLY can declare a dependency on the Search Order Extensions word set, or can implement the extensions in terms of the Search Order word set itself.
+Transition/Conversion: 
+Since Forth 83 did not mandate precise semantics for VOCABULARY, existing Forth-83 Standard programs cannot use it except in a trivial way. Programs can declare a dependency on the existence of the Search Order word set, and can implement whatever semantics are required using that word set’s primitives. Forth 83 programs that need ALSO/ONLY can declare a dependency on the Search Order Extensions word set, or can implement the extensions in terms of the Search Order word set itself.
 
 ### D.6.11 Multiprogramming impact
 
 Forth 83 marked words with "multiprogramming impact" by the letter "M" in the first lines of their descriptions. ANS Forth has removed the "M" designation from the word descriptions, moving the discussion of multiprogramming impact to this non-normative annex.
 
-Words affected: none 
+Words affected:
+none 
 
-Reason: The meaning of "multiprogramming impact" is precise only in the context of a specific model for multiprogramming. Although many Forth systems do provide multiprogramming capabilities using a particular round-robin, cooperative, block-buffer sharing model, that model is not universal. Even assuming the classical model, the "M" designations did not contain enough information to enable writing of applications that interacted in a multiprogrammed system.
+Reason:
+The meaning of "multiprogramming impact" is precise only in the context of a specific model for multiprogramming. Although many Forth systems do provide multiprogramming capabilities using a particular round-robin, cooperative, block-buffer sharing model, that model is not universal. Even assuming the classical model, the "M" designations did not contain enough information to enable writing of applications that interacted in a multiprogrammed system.
 
 Practically speaking, the "M" designations in Forth 83 served to document usage rules for block buffer addresses in multiprogrammed systems. These addresses often become meaningless after a task has relinquished the CPU for any reason, most often for the purposes of performing I/O, awaiting an event, or voluntarily sharing CPU resources using the word PAUSE. It was essential that portable applications respect those usage rules to make it practical to run them on multiprogrammed systems; failure to adhere to the rules could easily compromise the integrity of other applications running on those systems as well as the applications actually in error. Thus, "M" appeared on all words that by design gave up the CPU, with the understanding that other words NEVER gave it up.
 
 These usage rules have been explicitly documented in the Block word set where they are relevant. The "M" designations have been removed entirely.
 
-Impact: In practice, none.
+Impact: 
+In practice, none.
 
 In the sense that any application that depends on multiprogramming must consist of at least two tasks that share some resource(s) and communicate between themselves, Forth 83 did not contain enough information to enable writing of a standard program that DEPENDED on multiprogramming. This is also true of ANS Forth.
 
@@ -539,21 +586,26 @@ Non-multiprogrammed applications in Forth 83 were required to respect usage rule
 
 The only difference is the documentation method used to define the BLOCK usage rules. The Technical Committee believes that the current method is clearer than the concept of "multiprogramming impact".
 
-Transition/Conversion: none needed.
+Transition/Conversion: 
+none needed.
 
 ### D.6.12 Words not provided in executable form
 
 ANS Forth allows an implementation to supply some words in source code or "load as needed" form, rather than requiring all supplied words to be available with no additional programmer action.
 
-Words affected: all 
+Words affected: 
+all 
 
-Reason: Forth systems are often used in environments where memory space is at a premium. Every word included in the system in executable form consumes memory space. The committee believes that allowing standard words to be provided in source form will increase the probability that implementors will provide complete ANS Forth implementations even in systems designed for use in constrained environments.
+Reason: 
+Forth systems are often used in environments where memory space is at a premium. Every word included in the system in executable form consumes memory space. The committee believes that allowing standard words to be provided in source form will increase the probability that implementors will provide complete ANS Forth implementations even in systems designed for use in constrained environments.
 
-Impact: In order to use a Standard Program with a given ANS Forth implementation, it may be necessary to precede the program with an implementation-dependent "preface" to make "source form" words executable. This is similar to the methods that other computer languages require for selecting the library routines needed by a particular application.
+Impact:
+In order to use a Standard Program with a given ANS Forth implementation, it may be necessary to precede the program with an implementation-dependent "preface" to make "source form" words executable. This is similar to the methods that other computer languages require for selecting the library routines needed by a particular application.
 
 In languages like C, the goal of eliminating unnecessary routines from the memory image of an application is usually accomplished by providing libraries of routines, using a "linker" program to incorporate only the necessary routines into an executable application. The method of invoking and controlling the linker is outside the scope of the language definition.
 
-Transition/Conversion: Before compiling a program, the programmer may need to perform some action to make the words required by that program available for execution.
+Transition/Conversion: 
+Before compiling a program, the programmer may need to perform some action to make the words required by that program available for execution.
 
 # E. ANS Forth portability guide (informative annex) 
 
@@ -585,16 +637,14 @@ Similarly, the definition of a character has been generalized to be an implement
 
 ANS Forth eliminates many portability problems by using the above definitions. One of the most common portability problems is addressing successive cells in memory. Given the memory address of a cell, how do you find the address of the next cell? In Forth 83 this is easy: 2 + . This code assumes that memory is addressed in 8-bit units (bytes) and a cell is 16-bits wide. On a byte-addressed machine with 32-bit cells the code to find the next cell would be 4 + . The code would be 1+ on a cell-addressed processor and 16 + on a bit-addressed processor with 16-bit cells. ANS Forth provides a next-cell operator named CELL+ that can be used in all of these cases. Given an address, CELL+ adjusts the address by the size of a cell (measured in address units). A related problem is that of addressing an array of cells in an arbitrary order.  A defining word to create an array of cells using Forth 83 would be: 
 
-: ARRAY CREATE 2* ALLOT DOES> SWAP 2* + ; 
+    : ARRAY CREATE 2* ALLOT DOES> SWAP 2* + ; 
 
 Use of 2* to scale the array index assumes byte addressing and 16-bit cells again. As in the example above, different versions of the code would be needed for different machines. ANS Forth provides a portable scaling operator named CELLS. Given a number n, CELLS returns the number of address units needed to hold n cells. A portable definition of array is: 
 
-: ARRAY CREATE CELLS ALLOT 
-    DOES> SWAP CELLS + ; 
+    : ARRAY CREATE CELLS ALLOT 
+        DOES> SWAP CELLS + ; 
 
-There are also portability problems with addressing arrays of characters. In Forth 83 (and in the most common ANS Forth implementations), the size of a character will equal the size of an address unit.
-
-Consequently addresses of successive characters in memory can be found using 1+ and scaling indices into a character array is a no-op (i.e., 1 *). However, there are cases where a character is larger than an address unit. Examples include (1) systems with small address units (e.g., bit- and nibble-addressed systems), and (2) systems with large character sets (e.g., 16-bit characters on a byte-addressed machine). CHAR+ and CHARS operators, analogous to CELL+ and CELLS are available to allow maximum portability.
+There are also portability problems with addressing arrays of characters. In Forth 83 (and in the most common ANS Forth implementations), the size of a character will equal the size of an address unit.  Consequently addresses of successive characters in memory can be found using 1+ and scaling indices into a character array is a no-op (i.e., 1 *). However, there are cases where a character is larger than an address unit. Examples include (1) systems with small address units (e.g., bit- and nibble-addressed systems), and (2) systems with large character sets (e.g., 16-bit characters on a byte-addressed machine). CHAR+ and CHARS operators, analogous to CELL+ and CELLS are available to allow maximum portability.
 
 ANS Forth generalizes the definition of some Forth words that operate on chunks of memory to use address units. One example is ALLOT. By prefixing ALLOT with the appropriate scaling operator (CELLS, CHARS, etc.), space for any desired data structure can be allocated (see definition of array above). For example: 
 
@@ -608,11 +658,23 @@ The memory-block-move word also uses address units:
 
 Not all addresses are created equal. Many processors have restrictions on the addresses that can be used by memory access instructions. This Standard does not require an implementor of an ANS Forth to make alignment transparent; on the contrary, it requires (in Section 3.3.3.1 Address alignment) that an ANS Forth program assume that character and cell alignment may be required.
 
- One of the most common problems caused by alignment restrictions is in creating tables containing both characters and cells. When , (comma) or C, is used to initialize a table, data is stored at the data-space pointer. Consequently, it must be suitably aligned. For example, a non-portable table definition would be: CREATE ATABLE 1 C, X , 2 C, Y , On a machine that restricts 16-bit fetches to even addresses, CREATE would leave the data space pointer at an even address, the 1 C, would make the data space pointer odd, and , (comma) would violate the address restriction by storing X at an odd address. A portable way to create the table is: CREATE ATABLE 1 C, ALIGN X , 2 C, ALIGN Y , ALIGN adjusts the data space pointer to the first aligned address greater than or equal to its current address.
+One of the most common problems caused by alignment restrictions is in creating tables containing both characters and cells. When , (comma) or C, is used to initialize a table, data is stored at the data-space pointer. Consequently, it must be suitably aligned. For example, a non-portable table definition would be: 
+
+    CREATE ATABLE 1 C, X , 2 C, Y , 
+
+On a machine that restricts 16-bit fetches to even addresses, CREATE would leave the data space pointer at an even address, the 1 C, would make the data space pointer odd, and , (comma) would violate the address restriction by storing X at an odd address. A portable way to create the table is: 
+
+    CREATE ATABLE 1 C, ALIGN X , 2 C, ALIGN Y , 
+
+ALIGN adjusts the data space pointer to the first aligned address greater than or equal to its current address.
 
 An aligned address is suitable for storing or fetching characters, cells, cell pairs, or double-cell numbers.
 
-After initializing the table, we would also like to read values from the table. For example, assume we want to fetch the first cell, X, from the table. ATABLE CHAR+ gives the address of the first thing after the character. However this may not be the address of X since we aligned the dictionary pointer between the C, and the ,. The portable way to get the address of X is: ATABLE CHAR+ ALIGNED ALIGNED adjusts the address on top of the stack to the first aligned address greater than or equal to its current value.
+After initializing the table, we would also like to read values from the table. For example, assume we want to fetch the first cell, X, from the table. ATABLE CHAR+ gives the address of the first thing after the character. However this may not be the address of X since we aligned the dictionary pointer between the C, and the ,. The portable way to get the address of X is: 
+
+    ATABLE CHAR+ ALIGNED 
+
+ALIGNED adjusts the address on top of the stack to the first aligned address greater than or equal to its current value.
 
 ## E.3 Number representation
 
@@ -620,7 +682,11 @@ Different computers represent numbers in different ways. An awareness of these d
 
 ### E.3.1 Big endian vs. little endian
 
-The constituent bits of a number in memory are kept in different orders on different machines. Some machines place the most-significant part of a number at an address in memory with less-significant parts following it at higher addresses. Other machines do the opposite — the least-significant part is stored at the lowest address. For example, the following code for a 16-bit 8086 "little endian" Forth would produce the answer 34 (hex): VARIABLE FOO HEX 1234 FOO ! FOO C@ The same code on a 16-bit 68000 "big endian" Forth would produce the answer 12 (hex). A portable program cannot exploit the representation of a number in memory.
+The constituent bits of a number in memory are kept in different orders on different machines. Some machines place the most-significant part of a number at an address in memory with less-significant parts following it at higher addresses. Other machines do the opposite — the least-significant part is stored at the lowest address. For example, the following code for a 16-bit 8086 "little endian" Forth would produce the answer 34 (hex): 
+
+    VARIABLE FOO HEX 1234 FOO ! FOO C@ 
+
+The same code on a 16-bit 68000 "big endian" Forth would produce the answer 12 (hex). A portable program cannot exploit the representation of a number in memory.
 
 A related issue is the representation of cell pairs and double-cell numbers in memory. When a cell pair is moved from the stack to memory with 2!, the cell that was on top of the stack is placed at the lower memory address. It is useful and reasonable to manipulate the individual cells when they are in memory.
 
@@ -632,23 +698,20 @@ Programmers who have grown up on two’s complement machines tend to become inti
 
  The remainder of this section is a (non-exhaustive) list of things to watch for when portability between machines with binary representations other than two’s complement is desired.
 
-To convert a single-cell number to a double-cell number, ANS Forth provides the operator S>D. To convert a double-cell number to single-cell, Forth programmers have traditionally used DROP. However, this trick doesn’t work on sign-magnitude machines. For portability a D>S operator is available.
-
-Converting an unsigned single-cell number to a double-cell number can be done portably by pushing a zero on the stack.
+To convert a single-cell number to a double-cell number, ANS Forth provides the operator S>D. To convert a double-cell number to single-cell, Forth programmers have traditionally used DROP. However, this trick doesn’t work on sign-magnitude machines. For portability a D>S operator is available.  Converting an unsigned single-cell number to a double-cell number can be done portably by pushing a zero on the stack.
 
 ## E.4 Forth system implementation
 
-During Forth’s history, an amazing variety of implementation techniques have been developed. The ANS Forth Standard encourages this diversity and consequently restricts the assumptions a user can make about the underlying implementation of an ANS Forth system. Users of a particular Forth implementation frequently become accustomed to aspects of the implementation and assume they are common to all Forths.
-
-This section points out many of these incorrect assumptions.
+During Forth’s history, an amazing variety of implementation techniques have been developed. The ANS Forth Standard encourages this diversity and consequently restricts the assumptions a user can make about the underlying implementation of an ANS Forth system. Users of a particular Forth implementation frequently become accustomed to aspects of the implementation and assume they are common to all Forths.  This section points out many of these incorrect assumptions.
 
 ### E.4.1 Definitions
 
-Traditionally, Forth definitions have consisted of the name of the Forth word, a dictionary search link, data describing how to execute the definition, and parameters describing the definition itself. These components are called the name, link, code, and parameter fields3 . No method for accessing these fields has been found that works across all of the Forth implementations currently in use. Therefore, ANS Forth severely restricts how the fields may be used. Specifically, a portable ANS Forth program may not use the name, link, or code field in any way. Use of the parameter field (renamed to data field for clarity) is limited to the operations described below.
+Traditionally, Forth definitions have consisted of the name of the Forth word, a dictionary search link, data describing how to execute the definition, and parameters describing the definition itself. These components are called the name, link, code, and parameter fields^^X . No method for accessing these fields has been found that works across all of the Forth implementations currently in use. Therefore, ANS Forth severely restricts how the fields may be used. Specifically, a portable ANS Forth program may not use the name, link, or code field in any way. Use of the parameter field (renamed to data field for clarity) is limited to the operations described below.
 
-Only words defined with CREATE or with other defining words that call CREATE have data fields. The other defining words in the Standard (VARIABLE, CONSTANT, :, etc.) might not be implemented with CREATE. Consequently, a Standard Program must assume that words defined by VARIABLE, CONSTANT, : , etc., may have no data fields. There is no way for a Standard Program to modify the value of a constant or to change the meaning of a colon definition. The DOES> part of a defining word operates on a data field.
+^^X{These terms are not defined in the Standard. They are mentioned here for historical continuity.
+^^}
 
-Since only CREATEd words have data fields, DOES> can only be paired with CREATE or words that call CREATE.
+Only words defined with CREATE or with other defining words that call CREATE have data fields. The other defining words in the Standard (VARIABLE, CONSTANT, :, etc.) might not be implemented with CREATE. Consequently, a Standard Program must assume that words defined by VARIABLE, CONSTANT, : , etc., may have no data fields. There is no way for a Standard Program to modify the value of a constant or to change the meaning of a colon definition. The DOES> part of a defining word operates on a data field.  Since only CREATEd words have data fields, DOES> can only be paired with CREATE or words that call CREATE.
 
 In ANS Forth, FIND, ['] and ' (tick) return an unspecified entity called an "execution token". There are only a few things that may be done with an execution token. The token may be passed to EXECUTE to execute the word ticked or compiled into the current definition with COMPILE,. The token can also be stored in a variable and used later. Finally, if the word ticked was defined via CREATE, >BODY converts the execution token into the word’s data-field address.
 
@@ -658,9 +721,7 @@ One thing that definitely cannot be done with an execution token is use ! or , t
 
 In some Forth implementations, it is possible to find the address of a stack in memory and manipulate the stack as an array of cells. This technique is not portable, however. On some systems, especially Forth-in-hardware systems, the stacks might be in a part of memory that can’t be addressed by the program or might not be in memory at all. Forth’s parameter and return stacks must be treated as stacks.
 
-A Standard Program may use the return stack directly only for temporarily storing values. Every value examined or removed from the return stack using R@, R>, or 2R> must have been put on the stack explicitly 3 These terms are not defined in the Standard. They are mentioned here for historical continuity.
-
- using >R or 2>R. Even this must be done carefully since the system may use the return stack to hold return addresses and loop-control parameters. Section 3.2.3.3 Return stack of the Standard has a list of restrictions.
+A Standard Program may use the return stack directly only for temporarily storing values. Every value examined or removed from the return stack using R@, R>, or 2R> must have been put on the stack explicitly using >R or 2>R. Even this must be done carefully since the system may use the return stack to hold return addresses and loop-control parameters. Section 3.2.3.3 Return stack of the Standard has a list of restrictions.
 
 ## E.5 ROMed application disciplines and conventions
 
@@ -670,9 +731,18 @@ Programs designed for ROMed application must divide data space into at least two
 
 The separation of data space into RAM and ROM is meaningful only during the generation of the ROMed program. If the ROMed program is itself a standard development system, it has the same taxonomy as an ordinary RAM-only system.
 
-The words affected by conversion from a RAM-only to a mixed RAM and ROM environment are: , (comma) ALIGN ALIGNED ALLOT C, CREATE HERE UNUSED (VARIABLE always accesses the RAM data space.) With the exception of , (comma) and C, these words are meaningful in both RAM and ROM data space.
+The words affected by conversion from a RAM-only to a mixed RAM and ROM environment are: 
 
-To select the data space, these words could be preceded by selectors RAM and ROM. For example: ROM CREATE ONES 32 ALLOT ONES 32 1 FILL RAM would create a table of ones in the ROM data space. The storage of data into RAM data space when generating a program for ROM would be an ambiguous condition.
+    , (comma) ALIGN ALIGNED ALLOT C, CREATE HERE UNUSED 
+    (VARIABLE always accesses the RAM data space.) 
+
+With the exception of , (comma) and C, these words are meaningful in both RAM and ROM data space.
+
+To select the data space, these words could be preceded by selectors RAM and ROM. For example: 
+
+    ROM CREATE ONES 32 ALLOT ONES 32 1 FILL RAM 
+
+would create a table of ones in the ROM data space. The storage of data into RAM data space when generating a program for ROM would be an ambiguous condition.
 
 A straightforward implementation of these selectors would maintain separate address counters for each space. A counter value would be returned by HERE and altered by , (comma), C,, ALIGN, and ALLOT, with RAM and ROM simply selecting the appropriate address counter. This technique could be extended to additional partitions of the data space.
 
@@ -680,388 +750,3 @@ A straightforward implementation of these selectors would maintain separate addr
 
 The ANS Forth Standard cannot and should not force anyone to write a portable program. In situations where performance is paramount, the programmer is encouraged to use every trick in the book. On the other hand, if portability to a wide variety of systems is needed, ANS Forth provides the tools to accomplish this. There is probably no such thing as a completely portable program. A programmer, using this guide, should intelligently weigh the tradeoffs of providing portability to specific machines. For example, machines that use sign-magnitude numbers are rare and probably don’t deserve much thought. But, systems with different cell sizes will certainly be encountered and should be provided for. In general, making a program portable clarifies both the programmer’s thinking process and the final program.
 
- F. Alphabetic list of words (informative annex) In the following list, the last, four-digit, part of the reference number establishes a sequence corresponding to the alphabetic ordering of all standard words. The first two or three parts indicate the word set and glossary section in which the word is defined.
-
-.6.1.0010 ! ...................................................... "store"..................................................................CORE....... 25
-.6.1.0030 # ...................................................... "number-sign"......................................................CORE....... 25
-.6.1.0040 #> .................................................... "number-sign-greater" .........................................CORE....... 25
-.6.1.0050 #S .................................................... "number-sign-s"...................................................CORE....... 25
-.6.2.0060 #TIB ............................................... "number-t-i-b" ............................................CORE EXT....... 49
-.6.1.0070 ' ...................................................... "tick" ...................................................................CORE....... 25
-.6.1.0080 ( ...................................................... "paren".................................................................CORE....... 26
- 11.6.1.0080 ( ...................................................... "paren"...................................................................FILE....... 80
- 13.6.1.0086 (LOCAL) ........................................ "paren-local-paren" .......................................... LOCAL..... 105
-.6.1.0090 * ...................................................... "star"....................................................................CORE....... 26
-.6.1.0100 */ .................................................... "star-slash"...........................................................CORE....... 26
-.6.1.0110 */MOD ............................................. "star-slash-mod" ..................................................CORE....... 26
-.6.1.0120 + ...................................................... "plus"...................................................................CORE....... 26
-.6.1.0130 +! .................................................... "plus-store"..........................................................CORE....... 27
-.6.1.0140 +LOOP ............................................. "plus-loop" ..........................................................CORE....... 27
-.6.1.0150 , ...................................................... "comma"..............................................................CORE....... 27
-.6.1.0160 - ...................................................... "minus"................................................................CORE....... 27
- 17.6.1.0170 -TRAILING ................................... "dash-trailing" .................................................STRING..... 122
-.6.1.0180 . ...................................................... "dot" ....................................................................CORE....... 27
-.6.1.0190 ." .................................................... "dot-quote" ..........................................................CORE....... 28
-.6.2.0200 .( .................................................... "dot-paren" .................................................CORE EXT....... 49
-.6.2.0210 .R .................................................... "dot-r".........................................................CORE EXT....... 49
- 15.6.1.0220 .S .................................................... "dot-s" ...............................................................TOOLS..... 112
-.6.1.0230 / ...................................................... "slash"..................................................................CORE....... 28
-.6.1.0240 /MOD ............................................... "slash-mod" .........................................................CORE....... 28
- 17.6.1.0245 /STRING ........................................ "slash-string" ...................................................STRING..... 123
-.6.1.0250 0< .................................................... "zero-less" ...........................................................CORE....... 28
-.6.2.0260 0<> .................................................. "zero-not-equals"........................................CORE EXT....... 49
-.6.1.0270 0= .................................................... "zero-equals" .......................................................CORE....... 28
-.6.2.0280 0> .................................................... "zero-greater" .............................................CORE EXT....... 50
-.6.1.0290 1+ .................................................... "one-plus"............................................................CORE....... 28
-.6.1.0300 1- .................................................... "one-minus".........................................................CORE....... 29
-.6.1.0310 2! .................................................... "two-store"...........................................................CORE....... 29
-.6.1.0320 2* .................................................... "two-star".............................................................CORE....... 29
-.6.1.0330 2/ .................................................... "two-slash" ..........................................................CORE....... 29
-.6.2.0340 2>R .................................................. "two-to-r"....................................................CORE EXT....... 50
-.6.1.0350 2@ .................................................... "two-fetch" ..........................................................CORE....... 29
- 8.6.1.0360 2CONSTANT ................................... "two-constant" ............................................... DOUBLE....... 66
-.6.1.0370 2DROP ............................................. "two-drop"...........................................................CORE....... 29
-.6.1.0380 2DUP ............................................... "two-dupe"...........................................................CORE....... 29
- 8.6.1.0390 2LITERAL ...................................... "two-literal"................................................... DOUBLE....... 66
-.6.1.0400 2OVER ............................................. "two-over" ...........................................................CORE....... 29
-.6.2.0410 2R> .................................................. "two-r-from"...............................................CORE EXT....... 50
-.6.2.0415 2R@ .................................................. "two-r-fetch"...............................................CORE EXT....... 50
- 8.6.2.0420 2ROT ............................................... "two-rote" ............................................. DOUBLE EXT....... 69
-.6.1.0430 2SWAP ............................................. "two-swap" ..........................................................CORE....... 30
- 8.6.1.0440 2VARIABLE ................................... "two-variable" ............................................... DOUBLE....... 67
- ANSI X3.215-1994
- 205
-.6.1.0450 : ......................................................."colon" ................................................................ CORE ...... 30
-.6.2.0455 :NONAME ........................................."colon-no-name" ........................................ CORE EXT ...... 51
-.6.1.0460 ; ......................................................."semicolon"......................................................... CORE ...... 30
- 15.6.2.0470 ;CODE ............................................."semicolon-code"..................................... TOOLS EXT .... 113
-.6.1.0480 < ......................................................."less-than"........................................................... CORE ...... 30
-.6.1.0490 <# ....................................................."less-number-sign".............................................. CORE ...... 31
-.6.2.0500 <> ....................................................."not-equals"................................................ CORE EXT ...... 50
-.6.1.0530 = ......................................................."equals"............................................................... CORE ...... 31
-.6.1.0540 > ......................................................."greater-than"...................................................... CORE ...... 31
-.6.1.0550 >BODY ............................................."to-body"............................................................. CORE ...... 31
- 12.6.1.0558 >FLOAT ..........................................."to-float" ....................................................FLOATING ...... 91
-.6.1.0560 >IN .................................................."to-in".................................................................. CORE ...... 31
-.6.1.0570 >NUMBER ........................................."to-number"........................................................ CORE ...... 31
-.6.1.0580 >R ....................................................."to-r" ................................................................... CORE ...... 32
- 15.6.1.0600 ? ......................................................."question"..........................................................TOOLS .... 112
-.6.2.0620 ?DO .................................................."question-do" ............................................. CORE EXT ...... 51
-.6.1.0630 ?DUP ................................................"question-dupe"................................................... CORE ...... 32
-.6.1.0650 @ ......................................................."fetch" ................................................................. CORE ...... 32
-.6.1.0670 ABORT ............................................. ............................................................................ CORE ...... 32
- 9.6.2.0670 ABORT ............................................. ........................................................EXCEPTION EXT ...... 73
-.6.1.0680 ABORT" ..........................................."abort-quote"....................................................... CORE ...... 32
- 9.6.2.0680 ABORT" ..........................................."abort-quote"...................................EXCEPTION EXT ...... 73
-.6.1.0690 ABS .................................................."abs".................................................................... CORE ...... 32
-.6.1.0695 ACCEPT ........................................... ............................................................................ CORE ...... 33
-.6.2.0700 AGAIN ............................................. .................................................................. CORE EXT ...... 51
- 15.6.2.0702 AHEAD ............................................. ................................................................. TOOLS EXT .... 113
-.6.1.0705 ALIGN ............................................. ............................................................................ CORE ...... 33
-.6.1.0706 ALIGNED ......................................... ............................................................................ CORE ...... 33
- 14.6.1.0707 ALLOCATE ...................................... .....................................................................MEMORY .... 109
-.6.1.0710 ALLOT ............................................. ............................................................................ CORE ...... 33
- 16.6.2.0715 ALSO ................................................ .............................................................. SEARCH EXT .... 120
-.6.1.0720 AND .................................................. ............................................................................ CORE ...... 33
- 15.6.2.0740 ASSEMBLER .................................... ................................................................. TOOLS EXT .... 114
- 10.6.1.0742 AT-XY ............................................."at-x-y".........................................................FACILITY ...... 75
-.6.1.0750 BASE ................................................ ............................................................................ CORE ...... 34
-.6.1.0760 BEGIN ............................................. ............................................................................ CORE ...... 34
- 11.6.1.0765 BIN .................................................. .............................................................................. FILE ...... 80
-.6.1.0770 BL ....................................................."b-l"..................................................................... CORE ...... 34
- 17.6.1.0780 BLANK ............................................. ........................................................................ STRING .... 123
- 7.6.1.0790 BLK .................................................."b-l-k" .............................................................. BLOCK ...... 62
- 7.6.1.0800 BLOCK ............................................. ......................................................................... BLOCK ...... 62
- 7.6.1.0820 BUFFER ........................................... ......................................................................... BLOCK ...... 62
- 15.6.2.0830 BYE .................................................. ................................................................. TOOLS EXT .... 114
-.6.1.0850 C! ....................................................."c-store" .............................................................. CORE ...... 34
-.6.2.0855 C" ....................................................."c-quote" .................................................... CORE EXT ...... 52
-.6.1.0860 C, ....................................................."c-comma" .......................................................... CORE ...... 34
-.6.1.0870 C@ ....................................................."c-fetch" .............................................................. CORE ...... 34
-.6.2.0873 CASE ................................................ ................................................................... CORE EXT ...... 52
- 9.6.1.0875 CATCH ............................................. .................................................................EXCEPTION ...... 72
-.6.1.0880 CELL+ ............................................."cell-plus" ........................................................... CORE ...... 35
-.6.1.0890 CELLS ............................................. ............................................................................ CORE ...... 35
-.6.1.0895 CHAR ................................................"char" .................................................................. CORE ...... 35
-.6.1.0897 CHAR+ ............................................."char-plus" .......................................................... CORE ...... 35
-.6.1.0898 CHARS ............................................."chars"................................................................. CORE ...... 35
-ANSI X3.215-1994
-206
- 11.6.1.0900 CLOSE-FILE ................................. ...............................................................................FILE....... 80
- 17.6.1.0910 CMOVE ............................................. "c-move"..........................................................STRING..... 123
- 17.6.1.0920 CMOVE> ........................................... "c-move-up" ....................................................STRING..... 123
- 15.6.2.0930 CODE ............................................... ..................................................................TOOLS EXT..... 114
- 17.6.1.0935 COMPARE ........................................ .........................................................................STRING..... 124
-.6.2.0945 COMPILE, ...................................... "compile-comma".......................................CORE EXT....... 52
-.6.1.0950 CONSTANT ...................................... .............................................................................CORE....... 35
-.6.2.0970 CONVERT ........................................ ....................................................................CORE EXT....... 52
-.6.1.0980 COUNT ............................................. .............................................................................CORE....... 36
-.6.1.0990 CR .................................................... "c-r".....................................................................CORE....... 36
-.6.1.1000 CREATE ........................................... .............................................................................CORE....... 36
- 11.6.1.1010 CREATE-FILE ............................... ...............................................................................FILE....... 81
- 15.6.2.1015 CS-PICK ........................................ "c-s-pick"..................................................TOOLS EXT..... 114
- 15.6.2.1020 CS-ROLL ........................................ "c-s-roll"...................................................TOOLS EXT..... 115
- 8.6.1.1040 D+ .................................................... "d-plus".......................................................... DOUBLE....... 67
- 8.6.1.1050 D- .................................................... "d-minus"....................................................... DOUBLE....... 67
- 8.6.1.1060 D. .................................................... "d-dot"........................................................... DOUBLE....... 67
- 8.6.1.1070 D.R .................................................. "d-dot-r" ........................................................ DOUBLE....... 67
- 8.6.1.1075 D0< .................................................. "d-zero-less" .................................................. DOUBLE....... 67
- 8.6.1.1080 D0= .................................................. "d-zero-equals".............................................. DOUBLE....... 67
- 8.6.1.1090 D2* .................................................. "d-two-star" ................................................... DOUBLE....... 68
- 8.6.1.1100 D2/ .................................................. "d-two-slash" ................................................. DOUBLE....... 68
- 8.6.1.1110 D< .................................................... "d-less-than" .................................................. DOUBLE....... 68
- 8.6.1.1120 D= .................................................... "d-equals"...................................................... DOUBLE....... 68
- 12.6.1.1130 D>F .................................................. "d-to-f" .......................................................FLOATING....... 91
- 8.6.1.1140 D>S .................................................. "d-to-s" .......................................................... DOUBLE....... 68
- 8.6.1.1160 DABS ............................................... "d-abs"........................................................... DOUBLE....... 68
-.6.1.1170 DECIMAL ........................................ .............................................................................CORE....... 36
- 16.6.1.1180 DEFINITIONS ............................... ........................................................................SEARCH..... 119
- 11.6.1.1190 DELETE-FILE ............................... ...............................................................................FILE....... 81
-.6.1.1200 DEPTH ............................................. .............................................................................CORE....... 36
- 12.6.2.1203 DF! .................................................. "d-f-store"..........................................FLOATING EXT....... 95
- 12.6.2.1204 DF@ .................................................. "d-f-fetch"..........................................FLOATING EXT....... 96
- 12.6.2.1205 DFALIGN ........................................ "d-f-align"..........................................FLOATING EXT....... 96
- 12.6.2.1207 DFALIGNED ................................... "d-f-aligned"......................................FLOATING EXT....... 96
- 12.6.2.1208 DFLOAT+ ........................................ "d-float-plus".....................................FLOATING EXT....... 96
- 12.6.2.1209 DFLOATS ........................................ "d-floats" ...........................................FLOATING EXT....... 96
- 8.6.1.1210 DMAX ............................................... "d-max" ......................................................... DOUBLE....... 68
- 8.6.1.1220 DMIN ............................................... "d-min" .......................................................... DOUBLE....... 69
- 8.6.1.1230 DNEGATE ........................................ "d-negate"...................................................... DOUBLE....... 69
-.6.1.1240 DO .................................................... .............................................................................CORE....... 36
-.6.1.1250 DOES> ............................................. "does" ..................................................................CORE....... 37
-.6.1.1260 DROP ............................................... .............................................................................CORE....... 37
- 8.6.2.1270 DU< .................................................. "d-u-less".............................................. DOUBLE EXT....... 69
- 15.6.1.1280 DUMP ............................................... ...........................................................................TOOLS..... 112
-.6.1.1290 DUP .................................................. "dupe"..................................................................CORE....... 37
- 15.6.2.1300 EDITOR ........................................... ..................................................................TOOLS EXT..... 115
- 10.6.2.1305 EKEY ............................................... "e-key".................................................FACILITY EXT....... 76
- 10.6.2.1306 EKEY>CHAR ................................... "e-key-to-char" ....................................FACILITY EXT....... 76
- 10.6.2.1307 EKEY? ............................................. "e-key-question" ..................................FACILITY EXT....... 76
-.6.1.1310 ELSE ............................................... .............................................................................CORE....... 37
-.6.1.1320 EMIT ............................................... .............................................................................CORE....... 38
- 10.6.2.1325 EMIT? ............................................. "emit-question"....................................FACILITY EXT....... 76
- 7.6.2.1330 EMPTY-BUFFERS .......................... ................................................................. BLOCK EXT....... 63
- ANSI X3.215-1994
- 207
-.6.2.1342 ENDCASE ........................................."end-case" .................................................. CORE EXT ...... 53
-.6.2.1343 ENDOF ............................................."end-of"...................................................... CORE EXT ...... 53
-.6.1.1345 ENVIRONMENT? ............................."environment-query"........................................... CORE ...... 38
-.6.2.1350 ERASE ............................................. ................................................................... CORE EXT ...... 53
-.6.1.1360 EVALUATE ...................................... ............................................................................ CORE ...... 38
- 7.6.1.1360 EVALUATE ...................................... ......................................................................... BLOCK ...... 63
-.6.1.1370 EXECUTE ......................................... ............................................................................ CORE ...... 38
-.6.1.1380 EXIT ................................................ ............................................................................ CORE ...... 38
-.6.2.1390 EXPECT ........................................... ................................................................... CORE EXT ...... 53
- 12.6.1.1400 F! ....................................................."f-store"......................................................FLOATING ...... 91
- 12.6.1.1410 F* ....................................................."f-star"........................................................FLOATING ...... 91
- 12.6.2.1415 F** .................................................."f-star-star"........................................ FLOATING EXT ...... 96
- 12.6.1.1420 F+ ....................................................."f-plus".......................................................FLOATING ...... 91
- 12.6.1.1425 F- ....................................................."f-minus"....................................................FLOATING ...... 91
- 12.6.2.1427 F. ....................................................."f-dot" ............................................... FLOATING EXT ...... 97
- 12.6.1.1430 F/ ....................................................."f-slash"......................................................FLOATING ...... 92
- 12.6.1.1440 F0< .................................................."f-zero-less-than" .......................................FLOATING ...... 92
- 12.6.1.1450 F0= .................................................."f-zero-equals" ...........................................FLOATING ...... 92
- 12.6.1.1460 F< ....................................................."f-less-than" ...............................................FLOATING ...... 92
- 12.6.1.1470 F>D .................................................."f-to-d".......................................................FLOATING ...... 92
- 12.6.1.1472 F@ ....................................................."f-fetch"......................................................FLOATING ...... 92
- 12.6.2.1474 FABS ................................................"f-abs" ............................................... FLOATING EXT ...... 97
- 12.6.2.1476 FACOS ............................................."f-a-cos" ............................................ FLOATING EXT ...... 97
- 12.6.2.1477 FACOSH ..........................................."f-a-cosh" .......................................... FLOATING EXT ...... 97
- 12.6.1.1479 FALIGN ..........................................."f-align"......................................................FLOATING ...... 92
- 12.6.1.1483 FALIGNED ......................................"f-aligned"..................................................FLOATING ...... 92
- 12.6.2.1484 FALOG ............................................."f-a-log" ............................................ FLOATING EXT ...... 97
-.6.2.1485 FALSE ............................................. ................................................................... CORE EXT ...... 54
- 12.6.2.1486 FASIN ............................................."f-a-sine"........................................... FLOATING EXT ...... 97
- 12.6.2.1487 FASINH ..........................................."f-a-cinch"......................................... FLOATING EXT ...... 97
- 12.6.2.1488 FATAN ............................................."f-a-tan"............................................. FLOATING EXT ...... 98
- 12.6.2.1489 FATAN2 ..........................................."f-a-tan-two" ..................................... FLOATING EXT ...... 98
- 12.6.2.1491 FATANH ..........................................."f-a-tan-h" ......................................... FLOATING EXT ...... 98
- 12.6.1.1492 FCONSTANT ...................................."f-constant" ................................................FLOATING ...... 93
- 12.6.2.1493 FCOS ................................................"f-cos" ............................................... FLOATING EXT ...... 98
- 12.6.2.1494 FCOSH ............................................."f-cosh" ............................................. FLOATING EXT ...... 98
- 12.6.1.1497 FDEPTH ..........................................."f-depth".....................................................FLOATING ...... 93
- 12.6.1.1500 FDROP ............................................."f-drop" ......................................................FLOATING ...... 93
- 12.6.1.1510 FDUP ................................................"f-dupe"......................................................FLOATING ...... 93
- 12.6.2.1513 FE. .................................................."f-e-dot" ............................................ FLOATING EXT ...... 98
- 12.6.2.1515 FEXP ................................................"f-e-x-p" ............................................ FLOATING EXT ...... 98
- 12.6.2.1516 FEXPM1 ..........................................."f-e-x-p-m-one"................................. FLOATING EXT ...... 99
- 11.6.1.1520 FILE-POSITION .......................... .............................................................................. FILE ...... 81
- 11.6.1.1522 FILE-SIZE .................................... .............................................................................. FILE ...... 81
- 11.6.2.1524 FILE-STATUS ............................... ......................................................................FILE EXT ...... 85
-.6.1.1540 FILL ................................................ ............................................................................ CORE ...... 39
-.6.1.1550 FIND ................................................ ............................................................................ CORE ...... 39
- 16.6.1.1550 FIND ................................................ ....................................................................... SEARCH .... 119
- 12.6.1.1552 FLITERAL ......................................"f-literal" ....................................................FLOATING ...... 93
- 12.6.2.1553 FLN .................................................."f-l-n" ................................................ FLOATING EXT ...... 99
- 12.6.2.1554 FLNP1 ............................................."f-l-n-p-one"...................................... FLOATING EXT ...... 99
- 12.6.1.1555 FLOAT+ ..........................................."float-plus".................................................FLOATING ...... 93
- 12.6.1.1556 FLOATS ........................................... ...................................................................FLOATING ...... 94
- 12.6.2.1557 FLOG ................................................"f-log" ............................................... FLOATING EXT ...... 99
-ANSI X3.215-1994
-208
- 12.6.1.1558 FLOOR ............................................. ....................................................................FLOATING....... 94
- 7.6.1.1559 FLUSH ............................................. ..........................................................................BLOCK....... 63
- 11.6.2.1560 FLUSH-FILE ................................. ...................................................................... FILE EXT....... 85
-.6.1.1561 FM/MOD ........................................... "f-m-slash-mod" ..................................................CORE....... 39
- 12.6.1.1562 FMAX ............................................... "f-max" .......................................................FLOATING....... 94
- 12.6.1.1565 FMIN ............................................... "f-min"........................................................FLOATING....... 94
- 12.6.1.1567 FNEGATE ........................................ "f-negate"....................................................FLOATING....... 94
- 15.6.2.1580 FORGET ........................................... ..................................................................TOOLS EXT..... 115
- 16.6.2.1590 FORTH ............................................. ...............................................................SEARCH EXT..... 120
- 16.6.1.1595 FORTH-WORDLIST ....................... ........................................................................SEARCH..... 119
- 12.6.1.1600 FOVER ............................................. "f-over".......................................................FLOATING....... 94
- 14.6.1.1605 FREE ............................................... ..................................................................... MEMORY..... 109
- 12.6.1.1610 FROT ............................................... "f-rote"........................................................FLOATING....... 94
- 12.6.1.1612 FROUND ........................................... "f-round".....................................................FLOATING....... 94
- 12.6.2.1613 FS. .................................................. "f-s-dot".............................................FLOATING EXT....... 99
- 12.6.2.1614 FSIN ............................................... "f-sine" ..............................................FLOATING EXT....... 99
- 12.6.2.1616 FSINCOS ........................................ "f-sine-cos"........................................FLOATING EXT..... 100
- 12.6.2.1617 FSINH ............................................. "f-cinch" ............................................FLOATING EXT..... 100
- 12.6.2.1618 FSQRT ............................................. "f-square-root"...................................FLOATING EXT..... 100
- 12.6.1.1620 FSWAP ............................................. "f-swap"......................................................FLOATING....... 94
- 12.6.2.1625 FTAN ............................................... "f-tan"................................................FLOATING EXT..... 100
- 12.6.2.1626 FTANH ............................................. "f-tan-h".............................................FLOATING EXT..... 100
- 12.6.1.1630 FVARIABLE ................................... "f-variable" .................................................FLOATING....... 95
- 12.6.2.1640 F~ .................................................... "f-proximate".....................................FLOATING EXT..... 100
- 16.6.1.1643 GET-CURRENT ............................... ........................................................................SEARCH..... 119
- 16.6.1.1647 GET-ORDER ................................... ........................................................................SEARCH..... 119
-.6.1.1650 HERE ............................................... .............................................................................CORE....... 39
-.6.2.1660 HEX .................................................. ....................................................................CORE EXT....... 54
-.6.1.1670 HOLD ............................................... .............................................................................CORE....... 39
-.6.1.1680 I ...................................................... .............................................................................CORE....... 39
-.6.1.1700 IF .................................................... .............................................................................CORE....... 40
-.6.1.1710 IMMEDIATE ................................... .............................................................................CORE....... 40
- 11.6.1.1717 INCLUDE-FILE ............................ ...............................................................................FILE....... 81
- 11.6.1.1718 INCLUDED ...................................... ...............................................................................FILE....... 82
-.6.1.1720 INVERT ........................................... .............................................................................CORE....... 40
-.6.1.1730 J ...................................................... .............................................................................CORE....... 40
-.6.1.1750 KEY .................................................. .............................................................................CORE....... 40
- 10.6.1.1755 KEY? ............................................... "key-question" ............................................. FACILITY....... 75
-.6.1.1760 LEAVE ............................................. .............................................................................CORE....... 41
- 7.6.2.1770 LIST ............................................... ................................................................. BLOCK EXT....... 64
-.6.1.1780 LITERAL ........................................ .............................................................................CORE....... 41
- 7.6.1.1790 LOAD ............................................... ..........................................................................BLOCK....... 63
- 13.6.2.1795 LOCALS| ........................................ "locals-bar".............................................. LOCAL EXT..... 106
-.6.1.1800 LOOP ............................................... .............................................................................CORE....... 41
-.6.1.1805 LSHIFT ........................................... "l-shift" ................................................................CORE....... 41
-.6.1.1810 M* .................................................... "m-star" ...............................................................CORE....... 41
- 8.6.1.1820 M*/ .................................................. "m-star-slash" ................................................ DOUBLE....... 69
- 8.6.1.1830 M+ .................................................... "m-plus"......................................................... DOUBLE....... 69
-.6.2.1850 MARKER ........................................... ....................................................................CORE EXT....... 54
-.6.1.1870 MAX .................................................. .............................................................................CORE....... 42
-.6.1.1880 MIN .................................................. .............................................................................CORE....... 42
-.6.1.1890 MOD .................................................. .............................................................................CORE....... 42
-.6.1.1900 MOVE ............................................... .............................................................................CORE....... 42
- 10.6.2.1905 MS .................................................... .............................................................FACILITY EXT....... 76
- ANSI X3.215-1994
- 209
-.6.1.1910 NEGATE ........................................... ............................................................................ CORE ...... 42
-.6.2.1930 NIP .................................................. ................................................................... CORE EXT ...... 54
-.6.2.1950 OF ..................................................... ................................................................... CORE EXT ...... 54
- 16.6.2.1965 ONLY ................................................ .............................................................. SEARCH EXT .... 121
- 11.6.1.1970 OPEN-FILE .................................... .............................................................................. FILE ...... 82
-.6.1.1980 OR ..................................................... ............................................................................ CORE ...... 42
- 16.6.2.1985 ORDER ............................................. .............................................................. SEARCH EXT .... 121
-.6.1.1990 OVER ................................................ ............................................................................ CORE ...... 42
-.6.2.2000 PAD .................................................. ................................................................... CORE EXT ...... 55
- 10.6.1.2005 PAGE ................................................ .....................................................................FACILITY ...... 75
-.6.2.2008 PARSE ............................................. ................................................................... CORE EXT ...... 55
-.6.2.2030 PICK ................................................ ................................................................... CORE EXT ...... 55
-.6.1.2033 POSTPONE ...................................... ............................................................................ CORE ...... 43
- 12.6.2.2035 PRECISION .................................... .......................................................... FLOATING EXT .... 100
- 16.6.2.2037 PREVIOUS ...................................... .............................................................. SEARCH EXT .... 121
-.6.2.2040 QUERY ............................................. ................................................................... CORE EXT ...... 55
-.6.1.2050 QUIT ................................................ ............................................................................ CORE ...... 43
- 11.6.1.2054 R/O .................................................."r-o" ...................................................................... FILE ...... 82
- 11.6.1.2056 R/W .................................................."r-w"...................................................................... FILE ...... 83
-.6.1.2060 R> ....................................................."r-from"............................................................... CORE ...... 43
-.6.1.2070 R@ ....................................................."r-fetch" .............................................................. CORE ...... 43
- 11.6.1.2080 READ-FILE .................................... .............................................................................. FILE ...... 83
- 11.6.1.2090 READ-LINE .................................... .............................................................................. FILE ...... 83
-.6.1.2120 RECURSE ......................................... ............................................................................ CORE ...... 43
-.6.2.2125 REFILL ........................................... ................................................................... CORE EXT ...... 55
- 7.6.2.2125 REFILL ........................................... .................................................................BLOCK EXT ...... 64
- 11.6.2.2125 REFILL ........................................... ......................................................................FILE EXT ...... 86
- 11.6.2.2130 RENAME-FILE ............................... ......................................................................FILE EXT ...... 86
-.6.1.2140 REPEAT ........................................... ............................................................................ CORE ...... 44
- 11.6.1.2142 REPOSITION-FILE ...................... .............................................................................. FILE ...... 84
- 12.6.1.2143 REPRESENT .................................... ...................................................................FLOATING ...... 95
- 14.6.1.2145 RESIZE ........................................... .....................................................................MEMORY .... 109
- 11.6.1.2147 RESIZE-FILE ............................... .............................................................................. FILE ...... 84
-.6.2.2148 RESTORE-INPUT .......................... ................................................................... CORE EXT ...... 56
-.6.2.2150 ROLL ................................................ ................................................................... CORE EXT ...... 56
-.6.1.2160 ROT .................................................."rote"................................................................... CORE ...... 44
-.6.1.2162 RSHIFT ..........................................."r-shift" ............................................................... CORE ...... 44
-.6.1.2165 S" ....................................................."s-quote" ............................................................. CORE ...... 44
- 11.6.1.2165 S" ....................................................."s-quote" ............................................................... FILE ...... 84
-.6.1.2170 S>D .................................................."s-to-d"................................................................ CORE ...... 44
- 7.6.1.2180 SAVE-BUFFERS ............................. ......................................................................... BLOCK ...... 63
-.6.2.2182 SAVE-INPUT .................................. ................................................................... CORE EXT ...... 56
- 7.6.2.2190 SCR .................................................."s-c-r".......................................................BLOCK EXT ...... 64
- 17.6.1.2191 SEARCH ........................................... ........................................................................ STRING .... 124
- 16.6.1.2192 SEARCH-WORDLIST ...................... ....................................................................... SEARCH .... 120
- 15.6.1.2194 SEE .................................................. ..........................................................................TOOLS .... 112
- 16.6.1.2195 SET-CURRENT ............................... ....................................................................... SEARCH .... 120
- 16.6.1.2197 SET-ORDER .................................... ....................................................................... SEARCH .... 120
- 12.6.2.2200 SET-PRECISION .......................... .......................................................... FLOATING EXT .... 100
- 12.6.2.2202 SF! .................................................."s-f-store".......................................... FLOATING EXT .... 101
- 12.6.2.2203 SF@ .................................................."s-f-fetch".......................................... FLOATING EXT .... 101
- 12.6.2.2204 SFALIGN ........................................."s-f-align".......................................... FLOATING EXT .... 101
- 12.6.2.2206 SFALIGNED ...................................."s-f-aligned"...................................... FLOATING EXT .... 101
- 12.6.2.2207 SFLOAT+ ........................................."s-float-plus" ..................................... FLOATING EXT .... 101
-ANSI X3.215-1994
-210
- 12.6.2.2208 SFLOATS ........................................ "s-floats"............................................FLOATING EXT..... 101
-.6.1.2210 SIGN ............................................... .............................................................................CORE....... 45
- 17.6.1.2212 SLITERAL ...................................... .........................................................................STRING..... 124
-.6.1.2214 SM/REM ........................................... "s-m-slash-rem" ...................................................CORE....... 45
-.6.1.2216 SOURCE ........................................... .............................................................................CORE....... 45
-.6.2.2218 SOURCE-ID ................................... "source-i-d" ................................................CORE EXT....... 56
- 11.6.1.2218 SOURCE-ID ................................... "source-i-d" ...........................................................FILE....... 84
-.6.1.2220 SPACE ............................................. .............................................................................CORE....... 45
-.6.1.2230 SPACES ........................................... .............................................................................CORE....... 45
-.6.2.2240 SPAN ............................................... ....................................................................CORE EXT....... 56
-.6.1.2250 STATE ............................................. .............................................................................CORE....... 45
- 15.6.2.2250 STATE ............................................. ..................................................................TOOLS EXT..... 115
-.6.1.2260 SWAP ............................................... .............................................................................CORE....... 45
-.6.1.2270 THEN ............................................... .............................................................................CORE....... 46
- 9.6.1.2275 THROW ............................................. ................................................................. EXCEPTION....... 73
- 7.6.2.2280 THRU ............................................... ................................................................. BLOCK EXT....... 64
-.6.2.2290 TIB .................................................. "t-i-b"..........................................................CORE EXT....... 56
- 10.6.2.2292 TIME&DATE ................................... "time-and-date"....................................FACILITY EXT....... 76
-.6.2.2295 TO .................................................... ....................................................................CORE EXT....... 57
- 13.6.1.2295 TO .................................................... .......................................................................... LOCAL..... 106
-.6.2.2298 TRUE ............................................... ....................................................................CORE EXT....... 57
-.6.2.2300 TUCK ............................................... ....................................................................CORE EXT....... 57
-.6.1.2310 TYPE ............................................... .............................................................................CORE....... 46
-.6.1.2320 U. .................................................... "u-dot" .................................................................CORE....... 46
-.6.2.2330 U.R .................................................. "u-dot-r" .....................................................CORE EXT....... 57
-.6.1.2340 U< .................................................... "u-less-than" ........................................................CORE....... 46
-.6.2.2350 U> .................................................... "u-greater-than" ..........................................CORE EXT....... 57
-.6.1.2360 UM* .................................................. "u-m-star" ............................................................CORE....... 46
-.6.1.2370 UM/MOD ........................................... "u-m-slash-mod"..................................................CORE....... 46
-.6.1.2380 UNLOOP ........................................... ............................................................................CORE....... 47
-.6.1.2390 UNTIL ............................................. .............................................................................CORE....... 47
-.6.2.2395 UNUSED ........................................... ....................................................................CORE EXT....... 57
- 7.6.1.2400 UPDATE ........................................... ..........................................................................BLOCK....... 63
-.6.2.2405 VALUE ............................................. ....................................................................CORE EXT....... 58
-.6.1.2410 VARIABLE ...................................... .............................................................................CORE....... 47
- 11.6.1.2425 W/O .................................................. "w-o" .....................................................................FILE....... 85
-.6.1.2430 WHILE ............................................. .............................................................................CORE....... 47
-.6.2.2440 WITHIN ........................................... ....................................................................CORE EXT....... 58
-.6.1.2450 WORD ............................................... .............................................................................CORE....... 48
- 16.6.1.2460 WORDLIST ...................................... ........................................................................SEARCH..... 120
- 15.6.1.2465 WORDS ............................................. ...........................................................................TOOLS..... 113
- 11.6.1.2480 WRITE-FILE ................................. ...............................................................................FILE....... 85
- 11.6.1.2485 WRITE-LINE ................................. ...............................................................................FILE....... 85
-.6.1.2490 XOR .................................................. "x-or"...................................................................CORE....... 48
-.6.1.2500 [ ...................................................... "left-bracket" .......................................................CORE....... 48
-.6.1.2510 ['] .................................................. "bracket-tick".......................................................CORE....... 48
-.6.1.2520 [CHAR] ........................................... "bracket-char"......................................................CORE....... 49
-.6.2.2530 [COMPILE] ................................... "bracket-compile".......................................CORE EXT....... 58
- 15.6.2.2531 [ELSE] ........................................... "bracket-else" ...........................................TOOLS EXT..... 116
- 15.6.2.2532 [IF] ............................................... "bracket-if" ...............................................TOOLS EXT..... 116
- 15.6.2.2533 [THEN] ........................................... "bracket-then"...........................................TOOLS EXT..... 116
-.6.2.2535 \ ...................................................... "backslash" .................................................CORE EXT....... 58
- 7.6.2.2535 \ ...................................................... "backslash" .............................................. BLOCK EXT....... 64
-.6.1.2540 ] ...................................................... "right-bracket".....................................................CORE....... 49
