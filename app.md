@@ -65,7 +65,7 @@ The approach we have taken is to define a Core word set establishing a greatest 
 
 With this key, high-level compromise, regardless of the actual makeup of the individual word sets, a firm  and workable framework is established for the long term. One may or may not agree that there should be a  Locals word set, or that the word COMPILE, belongs in the Core Extensions word set. But at least there is  a mechanism whereby such things can be included in a logical and orderly manner.
 
-当初から、X3J14技術委員会は、「本当の」Forthとは何かという点で、相反する考え方に直面していただけでなく、Forthコミュニティ内のさまざまなグループのニーズも相反していた。ある極端な例では、"素の "Forthを求める人々がいた。もう一方の極端な例では、"太った "Forthを求める人々がいた。多くはその中間であった。全員が、自分たちの立場の正しさと、両極端の少なくともどちらかが間違っていることを確信していた。委員会の構成は、このようなあらゆる利害を反映したものであった。
+当初から、X3J14技術委員会は、「本当の」Forthとは何かという点で、相反する考え方に直面していただけでなく、Forthコミュニティ内のさまざまなグループのニーズも相反していた。ある極端な例では、"素の" Forthを求める人々がいた。もう一方の極端な例では、"太った" Forthを求める人々がいた。多くはその中間であった。全員が、自分たちの立場の正しさと、両極端の少なくともどちらかが間違っていることを確信していた。委員会の構成は、このようなあらゆる利害を反映したものであった。
 
 私たちがとったアプローチは、必要なシステム機能の最大の下限を確立するコア・ワードセットを定義し、特別な目的のためにオプションのワードセットのポートフォリオを提供するというものです。このシンプルなアプローチは、拡張可能な言語としてのForthの基本的な性質と類似しており、それによって一種のメタ拡張性を実現しています。
 
@@ -217,7 +217,7 @@ The correct identification and proper manipulation of the character data type is
 
 5) For the purposes of input (KEY, ACCEPT, etc.) and output (EMIT, TYPE, etc.), the encoding between numbers and human-readable symbols is ISO646/IRV (ASCII) within the range from 32 to 126 (space to ~).  EBCDIC is out (most "EBCDIC" computer systems support ASCII too). Outside that range, it is up to the  implementation. The obvious implementation choice is to use ASCII control characters for the range from 0  to 31, at least for the "displayable" characters in that range (TAB, RETURN, LINEFEED, FORMFEED).  However, this is not as clear-cut as it may seem, because of the variation between operating systems on the  treatment of those characters. For example, some systems TAB to 4 character boundaries, others to 8  character boundaries, and others to preset tab stops. Some systems perform an automatic linefeed after a  carriage return, others perform an automatic carriage return after a linefeed, and others do neither.
 
-5) 入力(KEY、ACCEPTなど)と出力(EMIT、TYPEなど)のために、数字と人間が読める記号の間のエンコーディングは、32から126(スペースから~)までの範囲内のISO646/IRV(ASCII)である。 EBCDICはアウトです（ほとんどの "EBCDIC "コンピュータシステムはASCIIもサポートしています）。その範囲外では、実装次第です。明らかな実装上の選択肢は、0から31の範囲で、少なくともその範囲の「表示可能な」文字（TAB、RETURN、LINEFEED、FORMFEED）についてはASCII制御文字を使用することです。 しかし、これらの文字の扱いはオペレーティング・システムによって異なるため、これは見た目ほど明確ではありません。例えば、あるシステムでは4文字の境界でTABし、あるシステムでは8文字の境界でTABし、あるシステムではあらかじめ設定されたタブストップでTABする。また、改行後に自動改行を行うシステムもあれば、改行後に自動改行を行うシステムもあれば、どちらも行わないシステムもある。
+5) 入力(KEY、ACCEPTなど)と出力(EMIT、TYPEなど)のために、数字と人間が読める記号の間のエンコーディングは、32から126(スペースから~)までの範囲内のISO646/IRV(ASCII)である。 EBCDICはアウトです（ほとんどの "EBCDIC" コンピュータシステムはASCIIもサポートしています）。その範囲外では、実装次第です。明らかな実装上の選択肢は、0から31の範囲で、少なくともその範囲の「表示可能な」文字（TAB、RETURN、LINEFEED、FORMFEED）についてはASCII制御文字を使用することです。 しかし、これらの文字の扱いはオペレーティング・システムによって異なるため、これは見た目ほど明確ではありません。例えば、あるシステムでは4文字の境界でTABし、あるシステムでは8文字の境界でTABし、あるシステムではあらかじめ設定されたタブストップでTABする。また、改行後に自動改行を行うシステムもあれば、改行後に自動改行を行うシステムもあれば、どちらも行わないシステムもある。
 
 The codes from 128 to 255 may eventually be standardized, either formally or informally, for use as  international characters, such as the letters with diacritical marks found in many European languages. One  such encoding is the 8-bit ISO Latin-1 character set. The computer marketplace at large will eventually  decide which encoding set of those characters prevails. For Forth implementations running under an  operating system (the majority of those running on standard platforms these days), most Forth implementors  will probably choose to do whatever the system does, without performing any remapping within the domain  of the Forth system itself.
 
@@ -435,7 +435,7 @@ There is no requirement to implement circular unsigned arithmetic, nor to set th
 
 For example, an implementation might convert the characters "a" through "z" identically to the characters "A" through "Z", or it might treat the characters " [ " through "~" as additional digits with decimal values 36 through 71, respectively.
 
-例えば、実装は文字 "a "から "z "までを文字 "A "から "Z "までと同じように変換するかもしれないし、文字" [ "から"~"までをそれぞれ10進数値36から71の追加桁として扱うかもしれない。
+例えば、実装は文字 "a" から "z" までを文字 "A" から "Z" までと同じように変換するかもしれないし、文字"["から"~"までをそれぞれ10進数値36から71の追加桁として扱うかもしれない。
 
 #### A.3.2.2 Arithmetic 
 
@@ -611,7 +611,7 @@ The other group of queries are for things that may legitimately change over time
 
 Note that a query that returns an "unknown" response could produce a "known" result on a subsequent  query.
 
-"unknown "の応答を返す問い合わせは、その後の問い合わせで "known "の結果を返す可能性があることに注意すること。
+"unknown" の応答を返す問い合わせは、その後の問い合わせで "known" の結果を返す可能性があることに注意すること。
 
 ### A.3.3 The Forth dictionary 
 
@@ -625,7 +625,7 @@ A Standard Program may redefine a standard word with a non-standard definition. 
 
 The language in this section is there to ensure the portability of Standard Programs. If a program uses  something outside the Standard that it does not provide itself, there is no guarantee that another  implementation will have what the program needs to run. There is no intent whatsoever to imply that all  Forth programs will be somehow lacking or inferior because they are not standard; some of the finest jewels  of the programmer’s art will be non-standard. At the same time, the committee is trying to ensure that a  program labeled "Standard" will meet certain expectations, particularly with regard to portability.
 
-このセクションの文言は、標準プログラムの移植性を保証するためにあります。あるプログラムが、それ自身が提供しない標準規格外のものを使用する場合、他の実装が そのプログラムの実行に必要なものを持っているという保証はありません。プログラマーの芸術の最も素晴らしい宝石のいくつかは、非標準のものでしょう。同時に委員会は、"Standard "とラベル付けされたプログラムが、特に移植性に関して一定の期待に応えることを保証しようとしている。
+このセクションの文言は、標準プログラムの移植性を保証するためにあります。あるプログラムが、それ自身が提供しない標準規格外のものを使用する場合、他の実装が そのプログラムの実行に必要なものを持っているという保証はありません。プログラマーの芸術の最も素晴らしい宝石のいくつかは、非標準のものでしょう。同時に委員会は、"Standard" とラベル付けされたプログラムが、特に移植性に関して一定の期待に応えることを保証しようとしている。
 
 In many system environments the input source is unable to supply certain non-graphic characters due to  external factors, such as the use of those characters for flow control or editing. In addition, when  interpreting from a text file, the parsing function specifically treats non-graphic characters like spaces; thus  words received by the text interpreter will not contain embedded non-graphic characters. To allow  implementations in such environments to call themselves Standard, this minor restriction on Standard  Programs is necessary.
 
@@ -633,7 +633,7 @@ In many system environments the input source is unable to supply certain non-gra
 
 A Standard System is allowed to permit the creation of definition names containing non-graphic characters.  Historically, such names were used for keyboard editing functions and "invisible" words.
 
-Standard Systemは、非図形文字を含む定義名の作成を許可する。 歴史的に、このような名前はキーボード編集機能や "見えない "単語に使用されてきた。
+Standard Systemは、非図形文字を含む定義名の作成を許可する。 歴史的に、このような名前はキーボード編集機能や "見えない" 単語に使用されてきた。
 
 #### A.3.3.2 Code space 
 
@@ -888,7 +888,7 @@ Typical use: `: X ... test ABORT" ccc" ... ; `
 
 Previous standards specified that collection of the input string terminates when either a "return" is received  or when +n1 characters have been received. Terminating when +n1 characters have been received is  difficult, expensive, or impossible to implement in some system environments. Consequently, a number of  existing implementations do not comply with this requirement. Since line-editing and collection functions  are often implemented by system components beyond the control of the Forth implementation, this Standard  imposes no such requirement. A Standard Program may only assume that it can receive an input string with  `ACCEPT` or `EXPECT`. The detailed sequence of user actions necessary to prepare and transmit that line are  beyond the scope of this Standard.
 
-以前の規格では、入力文字列の収集は、"return "を受信するか、+n1文字を受信したとき に終了すると規定されていた。n1文字を受信したときに終了することは、システム環境によっては実装が困難であったり、高価であったり、不可能であったりする。そのため、多くの既存の実装はこの要件に準拠していない。行の編集や収集機能は、Forth 実装の制御を超えたシステムコンポーネントによって実装されることが多いため、本標準ではそのような要件を課していません。標準プログラムは `ACCEPT` または `EXPECT` で入力文字列を受け取ることができると仮定するだけでよい。その行を準備して送信するために必要なユーザーアクションの詳細なシーケンスは、本標準の範囲外である。
+以前の規格では、入力文字列の収集は、"return" を受信するか、+n1文字を受信したとき に終了すると規定されていた。n1文字を受信したときに終了することは、システム環境によっては実装が困難であったり、高価であったり、不可能であったりする。そのため、多くの既存の実装はこの要件に準拠していない。行の編集や収集機能は、Forth 実装の制御を超えたシステムコンポーネントによって実装されることが多いため、本標準ではそのような要件を課していません。標準プログラムは `ACCEPT` または `EXPECT` で入力文字列を受け取ることができると仮定するだけでよい。その行を準備して送信するために必要なユーザーアクションの詳細なシーケンスは、本標準の範囲外である。
 
 Specification of a non-zero, positive integer count (+n1) for ACCEPT allows some implementors to  continue their practice of using a zero or negative value as a flag to trigger special behavior. Insofar as such  behavior is outside the Standard, Standard Programs cannot depend upon it, but the Technical Committee  doesn't wish to preclude it unnecessarily. Since actual values are almost always small integers, no  functionality is impaired by this restriction.
 
@@ -908,7 +908,7 @@ ACCEPT` と `EXPECT` は似たような機能を果たす。新しいプログ�
 
 一般的に、ユーザがプログラムに送信する入力文字列を準備しているとき、システムは最終版の文字列を送信する前にユーザがその文字列を編集して間違いを修正することを許可する。編集機能は、Forthシステム自体から提供されることもあれば、外部のシステム・ソフトウェアやハードウェアから提供されることもあります。したがって、制御文字や制御機能は、すべてのシステムで利用できるとは限りません。通常の場合、編集処理の終了と文字列の最終的な送信は、ユーザーが "Return" または "Enter" キーを押すことによって示される。
 
-これまでの標準と同様に、`EXPECT`は要求された文字数が入力された直後と、行終端文字を受信したときに入力文字列を返します。指定された文字数が入力された後に自動的に終了する」動作は、ユーザーが未知の可能性のある時点で入力編集プロセスの「コントロールを失う」（ユーザーは `EXPECT` から要求された文字数を必ずしも知らない）ため、広く望ましくないと考えられています。そのため `EXPECT` と `SPAN` は廃止され、既存の実装に対する譲歩としてのみ標準に存在している。もし `EXPECT` が標準システムに存在するなら、それは "
+これまでの標準と同様に、`EXPECT`は要求された文字数が入力された直後と、行終端文字を受信したときに入力文字列を返します。指定された文字数が入力された後に自動的に終了する」動作は、ユーザーが未知の可能性のある時点で入力編集プロセスの「コントロールを失う」（ユーザーは `EXPECT` から要求された文字数を必ずしも知らない）ため、広く望ましくないと考えられています。そのため `EXPECT` と `SPAN` は廃止され、既存の実装に対する譲歩としてのみ標準に存在している。もし `EXPECT` が標準システムに存在するなら、それは "自動翻訳" の動作を持たねばならない。
 
 `ACCEPT` does not have the "automatic termination" behavior of `EXPECT`. However, because external  system hardware and software may perform the `ACCEPT` function, when a line terminator is received the  action of the cursor, and therefore the display, is implementation-defined. It is recommended that the cursor  remain immediately following the entered text after a line terminator is received.
 
@@ -1165,9 +1165,9 @@ This implementation will not work on native code Forth systems. In a native code
 
 For these reasons, COMPILE has not been included in the Standard and [COMPILE] has been moved in  favor of POSTPONE. Additional discussion can be found in Hayes, J.R., "Postpone", *Proceedings of the 1989 Rochester Forth Conference.*
 
-この実装は、ネイティブ・コードのForthシステムでは動作しません。インラインコード展開とピーホール最適化を使用するネイティブコードForthでは、生成されるオブジェクトコードのサイズが変化します。この情報を「ダム」COMPILEに伝えることは困難です。この情報は、"間抜けな "COMPILEに伝えるのは困難です。"スマートな"（すなわち、即時的な）COMPILEにはこの問題はありませんが、これは以前の標準では禁止されていました。
+この実装は、ネイティブ・コードのForthシステムでは動作しません。インラインコード展開とピーホール最適化を使用するネイティブコードForthでは、生成されるオブジェクトコードのサイズが変化します。この情報を「ダム」COMPILEに伝えることは困難です。この情報は、"間抜けな"　`COMPILE`に伝えるのは困難です。"スマートな"（すなわち、即時的な）`COMPILE`にはこの問題はありませんが、これは以前の標準では禁止されていました。
 
-これらの理由から、COMPILEは規格に含まれず、[COMPILE]はPOSTPONEを優先して移動された。追加の議論は、Hayes, J.R., "Postpone", *Proceedings of the 1989 Rochester Forth Conference.*にある。
+これらの理由から、COMPILEは規格に含まれず、`[COMPILE]`は`POSTPONE`を優先して移動された。追加の議論は、Hayes, J.R., "Postpone", *Proceedings of the 1989 Rochester Forth Conference.*にある。
 
 #### A.6.1.2120 RECURSE 
 
@@ -1204,7 +1204,7 @@ Typical use: : X ... S" ccc" ... ;
 
 This word is found in many systems under the name " (quote). However, current practice is almost evenly  divided on the use of ", with many systems using the execution semantics given here, while others return the  address of a counted string. We attempt here to satisfy both camps by providing two words, S" and the  Core Extension word C" so that users may have whichever behavior they expect with a simple renaming  operation.
 
-この単語は多くのシステムで"(引用符)という名前で使われている。しかし、" の使用法については、多くのシステムでここで示した実行セマンティクスが使用されている一方で、カウントされた文字列のアドレスを返すシステムもあり、現在の慣行はほぼ均等に分かれている。ここでは、S "とCore ExtensionのC "という2つの単語を提供することで、両陣営を 満たそうと試みている。
+この単語は多くのシステムで"(引用符)という名前で使われている。しかし、" の使用法については、多くのシステムでここで示した実行セマンティクスが使用されている一方で、カウントされた文字列のアドレスを返すシステムもあり、現在の慣行はほぼ均等に分かれている。ここでは、`S"`とCore Extensionの`C"`という2つの単語を提供することで、両陣営を満たそうと試みている。
 
 #### A.6.1.2214 SM/REM 
 
@@ -1469,11 +1469,11 @@ Typical use: : X ... C" ccc" ... ;
 
 It is easy to convert counted strings to pointer/length but hard to do the opposite. C" is the only new word  that uses the "address of counted string" stack representation. It is provided as an aid to porting existing  programs to ANS Forth systems. It is relatively difficult to implement C" in terms of other standard words,  considering its "compile string into the current definition" semantics.
 
-カウントされた文字列をポインタ／長さに変換するのは簡単だが、その逆は難しい。C」は、「カウント文字列のアドレス」スタック表現を使用する唯一の新しい単語です。これは、既存のプログラムをANS Forthシステムに移植するための補助として提供される。C "の「文字列を現在の定義にコンパイルする」というセマンティクスを考慮すると、他の標準語の観点からC "を実装することは比較的困難である。
+カウントされた文字列をポインタ／長さに変換するのは簡単だが、その逆は難しい。`C"`は、「カウント文字列のアドレス」スタック表現を使用する唯一の新しい単語です。これは、既存のプログラムをANS Forthシステムに移植するための補助として提供される。`C"`の「文字列を現在の定義にコンパイルする」というセマンティクスを考慮すると、他の標準語の観点から`C"`を実装することは比較的困難である。
 
 Users of C" are encouraged to migrate their application code toward the consistent use of the preferred "c-addr u" stack representation with the alternate word S". This may be accomplished by converting application words with counted string input arguments to use the preferred "c-addr u" representation, thus  eliminating the need for C" .
 
-C"のユーザは、代替語S"を使用した好ましい "c-addr u"スタック表現の一貫した使用に向けて、アプリケーションコードを移行することが推奨される。これは、カウントされた文字列入力引数を持つアプリケーションワードを、好ましい "c-addr u "表現を使用するように変換することによって達成することができる。
+`C"`のユーザは、代替語`S"`を使用した好ましい "c-addr u"スタック表現の一貫した使用に向けて、アプリケーションコードを移行することが推奨される。これは、カウントされた文字列入力引数を持つアプリケーションワードを、好ましい "c-addr u "表現を使用するように変換することによって達成することができる。
 
 See: **A.3.1.3.4 Counted strings**.
 
@@ -1507,7 +1507,7 @@ COMPILE,はEXECUTEに相当するコンパイルである。多くの場合、CO
 
 In most systems it is possible to implement COMPILE, so it will generate code that is optimized to the  same extent as code that is generated by the normal compilation process. However, in some  implementations there are two different "tokens" corresponding to a particular definition name: the normal "execution token" that is used while interpreting or with EXECUTE, and another "compilation token" that is used while compiling. It is not always possible to obtain the compilation token from the execution token.  In these implementations, COMPILE, might not generate code that is as efficient as normally compiled  code.
 
-ほとんどのシステムでは、COMPILEを実装することで、通常のコンパイル処理で生成されるコードと同程度に最適化されたコードを生成することが可能です。しかし、実装によっては、特定の定義名に対応する2つの異なる "トークン "が存在します。解釈中またはEXECUTE中に使用される通常の "実行トークン "と、コンパイル中に使用されるもう1つの "コンパイル・トークン "です。実行トークンからコンパイル・トークンを取得できるとは限りません。 このような実装では、COMPILEは通常のコンパイルされたコードほど効率的なコードを生成しないかもしれない。
+ほとんどのシステムでは、COMPILEを実装することで、通常のコンパイル処理で生成されるコードと同程度に最適化されたコードを生成することが可能です。しかし、実装によっては、特定の定義名に対応する2つの異なる "トークン" が存在します。解釈中またはEXECUTE中に使用される通常の "実行トークン" と、コンパイル中に使用されるもう1つの "コンパイル・トークン" です。実行トークンからコンパイル・トークンを取得できるとは限りません。 このような実装では、COMPILEは通常のコンパイルされたコードほど効率的なコードを生成しないかもしれない。
 
 #### A.6.2.0970 CONVERT 
 
@@ -1577,9 +1577,9 @@ The traditional Forth word for parsing is WORD. PARSE solves the following probl
 
 a) WORD always skips leading delimiters. This behavior is appropriate for use by the text interpreter,  which looks for sequences of non-blank characters, but is inappropriate for use by words like ( , .( ,  and ." . Consider the following (flawed) definition of .( :  
 
-伝統的なForthの構文解析のための単語はWORDです。PARSE は WORD の以下の問題を解決します：  
+伝統的なForthの構文解析のための単語は`WORD`です。`PARSE` は `WORD` の以下の問題を解決します：  
 
-a) WORDは常に先頭の区切り文字をスキップする。この動作は、空白でない文字のシーケンスを検索するテキスト・インタプリタの使用には適していますが、( , .( , .")のような単語の使用には不適切です。. 次のような（欠陥のある） .( )の定義を考えてみよう：
+a) `WORD`は常に先頭の区切り文字をスキップする。この動作は、空白でない文字のシーケンスを検索するテキスト・インタプリタの使用には適していますが、`(` , `.(` , `."`のような単語の使用には不適切です。. 次のような（欠陥のある） `.(` の定義を考えてみよう：
 
     : .( [CHAR] ) WORD COUNT TYPE ; IMMEDIATE 
 
@@ -1595,9 +1595,9 @@ The definition of .( shown above would treat the ) as a leading delimiter, skip 
 
 With PARSE, we could write a correct definition of .( :  
 
-上に示した.の定義は、)を先頭の区切り文字として扱い、それをスキップして、)でない文字に続く別の)を見つけるまで、あるいは解析領域が空になるまで、文字の消費を続ける。この例では、5 . は出力される文字列の一部として扱われます。
+上に示した`.(`の定義は、`)`を先頭の区切り文字として扱い、それをスキップして、`)`でない文字に続く別の`)`を見つけるまで、あるいは解析領域が空になるまで、文字の消費を続ける。この例では、5 . は出力される文字列の一部として扱われます。
 
-PARSEを使えば、.PARSEの正しい定義を書くことができる。
+`PARSE`を使えば、`.(`の正しい定義を書くことができる。
 
     : .( [CHAR] ) PARSE TYPE ; IMMEDIATE 
 
@@ -1607,27 +1607,27 @@ This definition avoids the "empty string" anomaly.
 
 b) WORD returns its result as a counted string. This has four bad effects:  
 
-b) WORDはその結果をカウントされた文字列として返す。これには4つの悪い影響がある：  
+b) `WORD`はその結果をカウントされた文字列として返す。これには4つの悪い影響がある：  
 
 1) The characters accepted by WORD must be copied from the input buffer into a temporary buffer, in order to make room for the count character that must be at the beginning of the counted string. The  copy step is inefficient, compared to PARSE, which leaves the string in the input buffer and doesn't  need to copy it anywhere.
 
-1) WORDが受け付けた文字は、カウントされた文字列の先頭になければならな いカウント文字のスペースを確保するために、入力バッファから一時バッファにコピー されなければならない。文字列を入力バッファに残し、どこにもコピーする必要がないPARSEに比べ、コピーステップは非効率的である。
+1) `WORD`が受け付けた文字は、カウントされた文字列の先頭になければならな いカウント文字のスペースを確保するために、入力バッファから一時バッファにコピー されなければならない。文字列を入力バッファに残し、どこにもコピーする必要がない`PARSE`に比べ、コピーステップは非効率的である。
 
 2) WORD must be careful not to store too many characters into the temporary buffer, thus overwriting something beyond the end of the buffer. This adds to the overhead of the copy step. (WORD may have  to scan a lot of characters before finding the trailing delimiter.)
 
-2) WORDは、一時バッファにあまり多くの文字を格納しないように注意する必要があり、その結果、バッファの終端を超えて何かを上書きしてしまう。これはコピー・ステップのオーバーヘッドを増やすことになる。(WORDは、末尾の区切り文字を見つける前に、多くの文字をスキャンしなければならないかもしれない)。
+2) `WORD`は、一時バッファにあまり多くの文字を格納しないように注意する必要があり、その結果、バッファの終端を超えて何かを上書きしてしまう。これはコピー・ステップのオーバーヘッドを増やすことになる。(`WORD`は、末尾の区切り文字を見つける前に、多くの文字をスキャンしなければならないかもしれない)。
 
 3) The count character limits the length of the string returned by WORD to 255 characters (longer strings can easily be stored in blocks!). This limitation does not exist for PARSE.
 
-3) カウント文字により、WORDが返す文字列の長さは255文字に制限される（より長い文字列はブロックに簡単に格納できる！）。この制限はPARSEには存在しない。
+3) カウント文字により、`WORD`が返す文字列の長さは255文字に制限される（より長い文字列はブロックに簡単に格納できる！）。この制限は`PARSE`には存在しない。
 
 4) The temporary buffer is typically overwritten by the next use of WORD. This introduces a temporal dependency; the value returned by WORD is only valid for a limited duration. PARSE has a temporal  dependency, too, related to the lifetime of the input buffer, but that is less severe in most cases than  WORD's temporal dependency.
 
-4) 一時バッファは通常、次の WORD の使用で上書きされる。WORD が返す値は限られた期間しか有効ではありません。PARSEにも、入力バッファの寿命に関連する時間依存性がありますが、ほとんどの場合、WORDの時間依存性よりも深刻ではありません。
+4) 一時バッファは通常、次の `WORD` の使用で上書きされる。`WORD` が返す値は限られた期間しか有効ではありません。`PARSE`にも、入力バッファの寿命に関連する時間依存性がありますが、ほとんどの場合、`WORD`の時間依存性よりも深刻ではありません。
 
 The behavior of WORD with respect to skipping leading delimiters is useful for parsing blank-delimited  names. Many system implementations include an additional word for this purpose, similar to PARSE with  respect to the "c-addr u" return value, but without an explicit delimiter argument (the delimiter set is  implicitly "white space"), and which does skip leading delimiters. A common description for this word is:  
 
-先頭の区切り文字をスキップするWORDの動作は、空白で区切られた名前の解析に有用である。多くのシステム実装では、この目的のために、"c-addr u "戻り値に関してはPARSEに似ているが、明示的なデリミタ引数を持たず（デリミタセットは暗黙的に "空白 "である）、先頭のデリミタをスキップする追加語を含んでいる。この単語の一般的な説明は以下の通りである：
+先頭の区切り文字をスキップする`WORD`の動作は、空白で区切られた名前の解析に有用である。多くのシステム実装では、この目的のために、"c-addr u" 戻り値に関しては`PARSE`に似ているが、明示的なデリミタ引数を持たず（デリミタセットは暗黙的に "空白" である）、先頭のデリミタをスキップする追加語を含んでいる。この単語の一般的な説明は以下の通りである：
 
     PARSE-WORD ( "<spaces>name" -- c-addr u )  
 
@@ -1637,41 +1637,41 @@ c-addrは入力バッファ内のアドレス、uは選択された文字列の�
 
 If both PARSE and PARSE-WORD are present, the need for WORD is largely eliminated.
 
-PARSEとPARSE-WORDの両方が存在する場合、WORDの必要性はほとんどなくなる。
+`PARSE`と`PARSE-WORD`の両方が存在する場合、`WORD`の必要性はほとんどなくなる。
 
 #### A.6.2.2030 PICK 
 
 0 PICK is equivalent to DUP and 1 PICK is equivalent to OVER.
 
-0 PICKはDUPと同等であり、1 PICKはOVERと同等である。
+`0 PICK`は`DUP`と同等であり、`1 PICK`は`OVER`と同等である。
 
 #### A.6.2.2040 QUERY 
 
 The function of QUERY may be performed with ACCEPT and EVALUATE.
 
-QUERYの機能は、ACCEPTとEVALUATEで実行することができる。
+`QUERY`の機能は、`ACCEPT`と`EVALUATE`で実行することができる。
 
 #### A.6.2.2125 REFILL 
 
 This word is a useful generalization of QUERY. Re-defining QUERY to meet this specification would have  broken existing code. REFILL is designed to behave reasonably for all possible input sources. If the input  source is coming from the user, as with QUERY, REFILL could still return a false value if, for instance, a  communication channel closes so that the system knows that no more input will be available.
 
-この単語はQUERYの有用な一般化である。この仕様に合わせてQUERYを再定義すると、既存のコードが壊れてしまう。REFILLは、すべての入力ソースに対して合理的に動作するように設計されている。入力ソースがユーザーからの場合、QUERYと同様に、REFILLは、例えば、通信チャネルが閉じ、それ以上入力ができないことをシステムが知っている場合でも、偽の値を返す可能性がある。
+この単語は`QUERY`の有用な一般化である。この仕様に合わせて`QUERY`を再定義すると、既存のコードが壊れてしまう。`REFILL`は、すべての入力ソースに対して合理的に動作するように設計されている。入力ソースがユーザーからの場合、`QUERY`と同様に、`REFILL`は、例えば、通信チャネルが閉じ、それ以上入力ができないことをシステムが知っている場合でも、偽の値を返す可能性がある。
 
 #### A.6.2.2150 ROLL 
 
 2 ROLL is equivalent to ROT, 1 ROLL is equivalent to SWAP and 0 ROLL is a null operation.
 
-2 ROLLはROTと等価、1 ROLLはSWAPと等価、0 ROLLはNULL操作である。
+`2 ROLL`は`ROT`と等価、`1 ROLL`は`SWAP`と等価、`0 ROLL`はNULL操作である。
 
 #### A.6.2.2182 SAVE-INPUT 
 
 SAVE-INPUT and RESTORE-INPUT allow the same degree of input source repositioning within a text  file as is available with BLOCK input. SAVE-INPUT and RESTORE-INPUT "hide the details" of the  operations necessary to accomplish this repositioning, and are used the same way with all input sources.  This makes it easier for programs to reposition the input source, because they do not have to inspect several  variables and take different action depending on the values of those variables.
 
-SAVE-INPUTとRESTORE-INPUTは、BLOCK入力と同程度の入力ソースのテキストファイル内での再配置を可能にします。SAVE-INPUTとRESTORE-INPUTは、この再配置を達成するために必要な操作の「詳細を隠す」ものであり、すべての入力ソースで同じように使用される。 このため、プログラムは複数の変数を検査し、それらの変数の値によって異なるアクションを取る必要がないため、入力ソースの再配置が容易になる。
+`SAVE-INPUT`と`RESTORE-INPUT`は、`BLOCK`入力と同程度の入力ソースのテキストファイル内での再配置を可能にします。`SAVE-INPUT`と`RESTORE-INPUT`は、この再配置を達成するために必要な操作の「詳細を隠す」ものであり、すべての入力ソースで同じように使用される。 このため、プログラムは複数の変数を検査し、それらの変数の値によって異なるアクションを取る必要がないため、入力ソースの再配置が容易になる。
 
 SAVE-INPUT and RESTORE-INPUT are intended for repositioning within a single input source; for  example, the following scenario is NOT allowed for a Standard Program:  
 
-SAVE-INPUTとRESTORE-INPUTは、1つの入力ソース内での再配置を目的としている。例えば、以下のシナリオは標準規格のプログラムとして*許されない*。
+`SAVE-INPUT`と`RESTORE-INPUT`は、1つの入力ソース内での再配置を目的としている。例えば、以下のシナリオは標準規格のプログラムとして*許されない*。
 
     : XX 
         SAVE-INPUT CREATE 
@@ -1683,7 +1683,7 @@ This is incorrect because, at the time RESTORE-INPUT is executed, the input sour
 
 The following code is allowed:  
 
-なぜなら、RESTORE-INPUTが実行された時点で、入力ソースはEVALUATE経由の文字列であり、SAVE-INPUTが実行されたときと同じ入力ソースではないからである。
+なぜなら、`RESTORE-INPUT`が実行された時点で、入力ソースは`EVALUATE`経由の文字列であり、`SAVE-INPUT`が実行されたときと同じ入力ソースではないからである。
 
 次のコードは許される：
 
@@ -1703,15 +1703,15 @@ The return value from RESTORE-INPUT is primarily intended to report the case whe
 
 Nesting of SAVE-INPUT and RESTORE-INPUT is allowed. For example, the following situation works  as expected:   
 
-EVALUATEが戻った後、入力ソースの指定は以前の状態に戻されるため、SAVE-INPUTとRESTORE-INPUTは同じ入力ソースを有効にして呼び出される。
+`EVALUATE`が戻った後、入力ソースの指定は以前の状態に戻されるため、`SAVE-INPUT`と`RESTORE-INPUT`は同じ入力ソースを有効にして呼び出される。
 
-上記の例では、EVALUATEフレーズをINCLUDE-FILEを含むフレーズに置き換えても、同じ規則が適用される。
+上記の例では、`EVALUATE`フレーズを`INCLUDE-FILE`を含むフレーズに置き換えても、同じ規則が適用される。
 
-標準は、プログラムが上記の規則に違反した場合に何が起こるかを規定していない。標準システムは違反をチェックし、RESTORE-INPUTから例外表示を返すかもしれないし、予測できない方法で失敗するかもしれない。
+標準は、プログラムが上記の規則に違反した場合に何が起こるかを規定していない。標準システムは違反をチェックし、`RESTORE-INPUT`から例外表示を返すかもしれないし、予測できない方法で失敗するかもしれない。
 
-RESTORE-INPUTからの戻り値は、主に、位置が復元できない入力ソースの位置をプログラムが復元しようとした場合を報告することを意図している。キーボードはそのような入力ソースかもしれない。
+`RESTORE-INPUT`からの戻り値は、主に、位置が復元できない入力ソースの位置をプログラムが復元しようとした場合を報告することを意図している。キーボードはそのような入力ソースかもしれない。
 
-SAVE-INPUTとRESTORE-INPUTの入れ子は許される。例えば、次の状況は期待通りに動作する：
+`SAVE-INPUT`と`RESTORE-INPUT`の入れ子は許される。例えば、次の状況は期待通りに動作する：
 
     : XX 
         SAVE-INPUT 
@@ -1722,7 +1722,7 @@ SAVE-INPUTとRESTORE-INPUTの入れ子は許される。例えば、次の状況
         RESTORE-INPUT ABORT" couldn't restore input" 
     ;
  
-In principle, RESTORE-INPUT could be implemented to "always fail", e.g.:  
+In principle, `RESTORE-INPUT` could be implemented to "always fail", e.g.:  
 
     : RESTORE-INPUT ( x1 ... xn n -- flag ) 
         0 ?DO DROP LOOP TRUE 
@@ -1732,9 +1732,9 @@ Such an implementation would not be useful in most cases. It would be preferable
 
 Examples of how an implementation might use the return values from SAVE-INPUT to accomplish the  save/restore function:  
 
-そのような実装はほとんどの場合役に立たないだろう。無駄な実装を作るよりも、SAVE-INPUTとRESTORE-INPUTを未定義のままにすることがシステムにとって望ましいだろう。この言葉がない場合、アプリケーションプログラマーは「ダミー」実装を作るかどうか、あるいは他の方法で問題を回避するかどうかを選択できる。
+そのような実装はほとんどの場合役に立たないだろう。無駄な実装を作るよりも、`SAVE-INPUT`と`RESTORE-INPUT`を未定義のままにすることがシステムにとって望ましいだろう。この言葉がない場合、アプリケーションプログラマーは「ダミー」実装を作るかどうか、あるいは他の方法で問題を回避するかどうかを選択できる。
 
-セーブ/リストア機能を達成するために、実装がSAVE-INPUTからの戻り値をどのように使用するかの例：
+セーブ/リストア機能を達成するために、実装が`SAVE-INPUT`からの戻り値をどのように使用するかの例：
 
  |Input Source|possible stack values  
  |--|--|
@@ -1745,7 +1745,7 @@ Examples of how an implementation might use the return values from SAVE-INPUT to
 
 These are examples only; a Standard Program may not assume any particular meaning for the individual  stack items returned by SAVE-INPUT.
 
-標準プログラムは、SAVE-INPUTによって返される個々のスタック項目の特定の意味を想定してはならない。
+標準プログラムは、`SAVE-INPUT`によって返される個々のスタック項目の特定の意味を想定してはならない。
 
 #### A.6.2.2290 TIB 
 
@@ -1755,7 +1755,7 @@ The function of TIB has been superseded by SOURCE.
 
 Historically, some implementations of TO have not explicitly parsed. Instead, they set a mode flag that is  tested by the subsequent execution of name. ANS Forth explicitly requires that TO must parse, so that TO's  effect will be predictable when it is used at the end of the parse area.
 
-歴史的に、TOのいくつかの実装は明示的に解析を行ってこなかった。その代わりに、モード・フラグを設定し、その後の name の実行でテストされます。ANS Forthは、TOが解析領域の最後で使用されたときにTOの効果が予測できるように、TOが解析されなければならないことを明示的に要求しています。
+歴史的に、`TO`のいくつかの実装は明示的に解析を行ってこなかった。その代わりに、モード・フラグを設定し、その後の name の実行でテストされます。ANS Forthは、`TO`が解析領域の最後で使用されたときに`TO`の効果が予測できるように、`TO`が解析されなければならないことを明示的に要求しています。
 
 Typical use: x TO name 
 
@@ -1776,7 +1776,7 @@ EXCHANGE leaves n1 in DATA and returns the prior value n2.
 
 We describe WITHIN without mentioning circular number spaces (an undefined term) or providing the  code. Here is a number line with the overflow point (o) at the far right and the underflow point (u) at the far  left:  
 
-循環数空間（未定義の用語）については言及せず、コードも提供せずに、WITHINについて説明する。右端にオーバーフロー点(o)、左端にアンダーフロー点(u)を持つ数直線：
+循環数空間（未定義の用語）については言及せず、コードも提供せずに、`WITHIN`について説明する。右端にオーバーフロー点(o)、左端にアンダーフロー点(u)を持つ数直線：
 
 u--------------------------------------------------------------o  
 
@@ -1832,7 +1832,7 @@ Replacing &lt; with `U<` in the above implementation makes it work with unsigned
 
 For two’s-complement machines that ignore arithmetic overflow (most machines), the following  implementation works in all cases:  
 
-上記の実装で<を`U<`に置き換えると、符号なし数値では動作するが、特定の符号付き数値範囲では問題が発生する。
+上記の実装で`<`を`U<`に置き換えると、符号なし数値では動作するが、特定の符号付き数値範囲では問題が発生する。
 
 算術オーバーフローを無視する2の補数マシン（ほとんどのマシン）では、以下の実装はすべてのケースで動作する：
 
@@ -2059,7 +2059,7 @@ No change to `THROW` is necessary in this case. Note that, as with all redefinit
 
 `CATCH` and `THROW` provide a convenient way for an implementation to "clean up" the state of open files if  an exception occurs during the text interpretation of a file with `INCLUDE-FILE`. The implementation of  `INCLUDE-FILE` may guard (with `CATCH`) the word that performs the text interpretation, and if `CATCH` returns an exception code, the file may be closed and the exception re`THROW`n so that the files being  included at an outer nesting level may be closed also. Note that the Standard allows, but does not require,  `INCLUDE-FILE` to close its open files if an exception occurs. However, it does require `INCLUDE-FILE` to unnest the input source specification if an exception is THROWn.
 
-CATCH` と `THROW` は、`INCLUDE-FILE` を使用したファイルのテキスト解釈中に例外が発生した場合に、オープンしているファイルの状態を「クリーンアップ」する便利な方法を提供します。INCLUDE-FILE`の実装は、テキスト解釈を行う単語を（`CATCH`で）ガードすることができ、`CATCH`が例外コードを返した場合、ファイルをクローズして例外をre`THROW`nすることができます。スタンダードでは、例外が発生した場合に `INCLUDE-FILE` が開いているファイルをクローズすることを許可しているが、要求していないことに注意してほしい。しかし、例外がスローされた場合、`INCLUDE-FILE`が入力ソース仕様をアンネストすることを要求している。
+`CATCH` と `THROW` は、`INCLUDE-FILE` を使用したファイルのテキスト解釈中に例外が発生した場合に、オープンしているファイルの状態を「クリーンアップ」する便利な方法を提供します。`INCLUDE-FILE`の実装は、テキスト解釈を行う単語を（`CATCH`で）ガードすることができ、`CATCH`が例外コードを返した場合、ファイルをクローズして例外をre`THROW`nすることができます。スタンダードでは、例外が発生した場合に `INCLUDE-FILE` が開いているファイルをクローズすることを許可しているが、要求していないことに注意してほしい。しかし、例外がスローされた場合、`INCLUDE-FILE`が入力ソース仕様をアンネストすることを要求している。
 
 ### A.9.3 Additional usage requirements 
 
@@ -2127,9 +2127,9 @@ Use of `KEY` or `KEY?` indicates that the application does not wish to bother wi
 
 In systems that combine both keyboard and mouse events into a single "event stream", the single number  returned by `EKEY` may be inadequate to represent the full range of input possibilities. In such systems, a  single "event record" may include a time stamp, the x,y coordinates of the mouse position, the keyboard  state, and the state of the mouse buttons. In such systems, it might be appropriate for `EKEY` to return the  address of an "event record" from which the other information could be extracted.
 
-EKEY`は、システム依存の "生の "キーボードイベントのセットにアクセスするための 標準的な単語を提供します。これには、標準文字セットのメンバーに対応するイベント、 実装で定義された文字セットの他のメンバーに対応するイベント、文字セットのメンバーに 対応しないキーストロークが含まれます。
+`EKEY`は、システム依存の "生の "キーボードイベントのセットにアクセスするための 標準的な単語を提供します。これには、標準文字セットのメンバーに対応するイベント、 実装で定義された文字セットの他のメンバーに対応するイベント、文字セットのメンバーに 対応しないキーストロークが含まれます。
 
-EKEY`は、特定のイベントコード値と標準文字を表す値の間に特定の数値的な対応関係を仮定していません。システムによっては、これによって同じ標準文字に対応する2つの異なるキーを区別することができるかもしれません。
+`EKEY`は、特定のイベントコード値と標準文字を表す値の間に特定の数値的な対応関係を仮定していません。システムによっては、これによって同じ標準文字に対応する2つの異なるキーを区別することができるかもしれません。
 
 キーボードとマウスの両方のイベントを1つの「イベントストリーム」にまとめるシス テムでは、`EKEY`が返す1つの数値は、入力の可能性の全範囲を表すには不十分かもしれ ない。そのようなシステムでは、1つの "イベントレコード "は、タイムスタンプ、マウ ス位置のx,y座標、キーボードの状態、マウスボタンの状態を含むかもしれない。そのようなシステムでは、`EKEY`が他の情報を抽出できる「イベントレコード」のアドレスを返すことが適切かもしれない。
 
@@ -2192,13 +2192,13 @@ One consequence of using the "Direct STDIN Input" system call (function 7) inste
 
 これはフル機能の実装であり、非文字イベントを(`EKEY`で)処理するか、(`KEY`で)無視して "本当の "文字だけを考慮する簡単な方法をアプリケーションプログラムに提供する。
 
-EKEY`は0から255までのスキャンコードを256から511までの数字にマップすることに注意してください。EKEY` はキーボードの組み合わせである Ctrl-Shift-@ を表す数字 259 を、数値が 0 (ASCII NUL) である文字にマッピングします。多くのASCIIキーボードはCtrl-Shift-@に対してASCII NULを生成するので、このキーの組み合わせをASCII NULに使用する(0バイトは別のスキャンコードバイトが続くことを意味するため、MS-DOSからは使用できない)。
+`EKEY`は0から255までのスキャンコードを256から511までの数字にマップすることに注意してください。EKEY` はキーボードの組み合わせである Ctrl-Shift-@ を表す数字 259 を、数値が 0 (ASCII NUL) である文字にマッピングします。多くのASCIIキーボードはCtrl-Shift-@に対してASCII NULを生成するので、このキーの組み合わせをASCII NULに使用する(0バイトは別のスキャンコードバイトが続くことを意味するため、MS-DOSからは使用できない)。
 
 STDIN入力 "システムコール（関数8）の代わりに "直接STDIN入力 "システムコール（関数7）を使用することの結果の1つは、システムが入力を待っているとき、通常のDOSの "Ctrl-C割り込み "動作が無効になることである（文字が出力されている間、Ctrl-Cはまだ割り込みを引き起こす）。一方、"STDIN Input "システムコール(関数8)を使って`EKEY`を実装した場合、Ctrl-C割り込みは有効になりますが、Ctrl-Shift-@も割り込みを引き起こします。これは、オペレーティングシステムが0,3シーケンスの2バイト目をCtrl-Cとして扱うからです。
 
 One "best of both worlds" solution is to use function 8 for the first byte received by `EKEY`, and function 7  for the scan code byte. For example:  
 
-EKEY`が受信した最初のバイトに関数8を使用し、スキャンコードバイトに関数7を使用することで、「両方の良いとこ取り」をすることができます。例えば
+`EKEY`が受信した最初のバイトに関数8を使用し、スキャンコードバイトに関数7を使用することで、「両方の良いとこ取り」をすることができます。例えば
 
     : EKEY ( -- u ) 
         DOS-KEY-FUNCTION-8 ?DUP 0= IF 
@@ -2229,7 +2229,7 @@ b) An application program that wishes to handle non-character events will have t
 
 a) 有効な文字だけを受け取ることを期待して`KEY`を使用するアプリケーションプ ログラムは、ユーザーが有効な文字に対応しないキー（例えばファンクションキー 4）を押したにもかかわらず、有効な文字を含んでいるように見える一連のバイト（例えば、ゼロバイトの後に文字 "A "と同じ数値のバイトが続く）を受け取るかもしれません。
 
-b) 文字以外のイベントを処理したいアプリケーション・プログラムは、 `KEY`を2回実行しなければなりません。これは合理的で簡単に見えるかもしれない。しかし、このようなコードは、ゼロバイトを "エスケープ "コードとして使用しない他のシステムには移植できません。EKEY` アプローチを使うと、キーボードイベントを処理するアルゴリズムはすべてのシス テムで同じにすることができます。システムの依存関係は、特定のアプリケーション機 能にアクセスするために使われるシステム依存のキーコードを列挙したテーブルや定 数セットに減らすことができます。EKEY`がなければ、テーブルだけでなくアルゴリズムもシステム依存になる可能性が高いです。
+b) 文字以外のイベントを処理したいアプリケーション・プログラムは、 `KEY`を2回実行しなければなりません。これは合理的で簡単に見えるかもしれない。しかし、このようなコードは、ゼロバイトを "エスケープ"コードとして使用しない他のシステムには移植できません。`EKEY` アプローチを使うと、キーボードイベントを処理するアルゴリズムはすべてのシス テムで同じにすることができます。システムの依存関係は、特定のアプリケーション機能にアクセスするために使われるシステム依存のキーコードを列挙したテーブルや定数セットに減らすことができます。`EKEY`がなければ、テーブルだけでなくアルゴリズムもシステム依存になる可能性が高いです。
 
 Another approach to `EKEY` on MS-DOS is to use the BIOS "Read Keyboard Status" function (Interrupt 16h, Function 01h) or the related "Check Keyboard" function (Interrupt 16h, Function 11h). The advantage of this function is that it allows the program to distinguish between different keys that correspond to the  same character (e.g. the two "1" keys). The disadvantage is that the BIOS keyboard functions read only the  keyboard. They cannot be "redirected" to another "standard input" source, as can the DOS STDIN Input  functions.
 
@@ -2371,11 +2371,11 @@ A typical line-oriented sequential file-processing algorithm might look like:
 
 In this example, THROW is used to handle (unexpected) I/O exception condition, which are reported as non-zero values of the "ior" return value from READ-LINE.
 
-この例では、THROWは（予期しない）I/O例外条件を処理するために使用され、これはREAD-LINEからの "ior "戻り値のゼロ以外の値として報告される。
+この例では、`THROW`は（予期しない）I/O例外条件を処理するために使用され、これは`READ-LINE`からの "ior"戻り値のゼロ以外の値として報告される。
 
-READ-LINE needs a separate end-of-file flag because empty (zero-length) lines are a routine occurrence,  so a zero-length line cannot be used to signify end-of-file.
+`READ-LINE` needs a separate end-of-file flag because empty (zero-length) lines are a routine occurrence,  so a zero-length line cannot be used to signify end-of-file.
 
-READ-LINEは、空の（長さゼロの）行がルーチンで発生するため、別のファイル終了フラグを必要とする。
+`READ-LINE`は、空の（長さゼロの）行がルーチンで発生するため、別のファイル終了フラグを必要とする。
 
 ##### A.11.6.1.2165 S" 
 
@@ -2383,7 +2383,7 @@ Typical use: ... S" ccc" ...
 
 The interpretation semantics for `S"` are intended to provide a simple mechanism for entering a string in the  interpretation state. Since an implementation may choose to provide only one buffer for interpreted strings,  an interpreted string is subject to being overwritten by the next execution of `S"` in interpretation state. It is  intended that no standard words other than `S"` should in themselves cause the interpreted string to be  overwritten. However, since words such as `EVALUATE`, `LOAD`, `INCLUDE-FILE` and `INCLUDED` can  result in the interpretation of arbitrary text, possibly including instances of `S"`, the interpreted string may be  invalidated by some uses of these words.
 
-`S"`の解釈セマンティクスは、解釈状態に文字列を入力するための単純なメカニズムを提供することを意図している。実装は解釈された文字列のためのバッファを1つだけ提供することを選ぶかもしれないので、解釈された文字列は解釈状態の`S"`の次の実行によって上書きされる可能性がある。S"`以外の標準語は、それ自体で解釈文字列を上書きしないように意図されている。しかし、`EVALUATE`、`LOAD`、`INCLUDE-FILE`、`INCLUDED` などの単語は任意のテキストを解釈する可能性があり、その中には `S"` のインスタンスも含まれる可能性があるため、これらの単語の使用によっては解釈された文字列が無効になる可能性がある。
+`S"`の解釈セマンティクスは、解釈状態に文字列を入力するための単純なメカニズムを提供することを意図している。実装は解釈された文字列のためのバッファを1つだけ提供することを選ぶかもしれないので、解釈された文字列は解釈状態の`S"`の次の実行によって上書きされる可能性がある。`S"`以外の標準語は、それ自体で解釈文字列を上書きしないように意図されている。しかし、`EVALUATE`、`LOAD`、`INCLUDE-FILE`、`INCLUDED` などの単語は任意のテキストを解釈する可能性があり、その中には `S"` のインスタンスも含まれる可能性があるため、これらの単語の使用によっては解釈された文字列が無効になる可能性がある。
 
 When the possibility of overwriting a string can arise, it is prudent to copy the string to a "safe" buffer  allocated by the application.
 
@@ -2403,7 +2403,7 @@ The Technical Committee has considered many proposals dealing with the inclusion
 - removed words; e.g., `FPICK` .
 - added words for completeness and increased functionality; e.g., `FSINCOS`, `F~`, `DF@`, `DF!`, `SF@` and `SF!` 
 
-- 例えば、「REALS」は「FLOATS」に、「REAL+」は「FLOAT+」に。
+- 例えば、「`REALS`」は「`FLOATS`」に、「`REAL+`」は「`FLOAT+`」に。
 - 単語を削除；例えば、`FPICK` 。
 - 例えば、`FSINCOS`、`F~`、`DF@`、`DF!`、`SF@`、`SF!`などである。
 
@@ -2421,7 +2421,7 @@ By default the floating-point stack is separate from the data and return stacks;
 ||Floating-point input:||
 The current base must be `DECIMAL`. Floating-point input is not allowed in an  arbitrary base. All floating-point numbers to be interpreted by an ANS Forth system must contain the  exponent indicator "E" (see **12.3.7  Text interpreter input number conversion**). Consensus in the  Technical Committee deemed this form of floating-point input to be in more common use than the  alternative that would have a floating-point input mode that would allow numbers with embedded  decimal points to be treated as floating-point numbers.
 
-現在のベースは `DECIMAL` でなければならない。任意の基数での浮動小数点入力は許されない。ANS Forthシステムで解釈される浮動小数点数は、指数指示子 "E "を含んでいなければならない(**12.3.7 テキストインタプリタ入力数値変換**参照)。技術委員会のコンセンサスでは、この形式の浮動小数点入力は、小数点を埋め込んだ数値を浮動小数点数として扱えるようにする浮動小数点入力モードを持つ代替案よりも、より一般的に使用されているとみなされた。
+現在のベースは `DECIMAL` でなければならない。任意の基数での浮動小数点入力は許されない。ANS Forthシステムで解釈される浮動小数点数は、指数指示子 "E" を含んでいなければならない(**12.3.7 テキストインタプリタ入力数値変換**参照)。技術委員会のコンセンサスでは、この形式の浮動小数点入力は、小数点を埋め込んだ数値を浮動小数点数として扱えるようにする浮動小数点入力モードを持つ代替案よりも、より一般的に使用されているとみなされた。
 
 ||Floating-point representation:||
 Although the format and precision of the significand and the format and  range of the exponent of a floating-point number are implementation defined in ANS Forth, the  Floating-Point Extensions word set contains the words `DF@`, `SF@`, `DF!`, and `SF!` for fetching and  storing double- and single-precision IEEE floating-point-format numbers to memory. The IEEE  floating-point format is commonly used by numeric math co-processors and for exchange of floating-point data between programs and systems.
@@ -2436,7 +2436,7 @@ Although the format and precision of the significand and the format and  range o
 
 In defining custom floating-point data structures, be aware that CREATE doesn’t necessarily leave the data  space pointer aligned for various floating-point data types. Programs may comply with the requirement for  the various kinds of floating-point alignment by specifying the appropriate alignment both at compile-time  and execution time. For example:  
 
-カスタム浮動小数点データ構造を定義する際には、CREATEが様々な浮動小数点データ型に対して必ずしもデータ空間ポインタを整列させたままにするとは限らないことに注意してください。プログラムは、コンパイル時と実行時の両方で適切なアライメントを指定することで、様々な種類の浮動小数点アライメントの要件に準拠することができます。例えば
+カスタム浮動小数点データ構造を定義する際には、`CREATE`が様々な浮動小数点データ型に対して必ずしもデータ空間ポインタを整列させたままにするとは限らないことに注意してください。プログラムは、コンパイル時と実行時の両方で適切なアライメントを指定することで、様々な種類の浮動小数点アライメントの要件に準拠することができます。例えば
 
     : FCONSTANT ( F: r -- ) 
         CREATE FALIGN HERE 1 FLOATS ALLOT F! 
@@ -2454,7 +2454,7 @@ The Technical Committee has more than once received the suggestion that the text
 
 `>FLOAT` enables programs to read floating-point data in legible ASCII format. It accepts a much broader syntax than does the text interpreter since the latter defines rules for composing source programs whereas `>FLOAT` defines rules for accepting data. >FLOAT is defined as broadly as is feasible to permit input of data from ANS Forth systems as well as other widely used standard programming environments.
 
-プログラムで浮動小数点データを読みやすい ASCII 形式で読み込めるようにします。テキスト・インタープリタがソース・プログラムを作成するためのルールを定義しているのに対して、 `>FLOAT` はデータを受け入れるためのルールを定義しているためです。>FLOATは、ANS Forthシステムや他の広く使われている標準的なプログラミング環境からのデータ入力を可能にするために、可能な限り広く定義されている。
+プログラムで浮動小数点データを読みやすい ASCII 形式で読み込めるようにします。テキスト・インタープリタがソース・プログラムを作成するためのルールを定義しているのに対して、 `>FLOAT` はデータを受け入れるためのルールを定義しているためです。`>FLOAT`は、ANS Forthシステムや他の広く使われている標準的なプログラミング環境からのデータ入力を可能にするために、可能な限り広く定義されている。
 
 This is a synthesis of common FORTRAN practice. Embedded spaces are explicitly forbidden in much  scientific usage, as are other field separators such as comma or slash.
 
@@ -2484,7 +2484,7 @@ Typical use: `FVARIABLE name`
 
 This word provides a primitive for floating-point display. Some floating-point formats, including those  specified by IEEE-754, allow representations of numbers outside of an implementation-defined range.  These include plus and minus infinities, denormalized numbers, and others. In these cases we expect that  REPRESENT will usually be implemented to return appropriate character strings, such as "+infinity" or  "nan", possibly truncated.
 
-このワードは浮動小数点表示用のプリミティブを提供する。IEEE-754を含むいくつかの浮動小数点フォーマットでは、実装で定義された範囲外の数値を表現することができます。 これにはプラスマイナス無限大、非正規化数などが含まれます。このような場合、REPRESENTは通常、"+infinity "や "nan "などの適切な文字列を返すように実装されることが期待されます。
+このワードは浮動小数点表示用のプリミティブを提供する。IEEE-754を含むいくつかの浮動小数点フォーマットでは、実装で定義された範囲外の数値を表現することができます。 これにはプラスマイナス無限大、非正規化数などが含まれます。このような場合、`REPRESENT`は通常、"+infinity "や "nan" などの適切な文字列を返すように実装されることが期待されます。
 
 ##### A.12.6.2.1489 FATAN2 
 
@@ -2498,7 +2498,7 @@ FSINCOS returns a Cartesian unit vector in the direction of the given angle, mea
 
 The argument order for `FATAN2` is the same, converting a vector in the conventional representation to a  scalar angle. Thus, for all angles, `FSINCOS` `FATAN2` is an identity within the accuracy of the arithmetic  and the argument range of `FSINCOS`. Note that while `FSINCOS` always returns a valid unit vector,  `FATAN2` will accept any non-null vector. An ambiguous condition exists if the vector argument to `FATAN2` has zero magnitude.
 
-`FATAN2`の引数の順序は同じで、従来の表現におけるベクトルをスカラー角に変換する。したがって、すべての角度に対して、`FSINCOS` `FATAN2` は `FSINCOS` の算術精度と引数の範囲内で同一である。また、`FSINCOS` は常に有効な単位ベクトルを返すが、`FATAN2` は NULL 以外のベクトルでも受け付けることに注意しよう。FATAN2` へのベクトル引数の大きさがゼロの場合、あいまいな状態が存在する。
+`FATAN2`の引数の順序は同じで、従来の表現におけるベクトルをスカラー角に変換する。したがって、すべての角度に対して、`FSINCOS` `FATAN2` は `FSINCOS` の算術精度と引数の範囲内で同一である。また、`FSINCOS` は常に有効な単位ベクトルを返すが、`FATAN2` は NULL 以外のベクトルでも受け付けることに注意しよう。`FATAN2` へのベクトル引数の大きさがゼロの場合、あいまいな状態が存在する。
 
 ##### A.12.6.2.1516 FEXPM1 
 
@@ -2508,7 +2508,7 @@ This function allows accurate computation when its arguments are close to zero, 
 
 An important application of this word is in finance; say a loan is repaid at 15% per year; what is the daily  rate? On a computer with single precision (six decimal digit) accuracy:  
 
-この言葉の重要な応用は金融である。あるローンが年率15％で返済されるとする。単精度(小数点以下6桁)の精度を持つコンピュータで：
+この言葉の重要な応用は金融である。あるローンが年率15%で返済されるとする。単精度(小数点以下6桁)の精度を持つコンピュータで：
 
 1. Using `FLN` and `FEXP`: 
 
@@ -2575,11 +2575,11 @@ The Technical Committee has had a problem with locals. It has been argued forcef
 
 It has also been argued, it would seem equally forcefully, that the lack of any standard approach to locals is  precisely the reason for this lack of accepted practice since locals are at best non-trivial to implement in a  portable and useful way. It has been further argued that users who have elected to become dependent on  locals tend to be locked into a single vendor and have little motivation to join the group that it is hoped will  "broadly accept" ANS Forth unless the Standard addresses their problems.
 
-また、ローカ ルは移植可能で有用な方法で実装するのがせいぜい非自明であるため、ローカ ルに対する標準的なアプローチが存在しないことこそが、このような慣行が受け入れら れていない原因であるとも、同様に力強く主張されてきた。さらに、ローカルに依存することを選択したユーザーは、単一のベンダーに固定される傾向があり、標準が彼らの問題を解決しない限り、ANS Forthを「広く受け入れる」ことが期待されるグループに参加する動機がほとんどないと主張されてきた。
+また、ローカルは移植可能で有用な方法で実装するのがせいぜい非自明であるため、ローカルに対する標準的なアプローチが存在しないことこそが、このような慣行が受け入れら れていない原因であるとも、同様に力強く主張されてきた。さらに、ローカルに依存することを選択したユーザーは、単一のベンダーに固定される傾向があり、標準が彼らの問題を解決しない限り、ANS Forthを「広く受け入れる」ことが期待されるグループに参加する動機がほとんどないと主張されてきた。
 
 Since the Technical Committee has been unable to reach a strong consensus on either leaving locals out or  on adopting any particular vendor’s syntax, it has sought some way to deal with an issue that it has been  unable to simply dismiss. Realizing that no single mechanism or syntax can simultaneously meet the desires  expressed in all the locals proposals that have been received, it has simplified the problem statement to be to  define a locals mechanism that:  
 
-技術委員会は、ロカールを除外することでも、特定のベンダーの構文を採用する ことでも、強力なコンセンサスを得ることができなかったため、単純に却下するこ とのできない問題に対処する方法を模索してきた。単一のメカニズムやシンタックスでは、これまでに寄せられたすべてのロカールの提案に示された要望を同時に満たすことはできないと考え、以下のようなロカールのメカニズムを定義することを問題提起として単純化した：  
+技術委員会は、ロカールを除外することでも、特定のベンダーの構文を採用する ことでも、強力なコンセンサスを得ることができなかったため、単純に却下することのできない問題に対処する方法を模索してきた。単一のメカニズムやシンタックスでは、これまでに寄せられたすべてのロカールの提案に示された要望を同時に満たすことはできないと考え、以下のようなロカールのメカニズムを定義することを問題提起として単純化した。  
 
 - is independent of any particular syntax; 
 - is user extensible; 
@@ -2587,9 +2587,9 @@ Since the Technical Committee has been unable to reach a strong consensus on eit
 - supports the fundamental cell size data types of Forth; and 
 - works consistently, especially with respect to re-entrancy and recursion.
 
-- 特定の構文に依存しない； 
-- ユーザが拡張可能である； 
-- 単一の定義に対してローカルな範囲で、任意の識別子を使用できる； 
+- 特定の構文に依存しない。
+- ユーザが拡張可能である。 
+- 単一の定義に対してローカルな範囲で、任意の識別子を使用できる。
 - Forthの基本的なセル・サイズのデータ型をサポートする。
 - 特に再入可能性と再帰に関して一貫して動作する。
 
@@ -2603,7 +2603,7 @@ This approach, defining `(LOCAL)`, is proposed as one that can be used with a sm
 
 - The syntax defined by this Standard and used in the systems of Creative Solutions, Inc.: 
 
-- 本標準で定義され、Creative Solutions, Inc.のシステムで使用されている構文：
+- 本標準で定義され、Creative Solutions, Inc.のシステムで使用されている構文。
 
     : LOCALS| ( "name...name |" -- ) 
         BEGIN 
@@ -2648,7 +2648,7 @@ c) 100 300 10 JOE .
 
 The word \{ at a) defines a local declaration syntax that surrounds the list of locals with braces. It doesn’t  do anything fancy, such as reordering locals or providing initial values for some of them, so locals are  initialized from the stack in the default order. The definition of JOE at b) illustrates a use of this syntax.  Note that work is performed at execution time in that definition before locals are declared. It’s OK to use  the return stack as long as whatever is placed there is removed before the declarations begin.
 
-この単語は、ローカルのリストを中括弧で囲むローカル宣言構文を定義します。この構文では、ロカールの順番を入れ替えたり、ロカールのいくつかに初期 値を与えたりといった派手なことは何もしないので、ロカールはスタックからデフォ ルトの順番で初期化されます。b)のJOEの定義は、この構文の使い方を示している。 この定義では、ロカールが宣言される前に実行時に作業が行われることに注意してください。宣言が始まる前にスタックに置かれたものが取り除かれる限り、リターンスタックを使っても構わない。
+a) の単語 `{` は、ローカルのリストを中括弧で囲むローカル宣言構文を定義します。この構文では、ロカールの順番を入れ替えたり、ロカールのいくつかに初期値を与えたりといった派手なことは何もしないので、ロカールはスタックからデフォルトの順番で初期化されます。b)のJOEの定義は、この構文の使い方を示している。 この定義では、ロカールが宣言される前に実行時に作業が行われることに注意してください。宣言が始まる前にスタックに置かれたものが取り除かれる限り、リターンスタックを使っても構わない。
 
 Note that before declaring locals, B is doubled, a subexpression (2B+C) is computed, and an initial value (zero) for ANS is provided. After locals have been declared, JOE proceeds to use them. Note that locals may be accessed and updated within do-loops. The effect of interpreting line c) is to display the following  values:  
 
@@ -2665,7 +2665,7 @@ A second set of examples illustrates various things that break the rules. We ass
 
 ロカールの名前は、JOEがコンパイルされた後に消える。JOEのローカルが宣言されたときに、ローカルの格納場所と意味が現れ、JOEが ; （セミコロン）で呼び出し元に戻るときに消える。
 
-2つ目の例では、ルールを破る様々なことを説明する。ここでは、上記のLOCALとEND-LOCALSの定義と、前の例の{が存在すると仮定する。
+2つ目の例では、ルールを破る様々なことを説明する。ここでは、上記の`LOCAL`と`END-LOCALS`の定義と、前の例の`{`が存在すると仮定する。
 
 d) : ZERO 0 POSTPONE LITERAL POSTPONE LOCAL ; IMMEDIATE  
 
@@ -2676,7 +2676,7 @@ f) : BOB ( a b c d ) \{ D C } \{ B A } ;
 
 Here are two definitions with various violations of rule 13.3.3.2a. In e) the declaration of TEMP is legal and  creates a local whose initial value is zero. It’s OK because the executable code that ZERO generates  precedes the first use of (LOCAL) in the definition. However, the 1+ preceding the declaration of A+ is  illegal. Likewise the use of ZERO to define ANSWER is illegal because it generates executable code  between uses of (LOCAL). Finally, MOE terminates illegally (no END-LOCALS). BOB inf) violates the  rule against declaring two sets of locals.
 
-以下は、規則13.3.3.2aに違反する2つの定義である。e)のTEMPの宣言は合法で、初期値がゼロのローカルを作成します。定義中の(LOCAL)の最初の使用の前にZEROが生成する実行可能コードがあるので問題ありません。しかし、A+の宣言に先立つ1+は違法である。同様に、ANSWER を定義するための ZERO の使用も、(LOCAL) の使用と使用の間に実行可能コードを生成しているので違法である。最後に、MOE は不正に終了する（END-LOCALS がない）。BOB inf) は、2 組のローカルを宣言してはならないという規則に違反する。
+以下は、規則13.3.3.2aに違反する2つの定義である。e)の`TEMP`の宣言は合法で、初期値がゼロのローカルを作成します。定義中の`(LOCAL)`の最初の使用の前に`ZERO`が生成する実行可能コードがあるので問題ありません。しかし、A+の宣言に先立つ1+は違法である。同様に、`ANSWER` を定義するための `ZERO` の使用も、`(LOCAL)` の使用と使用の間に実行可能コードを生成しているので違法である。最後に、`MOE` は不正に終了する（`END-LOCALS` がない）。BOB inf) は、2 組のローカルを宣言してはならないという規則に違反する。
 
 g) : ANN ( a b -- b ) DUP >R DUP IF \{ B A } THEN R> ;  
 
@@ -2684,18 +2684,18 @@ h) : JANE ( a b -- n ) \{ B A } A B + >R A B - R> / ;
 
 ANN in g) violates two rules. The IF ... THEN around the declaration of its locals violates 13.3.3.2b, and  the copy of B left on the return stack before declaring locals violates 13.3.3.2c. JANE in h) violates  13.3.3.2d by accessing locals after placing the sum of A and B on the return stack without first removing that sum.
 
-g)のANNは2つのルールに違反している。IF ... THENは13.3.3.2bに違反し、ロカールを宣言する前にBのコピーをリターンスタックに残すことは13.3.3.2cに違反する。h)のJANEは、AとBの和を最初に取り除かずにリターンスタックに置いた後にロカールにアクセスすることで、13.3.3.2dに違反する。
+g)の`ANN`は2つのルールに違反している。`IF` ... `THEN`は13.3.3.2bに違反し、ロカールを宣言する前にBのコピーをリターンスタックに残すことは13.3.3.2cに違反する。h)の`JANE`は、AとBの和を最初に取り除かずにリターンスタックに置いた後にロカールにアクセスすることで、13.3.3.2dに違反する。
 
 i) : CHRIS ( a b)  
         { B A } ['] A EXECUTE 5 ['] B >BODY ! [ ' A ] LITERAL LEE ; 
 
-CHRIS in i) illustrates three violations of 13.3.3.2e. The attempt to EXECUTE the local called A is  inconsistent with some implementations. The store into B via >BODY is likely to cause tragic results with  many implementations; moreover, if locals are in registers they can’t be addressed as memory no matter  what is written.
+`CHRIS` in i) illustrates three violations of 13.3.3.2e. The attempt to `EXECUTE` the local called A is  inconsistent with some implementations. The store into B via >BODY is likely to cause tragic results with  many implementations; moreover, if locals are in registers they can’t be addressed as memory no matter  what is written.
 
-i)のCHRISは13.3.3.2eの3つの違反を示している。AというローカルをEXECUTEしようとする試みは、いくつかの実装と矛盾している。BODYを経由してBに格納することは、多くの実装で悲劇的な結果を引き起こす可能性がある。
+i)の`CHRIS`は13.3.3.2eの3つの違反を示している。Aというローカルを`EXECUTE`しようとする試みは、いくつかの実装と矛盾している。`BODY`を経由してBに格納することは、多くの実装で悲劇的な結果を引き起こす可能性がある。
 
 The third violation, in which an execution token for a definition’s local is passed as an argument to the word  LEE, would, if allowed, have the unpleasant implication that LEE could EXECUTE the token and obtain a  value for A from the particular execution of CHRIS that called LEE this time.
 
-3つ目の違反は、定義のローカルに対する実行トークンがLEEの引数として渡されるというもので、これが許可されると、LEEがトークンを実行し、今回LEEを呼び出したCHRISの特定の実行からAの値を取得できるという不愉快な意味になる。
+3つ目の違反は、定義のローカルに対する実行トークンがLEEの引数として渡されるというもので、これが許可されると、`LEE`がトークンを実行し、今回`LEE`を呼び出した`CHRIS`の特定の実行からAの値を取得できるという不愉快な意味になる。
 
 ### A.13.3 Additional usage requirements 
 
@@ -2717,11 +2717,11 @@ Access to previously declared local variables is prohibited by Section 13.3.3.2d
 
 Authorization for a Standard Program to manipulate the return stack (e.g., via >R R>) while local variables  are active overly constrains implementation possibilities. The consensus of users of locals was that Local  facilities represent an effective functional replacement for return stack manipulation, and restriction of  standard usage to only one method was reasonable.
 
-ローカル変数がアクティブである間、標準プログラムが（例えば >R R> を介して）リターンスタックを操作することを許可することは、実装の可能性を過度に制限することになる。ローカル変数の使用者のコンセンサスは、ローカル機能はリターン・スタック操作の効果的な機能的代替であり、標準的な使用方法を1つの方法のみに制限することは合理的であるというものであった。
+ローカル変数がアクティブである間、標準プログラムが（例えば `>R` `R>` を介して）リターンスタックを操作することを許可することは、実装の可能性を過度に制限することになる。ローカル変数の使用者のコンセンサスは、ローカル機能はリターン・スタック操作の効果的な機能的代替であり、標準的な使用方法を1つの方法のみに制限することは合理的であるというものであった。
 
 Access to Locals within DO..LOOPs is expressly permitted as an additional requirement of conforming  systems by Section 13.3.3.2g. Although words, such as (LOCALS), written by a System Implementor, may  require inside knowledge of the internal structure of the return stack, such knowledge is not required of a  user of compliant Forth systems.
 
-DO...LOOP内でのローカルへのアクセスは、セクション13.3.3.2gにより、適合システムの追加要件として明示的に許可されている。システム実装者によって記述された(LOCALS)のような単語は、リターンスタックの内部構造の内部知識を必要とするかもしれませんが、そのような知識は準拠Forthシステムのユーザーには要求されません。
+`DO`...`LOOP`内でのローカルへのアクセスは、セクション13.3.3.2gにより、適合システムの追加要件として明示的に許可されている。システム実装者によって記述された`(LOCALS)`のような単語は、リターンスタックの内部構造の内部知識を必要とするかもしれませんが、そのような知識は準拠Forthシステムのユーザーには要求されません。
 
 ### A.13.6 Glossary 
 
@@ -2741,7 +2741,7 @@ A possible implementation of this word and an example of usage is given in A.13,
 
 The Memory-Allocation word set provides a means for acquiring memory other than the contiguous data  space that is allocated by ALLOT. In many operating system environments it is inappropriate for a process  to pre-allocate large amounts of contiguous memory (as would be necessary for the use of ALLOT). The  Memory-Allocation word set can acquire memory from the system at any time, without knowing in advance  the address of the memory that will be acquired.
 
-A.14.オプションのメモリ確保ワードセットは、ALLOTで確保される連続データ空間以外のメモリを確保する手段を提供する。多くのオペレーティング・システム環境では、（ALLOTを使用するために必要な）大容量の連続メモリーをプロセスが事前に割り当てることは不適切です。メモリアロケーション・ワードセットは、獲得されるメモリーのアドレスを事前に知らなくても、いつでもシステムからメモリーを獲得することができる。
+A.14.オプションのメモリ確保ワードセットは、`ALLOT`で確保される連続データ空間以外のメモリを確保する手段を提供する。多くのオペレーティング・システム環境では、（`ALLOT`を使用するために必要な）大容量の連続メモリーをプロセスが事前に割り当てることは不適切です。メモリアロケーション・ワードセットは、獲得されるメモリーのアドレスを事前に知らなくても、いつでもシステムからメモリーを獲得することができる。
 
 ## A.15 The optional Programming-Tools word set 
 
@@ -2755,7 +2755,7 @@ Although there are environmental dependencies intrinsic to programs using an ass
 
 Similarly, the programming aids DUMP, etc., are valuable tools even though their specific formats will differ  between CPUs and Forth implementations. These words are primarily intended for use by the programmer,  and are rarely invoked in programs.
 
-同様に、プログラミング補助ツールである DUMP などは、CPU や Forth 実装によって具体的な形式が異なるとはいえ、貴重なツールです。これらの単語は、主にプログラマーが使用することを目的としており、プログラムで呼び出されることはほとんどありません。
+同様に、プログラミング補助ツールである `DUMP` などは、CPU や Forth 実装によって具体的な形式が異なるとはいえ、貴重なツールです。これらの単語は、主にプログラマーが使用することを目的としており、プログラムで呼び出されることはほとんどありません。
 
 One of the original aims of Forth was to erase the boundary between "user" and "programmer" - to give all  possible power to anyone who had occasion to use a computer. Nothing in the above labeling or remarks  should be construed to mean that this goal has been abandoned.
 
@@ -2767,13 +2767,13 @@ Forthの当初の目的のひとつは、「ユーザー」と「プログラマ
 
 `.S` is a debugging convenience found on almost all Forth systems. It is universally mentioned in Forth texts.
 
-.S` は、ほとんどすべての Forth システムで見られるデバッグの利便性です。これは、Forth のテキストで普遍的に言及されています。
+`.S` は、ほとんどすべての Forth システムで見られるデバッグの利便性です。これは、Forth のテキストで普遍的に言及されています。
 
 ##### A.15.6.1.2194 SEE 
 
 `SEE` acts as an on-line form of documentation of words, allowing modification of words by decompiling  and regenerating with appropriate changes.
 
-SEE`は単語のオンラインドキュメントとして機能し、デコンパイルして適切な変更を加えて再生成することで、単語を修正することができます。
+`SEE`は単語のオンラインドキュメントとして機能し、デコンパイルして適切な変更を加えて再生成することで、単語を修正することができます。
 
 ##### A.15.6.1.2465 WORDS 
 
@@ -2789,13 +2789,13 @@ Typical use: : namex ... &lt;create> ... ;CODE ...
 
 where namex is a defining word, and &lt;create> is CREATE or any user defined word that calls `CREATE`.
 
-ここで、namex は定義語で、<create> は CREATE または `CREATE` を呼び出すユーザー定義語です。
+ここで、namex は定義語で、&lt;create> は `CREATE` または `CREATE` を呼び出すユーザー定義語です。
 
 ##### A.15.6.2.0930 CODE 
 
 Some Forth systems implement the assembly function by adding an ASSEMBLER word list to the search  order, using the text interpreter to parse a postfix assembly language with lexical characteristics similar to  Forth source code. Typically, in such systems, assembly ends when a word END-CODE is interpreted.
 
-一部の Forth システムでは、ASSEMBLER 単語リストを検索順序に追加してアセンブリ機能を実装し、テキスト・インタプリタを使用して、Forth ソース・コードに似た字句特性を持つポストフィックス・アセンブリ言語を解析します。通常、このようなシステムでは、単語END-CODEが解釈されるとアセンブリが終了します。
+一部の Forth システムでは、`ASSEMBLER` 単語リストを検索順序に追加してアセンブリ機能を実装し、テキスト・インタプリタを使用して、Forth ソース・コードに似た字句特性を持つポストフィックス・アセンブリ言語を解析します。通常、このようなシステムでは、単語`END-CODE`が解釈されるとアセンブリが終了します。
 
 ##### A.15.6.2.1015 CS-PICK 
 
@@ -2824,7 +2824,7 @@ The intent is to reiterate a dest on the control-flow stack so that it can be re
 
 The intent is to modify the order in which the origs and dests on the control-flow stack are to be resolved by  subsequent control-flow words. For example, WHILE could be implemented in terms of IF and CS-ROLL,  as follows:  
 
-その意図は、制御フロー・スタック上の起点と終点が、後続の制御フロー・ワードによって解決される順序を変更することである。例えば、WHILEをIFとCS-ROLLで実装すると次のようになる：
+その意図は、制御フロー・スタック上の起点と終点が、後続の制御フロー・ワードによって解決される順序を変更することである。例えば、`WHILE`を`IF`と`CS-ROLL`で実装すると次のようになる：
 
     : WHILE ( dest -- orig dest ) 
         POSTPONE IF 1 CS-ROLL 
@@ -2836,7 +2836,7 @@ Typical use: ... FORGET name ...
 
 FORGET assumes that all the information needed to restore the dictionary to its previous state is inferable  somehow from the forgotten word. While this may be true in simple linear dictionary models, it is difficult  to implement in other Forth systems; e.g., those with multiple address spaces. For example, if Forth is  embedded in ROM, how does FORGET know how much RAM to recover when an array is forgotten? A  general and preferred solution is provided by MARKER.
 
-FORGETは、辞書を以前の状態に復元するために必要なすべての情報が、忘れた単語から何らかの方法で推論可能であると仮定している。これは単純な線形辞書モデルにおいては正しいかもしれませんが、他の Forth システム、たとえば複数のアドレス空間を持つシステムでは実装が困難です。例えば、ForthがROMに組み込まれている場合、配列が忘れられたときに回復すべきRAMの量を、FORGETはどうやって知るのでしょうか？一般的で好ましい解決策は、MARKERによって提供されます。
+FORGETは、辞書を以前の状態に復元するために必要なすべての情報が、忘れた単語から何らかの方法で推論可能であると仮定している。これは単純な線形辞書モデルにおいては正しいかもしれませんが、他の Forth システム、たとえば複数のアドレス空間を持つシステムでは実装が困難です。例えば、ForthがROMに組み込まれている場合、配列が忘れられたときに回復すべきRAMの量を、FORGETはどうやって知るのでしょうか？一般的で好ましい解決策は、`MARKER`によって提供されます。
 
 ##### A.15.6.2.2531 [ELSE] 
 
@@ -2870,7 +2870,7 @@ This technique works on a line by line basis, and is good for short, isolated va
 
 More complicated conditional compilation problems suggest a nestable method that can encompass more  than one source line at a time. The words included in the ANS Forth optional Programming tools  extensions word set are useful for this purpose. The implementation given below works with any input  source (keyboard, EVALUATE, BLOCK, or text file).
 
-より複雑な条件付きコンパイルの問題では、一度に複数のソース行を包含できるネスト可能な方法をお勧めします。ANS Forthオプショナル・プログラミング・ツール拡張の単語セットに含まれている単語は、この目的に便利です。以下に示す実装は、どの入力ソース（キーボード、EVALUATE、BLOCK、またはテキストファイル）でも動作します。
+より複雑な条件付きコンパイルの問題では、一度に複数のソース行を包含できるネスト可能な方法をお勧めします。ANS Forthオプショナル・プログラミング・ツール拡張の単語セットに含まれている単語は、この目的に便利です。以下に示す実装は、どの入力ソース（キーボード、`EVALUATE`、`BLOCK`、またはテキストファイル）でも動作します。
 
     : [ELSE] ( -- ) 
         1 BEGIN \ level 
@@ -2906,7 +2906,7 @@ The encoding for word list identifiers wid might be a small-integer index into a
 
 検索順序の指定と制御機構は大きく異なる。FIG-Forth、Forth-79、polyFORTH、Forth-83の語彙と検索順序メカニズムは、すべて相互に互換性がありません。使用されている、あるいは提案されている互換性のないメカニズムの完全なリストは、もっと長い。Forth-83 Experimental Proposalに記述されているALSO/ONLYスキームは、コミュニティから大きな支持を得ています。しかし、多くの人が根本的な欠陥があると考え、激しく反対しています。
 
-このばらつきを認識し、本標準は、さまざまなスキームを構築することができる新しい「原始的な」ツールセットを規定する。この原始的な検索語集合は、ユーザーインターフェースではなく、検索語を構築するための移植可能な "構築集合 "であることを意図している。ALSO/ONLYや主要なForthベンダーがサポートする様々な "語彙 "スキームは、原始的な検索順序単語セットで定義することができます。
+このばらつきを認識し、本標準は、さまざまなスキームを構築することができる新しい「原始的な」ツールセットを規定する。この原始的な検索語集合は、ユーザーインターフェースではなく、検索語を構築するための移植可能な "構築集合"であることを意図している。ALSO/ONLYや主要なForthベンダーがサポートする様々な "語彙"スキームは、原始的な検索順序単語セットで定義することができます。
 
 単語リスト識別子のエンコーディングは、単語リスト定義レコードの配列への小整数のインデックス、そのようなレコードのデータ空間アドレス、ユーザー領域のオフセット、Forth-83スタイルの封印された語彙の実行トークン、単語リストの最初の定義のリンクフィールドアドレス、または他のものであるかもしれません。 システム実装者次第である。
 
@@ -2918,7 +2918,7 @@ ANS Forth has removed the word CONTEXT because in many systems its contents refe
 
 Note that : (colon) no longer affects the search order. The previous behavior, where the compilation word  list replaces the first word list of the search order, can be emulated with the following redefinition of : (colon).
 
-システムによっては、検索順序の最後に数字を認識する「擬似単語リスト」を含めることで、数値リテラルの解釈を制御している。このテクニックは、引数に-1が与えられた時のSET-ORDERの "デフォルトの検索順序 "動作によって対応される。従来のALSO/ONLYの実装を使用するシステムでは、最小の検索順序は、単語ONLYと等価である。
+システムによっては、検索順序の最後に数字を認識する「擬似単語リスト」を含めることで、数値リテラルの解釈を制御している。このテクニックは、引数に-1が与えられた時のSET-ORDERの "デフォルトの検索順序"動作によって対応される。従来のALSO/ONLYの実装を使用するシステムでは、最小の検索順序は、単語ONLYと等価である。
 
 保存された検索順序を復元するポータブルな方法はこれまでなかった。F83（Forth83ではない）ではPREVIOUSという単語が導入され、CONTEXT @ PREVIOUSというフレーズを繰り返し実行することで、検索順序を「アンロード」することがほぼ可能になった。ALSO CONTEXT !を繰り返すことで、検索順序を「再ロード」することができた。残念ながら、検索順序にいくつの単語リストが含まれているかを判断するポータブルな方法はありませんでした。
 
@@ -3039,7 +3039,7 @@ In an implementation where the dictionary search mechanism uses a hash table or 
 
 /STRING is used to remove or add characters relative to the "left" end of the character string. Positive values of n will exclude characters from the string while negative values of n will include characters to the  left of the string. /STRING is a natural factor of WORD and commonly available.
 
-`/STRING`は、文字列の "左 "端から相対的に文字を削除または追加するために使用される。nの正の値は文字列から文字を除外し、nの負の値は文字列の左端に文字を含めます。`/STRING`は`WORD`の自然数であり、一般的に使用できる。
+`/STRING`は、文字列の "左"端から相対的に文字を削除または追加するために使用される。nの正の値は文字列から文字を除外し、nの負の値は文字列の左端に文字を含めます。`/STRING`は`WORD`の自然数であり、一般的に使用できる。
 
 ##### A.17.6.1.0910 CMOVE 
 
@@ -3049,7 +3049,7 @@ c-addr2 がソース領域内にある場合（つまり、c-addr2 が c-addr1 �
 
 Typical use: Assume a character string at address 100: "ABCD". Then after  
 
-典型的な使用例： アドレス100に "ABCD "という文字列があるとする。次に
+典型的な使用例： アドレス100に "ABCD" という文字列があるとする。次に
 
     100 DUP CHAR+ 3 CMOVE the string at address 100 is "AAAA".
 
@@ -3329,7 +3329,7 @@ Although the structure of both stacks is the same, they have very different uses
 
 The use of the Data Stack (often called just "the stack") leads to a notation in which operands precede  operators. The word ACCEPT in the example above took an address and count from the stack and left  another address there. Similarly, a word called BLANK expects an address and count, and will place the  specified number of space characters (20H) in the region starting at that address. Thus, 
 
-データ・スタック（しばしば単に "スタック "と呼ばれる）の使用は、演算子の前にオペランドを置く表記法につながる。上の例のACCEPTという単語は、スタックからアドレスとカウントを取り出し、そこに別のアドレスを残す。同様に、BLANKと呼ばれるワードはアドレスとカウントを期待し、そのアドレスから始まる領域に指定された数のスペース文字（20H）を配置する。このように
+データ・スタック（しばしば単に "スタック" と呼ばれる）の使用は、演算子の前にオペランドを置く表記法につながる。上の例のACCEPTという単語は、スタックからアドレスとカウントを取り出し、そこに別のアドレスを残す。同様に、BLANKと呼ばれるワードはアドレスとカウントを期待し、そのアドレスから始まる領域に指定された数のスペース文字（20H）を配置する。このように
 
     PAD 25 BLANK
     
@@ -3439,7 +3439,7 @@ Forthの珍しい特徴の1つは、プログラマーがアプリケーショ�
 
 For example, Forth includes the words VARIABLE and 2VARIABLE to name locations in which data may  be stored, as well as CONSTANT and 2CONSTANT to name single and double-cell values. Suppose a  programmer finds that an application needs arrays that would be automatically indexed through a number of  two-cell items. Such an array might be called 2ARRAY. The prefix "2" in the name indicates that each  element in this array will occupy two cells (as would the contents of a 2VARIABLE or 2CONSTANT). The  prefix "2", however, has significance only to a human and is no more significant to the text interpreter than  any other character that may be used in a definition name.
 
-例えば、ForthにはVARIABLEと2VARIABLEという単語があり、データを格納する場所を指定します。また、CONSTANTと2CONSTANTという単語もあり、シングルセルとダブルセルの値を指定します。あるプログラマが、アプリケーションで2セルの項目を自動的にインデックスする配列が必要だと考えたとする。そのような配列は2ARRAYと呼ばれるかもしれない。この名前の接頭辞 "2 "は、この配列の各要素が2セルを占めることを示す（2VARIABLEや2CONSTANTの内容と同じ）。しかし、接頭辞 "2 "は人間にとってのみ意味があり、テキスト・インタープリタにとっては、定義名で使用される他の文字よりも意味があるわけではない。
+例えば、ForthにはVARIABLEと2VARIABLEという単語があり、データを格納する場所を指定します。また、CONSTANTと2CONSTANTという単語もあり、シングルセルとダブルセルの値を指定します。あるプログラマが、アプリケーションで2セルの項目を自動的にインデックスする配列が必要だと考えたとする。そのような配列は2ARRAYと呼ばれるかもしれない。この名前の接頭辞 "2" は、この配列の各要素が2セルを占めることを示す（2VARIABLEや2CONSTANTの内容と同じ）。しかし、接頭辞 "2" は人間にとってのみ意味があり、テキスト・インタープリタにとっては、定義名で使用される他の文字よりも意味があるわけではない。
 
 Such a definition has two parts, as there are two "behaviors" associated with this new word 2ARRAY, one at  compile time, and one at run or execute time. These are best understood if we look at how 2ARRAY is used  to define its arrays, and then how the array might be used in an application. In fact, this is how one would  design and implement this word.
 
@@ -3477,7 +3477,7 @@ The part of the definition before the word DOES> specifies the "compile-time" be
 
 The second line defines the "run-time" behavior that will be shared by all words defined by 2ARRAY, such  as RAW and REFINED. The word DOES> terminates the first part of the definition and begins the second  part. A second comment here indicates that this code expects an index and an address on the stack, and will  return a different address. The index is supplied on the stack by the caller (of RAW in the example), while  the address of the content of a word defined in this way (the ALLOTted region) is automatically pushed on  top of the stack before this section of the code is to be executed. This code works as follows: SWAP reverses the order of the two stack items, to get the index on top. 2* CELLS converts the index to the  internal addressing units as in the compile-time section, to yield an offset from the beginning of the array.  The word + then adds the offset to the address of the start of the array to give the effective address, which is  the desired result.
 
-DOES>の前の部分は、"コンパイル時 "の動作、つまり、2ARRAYがRAWのような単語を定義するために使われたときの動作を指定する。コメントは、この部分がスタック上の数値を期待していることを示している。CREATEは新しい単語の定義を構築する。2* CELLSというフレーズは、サイズ・パラメータを2セル単位からシステムの内部アドレス単位（通常は文字）に変換する。ALLOTは、新しく定義された配列に関連付けられるデータを格納するために、指定された量のメモリを確保する。
+DOES>の前の部分は、"コンパイル時" の動作、つまり、2ARRAYがRAWのような単語を定義するために使われたときの動作を指定する。コメントは、この部分がスタック上の数値を期待していることを示している。CREATEは新しい単語の定義を構築する。2* CELLSというフレーズは、サイズ・パラメータを2セル単位からシステムの内部アドレス単位（通常は文字）に変換する。ALLOTは、新しく定義された配列に関連付けられるデータを格納するために、指定された量のメモリを確保する。
 
 2行目は、RAWやREFINEDのような2ARRAYによって定義されるすべてのワードによって共有される「実行時」の動作を定義する。DOES＞は定義の最初の部分を終了し、2番目の部分を開始する。ここでの2つ目のコメントは、このコードがスタック上のインデックスとアドレスを期待し、異なるアドレスを返すことを示している。インデックスは（この例ではRAWの）呼び出し元からスタック上に供給され、一方、この方法で定義された単語の内容（ALLOTted領域）のアドレスは、コードのこのセクションが実行される前に、自動的にスタックの一番上にプッシュされる。このコードは次のように動作する： SWAPは2つのスタック項目の順序を逆にして、一番上のインデックスを取得する。2* CELLSは、コンパイル時のセクションと同じように、インデックスを内部アドレッシング単位に変換し、配列の先頭からのオフセットを得る。 次に、ワード＋は、オフセットを配列の開始アドレスに加算し、実効アドレスを与える。
 
@@ -3822,7 +3822,7 @@ Forth 83は、各一意アドレスがメモリ内の8ビットバイトを参�
 those with "address unit" arguments  
 
 ||影響される言葉||
-"アドレス単位"の引数を持つもの  
+"アドレス単位" の引数を持つもの  
 
 ||Reason:||
 Some machines, including the most popular Forth chip, address 16-bit memory  locations instead of 8-bit bytes.
@@ -3859,7 +3859,7 @@ Forth-83が16ビットのスタック幅とバイトアドレッシングを同�
 See reasons for "Address Units" and "Stack Width"  
 
 ||理由:||
-"アドレス単位 "と "スタック幅 "の理由を参照。 
+"アドレス単位" と "スタック幅" の理由を参照。 
 
 ||Impact:||
 In this respect, existing programs will continue to work on machines where a  stack cell occupies two address units when stored in memory. This includes most machines for which  Forth 83 compliant implementations currently exist. In principle, it would also include 16-bit-word-addressed machines with 32-bit stack width, but the committee knows of no examples of such machines.
@@ -3871,7 +3871,7 @@ In this respect, existing programs will continue to work on machines where a  st
 The new CELLS and CELL+ address arithmetic operators should be used for  portable programs. The places where such conversion is necessary may be identified by searching for the  character "2" and determining whether or not it is used as part of an address calculation. The following  substitutions are appropriate within address calculations:  
 
 ||移行/変換:||
-新しいCELLSとCELL+アドレス算術演算子は移植可能なプログラムに使用されるべきである。このような変換が必要な場所は、文字 "2 "を検索し、それがアドレス計算の一部として使用されて いるかどうかを判断することによって特定することができる。アドレス計算の中では、以下の置換が適切である：
+新しいCELLSとCELL+アドレス算術演算子は移植可能なプログラムに使用されるべきである。このような変換が必要な場所は、文字 "2" を検索し、それがアドレス計算の一部として使用されているかどうかを判断することによって特定することができる。アドレス計算の中では、以下の置換が適切である。
 
 </miniterm>
 
@@ -3941,7 +3941,7 @@ This approach will probably result in faster application execution speed, at the
 
 これらの定義、および必要に応じて "+!"、"2@"、"2!"、","、"? "に対応する同様の定義を、アラインされていないアプリケーションの前にコンパイルすることができる。
 
-この方法は、アプリケーションがアラインされていないフィール ドを含むデータ構造を大量に使用する場合、メモリを節約することができます。
+この方法は、アプリケーションがアラインされていないフィールドを含むデータ構造を大量に使用する場合、メモリを節約することができます。
 
 もう1つの方法は、アプリケーションのソースコードを変更して、アラインされていないデータフィールドをなくすことです。ANS Forth の単語 ALIGN と ALIGNED を使用して、データ・フィールドを強制的に整列させることができます。このような整列が必要な場所は、アプリケーションのデータ構造（単純な変数以外）が定義されている部分を検査するか、「スマートコンパイラ」技術（後述の「スマートコンパイラ」の説明を参照）によって決定することができます。
 
@@ -3951,7 +3951,7 @@ This approach will probably result in faster application execution speed, at the
 
 Finally, it is possible to combine the preceding techniques by identifying exactly those data fields that are  unaligned, and using "unaligned" versions of the memory access operators for only those fields. This  "hybrid" approach affects a compromise between execution speed and memory utilization.
 
-最後に、アラインメントされていないデータ・フィールドを正確に特定し、そのフィールドだけに「アラインメントされていない」バージョンのメモリ・アクセス演算子を使用することで、前述のテクニックを組み合わせることが可能である。この "ハイブリッド "アプローチは、実行速度とメモリ使用率の妥協点に影響を与える。
+最後に、アラインメントされていないデータ・フィールドを正確に特定し、そのフィールドだけに「アラインメントされていない」バージョンのメモリ・アクセス演算子を使用することで、前述のテクニックを組み合わせることが可能である。この "ハイブリッド" アプローチは、実行速度とメモリ使用率の妥協点に影響を与える。
 
 ### D.6.6 Division/modulus rounding direction 
 
@@ -4006,7 +4006,7 @@ Forth 83は、多くの「コンパイル語」が「即時」であり、コン
 ||Reason:||
 The designation of particular words as either immediate or not depends upon the  implementation technique chosen for the Forth system. With traditional "threaded code" implementations,  the choice was generally quite clear (with the single exception of the word LEAVE), and the standard could  specify which words should be immediate. However, some of the currently popular implementation  techniques, such as native-code generation with optimization, require the immediacy attribute on a different  set of words than the set of immediate words of a threaded code implementation. ANS Forth,  acknowledging the validity of these other implementation techniques, specifies the immediacy attribute in as  few cases as possible.
 
-特定の単語を即時かそうでないかの指定は、Forthシステムに選択された実装技法に依存します。従来の "スレッドコード "実装では、（LEAVEという単語を唯一の例外として）その選択は一般的に非常に明確であり、規格はどの単語を即時性とすべきかを指定することができました。しかし、最適化を伴うネイティブコード生成など、現在普及している実装技術の中には、スレッドコード実装の即時ワードセットとは異なるワードセットに即時属性を要求するものもあります。ANS Forthは、このような他の実装技術の有効性を認め、即時性属性を指定するケースをできるだけ少なくしています。
+特定の単語を即時かそうでないかの指定は、Forthシステムに選択された実装技法に依存します。従来の "スレッドコード(threaded code)"実装では、（`LEAVE`という単語を唯一の例外として）その選択は一般的に非常に明確であり、規格はどの単語を即時性とすべきかを指定することができました。しかし、最適化を伴うネイティブコード生成など、現在普及している実装技術の中には、スレッドコード実装の即時ワードセットとは異なるワードセットに即時属性を要求するものもあります。ANS Forthは、このような他の実装技術の有効性を認め、即時性属性を指定するケースをできるだけ少なくしています。
 
 When the membership of the set of immediate words is unclear, the decision about whether to use  COMPILE or [COMPILE] becomes unclear. Consequently, ANS Forth provides a "general purpose"  replacement word POSTPONE that serves the purpose of the vast majority of uses of both COMPILE and  [COMPILE], without requiring that the user know whether or not the "postponed" word is immediate.
 
@@ -4147,9 +4147,9 @@ ANS Forth does not define the words VOCABULARY, CONTEXT, and CURRENT , which wer
 
 Forth-83’s "ALSO/ONLY" experimental search order word set is specified for the most part as the extension  portion of the ANS Forth Search Order word set.
 
-ANS Forthは、Forth 83に存在したVOCABULARY、CONTEXT、およびCURRENTという語を定義していない。その代わりに、ANS Forthは検索順序の指定と制御のための原始的な単語セットを定義しており、これには以前のどの標準にも存在しなかった単語も含まれています。
+ANS Forthは、Forth 83に存在した`VOCABULARY`、`CONTEXT`、および`CURRENT`という語を定義していない。その代わりに、ANS Forthは検索順序の指定と制御のための原始的な単語セットを定義しており、これには以前のどの標準にも存在しなかった単語も含まれています。
 
-Forth-83の "ALSO/ONLY "実験的検索語セットは、ほとんどの部分でANS Forth検索語セットの拡張部分として指定されています。
+Forth-83の "ALSO/ONLY" 実験的検索語セットは、ほとんどの部分でANS Forth検索語セットの拡張部分として指定されています。
 
 <desc>
 
@@ -4193,9 +4193,9 @@ The meaning of "multiprogramming impact" is precise only in the context of a  sp
 
 Practically speaking, the "M" designations in Forth 83 served to document usage rules for block buffer  addresses in multiprogrammed systems. These addresses often become meaningless after a task has  relinquished the CPU for any reason, most often for the purposes of performing I/O, awaiting an event, or  voluntarily sharing CPU resources using the word PAUSE. It was essential that portable applications  respect those usage rules to make it practical to run them on multiprogrammed systems; failure to adhere to  the rules could easily compromise the integrity of other applications running on those systems as well as the  applications actually in error. Thus, "M" appeared on all words that by design gave up the CPU, with the  understanding that other words NEVER gave it up.
 
-マルチプログラミングの影響」の意味は、マルチプログラミングの特定のモデルにおいてのみ正確である。多くのForthシステムは、特定のラウンドロビン、協調、ブロックバッファ共有モデルを使用してマルチプログラミング機能を提供していますが、そのモデルは普遍的なものではありません。古典的なモデルを仮定しても、"M "という名称には、マルチプログラミング・システムで相互作用するアプリケーションを記述するのに十分な情報が含まれていませんでした。
+マルチプログラミングの影響」の意味は、マルチプログラミングの特定のモデルにおいてのみ正確である。多くのForthシステムは、特定のラウンドロビン、協調、ブロックバッファ共有モデルを使用してマルチプログラミング機能を提供していますが、そのモデルは普遍的なものではありません。古典的なモデルを仮定しても、"M" という名称には、マルチプログラミング・システムで相互作用するアプリケーションを記述するのに十分な情報が含まれていませんでした。
 
-現実的に言えば、Forth83の "M "指定は、マルチプログラム・システムにおけるブロック・バッファ・アドレスの使用規則を文書化する役割を果たした。これらのアドレスは、タスクが何らかの理由でCPUを手放した後、多くの場合、I/Oを実行したり、イベントを待ったり、PAUSEという単語を使って自発的にCPUリソースを共有したりする目的で無意味になります。ポータブル・アプリケーションをマルチプログラミング・システム上で実用的に動作させるためには、このような使用規則を尊重することが不可欠であった。この規則を守らないと、実際にエラーが発生したアプリケーションだけでなく、システム上で動作している他のアプリケーションの整合性も簡単に損なわれてしまう。したがって、"M "は、設計上CPUを放棄するすべての単語に表示され、他の単語は決してCPUを放棄しないことを理解した。
+現実的に言えば、Forth83の "M" 指定は、マルチプログラム・システムにおけるブロック・バッファ・アドレスの使用規則を文書化する役割を果たした。これらのアドレスは、タスクが何らかの理由でCPUを手放した後、多くの場合、I/Oを実行したり、イベントを待ったり、PAUSEという単語を使って自発的にCPUリソースを共有したりする目的で無意味になります。ポータブル・アプリケーションをマルチプログラミング・システム上で実用的に動作させるためには、このような使用規則を尊重することが不可欠であった。この規則を守らないと、実際にエラーが発生したアプリケーションだけでなく、システム上で動作している他のアプリケーションの整合性も簡単に損なわれてしまう。したがって、"M" は、設計上CPUを放棄するすべての単語に表示され、他の単語は決してCPUを放棄しないことを理解した。
 
 These usage rules have been explicitly documented in the Block word set where they are relevant. The "M"  designations have been removed entirely.
 
@@ -4240,7 +4240,7 @@ Forth systems are often used in environments where memory space is at a  premium
 Forthシステムは、メモリ容量が限られている環境で使用されることが多い。実行形式でシステムに含まれるすべての単語は、メモリ空間を消費します。委員会は、標準的なワードをソース形式で提供できるようにすることで、制約のある環境で使用するために設計されたシステムであっても、実装者が完全なANS Forth実装を提供する確率を高めることができると考えています。
 
 ||Impact:||
-In order to use a Standard Program with a given ANS Forth implementation, it  may be necessary to precede the program with an implementation-dependent "preface" to make "source  form" words executable. This is similar to the methods that other computer languages require for selecting  the library routines needed by a particular application.
+In order to use a Standard Program with a given ANS Forth implementation, it  may be necessary to precede the program with an implementation-dependent "preface" to make "source form" words executable. This is similar to the methods that other computer languages require for selecting  the library routines needed by a particular application.
 
 In languages like C, the goal of eliminating unnecessary routines from the memory image of an application  is usually accomplished by providing libraries of routines, using a "linker" program to incorporate only the  necessary routines into an executable application. The method of invoking and controlling the linker is  outside the scope of the language definition.
 
