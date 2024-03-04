@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
 
 :root {
-	font-size: 12Q;
+	font-size: 14Q;
 	line-height: 18Q;
 	font-family: 'Noto Serif JP';
 	font-weight: 400;
@@ -94,7 +94,7 @@ img {
 
 @page {
     /*size: 177mm 252mm;*/ /*182mm 257mm;*/
-	font-size: 10Q;
+	font-size: 16Q;
 	/*padding-top: 10Q;*/
 	@bottom-center {
 		content: counter(page);
@@ -224,7 +224,7 @@ h4, h5 {
 	font-size: 14Q;
 	line-height: 18Q;
 	margin-block: 1rlh 0;
-	block-size: 1.5rlh;
+	block-size: 1rlh;
 	margin-break: auto;
 }
 
@@ -336,7 +336,7 @@ h5::before {
 /* code, pre */
 :not(pre) > code {
 	font-family: monospace;
-	font-size: 0.9em;
+	font-size: 0.85em;
 	letter-spacing: 0.05em;
 	background-color: greenyellow;
 	padding: 0.1em;
@@ -349,8 +349,8 @@ pre {
 	white-space: pre-wrap;
 	line-break: anywhare;
 	text-spacing: none;
-	font-size: 12Q;
-	line-height: 16Q;
+	font-size: 0.8em;
+	line-height: 1.1em;
 	/*border: solid 0.3mm #000;*/
 	padding-block: 3mm;
 	padding-inline: 3mm;
