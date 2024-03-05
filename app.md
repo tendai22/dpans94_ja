@@ -6,52 +6,29 @@
 
 ### A.1.2 Scope 
 
-This Standard is more extensive than previous industory standards for the Forth language.  Several things made this necessary:
+この規格は、これまでのForth言語の工業規格よりも広範囲に及んでいます。 これが必要になった理由は、以下の通りです。
 
-- the desire to resolve conflicts between previous standards; 
-- the need to eliminate semantic ambiguities and other inadequacies; 
-- the requirement to standardize common practice, where possible resolving divergences in a way that minimizes the cost of compliance;
-- the desire to standardize common system techniques, including those germane to hardware.
-
-The result of the effort to satisfy all of these objectives is a Standard arranged so that the required word set  remains small. Thus ANS Forth can be provided for resource-constrained embedded systems. Words  beyond those in the required word set are organized into a number of optional word sets and their  extensions, enabling implementation of tailored systems that are Standard.
-
-When judging relative merits, the members of the X3J14 Technical Committee were guided by the  following goals (listed in alphabetic order):
-
-この規格は、これまでのForth言語の工業規格よりも広範囲に及んでいます。 これは、いくつかの理由から必要となりました。
-
-- 以前の標準間の矛盾を解決したい； 
-- 意味上の曖昧さやその他の不備を解消する必要性； 
-- 共通プラクティスを標準化し、可能であればコンプライアンス・コストを最小化する方法で相違を解決すること；
+- 以前の標準間の矛盾を解決したい。 
+- 意味上の曖昧さやその他の不備を解消する必要性；。
+- 共通のプラクティスを標準化し、可能であればコンプライアンス・コストを最小化する方法で相違を解決すること。
 - ハードウェアに関連するものも含め、一般的なシステム技術を標準化すること。
 
-これらの目的をすべて満たすための努力の結果、必要なワード数が少なくなるように配置された規格が完成しました。このため、リソースに制約のある組込みシステムにもANS Forthを提供することができます。必要なワードセット以外のワードは、いくつかのオプションのワードセットとその拡張に整理され、Standardでありながらカスタマイズされたシステムの実装を可能にしています。
+これらの目的をすべて満たすための努力の結果、必要なワード数が少なくなるように調整された規格が完成しました。このため、リソースに制約のある組込みシステムにもANS Forthを提供することができます。必要なワードセット以外のワードは、いくつかのオプションのワードセットとその拡張に整理され、標準に準拠しながらカスタマイズされたシステムの実装を可能にしています。
 
 X3J14技術委員会のメンバーは、相対的な優劣を判断する際、以下の目標(アルファベット順)を指針としました。
 
 <description>
-||Consistency||The Standard provides a functionally complete set of words with minimal  functional overlap.
-
-||Consistency||規格は、機能的重複を最小限に抑えた、機能的に完全な語句の集合を提供します。
-
-||Cost of compliance||This goal includes such issues as common practice, how much existing code  would be broken by the proposed change, and the amount of effort required to  bring existing applications and systems into conformity with the Standard.
+||一貫性(Consistency)||標準規格は、機能的重複を最小限に抑えた、機能的に完全なワードの集合を提供します。
 
 ||準拠のコスト(Cost of compliance)||この目標には、一般的な慣習、提案された変更によって既存のコードがどの程度壊れるか、既存のアプリケーションやシステムを規格に準拠させるために必要な労力などの問題が含まれます。
 
-||Efficiency||Execution speed, memory compactness.
-
 ||効率性(Efficiency)||実行速度、メモリのコンパクトさ。
-
-||Portability||Words chosen for inclusion should be free of system-dependent features.
 
 ||移植性(Portability)||システムに依存しないワードであること。
 
-||Readability||Forth definition names should clearly delineate their behavior. That behavior  should have an apparent simplicity which supports rapid understanding. Forth  should be easily taught and support readily maintained code.
+||可読性(Readability) ||Forthの定義名はその動作の概要を明確に描くべきです。その動作は、迅速な理解をサポートするように、ぱっと見て分かるように単純であるべきです。Forthは簡単に教えることができ、コードは容易に保守できるものでなければなりません。
 
-||可読性(Readability) ||前方定義名はその動作を明確に区別すべきです。その動作は、迅速な理解をサポートする見かけ上の単純さを持つべきです。Forthは簡単に教えることができ、容易に保守できるコードでなければなりません。
-
-||Utility||Be judged to have sufficiently essential functionality and frequency of use to be  deemed suitable for inclusion.
-
-||ユーティリティ(Utility)|| 必要不可欠な機能と使用頻度が十分にあると判断されること。
+||利便性(Utility)|| 必要不可欠な機能と使用頻度が十分にあると判断される機能を包含していること。
 
 </description>
 
@@ -59,91 +36,51 @@ X3J14技術委員会のメンバーは、相対的な優劣を判断する際、
 
 #### A.1.3.1 Word sets 
 
-From the beginning, the X3J14 Technical Committee faced not only conflicting ideas as to what "real"  Forth is, but also conflicting needs of the various groups within the Forth community. At one extreme were  those who pressed for a "bare" Forth. At the other extreme were those who wanted a "fat" Forth. Many  were somewhere in between. All were convinced of the rightness of their own position and of the  wrongness of at least one of the two extremes. The committee’s composition reflected this full range of  interests.
-
-The approach we have taken is to define a Core word set establishing a greatest lower bound for required  system functionality and to provide a portfolio of optional word sets for special purposes. This simple  approach parallels the fundamental nature of Forth as an extensible language, and thereby achieves a kind of  meta-extensibility.
-
-With this key, high-level compromise, regardless of the actual makeup of the individual word sets, a firm  and workable framework is established for the long term. One may or may not agree that there should be a  Locals word set, or that the word COMPILE, belongs in the Core Extensions word set. But at least there is  a mechanism whereby such things can be included in a logical and orderly manner.
-
-当初から、X3J14技術委員会は、「本当の」Forthとは何かという点で、相反する考え方に直面していただけでなく、Forthコミュニティ内のさまざまなグループのニーズも相反していました。ある極端な例では、"素の" Forthを求める人々がいました。もう一方の極端な例では、"太った" Forthを求める人々がいました。多くはその中間でした。全員が、自分たちの立場の正しさと、両極端の少なくともどちらかが間違っていることを確信していました。委員会の構成は、このようなあらゆる利害を反映したものでした。
+当初、X3J14技術委員会は、「本当の」Forthとは何かという点で、相反する考え方に直面していました。それだけでなく、Forthコミュニティ内のさまざまなグループのニーズの相反にも直面していました。ある極端な例では、"素の" Forthを求める人々がいました。もう一方の極端な例では、"太った" Forthを求める人々がいました。多くはその中間でした。全員が、自分たちの立場の正しさと、両極端の少なくともどちらかが間違っていることを確信していました。委員会の構成は、このようなあらゆる利害を反映したものでした。
 
 私たちがとったアプローチは、必要なシステム機能の最大の下限を確立するコア・ワードセットを定義し、特別な目的のためにオプションのワードセットのポートフォリオを提供するというものです。このシンプルなアプローチは、拡張可能な言語としてのForthの基本的な性質と類似しており、それによって一種のメタ拡張性を実現しています。
 
-この重要でハイレベルな妥協点によって、個々のワードセットの実際の構成にかかわらず、長期にわたって堅固で実行可能なフレームワークが確立されます。Localsというワードセットがあるべきだとか、COMPILEというワードがCore Extensionsというワードセットに属するべきだとか、そういうことに同意する人もしない人もいるかもしれません。しかし、少なくともそのようなものを論理的かつ整然と含めることができるメカニズムがあります。
+この重要でハイレベルな妥協点によって、個々のワードセットの実際の構成にかかわらず、長期にわたって堅固で使い物になるフレームワークが確立されます。Localsワードセットがあるべきだとか、`COMPILE`というワードがCore Extensionsというワードセットに属するべきだとか、そういうことに同意する人もしない人もいるかもしれません。しかし、少なくともそのようなものを論理的かつ整然と含めることができるメカニズムがあります。
 
-Several implications of this scheme of optional word sets are significant.
+このワードセットのオプション化のスキームには、いくつかの重要な意味があります。
 
-First, ANS Forth systems can continue to be implemented on a greater range of hardware than could be  claimed by almost any other single language. Since only the Core word set is required, very limited  hardware will be able to accommodate an ANS Forth implementation.
+第一に、ANS Forthシステムは、他のどの言語単独よりも幅広いハードウェアに実装することができます。必要なのはCoreワードセットだけなので、非常に制約の厳しいハードウェアでもANS Forthの実装に対応できます。
 
-Second, a greater degree of portability of applications, and of programmers, is anticipated. The optional  word sets standardize various functions (e.g., floating point) that were widely implemented before, but not  with uniform definition names and methodologies, nor the same levels of completeness. With such words  now standardized in the optional word sets, communications between programmers - verbally, via magazine  or journal articles, etc. - will leap to a new level of facility, and the shareability of code and applications  should rise dramatically.
+第二に、アプリケーションの移植性に加え、プログラマの移植性がより高くなることが期待されます。オプションのワードセットは、それまで幅広く実装されていたが、統一された定義名や方法論、同じレベルの完全性を持たなかったさまざまな関数(浮動小数点など)を標準化するものです。このようなワードがオプショナル・ワードセットで標準化されたことで、プログラマ間の口頭によるコミュニケーションや、雑誌やジャーナルの記事によるコミュニケーションの水準が飛躍的に向上することでしょう。また、コードやアプリケーションの共有の質とレベルも飛躍的に向上するはずです。
 
-Third, ANS Forth systems may be designed to offer the user the power to selectively, even dynamically,  include or exclude one or more of the optional word sets or portions thereof. Also, lower-priced products  may be offered for the user who needs the Core word set and not much more. Thus, virtually unlimited  flexibility will be available to the user.
+第3に、ANS Forthシステムは、ユーザが選択的に、さらには動的に、1つ以上のオプションのワードセットまたはその一部を含めたり除外したりできるように設計されているかもしれません。また、Coreワードセットを必要とし、それ以上を必要としないユーザ向けに、低価格の製品を提供することもできます。このようにして、理論上は無制限の柔軟性がユーザに提供されます。
 
-このオプションのワードセットのスキームには、いくつかの重要な意味があります。
+しかし、これらの利点には代償があります。特にアプリケーションの移植性が重要な場合、どのような機能が必要かを判断し、それに応じて製品を選択する責任はユーザにあります。私たちは、ほとんどの実装者がすべてのワードセットを提供しようとするとは考えていません。実装者それぞれが、自分たちが意図する市場にとって最も価値のあるものを選択することを期待しています。
 
-第一に、ANS Forthシステムは、他のどの言語よりも幅広いハードウェアに実装することができます。必要なのはCoreワードセットだけなので、ANS Forthの実装に対応できるハードウェアは非常に限られます。
+基本的な要件は、実装者が特定のオプションのワードセットを持つと主張する場合、そのワードセットが要求する部分全体が利用可能でなければならないということです。実装者がオプションのワードセットの一部だけを提供したい場合、特に選択または除外されたワードが明確に項目化されていれば、例えば「このシステムは[これこれの名前の]ワードセットの一部を提供します」と言うことは許容されます。
 
-第二に、アプリケーションとプログラマの移植性がより高くなることが期待されます。オプションのワードセットは、以前は広く実装されていたさまざまな関数(浮動小数点など)を標準化するものですが、統一された定義名や方法論、同じレベルの完全性を持つものではありませんでした。このようなワードがオプショナル・ワードセットで標準化されたことで、プログラマ間のコミュニケーションは、口頭、雑誌やジャーナルの記事などを通じて、新たなレベルに飛躍するでしょう。- また、コードやアプリケーションの共有性も飛躍的に向上するはずです。
-
-第3に、ANS Forthシステムは、ユーザが選択的に、さらには動的に、1つ以上のオプションのワードセットまたはその一部を含めたり除外したりできるように設計されているかもしれません。また、Coreワードセットを必要とし、それ以上を必要としないユーザ向けに、低価格の製品を提供することもできます。このように、実質的に無制限の柔軟性がユーザに提供されます。
-
-But these advantages have a price. The burden is on the user to decide what capabilities are desired, and to  select product offerings accordingly, especially when portability of applications is important. We do not  expect most implementors to attempt to provide all word sets, but rather to select those most valuable to  their intended markets.
-
-The basic requirement is that if the implementor claims to have a particular optional word set the entire  required portion of that word set must be available. If the implementor wishes to offer only part of an  optional word set, it is acceptable to say, for example, "This system offers portions of the [named] word  set", particularly if the selected or excluded words are itemized clearly.
-
-Each optional word set will probably appeal to a particular constituency. For example, scientists  performing complex mathematical analysis may place a higher value on the Floating-Point word set than  programmers developing simple embedded controllers. As in the case of the core extensions, we expect  implementors to offer those word sets they expect will be valued by their users.
-
-しかし、これらの利点には代償があります。特にアプリケーションの移植性が重要な場合、どのような機能が必要かを判断し、それに応じて製品を選択する責任はユーザにあります。私たちは、ほとんどの実装者がすべてのワードセットを提供しようとするのではなく、意図する市場にとって最も価値のあるものを選択することを期待しています。
-
-基本的な要件は、実装者が特定のオプションのワードセットを持つと主張する場合、そのワードセットの必要な部分全体が利用可能でなければならないということです。実装者がオプションのワードセットの一部だけを提供したい場合、特に選択または除外されたワードが明確に項目化されていれば、例えば「このシステムは[名前付き]ワードセットの一部を提供します」と言うことは許容されます。
-
-各オプションワードセットは、おそらく特定の利用者にアピールするでしょう。例えば、複雑な数学的解析を行う科学者は、単純な組み込みコントローラを開発するプログラマよりも、浮動小数点ワードセットに高い価値を置くかもしれません。コア拡張の場合と同じように、実装者は、ユーザによって評価されると予想されるワードセットを提供することを期待します。
-
-Optional word sets may be offered in source form or otherwise factored so that the user may selectively load  them.
-
-The extensions to the optional word sets include words which are deemed less essential to performing the  primary activity supported by the word set, though clearly relevant to it. As in the case of the Core  Extensions, implementors may selectively add itemized subsets of a word set extension providing the  labeling doesn’t mislead the user into thinking incorrectly that all words are present.
+各オプションワードセットは、おそらく特定の利用者にアピールするでしょう。例えば、複雑な数学的解析を行う科学者は、単純な組み込みコントローラを開発するプログラマよりも、浮動小数点数ワードセットに高い価値を置くかもしれません。コア拡張の場合と同じように、実装者は、ユーザが評価するだろうと予想するワードセットを提供することを期待します。
 
 オプションのワードセットは、ソース形式で提供されるか、またはユーザが選択的にロードできるようにファクタリングされます。
 
-オプションのワードセットの拡張機能には、ワードセットによってサポートされる主要なアクティビティを実行するために、明らかに関連性があるにもかかわらず、それほど不可欠ではないとみなされるワードが含まれます。コア拡張の場合と同様に、実装者は、ラベル付けがすべてのワードが存在するとユーザに誤解を与えない限り、ワードセットの拡張の項目化されたサブセットを選択的に追加することができます。
+オプションのワードセットの拡張機能には、そのワードセットがサポートするアクティビティの主要なものを実行するために、明らかに関連性があるが、、不可欠ではないとみなされるワードも含まれます。コア拡張の場合と同様に、実装者は、すべてのワードが存在するとユーザに誤解を与えるようなラベリングを付けない限り、拡張ワードセットから項目化されたサブセットを選択的に追加することができます。
 
 ## A.2 Terms and notation 
-
 
 ### A.2.1 Definitions of terms 
 
 <miniterm>
-||ambiguous condition||
-The response of a Standard System to an ambiguous condition is left to the discretion of the implementor.
-A Standard System need not explicitly detect or report the occurrence of ambiguous conditions.
 
-||cross compiler||
-Cross-compilers may be used to prepare a program for execution in an embedded system, or may be used to  generate Forth kernels either for the same or a different run-time environment.
-
-||data field||
-In earlier standards, data fields were known as "parameter fields".
-On subroutine threaded Forth systems, everything is object code. There are no traditional code or data  fields. Only a word defined by CREATE or by a word that calls CREATE has a data field. Only a data field  defined via CREATE can be manipulated portably.
-
-||曖昧な条件||
+||曖昧な条件(ambiguous condition)||
 曖昧な状態に対する標準システムの対応は、実装者の裁量に任されています。
 標準システムは曖昧な状態の発生を明示的に検出したり報告したりする必要はありません。
 
-||クロスコンパイラ||
-クロス・コンパイラは、組み込みシステムで実行されるプログラムを準備するために使用されることがあり、また、同じランタイム環境または異なるランタイム環境用の Forth カーネルを生成するために使用されることもあります。
+||クロスコンパイラ(cross compiler)||
+クロスコンパイラは、組み込みシステムで実行されるプログラムを準備するために使用されることがあり、また、同じランタイム環境または異なるランタイム環境用の Forth カーネルを生成するために使用されることもあります。
 
-||データ・フィールド||
+||データフィールド(data field)||
 以前の標準では、データフィールドは「パラメータフィールド」と呼ばれていました。
-サブルーチン・スレッドのForthシステムでは、すべてがオブジェクト・コードです。従来のコード・フィールドやデータ・フィールドはありません。CREATEで定義されたワード、またはCREATEを呼び出すワードだけがデータフィールドを持ちます。CREATE によって定義されたデータフィールドのみが移植可能な操作が可能です。
+サブルーチンスレッドのForthシステムでは、すべてがオブジェクトコードです。従来のコードフィールドやデータフィールドはありません。`CREATE`で定義されたワード、または`CREATE`を呼び出すワードだけがデータフィールドを持ちます。`CREATE` によって定義されたデータフィールドのみが移植可能な操作が可能です。
 
-||word set||
-This Standard recognizes that some functions, while useful in certain application areas, are not sufficiently  general to justify requiring them in all Forth systems. Further, it is helpful to group Forth words according  to related functions. These issues are dealt with using the concept of word sets.
+||ワードセット(word set)||
+本標準規格では、一部の関数は、特定の応用分野で有用である一方、すべての Forth システムで必要であることを正当化するには十分な汎用性がないことを認識しています。さらに、関連する関数に従って Forth ワードをグループ化すると便利です。これらの問題は、ワードセットの概念を使用して取り扱います。
 
-The "Core" word set contains the essential body of words in a Forth system. It is the only "required" word  set. Other word sets defined in this Standard are optional additions to make it possible to provide Standard  Systems with tailored levels of functionality.
-
-||ワードセット||
-本標準では、一部の関数は特定の応用分野で有用である一方、すべての Forth システムで必要であることを正当化するには十分な汎用性がないことを認識しています。さらに、関連する関数に従って Forth ワードをグループ化すると便利です。これらの問題は、ワードセットの概念を使用して処理されます。
-
-「コア」ワードセットには、Forthシステムで必要不可欠なワードが含まれています。これは唯一の「必須」ワードセットです。本標準で定義されている他のワードセットは、標準システムに合わせたレベルの機能を提供できるようにするためのオプションの追加です。
+「コア(Core)」ワードセットには、Forthシステムで必要不可欠なワードが含まれています。これは唯一の「必須」ワードセットです。本標準規格が定義する他のワードセットは、機能レベルを整えて標準システムとして提供できるようにするためのオプションの追加です。
 
 </miniterm>
 
@@ -151,33 +88,21 @@ The "Core" word set contains the essential body of words in a Forth system. It i
 
 #### A.2.2.2 Stack notation 
 
-The use of *-sys*, *orig*, and *dest* data types in stack effect diagrams conveys two pieces of information. First,  it warns the reader that many implementations use the data stack in unspecified ways for those purposes, so  that items underneath on either the control-flow or data stacks are unavailable. Second, in cases where orig and dest are used, explicit pairing rules are documented on the assumption that all systems will implement  that model so that its results are equivalent to employment of some stack, and that in fact many  implementations do use the data stack for this purpose. However, nothing in this Standard requires that  implementations actually employ the data stack (or any other) for this purpose so long as the implied  behavior of the model is maintained.
-
-スタック効果図で *sys*、*orig*、*dest* データ型を使用することは、2つの情報を伝えます。第一に、多くの実装がこれらの目的のために不特定の方法でデータスタックを使用するため、制御フロースタックまたはデータスタックの下の項目が利用できないことを読者に警告します。第2に、origとdestが使用される場合、明示的なペアリング規則は、その結果が何らかのスタックの使用と等価になるように、すべてのシステムがそのモデルを実装し、実際に多くの実装がこの目的のためにデータスタックを使用するという前提で文書化されています。しかし、本標準では、モデルの暗黙の動作が維持される限り、この目的のためにデータスタック(またはその他)を実際に使用することを実装に要求するものはありません。
+スタック効果の図で *sys*、*orig*、*dest* データ型を使用することにより、2つの情報を伝えます。第一に、多くの実装がこれらの目的のために不特定の方法でデータスタックを使用するため、制御フロースタックまたはデータスタック上で、この下の項目が利用できないことを読者に警告します。第2に、*orig*と*dest*が使用される場合、明示的なペアリング規則は、その結果がスタックの使用と等価になるように、すべてのシステムがそのモデルを実装し、実際に多くの実装がこの目的のためにデータスタックを使用するという前提で文書化されています。しかし、本標準では、モデルの暗黙の動作が維持される限り、この目的のためにデータスタック(または他のスタック)を実際に使用することを実装に要求するものはありません。
 
 ## A.3 Usage requirements 
 
-Forth systems are unusually simple to develop, in comparison with compilers for more conventional  languages such as C. In addition to Forth systems supported by vendors, public-domain implementations  and implementation guides have been widely available for nearly twenty years, and a large number of  individuals have developed their own Forth systems. As a result, a variety of implementation approaches  have developed, each optimized for a particular platform or target market.
+Forthのシステムは、C言語のような従来の言語のコンパイラに比べて、非常に簡単に開発できます。ベンダーがサポートする Forth システムに加えて、パブリックドメインの実装と実装ガイドが 20 年近くにわたって広く利用可能でした。また、多数の個人が独自の Forth システムを開発してきました。その結果、さまざまな実装アプローチが開発され、それぞれが特定のプラットフォームやターゲット市場向けに最適化されてきました。
 
-ベンダーがサポートする Forth システムに加えて、パブリックドメインの実装と実装ガイドが 20 年近くにわたって広く利用可能であり、多数の個人が独自の Forth システムを開発してきました。その結果、さまざまな実装アプローチが開発され、それぞれが特定のプラットフォームやターゲット市場向けに最適化されてきました。
+X3J14技術委員会は、基礎となるForthシステムとその上で開発されるアプリケーションプログラムとの間の標準インターフェースを定義するという目標に合致するように、実装者をできる限り制約しないことによって、この多様性に対応するように努めてきました。
 
-The X3J14 Technical Committee has endeavored to accommodate this diversity by constraining  implementors as little as possible, consistent with a goal of defining a standard interface between an  underlying Forth System and an application program being developed on it.
-
-X3J14技術委員会は、基礎となるForthシステムとその上で開発されるアプリケーションプログラムとの間の標準インターフェースを定義するという目標に合致するように、実装者をできる限り制約しないことによって、この多様性に対応するように努めてきた。
-
-Similarly, we will not undertake in this section to tell you how to implement a Forth System, but rather will  provide some guidance as to what the minimum requirements are for systems that can properly claim  compliance with this Standard.
-
-同様に、このセクションではForthシステムの実装方法について説明するのではなく、本基準への準拠を適切に主張できるシステムの最低要件について、いくつかのガイダンスを提供します。
+同様に、このセクションではForthシステムの実装方法について説明するのではなく、本標準規格への準拠を適切に主張できるシステムの最低要件について、いくつかのガイダンスを提供します。
 
 ### A.3.1 Data-types 
 
-Most computers deal with arbitrary bit patterns. There is no way to determine by inspection whether a cell  contains an address or an unsigned integer. The only meaning a datum possesses is the meaning assigned by  an application.
+ほとんどのコンピュータは任意のビットパターンを扱います。あるセルがアドレスを含むか符号なし整数を含むかを検査で判断する方法はありません。データが持つ唯一の意味は、アプリケーションによって割り当てられた意味です。
 
-ほとんどのコンピュータは任意のビットパターンを扱います。セルがアドレスを含むか符号なし整数を含むかを検査で判断する方法はありません。データが持つ唯一の意味は、アプリケーションによって割り当てられた意味です。
-
-When data are operated upon, the meaning of the result depends on the meaning assigned to the input  values. Some combinations of input values produce meaningless results: for instance, what meaning can be  assigned to the arithmetic sum of the ASCII representation of the character "A" and a TRUE flag? The  answer may be "no meaning"; or alternatively, that operation might be the first step in producing a  checksum. Context is the determiner.
-
-データが操作されるとき、結果の意味は入力値に割り当てられた意味に依存します。例えば、文字 "A "のASCII表現とTRUEフラグの算術和にどのような意味があるでしょうか。あるいは、その演算がチェックサムを生成する最初のステップになるかもしれません。文脈が決定するのです。
+データを操作するとき、結果の意味は入力値に割り当てられた意味に依存します。入力値の組み合わせには無意味な結果を生み出す組み合わせもあります。例えば、文字 "A"のASCII表現とTRUEフラグの算術和にどのような意味があるでしょうか。たぶん、「意味なし」でしょう。場合によっては、その演算がチェックサムを生成する最初のステップになるかもしれません。文脈が意味を決定するのです。
 
 The discipline of circumscribing meaning which a program may assign to various combinations of bit  patterns is sometimes called data typing. Many computer languages impose explicit data typing and have  compilers that prevent ill-defined operations.
 
