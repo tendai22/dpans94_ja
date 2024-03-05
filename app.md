@@ -4265,7 +4265,15 @@ However, there are many beasts in the architectural jungle that are bit addresse
 
 A primary goal of the ANS Forth Standard is to increase the types of machines that can support a Standard  Forth. This is accomplished by allowing some key Forth terms to be implementation-defined (e.g., how big  is a cell?) and by providing Forth operators (words) that conceal the implementation. This frees the  implementor to produce the Forth system that most effectively utilizes the native hardware. The machine  independent operators, together with some programmer discipline, enable a programmer to write Forth  programs that work on a wide variety of machines.
 
+Forthを実装するために使用される最も一般的なアーキテクチャは、バイトアドレスメモリ、16ビット演算、および2の補数数表現を持っていました。Forth-83 Standardは、これらの特定の機能がForth-83 Standardシステムに存在しなければならず、Forth-83プログラムがこれらの機能を自由に利用できることを規定しています。
+
+しかし、ビットアドレスやセルアドレス、32ビット演算、1補数での数値表現など、アーキテクチャのジャングルには多くの獣が存在します。Forthの強みの1つは、「特殊な」機能を持つ「特殊な」ハードウェア上の「特殊な」環境において有用であることであるため、Standard Forthがこれらのマシン上でも動作することは重要である。
+
+ANS Forth Standardの主な目標は、Standard Forthをサポートできるマシンの種類を増やすことです。これは、いくつかの重要なForth用語を実装で定義できるようにし（例えば、セルの大きさはどのくらいか）、実装を隠蔽するForth演算子（単語）を提供することによって達成されます。これにより、実装者はネイティブ・ハードウェアを最も効果的に利用するForthシステムを作成することができます。マシンに依存しない演算子は、プログラマーの規律とともに、プログラマーがさまざまなマシンで動作するForthプログラムを書くことを可能にします。
+
 The remainder of this Annex provides guidelines for writing portable ANS Forth programs. The first  section describes ways to make a program hardware independent. It is difficult for someone familiar with  only one machine architecture to imagine the problems caused by transporting programs between dissimilar  machines. Consequently, examples of specific architectures with their respective problems are given. The  second section describes assumptions about Forth implementations that many programmers make, but can’t  be relied upon in a portable program.
+
+この付録の残りの部分では、移植可能なANS Forthプログラムを記述するためのガイドラインを示します。最初のセクションでは、プログラムをハードウェアに依存しないようにする方法について説明します。1つのマシンアーキテクチャしか知らない人が、異機種間でプログラムを転送する際に発生する問題を想像することは困難です。そのため、具体的なアーキテクチャーとそれぞれの問題の例を示す。第2節では、多くのプログラマーが行っているが、移植可能なプログラムでは当てにならない、Forthの実装に関する仮定について説明する。
 
 ## E.2 Hardware peculiarities  
 
@@ -4273,11 +4281,17 @@ The remainder of this Annex provides guidelines for writing portable ANS Forth p
 
 Data and memory are the stones and mortar of program construction. Unfortunately, each computer treats  data and memory differently. The ANS Forth Systems Standard gives definitions of data and memory that  apply to a wide variety of computers. These definitions give us a way to talk about the common elements of  data and memory while ignoring the details of specific hardware. Similarly, ANS Forth programs that use  data and memory in ways that conform to these definitions can also ignore hardware details. The following  sections discuss the definitions and describe how to write programs that are independent of the data/memory  peculiarities of different computers.
 
+データとメモリはプログラム構築の石とモルタルである。残念ながら、データとメモリの扱いはコンピュータによって異なります。ANS Forth Systems Standard では、さまざまなコンピュータに適用されるデータとメモリの定義を示 しています。これらの定義は、特定のハードウェアの詳細を無視して、データとメモリの共通要素について話す方法を与えてくれます。同様に、これらの定義に従った方法でデータとメモリを使用する ANS Forth プログラムも、ハードウェアの詳細を無視することができます。以下のセクションでは、定義について説明し、異なるコンピュータのデータ/メモリの特殊性に依存しないプログラムの記述方法について説明します。
+
 ### E.2.2 Definitions  
 
 Three terms defined by ANS Forth are address unit, cell, and character. The address space of an ANS Forth  system is divided into an array of address units; an address unit is the smallest collection of bits that can be  addressed. In other words, an address unit is the number of bits spanned by the addresses addr and addr+1.  The most prevalent machines use 8-bit address units. Such "byte addressed" machines include the Intel  8086 and Motorola 68000 families. However, other address unit sizes exist. There are machines that are bit addressed and machines that are 4-bit nibble addressed. There are also machines with address units larger  than 8-bits. For example, several Forth-in-hardware computers are cell addressed.
 
 The cell is the fundamental data type of a Forth system. A cell can be a single-cell integer or a memory address. Forth’s parameter and return stacks are stacks of cells. Forth 83 specifies that a cell is 16-bits. In  ANS Forth the size of a cell is an implementation-defined number of address units. Thus, an ANS Forth  implemented on a 16-bit microprocessor could use a 16-bit cell and an implementation on a 32-bit machine  could use a 32-bit cell. Also 18-bit machines, 36-bit machines, etc., could support ANS Forth systems with  18 or 36-bit cells respectively. In all of these systems, DUP does the same thing: it duplicates the top of the data stack. ! (store) behaves consistently too: given two cells on the data stack it stores the second cell in  the memory location designated by the top cell.
+
+ANS Forthで定義されている3つの用語は、アドレスユニット、セル、およびキャラクタです。ANS Forthシステムのアドレス空間は、アドレス単位の配列に分割されます。アドレス単位とは、アドレス指定が可能な最小のビットの集まりです。言い換えれば、アドレスユニットとは、アドレスaddrとaddr+1にまたがるビット数のことです。 最も一般的なマシンは8ビットのアドレス・ユニットを使用している。このような「バイトアドレス」マシンには、インテル8086やモトローラ68000ファミリーがある。しかし、他のアドレス・ユニット・サイズも存在する。ビットアドレスのマシンもあれば、4ビットニブルアドレス のマシンもある。また、アドレス単位が8ビットより大きいマシンもある。例えば、いくつかのForth-in-hardwareコンピュータはセルアドレスです。
+
+セルは Forth システムの基本的なデータ型です。セルは単一セル整数でもメモリアドレスでもよい。Forthのパラメータ・スタックとリターン・スタックはセルのスタックである。Forth 83では、セルは16ビットであると規定されています。ANS Forthでは、セルのサイズは実装で定義されたアドレス単位の数です。したがって、16ビットのマイクロプロセッサ上で実装されたANS Forthは16ビットのセルを使用することができ、32ビットのマシン上で実装されたANS Forthは32ビットのセルを使用することができます。また、18ビットマシンや36ビットマシンなども、それぞれ18ビットセルや36ビットセルを持つANS Forthシステムをサポートすることができます。これらすべてのシステムで、DUP はデータスタックの先頭を複製するという同じことを行います。! (ストア）の動作も一貫している。データ・スタック上に2つのセルがあると、2番目のセルを一番上のセルが指定するメモリ位置に格納する。
 
 Similarly, the definition of a character has been generalized to be an implementation-defined number of  address units (but at least eight bits). This removes the need for a Forth implementor to provide 8-bit  characters on processors where it is inappropriate. For example, on an 18-bit machine with a 9-bit address  unit, a 9-bit character would be most convenient. Since, by definition, you can’t address anything smaller  than an address unit, a character must be at least as big as an address unit. This will result in big characters  on machines with large address units. An example is a 16-bit cell addressed machine where a 16-bit  character makes the most sense.
 
@@ -4285,9 +4299,17 @@ Similarly, the definition of a character has been generalized to be an implement
 
 ANS Forth eliminates many portability problems by using the above definitions. One of the most common  portability problems is addressing successive cells in memory. Given the memory address of a cell, how do  you find the address of the next cell? In Forth 83 this is easy: 2 + . This code assumes that memory is  addressed in 8-bit units (bytes) and a cell is 16-bits wide. On a byte-addressed machine with 32-bit cells the  code to find the next cell would be 4 + . The code would be 1+ on a cell-addressed processor and 16 + on a bit-addressed processor with 16-bit cells. ANS Forth provides a next-cell operator named CELL+ that  can be used in all of these cases. Given an address, CELL+ adjusts the address by the size of a cell  (measured in address units). A related problem is that of addressing an array of cells in an arbitrary order.  A defining word to create an array of cells using Forth 83 would be:  
 
+同様に、文字の定義は、実装で定義されたアドレス・ユニット数（ただし、少なくとも8ビット）に一般化されました。これにより、Forthの実装者は、不適切なプロセッサ上で8ビット文字を提供する必要がなくなりました。例えば、9ビットのアドレス・ユニットを持つ18ビット・マシンでは、9ビット文字が最も便利です。定義上、アドレス・ユニットより小さいものをアドレスにすることはできないので、文字は少なくともアドレス・ユニットと同じ大きさでなければなりません。このため、アドレス・ユニットが大きいマシンでは大きな文字になる。例えば、16 ビット・セル・アドレスのマシンでは、16 ビット・キャラクタが最も理にかなっています。
+
+### E.2.3 メモリのアドレス指定  
+
+ANS Forth では、上記の定義を使用することで、多くの移植性の問題を解消しています。最も一般的な移植性の問題の 1 つは、メモリ内の連続するセルのアドレス指定です。あるセルのメモリ・アドレスが与えられたとき、次のセルのアドレスはどの ように見つけるのでしょうか? Forth 83では、これは簡単です： 2 + . このコードは、メモリが8ビット単位（バイト）でアドレス指定され、セルが16ビット幅であると仮定しています。32ビット・セルを持つバイト・アドレス・マシンでは、次のセルを見つけるコードは 4 + . セルアドレスのプロセッサでは 1+、16 ビットセルを持つビットアドレスのプロセッサでは 16 + となる。ANS Forthには、これらのすべてのケースで使用できるCELL+というネクストセル演算子が用意されています。アドレスが与えられると、CELL+はセルのサイズ（アドレス単位で測定）でアドレスを調整します。関連する問題として、セルの配列を任意の順序でアドレス指定することがある。 Forth83を使ってセルの配列を作成するための定義語は次のようになる。
+
     : ARRAY CREATE 2* ALLOT DOES> SWAP 2* + ; 
 
 Use of 2* to scale the array index assumes byte addressing and 16-bit cells again. As in the example above,  different versions of the code would be needed for different machines. ANS Forth provides a portable  scaling operator named CELLS. Given a number n, CELLS returns the number of address units needed to  hold n cells. A portable definition of array is:  
+
+配列のインデックスをスケールするために2*を使用することは、バイトアドレッシングと16ビットセルを再び想定している。上記の例のように、マシンによって異なるバージョンのコードが必要になります。ANS Forthは、CELLSというポータブルなスケーリング演算子を提供しています。数値nが与えられると、CELLSはn個のセルを保持するのに必要なアドレス・ユニットの数を返す。ポータブルな配列の定義は
 
     : ARRAY CREATE CELLS ALLOT 
         DOES> SWAP CELLS + ; 
@@ -4295,6 +4317,10 @@ Use of 2* to scale the array index assumes byte addressing and 16-bit cells agai
 There are also portability problems with addressing arrays of characters. In Forth 83 (and in the most  common ANS Forth implementations), the size of a character will equal the size of an address unit.  Consequently addresses of successive characters in memory can be found using 1+ and scaling indices into  a character array is a no-op (i.e., 1 *). However, there are cases where a character is larger than an address  unit. Examples include (1) systems with small address units (e.g., bit- and nibble-addressed systems), and  (2) systems with large character sets (e.g., 16-bit characters on a byte-addressed machine). CHAR+ and CHARS operators, analogous to CELL+ and CELLS are available to allow maximum portability.
 
 ANS Forth generalizes the definition of some Forth words that operate on chunks of memory to use address  units. One example is ALLOT. By prefixing ALLOT with the appropriate scaling operator (CELLS,  CHARS, etc.), space for any desired data structure can be allocated (see definition of array above). For  example:  
+
+文字の配列のアドレス指定にも移植性の問題があります。Forth 83（および最も一般的な ANS Forth 実装）では、文字のサイズはアドレス単位のサイズに等しくなります。 その結果、メモリ内の連続する文字のアドレスは1+を使用して求めることができ、文字配列へのインデックスのスケーリングは不要です（つまり、1 *）。しかし、1文字がアドレス・ユニットより大きい場合もある。例えば、(1)アドレス単位が小さいシステム（例えば、ビットアドレスやニブルアドレスシステム）、(2)文字セットが大きいシステム（例えば、バイトアドレスマシンの16ビット文字）。CHAR+およびCHARS演算子（CELL+およびCELLSに類似）は、最大限の移植性を可能にするために利用可能です。
+
+ANS Forthは、アドレス単位を使用するために、メモリのチャンクを操作するいくつかのForth語の定義を一般化しています。その一例がALLOTです。ALLOTの前に適切なスケーリング演算子（CELLS、CHARSなど）を付けることで、任意のデータ構造用のスペースを割り当てることができます（上記の配列の定義を参照）。例えば
 
     CREATE ABUFFER 5 CHARS ALLOT ( allot 5 character buffer)  
 
@@ -4308,101 +4334,161 @@ Not all addresses are created equal. Many processors have restrictions on the ad
 
 One of the most common problems caused by alignment restrictions is in creating tables containing both  characters and cells. When , (comma) or C, is used to initialize a table, data is stored at the data-space  pointer. Consequently, it must be suitably aligned. For example, a non-portable table definition would be:  
 
+すべてのアドレスが同じというわけではありません。多くのプロセッサでは、メモリアクセス命令で使用できるアドレスに制限があります。この規格は、ANS Forth の実装者がアライメントを透過的に行うことを要求しているわけではありません。それどころか、ANS Forth プログラムが文字とセルのアライメントが必要になる可能性があることを想定することを（セクション **3.3.3.1 アドレスのアライメント** で）要求しています。
+
+アライメント制限によって引き起こされる最も一般的な問題の1つは、文字とセルの両方を含む表を作成することです。(カンマ)またはCを使用して表を初期化すると、データはデータ空間ポインタに格納されます。したがって、適切にアライメントされなければならない。例えば、ポータブルでないテーブル定義は次のようになる：
+
     CREATE ATABLE 1 C, X , 2 C, Y ,  
 
 On a machine that restricts 16-bit fetches to even addresses, CREATE would leave the data space pointer at  an even address, the 1 C, would make the data space pointer odd, and , (comma) would violate the  address restriction by storing X at an odd address. A portable way to create the table is:  
+
+16ビット・フェッチを偶数アドレスに制限しているマシンでは、CREATEはデータ空間ポインタを偶数アドレスに残し、1 C,はデータ空間ポインタを奇数にし、 , (カンマ)はXを奇数アドレスに格納することでアドレス制限に違反することになる。ポータブルなテーブルの作り方は  
 
     CREATE ATABLE 1 C, ALIGN X , 2 C, ALIGN Y ,  
 
 ALIGN adjusts the data space pointer to the first aligned address greater than or equal to its current address.  An aligned address is suitable for storing or fetching characters, cells, cell pairs, or double-cell numbers.
 
+ALIGNは、データ空間ポインタを、現在のアドレス以上の最初のアライメントされたアドレスに調整します。 アラインされたアドレスは、文字、セル、セル・ペア、ダブル・セル番号の格納やフェッチに適している。
+
 After initializing the table, we would also like to read values from the table. For example, assume we want  to fetch the first cell, X, from the table. ATABLE CHAR+ gives the address of the first thing after the  character. However this may not be the address of X since we aligned the dictionary pointer between the C, and the ,. The portable way to get the address of X is:  
+
+テーブルを初期化した後、テーブルから値を読み取りたい。例えば、テーブルから最初のセルXを取り出したいとする。ATABLE CHAR+は、文字の後の最初のもののアドレスを与える。しかし、Cと,の間に辞書ポインタをアライメントしたので、これはXのアドレスではないかもしれません。Xのアドレスを取得するポータブルな方法は次のとおりです：  
 
     ATABLE CHAR+ ALIGNED  
 
 ALIGNED adjusts the address on top of the stack to the first aligned address greater than or equal to its  current value.
 
+ALIGNEDは、スタックの先頭のアドレスを、現在の値以上の最初のアライメントされたアドレスに調整する。
+
 ## E.3 Number representation  
 
 Different computers represent numbers in different ways. An awareness of these differences can help a  programmer avoid writing a program that depends on a particular representation.
+
+コンピュータによって数字の表現方法は異なる。これらの違いを意識することで、プログラマが特定の表現に依存したプログラムを書かずに済むようになる。
 
 ### E.3.1 Big endian vs. little endian  
 
 The constituent bits of a number in memory are kept in different orders on different machines. Some  machines place the most-significant part of a number at an address in memory with less-significant parts  following it at higher addresses. Other machines do the opposite — the least-significant part is stored at the  lowest address. For example, the following code for a 16-bit 8086 "little endian" Forth would produce the  answer 34 (hex):  
 
+メモリ上の数値を構成するビットは、マシンによって異なる順序で保持されます。あるマシンは、数値の最上位部分をメモリ上のアドレスに置き、その後に下位の部分 を上位のアドレスに置きます。他のマシンはその逆で、最下位は最下位アドレスに格納される。例えば、16ビット8086の「リトルエンディアン」Forthのコードは、34（16進数）という答えを生成します：
+
     VARIABLE FOO HEX 1234 FOO ! FOO C@  
 
 The same code on a 16-bit 68000 "big endian" Forth would produce the answer 12 (hex). A portable  program cannot exploit the representation of a number in memory.
 
+16ビット68000の "ビッグエンディアン "Forthで同じコードを実行すると、答えは12（16進数）となる。ポータブル・プログラムは、メモリ上の数値表現を悪用することはできません。
+
 A related issue is the representation of cell pairs and double-cell numbers in memory. When a cell pair is  moved from the stack to memory with 2!, the cell that was on top of the stack is placed at the lower  memory address. It is useful and reasonable to manipulate the individual cells when they are in memory.
+
+関連する問題は、メモリ上のセル・ペアとダブル・セル数の表現です。セル・ペアがスタックから2！でメモリに移動されると、スタックの一番上にあったセルはより低いメモリ・アドレスに置かれる。メモリにあるときに個々のセルを操作するのは便利で合理的である。
 
 ### E.3.2 ALU organization  
 
 Different computers use different bit patterns to represent integers. Possibilities include binary  representations (two’s complement, one’s complement, sign magnitude, etc.) and decimal representations  (BCD, etc.). Each of these formats creates advantages and disadvantages in the design of a computer’s arithmetic logic unit (ALU). The most commonly used representation, two’s complement, is popular  because of the simplicity of its addition and subtraction algorithms.
 
+異なるコンピュータは、整数を表現するのに異なるビット・パターンを使用する。2進数表現（2の補数、1の補数、符号の大きさなど）や10進数表現（BCDなど）が可能である。これらのフォーマットはそれぞれ、コンピュータの算術論理演算装置（ALU）の設計において利点と欠点を生み出します。最も一般的に使用されている2の補数表現は、加算と減算のアルゴリズムが単純なため人気があります。
+
 Programmers who have grown up on two’s complement machines tend to become intimate with their  representation of numbers and take some properties of that representation for granted. For example, a trick  to find the remainder of a number divided by a power of two is to mask off some bits with AND. A common  application of this trick is to test a number for oddness using 1 AND. However, this will not work on a  one’s complement machine if the number is negative (a portable technique is 2 MOD).
+
+2の補数マシンで育ってきたプログラマーは、数の表現に慣れ親しみ、その表現のいくつかの特性を当然のものと考える傾向がある。例えば、2の累乗で割った余りを求めるトリックは、ANDでいくつかのビットをマスクすることである。このトリックの一般的な応用例は、1 ANDを使って奇数かどうかをテストすることである。しかし、これは数が負の場合、1の補数マシンで動作しません（ポータブルなテクニックは2MODです）。
 
 The remainder of this section is a (non-exhaustive) list of things to watch for when portability between  machines with binary representations other than two’s complement is desired.
 
+このセクションの残りは、2の補数以外の2進表現を持つマシン間で移植性を求める場合に注意すべき点の（網羅的ではない）リストである。
+
 To convert a single-cell number to a double-cell number, ANS Forth provides the operator S>D. To  convert a double-cell number to single-cell, Forth programmers have traditionally used DROP. However,  this trick doesn’t work on sign-magnitude machines. For portability a D>S operator is available.  Converting an unsigned single-cell number to a double-cell number can be done portably by pushing a zero  on the stack.
 
+シングル・セル数をダブル・セル数に変換するには、ANS Forthは演算子S>Dを提供します。ダブルセル数をシングルセル数に変換するには、Forthプログラマは伝統的にDROPを使用してきました。しかし、このトリックは符号振幅の大きいマシンでは機能しません。ポータビリティのために、D>S演算子が用意されています。 符号なしシングル・セル数をダブル・セル数に変換するには、スタックに 0 をプッシュします。
 
 ## E.4 Forth system implementation  
 
 During Forth’s history, an amazing variety of implementation techniques have been developed. The ANS  Forth Standard encourages this diversity and consequently restricts the assumptions a user can make about  the underlying implementation of an ANS Forth system. Users of a particular Forth implementation  frequently become accustomed to aspects of the implementation and assume they are common to all Forths.  This section points out many of these incorrect assumptions.
 
-
- 
-
+Forth の歴史の中で、驚くほど多様な実装技術が開発されてきました。ANS Forth Standardはこのような多様性を奨励し、その結果、ユーザーがANS Forthシステムの基本的な実装について想定できることを制限しています。特定のForth実装のユーザーは、その実装の側面に慣れてしまい、それがすべてのForthに共通するものだと思い込んでしまうことがよくあります。 このセクションでは、このような間違った思い込みの多くを指摘します。
 
 ### E.4.1 Definitions  
 
 Traditionally, Forth definitions have consisted of the name of the Forth word, a dictionary search link, data  describing how to execute the definition, and parameters describing the definition itself. These components  are called the name, link, code, and parameter fields^^X . No method for accessing these fields has been found that works across all of the Forth implementations currently in use. Therefore, ANS Forth severely restricts  how the fields may be used. Specifically, a portable ANS Forth program may not use the name, link, or  code field in any way. Use of the parameter field (renamed to data field for clarity) is limited to the  operations described below.
 
+従来、Forth定義は、Forth単語の名前、辞書検索リンク、定義の実行方法を記述するデータ、および定義自体を記述するパラメータで構成されていました。これらの構成要素は、名前、リンク、コード、パラメーター・フィールドと呼ばれます^^X。これらのフィールドにアクセスする方法は、現在使用されているすべての Forth 実装で動作するものは見つかっていません。そのため、ANS Forthはフィールドの使用方法を厳しく制限しています。具体的には、移植可能な ANS Forth プログラムは、name、link、code フィールドを一切使用できません。パラメータフィールド（わかりやすくするためにデータフィールドと改名された）の使用は、以下に説明する操作に限定される。
+
 ^^X{These terms are not defined in the Standard. They are mentioned here for historical continuity.
+^^}
+
+^^X{これらの用語は標準では定義されていません。歴史的な連続性を保つためにここで言及します。
 ^^}
 
 Only words defined with CREATE or with other defining words that call CREATE have data fields. The  other defining words in the Standard (VARIABLE, CONSTANT, :, etc.) might not be implemented with  CREATE. Consequently, a Standard Program must assume that words defined by VARIABLE, CONSTANT, : , etc., may have no data fields. There is no way for a Standard Program to modify the value of a constant or to change the meaning of a colon definition. The DOES> part of a defining word operates on a data field.  Since only CREATEd words have data fields, DOES> can only be paired with CREATE or words that call  CREATE.
 
 In ANS Forth, FIND, ['] and ' (tick) return an unspecified entity called an "execution token". There are  only a few things that may be done with an execution token. The token may be passed to EXECUTE to  execute the word ticked or compiled into the current definition with COMPILE,. The token can also be  stored in a variable and used later. Finally, if the word ticked was defined via CREATE, >BODY converts  the execution token into the word’s data-field address.
 
+CREATEまたはCREATEを呼び出す他の定義語で定義された単語のみがデータフィールドを持つ。規格の他の定義語（VARIABLE、CONSTANT、:など）はCREATEで実装されていないかもしれません。そのため、標準プログラムでは、VARIABLE、CONSTANT、 : などで定義された単語はデータフィールドを持たない可能性があると仮定しなければなりません。標準プログラムには、定数の値を変更したり、コロン定義の意味を変更したりする方法はありません。定義語のDOES>の部分はデータフィールドを操作する。 CREATEされた単語のみがデータフィールドを持つので、DOES>はCREATEまたはCREATEを呼び出す単語としか組み合わせることができません。
+
+ANS Forthでは、FIND、[']、および'(tick)は「実行トークン」と呼ばれる不特定の実体を返します。実行トークンで実行できることは限られています。トークンをEXECUTEに渡してtickされた単語を実行したり、COMPILE,で現在の定義にコンパイルしたりすることができます。トークンは変数に格納し、後で使用することもできます。最後に、単語tickedがCREATEで定義された場合、>BODYは実行トークンを単語のデータフィールドアドレスに変換します。
+
 One thing that definitely cannot be done with an execution token is use ! or , to store it into the object code  of a Forth definition. This technique is sometimes used in implementations where the object code is a list of  addresses (threaded code) and an execution token is also an address. However, ANS Forth permits native  code implementations where this will not work.
+
+実行トークンで絶対にできないことの1つは、Forth定義のオブジェクト・コードに格納するために! このテクニックは、オブジェクトコードがアドレスのリスト（スレッドコード）であり、実行トークンもアドレスである実装で使用されることがあります。ただし、ANS Forth では、これが機能しないネイティブコードの実装を許可しています。
 
 ### E.4.2 Stacks  
 
 In some Forth implementations, it is possible to find the address of a stack in memory and manipulate the  stack as an array of cells. This technique is not portable, however. On some systems, especially Forth-in-hardware systems, the stacks might be in a part of memory that can’t be addressed by the program or might  not be in memory at all. Forth’s parameter and return stacks must be treated as stacks.
 
+一部の Forth 実装では、メモリ内のスタックのアドレスを見つけ、セルの配列としてスタックを操作することが可能です。しかし、このテクニックは移植性がありません。いくつかのシステム、特に Forth-in-hardware システムでは、スタックはプログラムによってアドレス指定できないメモリの一部にあったり、まったくメモリになかったりします。Forthのパラメータ・スタックとリターン・スタックは、スタックとして扱われなければならない。
+
 A Standard Program may use the return stack directly only for temporarily storing values. Every value  examined or removed from the return stack using R@, R>, or 2R> must have been put on the stack explicitly using >R or 2>R. Even this must be done carefully since the system may use the return stack to hold return  addresses and loop-control parameters. Section **3.2.3.3  Return stack** of the Standard has a list of  restrictions.
+
+標準プログラムは、値を一時的に格納するためにのみ、リターン・スタックを直接使用することができる。R@、R>、2R> を使ってリターン・スタックを調べたり、リターン・スタックから取り除いたりする値はすべて、>R または 2>R を使って明示的にスタックに置かれなければならない。システムがリターン・アドレスやループ制御パラメータを保持するためにリターン・スタックを使用することがあるため、これにも注意が必要である。規格のセクション**3.2.3.3 リターンスタック**に制限事項のリストがある。
 
 ## E.5 ROMed application disciplines and conventions  
 
 When a Standard System provides a data space which is uniformly readable and writeable we may term this  environment "RAM-only".
 
+標準システムが一様に読み書きが可能なデータ空間を提供する場合、この環境を "RAM-only "と呼んでもよい。
+
 Programs designed for ROMed application must divide data space into at least two parts: a writeable and  readable uninitialized part, called "RAM", and a read-only initialized part, called "ROM". A third  possibility, a writeable and readable initialized part, normally called "initialized RAM", is not addressed by  this discipline. A Standard Program must explicitly initialize the RAM data space as needed.
+
+ROM化されたアプリケーション用に設計されたプログラムは、データ空間を少なくとも2つの部分に分割しなければならない：書き込み可能で読み出し可能な未初期化部分。第3の可能性として、書き込み可能で読み取り可能な初期化された部分（通常は「初期化RAM」と呼ばれる）があるが、この規律では扱わない。標準プログラムは、必要に応じてRAMデータ空間を明示的に初期化しなければならない。
 
 The separation of data space into RAM and ROM is meaningful only during the generation of the ROMed  program. If the ROMed program is itself a standard development system, it has the same taxonomy as an  ordinary RAM-only system.
 
+データ空間をRAMとROMに分けることは、ROM化されたプログラムの生成時のみ意味がある。ROM化されたプログラム自体が標準的な開発システムであれば、通常のRAM専用システムと同じ分類法を持つ。
+
 The words affected by conversion from a RAM-only to a mixed RAM and ROM environment are:  
+
+RAM専用環境からRAMとROMの混在環境へ変換する際に影響を受ける単語は以下の通りである：  
 
     , (comma) ALIGN ALIGNED ALLOT C, CREATE HERE UNUSED
     (VARIABLE always accesses the RAM data space.) 
 
 With the exception of , (comma) and C, these words are meaningful in both RAM and ROM data space.
 
+(VARIABLEは常にRAMデータ空間にアクセスする) ,(カンマ)とCを除き、これらの単語はRAMとROMの両方のデータ空間で意味を持つ。
+
 To select the data space, these words could be preceded by selectors RAM and ROM. For example:  
+
+データ空間を選択するには、これらの単語の前にセレクタRAMとROMを付ける。例えば
 
     ROM CREATE ONES 32 ALLOT ONES 32 1 FILL RAM  
 
 would create a table of ones in the ROM data space. The storage of data into RAM data space when  generating a program for ROM would be an ambiguous condition.
 
+とすると、ROMデータ空間に1のテーブルが作成される。ROM用のプログラムを生成する際にRAMデータ空間にデータを格納することは、曖昧な条件となる。
+
 A straightforward implementation of these selectors would maintain separate address counters for each  space. A counter value would be returned by HERE and altered by , (comma), C,, ALIGN, and ALLOT,  with RAM and ROM simply selecting the appropriate address counter. This technique could be extended to  additional partitions of the data space.
+
+これらのセレクタを素直に実装すると、各空間に対して別々のアドレス・カウンタを保持することになる。カウンタ値はHEREによって返され、 , (コンマ)、C、ALIGN、ALLOTによって変更され、RAMとROMは単に適切なアドレス・カウンタを選択するだけである。この手法は、データ空間の追加パーティションにも拡張できる。
 
 ## E.6 Summary  
 
 The ANS Forth Standard cannot and should not force anyone to write a portable program. In situations  where performance is paramount, the programmer is encouraged to use every trick in the book. On the  other hand, if portability to a wide variety of systems is needed, ANS Forth provides the tools to accomplish  this. There is probably no such thing as a completely portable program. A programmer, using this guide,  should intelligently weigh the tradeoffs of providing portability to specific machines. For example,  machines that use sign-magnitude numbers are rare and probably don’t deserve much thought. But, systems  with different cell sizes will certainly be encountered and should be provided for. In general, making a  program portable clarifies both the programmer’s thinking process and the final program.
 
+ANS Forth Standardは、ポータブルなプログラムを書くことを誰にも強制することはできませんし、またそうすべきでもありません。パフォーマンスが最優先される状況では、プログラマはあらゆるトリックを駆使することが推奨されます。一方、さまざまなシステムへの移植性が必要な場合は、ANS Forthがそのためのツールを提供します。完全に移植可能なプログラムというものは、おそらく存在しないでしょう。プログラマは、このガイドを使って、特定のマシンに対する移植性を提供することのトレードオフを賢く考慮する必要があります。例えば、符号-倍数を使用するマシンは稀であり、おそらくあまり考えるに値しないだろう。しかし、異なるセルサイズを持つシステムには必ず遭遇するので、それに対応すべきである。一般に、プログラムの移植性を高めることは、プログラマーの思考プロセスと最終的なプログラムの両方を明確にします。
+
 # F. Alphabetic list of words (informative annex)  
 
 In the following list, the last, four-digit, part of the reference number establishes a sequence corresponding  to the alphabetic ordering of all standard words. The first two or three parts indicate the word set and  glossary section in which the word is defined.
+
+以下のリストにおいて、参照番号の最後の4桁の部分は、すべての標準語のアルファベット順に対応するシーケンスを確立する。最初の2桁または3桁の部分は，その単語が定義されている単語セットと用語集セクションを示す。
 
 ### LIST OF WORDS(low.md) SHOULD BE HERE
