@@ -106,7 +106,7 @@ X3J14技術委員会は、基礎となるForthシステムとその上で開発�
 
 The discipline of circumscribing meaning which a program may assign to various combinations of bit  patterns is sometimes called data typing. Many computer languages impose explicit data typing and have  compilers that prevent ill-defined operations.
 
-プログラムがさまざまなビットパターンの組み合わせに割り当てる意味を規定する学問は、データ型付けと呼ばれることがあります。多くのコンピュータ言語では、明示的なデータ型付けが行われ、コンパイラが不定義の演算を防ぐようになっています。
+プログラムがさまざまなビットパターンの組み合わせに割り当てる意味を規定することは、しばしばデータ型付けと呼ばれます。多くのコンピュータ言語では、明示的なデータ型付けが行われ、コンパイラが不定義の演算を防ぐようになっています。
 
 Forth rarely explicitly imposes data-type restrictions. Still, data types implicitly do exist, and discipline is  required, particularly if portability of programs is a goal. In Forth, it is incumbent upon the programmer  (rather than the compiler) to determine that data are accurately typed.
 This section attempts to offer guidance regarding de facto data typing in Forth.
