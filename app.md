@@ -20,7 +20,7 @@ X3J14技術委員会のメンバーは、相対的な優劣を判断する際、
 <description>
 ||一貫性(Consistency)||標準規格は、機能的重複を最小限に抑えた、機能的に完全なワードの集合を提供します。
 
-||準拠のコスト(Cost of compliance)||この目標には、一般的な慣習、提案された変更によって既存のコードがどの程度壊れるか、既存のアプリケーションやシステムを規格に準拠させるために必要な労力などの問題が含まれます。
+||準拠のコスト<br>(Cost of compliance)||この目標には、一般的な慣習、提案された変更によって既存のコードがどの程度壊れるか、既存のアプリケーションやシステムを規格に準拠させるために必要な労力などの問題が含まれます。
 
 ||効率性(Efficiency)||実行速度、メモリのコンパクトさ。
 
@@ -40,7 +40,7 @@ X3J14技術委員会のメンバーは、相対的な優劣を判断する際、
 
 私たちがとったアプローチは、必要なシステム機能の最大の下限を確立するコア・ワードセットを定義し、特別な目的のためにオプションのワードセットのポートフォリオを提供するというものです。このシンプルなアプローチは、拡張可能な言語としてのForthの基本的な性質と類似しており、それによって一種のメタ拡張性を実現しています。
 
-この重要でハイレベルな妥協点によって、個々のワードセットの実際の構成にかかわらず、長期にわたって堅固で使い物になるフレームワークが確立されます。Localsワードセットがあるべきだとか、`COMPILE`というワードがCore Extensionsというワードセットに属するべきだとか、そういうことに同意する人もしない人もいるかもしれません。しかし、少なくともそのようなものを論理的かつ整然と含めることができるメカニズムがあります。
+この重要でハイレベルな妥協点によって、個々のワードセットの実際の構成にかかわらず、長期にわたって堅固で使い物になるフレームワークが確立されます。Localsワードセットがあるべきだとか、`COMPILE`というワードがコア拡張というワードセットに属するべきだとか、そういうことに同意する人もしない人もいるかもしれません。しかし、少なくともそのようなものを論理的かつ整然と含めることができるメカニズムがあります。
 
 このワードセットのオプション化のスキームには、いくつかの重要な意味があります。
 
@@ -58,7 +58,7 @@ X3J14技術委員会のメンバーは、相対的な優劣を判断する際、
 
 オプションのワードセットは、ソース形式で提供されるか、またはユーザが選択的にロードできるようにファクタリングされます。
 
-オプションのワードセットの拡張機能には、そのワードセットがサポートするアクティビティの主要なものを実行するために、明らかに関連性があるが、、不可欠ではないとみなされるワードも含まれます。コア拡張の場合と同様に、実装者は、すべてのワードが存在するとユーザに誤解を与えるようなラベリングを付けない限り、拡張ワードセットから項目化されたサブセットを選択的に追加することができます。
+オプションのワードセットの拡張機能には、そのワードセットがサポートするアクティビティの主要なものを実行するために、明らかに関連性があるが、不可欠ではないとみなされるワードも含まれます。コア拡張の場合と同様に、実装者は、すべてのワードが存在するとユーザに誤解を与えるようなラベリングを付けない限り、拡張ワードセットから項目化されたサブセットを選択的に追加することができます。
 
 ## A.2 Terms and notation 
 
@@ -3948,19 +3948,19 @@ COMPILEという語の伝統的な(非即物的な)定義には、さらに問�
 ||Impact:||
 [COMPILE] remains in ANS Forth, since its proper use does not depend on  knowledge of whether or not a word is immediate (Use of [COMPILE] with a non-immediate word is and  has always been a no-op). Whether or not you need to use [COMPILE] requires knowledge of whether or  not its target word is immediate, but it is always safe to use [COMPILE]. [COMPILE] is no longer in the  (required) core word set, having been moved to the Core Extensions word set, but the committee anticipates that most vendors will supply it anyway.
 
-[COMPILE]の適切な使用は、ワードが即時かどうかの知識に依存しないため、[COMPILE]はANS Forthに残っています([COMPILE]を非即時のワードと一緒に使用することは、これまでもずっと禁止されています)。COMPILE]を使う必要があるかどうかは、その対象となるワードが即時的かどうかの知識を必要としますが、[COMPILE]を使うことは常に安全です。COMPILE]はコア拡張語セットに移されたため、(必須)コア語セットではなくなりましたが、委員会は、ほとんどのベンダーがいずれにせよ[COMPILE]を提供すると予想しています。
+`[COMPILE]`の適切な使用は、ワードが即時かどうかの知識に依存しないため、`[COMPILE]`はANS Forthに残っています(`[COMPILE]`を非即時のワードと一緒に使用することは、これまでもずっと禁止されています)。`[COMPILE]`を使う必要があるかどうかは、その対象となるワードが即時的かどうかの知識を必要としますが、`[COMPILE]`を使うことは常に安全です。`[COMPILE]`はコア拡張ワードセットに移されたため、(必須)コアワードセットではなくなりましたが、委員会は、ほとんどのベンダーがいずれにせよ`[COMPILE]`を提供すると予想しています。
 
 In nearly all cases, it is correct to replace both [COMPILE] and COMPILE with POSTPONE. Uses of  [COMPILE] and COMPILE that are not suitable for "mindless" replacement by POSTPONE are quite infrequent, and fall into the following two categories:  
 
-ほとんどの場合、[COMPILE]と[COMPILE]の両方をPOSTPONEに置き換えるのが正しい。COMPILE]と[COMPILE]をPOSTPONEに「無頓着に」置き換えるのに適さない用法は非常にまれであり、次の2つのカテゴリーに分類されます。
+ほとんどの場合、`[COMPILE]`と`COMPILE`の両方を`POSTPONE`に置き換えるのが正しい。`[COMPILE]`と`COMPILE`を`POSTPONE`に「無頓着に」置き換えるのに適さない用法は非常にまれであり、次の2つのカテゴリーに分類されます。
 
 a) Use of [COMPILE] with non-immediate words. This is sometimes done with the words ' (tick, which  was immediate in Forth 79 but not in Forth 83) and LEAVE (which was immediate in Forth 83 but not  in Forth 79), in order to force the compilation of those words without regard to whether you are using a  Forth 79 or Forth 83 system.
 
 b) Use of the phrase COMPILE [COMPILE] &lt;immediate word> to "doubly postpone" an  immediate word.
 
-a) [COMPILE]の非即時ワードでの使用。これは、Forth 79システムとForth 83システムのどちらを使用しているかに関係なく、これらのワードのコンパイルを強制するために、'(Forth 79では即時だったがForth 83では即時でなかったtick)やLEAVE(Forth 83では即時だったがForth 79では即時でなかった)というワードで行われることがあります。
+a) `[COMPILE]`の非即時ワードでの使用。これは、Forth 79システムとForth 83システムのどちらを使用しているかに関係なく、これらのワードのコンパイルを強制するために、'(Forth 79では即時だったがForth 83では即時でなかったtick)やLEAVE(Forth 83では即時だったがForth 79では即時でなかった)というワードで行われることがあります。
 
-b) COMPILE [COMPILE]<即時ワード> というフレーズを使用して、即時ワードを「二重に延期」します。
+b) `COMPILE` `[COMPILE]` &lt;即時ワード> というフレーズを使用して、即時ワードを「二重に延期」します。
 
 ||Transition/Conversion:||
 Many ANS Forth implementations will continue to implement both [COMPILE] and COMPILE in forms compatible with existing usage. In those environments, no conversion is necessary.
