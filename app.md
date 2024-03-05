@@ -104,71 +104,45 @@ X3J14技術委員会は、基礎となるForthシステムとその上で開発�
 
 データを操作するとき、結果の意味は入力値に割り当てられた意味に依存します。入力値の組み合わせには無意味な結果を生み出す組み合わせもあります。例えば、文字 "A"のASCII表現とTRUEフラグの算術和にどのような意味があるでしょうか。たぶん、「意味なし」でしょう。場合によっては、その演算がチェックサムを生成する最初のステップになるかもしれません。文脈が意味を決定するのです。
 
-The discipline of circumscribing meaning which a program may assign to various combinations of bit  patterns is sometimes called data typing. Many computer languages impose explicit data typing and have  compilers that prevent ill-defined operations.
+プログラムがさまざまなビットパターンの組み合わせに割り当てる意味を規定することは、しばしばデータ型付けと呼ばれます。多くのコンピュータ言語では、明示的なデータ型付けが行われ、コンパイラが正しくない定義の演算を防ぐようになっています。
 
-プログラムがさまざまなビットパターンの組み合わせに割り当てる意味を規定することは、しばしばデータ型付けと呼ばれます。多くのコンピュータ言語では、明示的なデータ型付けが行われ、コンパイラが不定義の演算を防ぐようになっています。
+Forthが明示的にデータ型の制限を課すことはほとんどありません。しかし、データ型は暗黙のうちに存在するものであり、特にプログラムの移植性を目標とする場合には、その規律が求められます。Forthでは、データが正確に型付けされているかどうかを判断するのは、(コンパイラではなく)プログラマに任されています。
 
-Forth rarely explicitly imposes data-type restrictions. Still, data types implicitly do exist, and discipline is  required, particularly if portability of programs is a goal. In Forth, it is incumbent upon the programmer  (rather than the compiler) to determine that data are accurately typed.
-This section attempts to offer guidance regarding de facto data typing in Forth.
-
-Forthが明示的にデータ型の制限を課すことはほとんどいません。しかし、データ型は暗黙のうちに存在するものであり、特にプログラムの移植性を目標とする場合には、その規律が求められます。Forthでは、データが正確に型付けされているかどうかを判断するのは、(コンパイラではなく)プログラマに任されています。
-このセクションでは、Forth における事実上のデータ型付けに関するガイダンスを示します。
+このセクションでは、Forth におけるデファクトのデータ型付けに関するガイダンスを示します。
 
 #### A.3.1.2 Character types 
 
-The correct identification and proper manipulation of the character data type is beyond the purview of  Forth’s enforcement of data type by means of stack depth. Characters do not necessarily occupy the entire  width of their single stack entry with meaningful data. While the distinction between signed and unsigned  character is entirely absent from the formal specification of Forth, the tendency in practice is to treat  characters as short positive integers when mathematical operations come into play.
-
-文字データ型の正しい識別と適切な操作は、スタック深度による Forth のデータ型強制の範 囲を超えています。文字は、意味のあるデータで、1 つのスタックエントリの幅全体を占めるとは限りません。符号付き文字と符号なし文字の区別は、Forth の正式な仕様にはまったくありませんが、実際の傾向として、数学的な演算を行う場合には、文字を短い正の整数として扱います。
+文字データ型の正しい識別と適切な操作は、スタックの深さによる Forth のデータ型強制の範囲を超えています。文字は、意味のあるデータ部分がスタックエントリ1つの幅全体を占めるとは限りません。符号付き文字と符号なし文字の区別は、Forth の正式な仕様にはまったくありませんが、実際のところ、数学的な演算を行う場合には、文字を短い正の整数として扱う傾向があります。
 
 ##### a) Standard Character Set
 
 <itemize>
 
-1) The storage unit for the character data type (C@, C!, FILL, etc.) must be able to contain unsigned numbers from 0 through 255.
-
-2) An implementation is not required to restrict character storage to that range, but a Standard Program without environmental dependencies cannot assume the ability to store numbers outside that range in a  "char" location.
-
-3) The allowed number representations are two’s-complement, one’s-complement, and signed-magnitude.  Note that all of these number systems agree on the representation of positive numbers.
-
-4) Since a "char" can store small positive numbers and since the character data type is a sub-range of the unsigned integer data type, `C!` must store the n least-significant bits of a cell (8 &le; n &lt;= bits/cell).  Given  the enumeration of allowed number representations and their known encodings, "`TRUE xx C! xx C@`"  must leave a stack item with some number of bits set, which will thus will be accepted as non-zero by IF.
-
 1) 文字データ型(`C@`、`C!`、`FILL`など)の記憶単位は、0から255までの符号なし数値を格納できなければなりません。
 
-2) 実装は、文字格納をその範囲に制限する必要はないが、環境依存のない標準プログラムは、"char "位置にその範囲外の数値を格納する能力を仮定することはできません。
+2) 実装は、文字格納をその範囲に制限する必要はないが、環境依存のない標準プログラム(Standard Program)は、"char"位置にその範囲外の数値を格納する能力を仮定することはできません。
 
-3) 許容される数値表現は、2の補数、1の補数、符号付きマグニチュードです。 これらの数システムはすべて正の数の表現に同意していることに注意してください。
+3) 許容される数値表現は、2の補数、1の補数、符号+絶対値(signed-magnitude)です。 これらの数システムはすべて正の数の表現を許容していることに注意してください。
 
-4) "char" は小さな正の数を格納でき、文字データ型は符号なし整数データ型の下位範囲なので、`C!`はセルの最下位ビットn個を格納しなければならない(8 ≤ n <=ビット/セル)。 許容される数値表現とその既知のエンコーディングの列挙を考えると、「`TRUE xx C! xx C@`」は、ある数のビットがセットされたスタック項目を残さなければなりません。
+4) "char" は小さな正の数を格納でき、文字データ型は符号なし整数データ型の下位範囲なので、`C!`はセルの最下位ビットn個を格納しなければなりません(8 &le; n &le; ビット/セル)。 許容される数値表現とその既知のエンコーディングの列挙が与えられたとすると、`TRUE xx C! xx C@`は、ある数のビットがセットされたスタック項目として、IFが非0として受理する値を残さなければなりません。
 
-5) For the purposes of input (KEY, ACCEPT, etc.) and output (EMIT, TYPE, etc.), the encoding between numbers and human-readable symbols is ISO646/IRV (ASCII) within the range from 32 to 126 (space to ~).  EBCDIC is out (most "EBCDIC" computer systems support ASCII too). Outside that range, it is up to the  implementation. The obvious implementation choice is to use ASCII control characters for the range from 0  to 31, at least for the "displayable" characters in that range (TAB, RETURN, LINEFEED, FORMFEED).  However, this is not as clear-cut as it may seem, because of the variation between operating systems on the  treatment of those characters. For example, some systems TAB to 4 character boundaries, others to 8  character boundaries, and others to preset tab stops. Some systems perform an automatic linefeed after a  carriage return, others perform an automatic carriage return after a linefeed, and others do neither.
+5) 入力(`KEY`、`ACCEPT`など)と出力(`EMIT`、`TYPE`など)のために、数字と人間が読める記号の間のエンコーディングはISO646/IRV(ASCII)です。これは、32から126(スペースから`~`)までの範囲に収まります。 EBCDICはアウトです(ほとんどの "EBCDIC" コンピュータシステムはASCIIもサポートしています)。その範囲外の値の扱いは、実装次第です。明らかな実装上の選択肢は、0から31の範囲で、少なくともその範囲の「表示可能な」文字(TAB、RETURN、LINEFEED、FORMFEED)についてはASCII制御文字を使用することです。 しかし、これらの文字の扱いはオペレーティングシステムによって異なるため、これは見た目ほど明確ではありません。例えば、あるシステムでは4文字の境界でTABし、あるシステムでは8文字の境界でTABし、あるシステムではあらかじめ設定されたタブストップでTABします。また、キャリジリターン文字の後にラインフィードを自動で行うシステムもあれば、ラインフィードのあとにキャリジリターンするものもあります。どちらも行わないシステムもあります。
 
-5) 入力(KEY、ACCEPTなど)と出力(EMIT、TYPEなど)のために、数字と人間が読める記号の間のエンコーディングは、32から126(スペースから~)までの範囲内のISO646/IRV(ASCII)です。 EBCDICはアウトです(ほとんどの "EBCDIC" コンピュータシステムはASCIIもサポートしています)。その範囲外では、実装次第です。明らかな実装上の選択肢は、0から31の範囲で、少なくともその範囲の「表示可能な」文字(TAB、RETURN、LINEFEED、FORMFEED)についてはASCII制御文字を使用することです。 しかし、これらの文字の扱いはオペレーティング・システムによって異なるため、これは見た目ほど明確ではありません。例えば、あるシステムでは4文字の境界でTABし、あるシステムでは8文字の境界でTABし、あるシステムではあらかじめ設定されたタブストップでTABします。また、改行後に自動改行を行うシステムもあれば、改行後に自動改行を行うシステムもあれば、どちらも行わないシステムもあります。
+128から255までのコードは、多くのヨーロッパ言語に見られるダイアクリティカルマーク付きの文字のような国際的な文字として使用するために、公式または非公式に標準化されるかもしれません。そのようなエンコーディングの一つが8ビットのISO Latin-1文字セットです。これらの文字のどのエンコーディングセットが優先されるかは、最終的にはコンピュータ市場全体で決定されることになります。オペレーティングシステム上で動作するForthの実装(最近の標準的なプラットフォーム上で動作する実装の大部分)では、おそらくほとんどのForth実装者は、システムで使用されているものであれば、どのようなものであれそれを選択するでしょう。
 
-The codes from 128 to 255 may eventually be standardized, either formally or informally, for use as  international characters, such as the letters with diacritical marks found in many European languages. One  such encoding is the 8-bit ISO Latin-1 character set. The computer marketplace at large will eventually  decide which encoding set of those characters prevails. For Forth implementations running under an  operating system (the majority of those running on standard platforms these days), most Forth implementors  will probably choose to do whatever the system does, without performing any remapping within the domain  of the Forth system itself.
+6) 標準プログラムは、32から126までの範囲内の任意の文字を`KEY`により受信し、`EMIT`により出力する能力の存在に依存することができます。プログラムがその範囲外の特定の文字を受信または表示できなければならない場合は、その文字を受信または表示する能力に対する環境依存を宣言することができます。
 
-128から255までのコードは、多くのヨーロッパ言語に見られるダイアクリティカルマーク付きの文字のような国際的な文字として使用するために、公式または非公式に標準化されるかもしれません。そのようなエンコーディングの一つが8ビットのISO Latin-1文字セットです。これらの文字のどのエンコーディング・セットが優先されるかは、最終的にはコンピュータ市場全体で決定されることになります。オペレーティング・システム上で動作するForthの実装(最近の標準的なプラットフォーム上で動作する実装の大部分)では、おそらくほとんどのForth実装者は、システムで使用されているものであれば何でも選択するでしょう。
-
-6) A Standard Program can depend on the ability to receive any character in the range 32 ... 126 through `KEY`, and similarly to display the same set of characters with `EMIT`. If a program must be able to receive or  display any particular character outside that range, it can declare an environmental dependency on the  ability to receive or display that character.
-
-6) 標準プログラムは、`KEY`を通して32 ... 126の範囲内の任意の文字を受信する能力に依存することができます。126 の文字を `KEY` で受信し、同様に `EMIT` で表示することができます。プログラムがその範囲外の特定の文字を受信または表示できなければならない場合は、その文字を受信または表示する能力に対する環境依存を宣言することができます。
-
-7) A Standard Program cannot use control characters in definition names. However, a Standard System is not required to enforce this prohibition. Thus, existing systems that currently allow control characters in  words names from `BLOCK` source may continue to allow them, and programs running on those systems will  continue to work. In text file source, the parsing action with space as a delimiter (e.g., `BL` `WORD`) treats  control characters the same as spaces. This effectively implies that you cannot use control characters in  definition names from text-file source, since the text interpreter will treat the control characters as  delimiters. Note that this "control-character folding" applies only when space is the delimiter, thus the  phrase "`CHAR ) WORD`" may collect a string containing control characters.
-
-7) 標準プログラムでは、定義名に制御文字を使用することはできません。しかし、標準システムはこの禁止を強制する必要はありません。したがって、現在`BLOCK`ソースからのワード名に制御文字を許可している既存のシステムは、引き続きそれを許可することができ、それらのシステム上で実行されるプログラムは引き続き動作します。テキストファイルのソースでは、スペースを区切り文字とする解析動作(例えば、 `BL` `WORD`)は制御文字をスペースと同じように扱います。このため、テキストファイルソースからの定義名では制御文字を使用できないことになります。テキストインタプリタは制御文字を区切り文字として扱うからです。この「制御文字の折りたたみ」はスペースが区切り文字である場合にのみ適用されることに注意してください。
+7) 標準プログラムでは、定義名に制御文字を使用することはできません。しかし、標準システムはこの禁止の強制が求められていません。したがって、現在`BLOCK`ソースからのワード名に制御文字を許可している既存のシステムは、引き続きそれを許可することができ、それらのシステム上で実行されるプログラムは引き続き動作します。テキストファイルのソースでは、スペースを区切り文字とする解析動作(例えば、 `BL` `WORD`)は制御文字をスペースと同じように扱います。このため、テキストファイルソースからの定義名では制御文字を使用できないことになります。テキストインタプリタは制御文字を区切り文字として扱うからです。この「制御文字のたたみ込み」はスペースが区切り文字である場合にのみ適用されることに注意してください。従って、`CHAR ) WORD` は制御文字を含む文字列を収集するかもしれません。
 
 </itemize>
 
 ##### b) Storage and retrieval 
 
-Characters are transferred from the data stack to memory by `C!` and from memory to the data stack by `C@`.  A number of lower-significance bits equivalent to the implementation-dependent width of a character are  transferred from a popped data stack entry to an address by the action of `C!` without affecting any bits  which may comprise the higher-significance portion of the cell at the destination address; however, the  action of `C@` clears all higher-significance bits of the data stack entry which it pushes that are beyond the  implementation-dependent width of a character (which may include implementation-defined display  information in the higher-significance bits). The programmer should keep in mind that operating upon  arbitrary stack entries with words intended for the character data type may result in truncation of such data.
-
-文字は `C!` によってデータスタックからメモリに転送され、`C@` によってメモリからデータスタックに転送されます。 しかし、`C@`の動作は、それがプッシュしたデータスタックエントリーの、キャラクタの実装依存の幅を超えるすべての上位のビットをクリアします(上位のビットに実装で定義された表示情報が含まれる場合があります)。プログラマは、キャラクタ・データ・タイプを意図したワードで任意のスタック・エントリを操作すると、そのようなデータが切り捨てられる可能性があることに留意すべきです。
+文字は `C!` によってデータスタックからメモリに転送され、`C@` によってメモリからデータスタックに転送されます。 `C!`の動作により、文字の実装依存の幅と等価の下位ビットがスタックエントリのポップされたデータから指定のアドレスに転送されます。このとき、デスティネーションアドレスにあるセルの上位ビット部分は影響をうけません。しかし、`C@`の動作は、それがプッシュしたデータスタックエントリの、文字の実装依存の幅を超えるすべての上位のビットをクリアします(上位のビットに実装で定義された表示情報が含まれる場合があります)。プログラマは、文字データ型を意図したワードで任意のスタックエントリワードに対す、文字データ型を意図する操作を適用すると、データの切り捨てが生じる可能性があることに留意すべきです。
 
 ##### c) Manipulation on the stack 
 
-In addition to C@ and C!, characters are moved to, from and upon the data stack by the following words:  
-
-`C@`と`C!` に加えて、文字は以下のワードによってデータスタックへ、またはデータスタックから、あるいはデータスタック上に移動されます。
+`C@`と`C!`に加えて、以下のワードによって、文字は、データスタックへ、データスタックから、データスタック上に移動されます。
 
     >R ?DUP DROP DUP OVER PICK R> R@ ROLL ROT SWAP 
 
@@ -176,137 +150,107 @@ In addition to C@ and C!, characters are moved to, from and upon the data stack 
 
     + - * / /MOD MOD 
 
-The following mathematical operators are valid for character data:  The following comparison and bitwise operators may be valid for characters, keeping in mind that display  information cached in the most significant bits of characters in an implementation-defined fashion may have  to be masked or otherwise dealt with:  
-
-以下の数学演算子は文字データに対して有効です。  以下の比較演算子およびビット演算子は文字に対して有効ですが、実装で定義された方法で文字の最上位ビットにキャッシュされた表示情報をマスクするか、その他の方法で処理しなければならない場合があることに留意されたい。
+以下の数学演算子は文字データに対して有効です。以下の比較演算子およびビット演算子は文字に対して有効ですが、実装で定義された方法で文字の最上位ビットにキャッシュされた表示情報をマスクするか、その他の方法で処理しなければならない場合があることに留意してください。
 
     AND OR > < U> U< = <> 0= 0<> MAX MIN  LSHIFT RSHIFT  
 
 #### A.3.1.3 Single-cell types 
 
-A single-cell stack entry viewed without regard to typing is the fundamental data type of Forth. All other  data types are actually represented by one or more single-cell stack entries.
-
-型付けを無視して見たシングルセル・スタック・エントリーは、Forth の基本的なデータ型です。他のすべてのデータ型は、実際には1つ以上のシングルセル・スタック・エントリで表されます。
+型付けを無視して見た単一セルのスタックエントリは、Forth の基本的なデータ型です。他のすべてのデータ型は、実際には1つ以上の単一セルスタックエントリで表されます。
 
 ##### a) Storage and retrieval 
 
-Single-cell data are transferred from the stack to memory by !; from memory to the stack by @. All bits are  transferred in both directions and no type checking of any sort is performed, nor does the Standard System  check that a memory address used by ! or @ is properly aligned or properly sized to hold the datum thus  transferred.
-
-によってスタックからメモリへ、@によってメモリからスタックへ転送されます。すべてのビットは双方向に転送され、型チェックは一切行われません。
+`!`によって、単一セルデータがスタックからメモリへ転送されます。`@`によって、単一セルデータがメモリからスタックへ転送されます。全ビットが双方向に転送され、いかなる方法であれ型チェックは一切行われません。また、標準システムにより、`!`や`@`が使用するメモリアドレスが適切に整列されているか、転送されるデータが収容できる大きさかどうかのチェックも行われません。
 
 ##### b) Manipulation on the stack  
 
-Here is a selection of the most important words which move single-cell data to, from and upon the data  stack:  
-
-ここでは、シングルセルのデータをデータスタックへ、またはデータスタックから、あるいはデータスタック上に移動させる最も重要なワードを紹介します。
+ここでは、単一セルのデータをデータスタックへ、またはデータスタックから、あるいはデータスタック上に移動させる最も重要なワードを紹介します。
 
     ! @ >R ?DUP DROP DUP OVER PICK R> R@ ROLL ROT SWAP 
 
 ##### c) Comparison operators
 
-The following comparison operators are universally valid for one or more single cells:  
+以下の比較演算子は1個以上の単一セルに対して常時有効です。
 
     = <> 0= 0<> 
 
 ##### A.3.1.3.1 Flags 
 
-A `FALSE` flag is a single-cell datum with all bits unset, and a `TRUE` flag is a single-cell datum with all bits  set. While Forth words which test flags accept any non-null bit pattern as true, there exists the concept of the  well-formed flag. If an operation whose result is to be used as a flag may produce any bit-mask other than  `TRUE` or `FALSE`, the recommended discipline is to convert the result to a well-formed flag by means of the  Forth word `0<>` so that the result of any subsequent logical operations on the flag will be predictable.
+`FALSE`フラグはすべてのビットがセットされていない単一セルのデータであり、`TRUE`フラグはすべてのビットがセットされている単一セルのデータです。フラグをテストするForthワードは、NULL以外のビットパターンを真として受け入れますが、整った形式のフラグ(well-formed flag)という概念もあります。フラグとして使用するつもりの演算が、 `TRUE` でも `FALSE` でもないビットマスクを生成する可能性がある場合、推奨される規律は、Forthワード `0<>` を用いて演算結果を整った形式に変換することです。これにより、そのフラグに対するそれ以後の論理演算の結果が予測可能となります。
 
-In addition to the words which move, fetch and store single-cell items, the following words are valid for  operations on one or more flag data residing on the data stack:  
-
-`FALSE`フラグはすべてのビットがセットされていない単一セルのデータであり、`TRUE`フラグはすべてのビットがセットされている単一セルのデータです。フラグをテストするForthワードは、NULL以外のビットパターンを真として受け入れますが、整形式フラグという概念もあります。フラグとして使用される演算結果が `TRUE` または `FALSE` 以外のビットマスクを生成する可能性がある場合、推奨される規律は、フラグに対する後続の論理演算の結果が予測できるように、`0<>` という Forth ワードを使用して結果を整形済みフラグに変換することです。
-
-単一セルの項目を移動、フェッチ、格納するワードに加えて、以下のワードはデータスタックに存在する1つ以上のフラグデータに対する操作に有効です。
+単一セル項目を移動、フェッチ、格納するワードに加えて、以下のワードはデータスタックに存在する1つ以上のフラグデータに対する操作に有効です。
 
     AND OR XOR INVERT  
 
 ##### A.3.1.3.2 Integers 
 
-A single-cell datum may be treated by a Standard Program as a signed integer. Moving and storing such  data is performed as for any single-cell data. In addition to the universally-applicable operators for single-cell data specified above, the following mathematical and comparison operators are valid for single-cell  signed integers:  
-
-シングルセルのデータは、標準プログラムでは符号付き整数として扱われます。このようなデータの移動と保存は、他のシングルセルデータと同様に実行されます。上記のシングルセルデータに普遍的に適用可能な演算子に加えて、以下の数学演算子および比較演算子がシングルセルの符号付き整数に対して有効です。
+単一セルデータは、標準プログラムにより符号付き整数として扱われます。このようなデータの移動と保存は、他の単一セルデータと同様に実行されます。単一セルデータに普遍的に適用可能な、これまで説明してきた演算子に加えて、以下の数学演算子および比較演算子が単一セルの符号付き整数に対して有効です。
 
     * */ */MOD /MOD MOD + +! - / 1+ 1- ABS MAX MIN NEGATE 
     0< 0> < > 
 
-Given the same number of bits, unsigned integers usually represent twice the number of absolute values  representable by signed integers.
+同じビット数であれば、符号なし整数は通常、符号付き整数で表現可能な絶対値の数の2倍の数の数値を表現します。
 
-A single-cell datum may be treated by a Standard Program as an unsigned integer. Moving and storing such  data is performed as for any single-cell data. In addition, the following mathematical and comparison  operators are valid for single-cell unsigned integers:  
-
-同じビット数であれば、符号なし整数は通常、符号付き整数で表現可能な絶対値の数の2倍を表現します。
-
-標準プログラムではシングルセルのデータを符号なし整数として扱うことができます。このようなデータの移動と保存は他のシングルセルデータと同様に実行されます。さらに、以下の数学演算子や比較演算子はシングルセルの符号なし整数に対して有効です。
+標準プログラムでは単一セルのデータを符号なし整数として扱うことができます。このようなデータの移動と保存は他の単一セルデータと同様に実行されます。さらに、以下の数学演算子や比較演算子は単一セルの符号なし整数に対して有効です。
 
     UM* UM/MOD + +! - 1+ 1- * U< U>  
 
 ##### A.3.1.3.3 Addresses 
 
-An address is uniquely represented as a single cell unsigned number and can be treated as such when being  moved to, from, or upon the stack. Conversely, each unsigned number represents a unique address (which  is not necessarily an address of accessible memory). This one-to-one relationship between addresses and  unsigned numbers forces an equivalence between address arithmetic and the corresponding operations on  unsigned numbers.
-
-Several operators are provided specifically for address arithmetic:  
-
-アドレスはシングルセルの符号なし数値として一意に表現され、スタックへの移動、スタックからの移動、スタック上への移動の際にそのように扱うことができます。逆に、各符号なし数は一意なアドレス(必ずしもアクセス可能なメモリのアドレスではない)を表します。アドレスと符号なし数値の間のこの1対1の関係は、アドレス演算と符号なし数値の対応する演算の間に等価性を強制します。
+アドレスは単一セルの符号なし数値として一意に表現されます。スタックへの移動、スタックからの移動、スタック上への移動の際にそのように扱うことができます。逆に、各符号なし数は一意なアドレス(必ずしもアクセス可能なメモリのアドレスではない)を表します。アドレスと符号なし数値の間のこの1対1の関係は、アドレス演算と符号なし数値の対応する演算の間に等価性を強制します。
 
 アドレス演算用にいくつかの演算子が用意されています。
 
     CHAR+ CHARS CELL+ CELLS  
 
-and, if the floating-point word set is present:  
+そして、浮動小数点数ワードセットが存在する場合は、
 
     FLOAT+ FLOATS SFLOAT+ SFLOATS DFLOAT+ DFLOATS  
-
-A Standard Program may never assume a particular correspondence between a Forth address and the  physical address to which it is mapped.
 
 標準プログラムでは、Forthアドレスとそれがマッピングされる物理アドレスの間に特定の対応を想定することはできません。
 
 ##### A.3.1.3.4 Counted strings 
 
-The trend in ANS Forth is to move toward the consistent use of the "c-addr u" representation of strings on  the stack. The use of the alternate "address of counted string" stack representation is discouraged. The  traditional Forth words `WORD` and `FIND` continue to use the "address of counted string" representation for  historical reasons. The new word `C"` , added as a porting aid for existing programs, also uses the counted  string representation.
+ANS Forth のトレンドは、スタック上の文字列に対して"c-addr u"表現を一貫して使用することです。これに代わるスタック表現として「カウントされた文字列のアドレス」を使用することは推奨されません。伝統的なForthのワードである `WORD` と `FIND` は、歴史的な理由から引き続き「カウントされた文字列のアドレス」表現を使用しています。既存のプログラムの移植の補助として追加された新しいワード `C"` も、カウントされた文字列表現を使用します。
 
-Counted strings remain useful as a way to store strings in memory. This use is not discouraged, but when  references to such strings appear on the stack, it is preferable to use the "*c-addr u*" representation.
-
-ANS Forth のトレンドは、スタック上の文字列の「c-addr u」表現を一貫して使用することです。代替の「カウントされた文字列のアドレス」スタック表現の使用は推奨されません。伝統的なForthのワードである `WORD` と `FIND` は、歴史的な理由から引き続き「カウントされた文字列のアドレス」表現を使用しています。既存のプログラムの移植の補助として追加された新しいワード `C"` も、カウントされた文字列表現を使用します。
-
-カウント文字列は、文字列をメモリに格納する方法として有用であることに変わりはありません。この使用は推奨されないが、このような文字列への参照がスタック上に現れる場合は、 "*c-addr u*"表現を使用することが望ましい。
+カウント文字列は、文字列をメモリに格納する方法として有用であることに変わりはありません。この使用は推奨されません。このような文字列への参照がスタック上に現れる場合は、 "*c-addr u*"表現を使用することが望ましいです。
 
 ##### A.3.1.3.5 Execution tokens 
 
-The association between an execution token and a definition is static. Once made, it does not change with  changes in the search order or anything else. However it may not be unique, e.g., the phrases  
+実行トークンと定義の関連は静的です。一度作成されれば、検索順序の変更などによって変わることはありません。しかし、それは一意ではないかもしれません。例として、次のフレーズ
 
-実行トークンと定義の関連は静的です。一度作成されれば、検索順序の変更などによって変わることはありません。しかし、それは一意ではないかもしれません。
-
-    `' 1+` and 
+    `' 1+` と
     `' CHAR+` 
 
-might return the same value.
+は同じ値を返すかもしれません
 
 #### A.3.1.4 Cell-pair types 
 
 ##### a) Storage and retrieval
 
-Two operators are provided to fetch and store cell pairs:  
+セルの2つ組をフェッチ・ストアするために演算子2個が提供されます。
 
     2@ 2!
 
 ##### b) Manipulation on the stack  
 
-Additionally, these operators may be used to move cell pairs from, to and upon the stack:  
+加えて、セルの2つ組をスタックから・スタックに動かすために、以下に示す演算子を使用することができます。
 
     2>R 2DROP 2DUP 2OVER 2R> 2SWAP 2ROT 
 
 ##### c) Comparison  
 
-The following comparison operations are universally valid for cell pairs:  
+以下の比較演算子は一般的にセルの2つ組に対しても有効です。
 
     D= D0=  
 
 ##### A.3.1.4.1 Double-Cell Integers 
 
-If a double-cell integer is to be treated as signed, the following comparison and mathematical operations are  valid:  
+倍セル整数を符号付きとして扱う場合、以下の比較演算子と算術演算子が有効です。
 
     D+ D- D< D0< DABS DMAX DMIN DNEGATE M*/ M+  
 
-If a double-cell integer is to be treated as unsigned, the following comparison and mathematical operations  are valid:  
+倍セル整数を符号なしとして扱う場合、以下の比較演算子と算術演算子が有効です。
 
     D+ D- UM/MOD DU<  
 
@@ -318,9 +262,7 @@ See: **A.3.1.3.4 Counted Strings**.
 
 #### A.3.2.1 Numbers 
 
-Traditionally, Forth has been implemented on two’s-complement machines where there is a one-to-one  mapping of signed numbers to unsigned numbers - any single cell item can be viewed either as a signed or  unsigned number. Indeed, the signed representation of any positive number is identical to the equivalent  unsigned representation. Further, addresses are treated as unsigned numbers: there is no distinct pointer  type. Arithmetic ordering on two’s complement machines allows + and - to work on both signed and  unsigned numbers. This arithmetic behavior is deeply embedded in common Forth practice. As a  consequence of these behaviors, the likely ranges of signed and unsigned numbers for implementations  hosted on each of the permissible arithmetic architectures is:  
-
-伝統的に、Forthは符号付き数値と符号なし数値が一対一に対応する2相補マシンで実装されてきました。実際、任意の正の数の符号付き表現は、等価な符号なし表現と同一です。さらに、アドレスは符号なし数として扱われます。2の補数マシンの算術順序では、+と-は符号付きと符号なしの両方の数で動作します。この算術演算の動作は、一般的なForthの慣習に深く組み込まれています。これらの動作の結果として、許容される各演算アーキテクチャ上でホストされる実装の符号付き数と符号なし数の範囲は次のようになります。
+伝統的に、Forthは符号付き数値と符号なし数値が一対一に対応する2の補数マシンで実装されてきました。実際、任意の正の数の符号付き表現は、等価な符号なし表現と同一です。さらに、アドレスは符号なし数として扱われます。2の補数マシンの算術順序では、`+`と`-`は符号付きと符号なしの両方の数で動作します。この算術演算の動作は、一般的なForthの慣習に深く組み込まれています。これらの動作の結果として、許容される各演算アーキテクチャ上でホストされる実装の符号付き数と符号なし数の範囲は次のようになります。
 
 <table>
 
@@ -332,11 +274,7 @@ Traditionally, Forth has been implemented on two’s-complement machines where t
  
 </table>
 
-where *n* is the largest positive signed number. For all three architectures, signed numbers in the 0 to n range  are bitwise identical to the corresponding unsigned number. Note that unsigned numbers on a signed  magnitude machine are equivalent to signed non-negative numbers as a consequence of the forced  correspondence between addresses and unsigned numbers and of the required behavior of `+` and `-`.
-
-For reference, these number representations may be defined by the way that `NEGATE` is implemented:  
-
-ここで *n* は最大の正の符号付き数値です。3つのアーキテクチャすべてにおいて、0からnの範囲の符号付き数値は、対応する符号なし数値とビット単位で同一です。アドレスと符号なし数値の間の強制的な対応、および `+` と `-` の必要な動作の結果として、符号付きマグニチュード・マシン上の符号なし数値は、符号付き非負数値と等価であることに注意してください。
+ここで *n* は最大の正の符号付き数値です。3つのアーキテクチャすべてにおいて、0からnの範囲の符号付き数値は、対応する符号なし数値とビット単位で同一です。アドレスと符号なし数値の間の強制的な対応、および `+` と `-` の必要な動作の結果として、符号+絶対値マシン上の符号なし数値は、符号付き非負数値と等価であることに注意してください。
 
 参考までに、これらの数値表現は `NEGATE` の実装方法によって定義することができます。
 
@@ -344,77 +282,49 @@ For reference, these number representations may be defined by the way that `NEGA
     one’s complement: : `NEGATE INVERT ;` 
     signed-magnitude: : `NEGATE HIGH-BIT XOR ;` 
 
-where `HIGH-BIT` is a bit mask with only the most-significant bit set. Note that all of these number systems  agree on the representation of non-negative numbers.
-
 ここで`HIGH-BIT`は最上位ビットのみをセットしたビットマスクです。これらの数システムはすべて、非負数の表現に同意していることに注意してください。
-
-Per **3.2.1.1  Internal number representation** and **6.1.0270  0=**, the implementor must ensure that no  standard or supported word return negative zero for any numeric (non-Boolean or flag) result. Many  existing programmer assumptions will be violated otherwise.
 
 **3.2.1.1内部的な数値表現**と**6.1.0270 0=**により、実装者は、どのような数値(非ブール値またはフラグ)結果に対しても、標準またはサポートされているワードが負の0を返さないようにしなければなりません。そうでなければ、多くの既存のプログラマの仮定が破られることになります。
 
-There is no requirement to implement circular unsigned arithmetic, nor to set the range of unsigned numbers  to the full size of a cell. There is historical precedent for limiting the range of u to that of +n, which is  permissible when the cell size is greater than 16 bits.
-
-符号なし循環演算を実装する必要も、符号なし数値の範囲をセルの全サイズに設定する必要もありません。u の範囲を +n の範囲に制限する歴史的な前例があり、これはセル・サイズが 16 ビットより大きい場合に許容されます。
+符号なし循環演算を実装する必要も、符号なし数値の範囲をセルの全サイズに設定する必要もありません。*u* の範囲を *+n* の範囲に制限する歴史的な前例があり、これはセルサイズが 16 ビットより大きい場合に許容されます。
 
 ##### A.3.2.1.2 Digit conversion 
 
-For example, an implementation might convert the characters "a" through "z" identically to the characters "A" through "Z", or it might treat the characters " [ " through "~" as additional digits with decimal values 36 through 71, respectively.
-
-例えば、実装は文字 "a" から "z" までを文字 "A" から "Z" までと同じように変換するかもしれないし、文字"["から"~"までをそれぞれ10進数値36から71の追加桁として扱うかもしれません。
+例えば、実装は文字 "a" から "z" までを文字 "A" から "Z" までと同じように変換するかもしれません。文字"["から"~"までをそれぞれ10進数値36から71の追加桁として扱うかもしれません。
 
 #### A.3.2.2 Arithmetic 
 
 ##### A.3.2.2.1 Integer division 
 
-The Forth-79 Standard specifies that the signed division operators (`/`, `/MOD`, `MOD`, `*/MOD`, and `*/`) round  non-integer quotients towards zero (symmetric division). Forth 83 changed the semantics of these operators  to round towards negative infinity (floored division). Some in the Forth community have declined to  convert systems and applications from the Forth-79 to the Forth-83 divide. To resolve this issue, an ANS  Forth system is permitted to supply either floored or symmetric operators. In addition, ANS Forth systems  must provide a floored division primitive (`FM/MOD`), a symmetric division primitive (`SM/REM`), and a  mixed precision multiplication operator (`M*`).
-
 Forth-79 Standardでは、符号付き除算演算子(`/`、`/MOD`、`MOD`、`*/MOD`、`*/`)は、非整数の商をゼロに向けて丸める(対称除算)ことが規定されています。Forth 83では、これらの演算子のセマンティクスが変更され、負の無限大に向かって丸められるようになりました(フロアード除算)。Forthコミュニティの中には、システムやアプリケーションをForth-79からForth-83除算に変換することを拒否する人もいます。この問題を解決するために、ANS Forthシステムは、フロアード演算子または対称演算子のいずれかを供給することが許可されています。さらに、ANS Forthシステムは、フロア型除算プリミティブ(`FM/MOD`)、対称除算プリミティブ(`SM/REM`)、および混合精度乗算演算子(`M*`)を提供しなければなりません。
 
-This compromise protects the investment made in current Forth applications; Forth-79 and Forth-83  programs are automatically compliant with ANS Forth with respect to division. In practice, the rounding  direction rarely matters to applications. However, if a program requires a specific rounding direction, it can  use the floored division primitive `FM/MOD` or the symmetric division primitive `SM/REM` to construct a  division operator of the desired flavor. This simple technique can be used to convert Forth-79 and Forth-83  programs to ANS Forth without any analysis of the original programs.
-
-Forth-79とForth-83のプログラムは、除算に関して自動的にANS Forthに準拠します。実際には、丸め方向がアプリケーションに関係することはほとんどありません。しかし、プログラムが特定の丸め方向を必要とする場合、浮動除算プリミティブ `FM/MOD` または対称除算プリミティブ `SM/REM` を使用して、希望するフレーバーの除算演算子を作成することができます。この簡単なテクニックを使えば、元のプログラムを解析することなく、Forth-79やForth-83のプログラムをANS Forthに変換することができます。
+この妥協は、現存するForthアプリケーションに行った投資を保護します。Forth-79とForth-83のプログラムは、除算に関して自動的にANS Forthに準拠します。実際には、丸め方向がアプリケーションに関係することはほとんどありません。しかし、プログラムが特定の丸め方向を必要とする場合、浮動除算プリミティブ `FM/MOD` または対称除算プリミティブ `SM/REM` を使用して、希望するフレーバの除算演算子を作成することができます。この簡単なテクニックを使えば、元のプログラムを解析することなく、Forth-79やForth-83のプログラムをANS Forthに変換することができます。
 
 ##### A.3.2.2.2 Other integer operations 
-
-Whether underflow occurs depends on the data-type of the result. For example, the phrase `1 2 -` underflows if the result is unsigned and produces the valid signed result -1.
 
 アンダーフローが発生するかどうかは、結果のデータ型に依存します。例えば、`1 2 -` というフレーズは、結果が符号なしであればアンダーフローし、有効な符号付き結果 -1 を生成します。
 
 #### A.3.2.3 Stacks 
 
-The only data type in Forth which has concrete rather than abstract existence is the stack entry. Even this  primitive typing Forth only enforces by the hard reality of stack underflow or overflow. The programmer  must have a clear idea of the number of stack entries to be consumed by the execution of a word and the  number of entries that will be pushed back to a stack by the execution of a word. The observation of  anomalous occurrences on the data stack is the first line of defense whereby the programmer may recognize  errors in an application program. It is also worth remembering that multiple stack errors caused by  erroneous application code are frequently of equal and opposite magnitude, causing complementary (and  deceptive) results.
+Forth において、抽象的ではなく具象的なデータ型はスタックエントリだけです。原始的な型付けではありますがに、Forth はスタックのアンダーフローやオーバーフローという厳しい現実を強制してきます。プログラマは、ワードの実行によって消費されるスタックエントリの数と、ワードの実行によってスタックにプッシュ・バックされるエントリの数について、明確な考えを持っていなければなりません。データスタック上の異常発生を観察することは、プログラマがアプリケーションプログラムのエラーを認識するための最初の防衛線です。また、誤ったアプリケーション・コードによって引き起こされる複数のスタックエラーは、しばしば等しく反対の大きさであり、相補的な(そして欺瞞的な)結果を引き起こすことを覚えておく価値があります。
 
-Forth において、抽象的ではなく具象的なデータ型はスタック・エントリだけです。この原始的な型付けでさえ、Forth はスタックのアンダ ーフローやオーバーフローという厳しい現実によってのみ強制します。プログラマは、ワードの実行によって消費されるスタック・エントリーの数と、ワードの実行によってスタックにプッシュ・バックされるエントリーの数について、明確な考えを持っていなければなりません。データスタック上の異常発生を観察することは、プログラマがアプリケーション・プログラムの エラーを認識するための最初の防衛線です。また、誤ったアプリケーション・コードによって引き起こされる複数のスタック・エラーは、しばしば等し く反対の大きさであり、相補的な(そして欺瞞的な)結果を引き起こすことを覚えておく価値があります。
-
-For these reasons and a host of other reasons, the one unambiguous, uncontroversial, and indispensable  programming discipline observed since the earliest days of Forth is that of providing a stack diagram for all  additions to the application dictionary with the exception of static constructs such as `VARIABLE`s and  `CONSTANT`s.
-
-これらの理由と他の多くの理由から、Forthの初期から観察されている、明確で議論の余地のない、不可欠なプログラミングの規律は、`VARIABLE`や`CONSTANT`のような静的な構成要素を除いて、アプリケーション辞書へのすべての追加にスタックダイアグラムを提供することです。
+これらの理由と他の多くの理由から、`VARIABLE`や`CONSTANT`のような静的な構成要素を除くアプリケーション辞書への追加のすべてにスタックダイアグラムを提供することこそ、Forthの初期から見られた、明確で議論の余地のない不可欠なプログラミングの規律なのです。
 
 ##### A.3.2.3.2 Control-flow stack 
 
-The simplest use of control-flow words is to implement the basic control structures shown in figure A.1.
-
-制御フロー・ワードの最も単純な使い方は、図A.1に示す基本的な制御構造を実装することです。
+制御フローワードの最も単純な使い方は、図A.1に示す基本的な制御構造を実装することです。
 
 <figure>
 <img width=400 src="img/fig-A1-the-basic-control-flow-patterns.png">
 </figure>
 
-In control flow every branch, or transfer of control, must terminate at some destination. A natural  implementation uses a stack to remember the origin of forward branches and the destination of backward  branches. At a minimum, only the location of each origin or destination must be indicated, although other  implementation-dependent information also may be maintained.
-
-An origin is the location of the branch itself. A destination is where control would continue if the branch  were taken. A destination is needed to resolve the branch address for each origin, and conversely, if every  control-flow path is completed no unused destinations can remain.
-
-With the addition of just three words (`AHEAD`, `CS-ROLL` and `CS-PICK`), the basic control-flow words  supply the primitives necessary to compile a variety of transportable control structures. The abilities  required are compilation of forward and backward conditional and unconditional branches and compile-time  management of branch origins and destinations. Table A.1 shows the desired behavior.
-
-The requirement that control-flow words are properly balanced by other control-flow words makes  reasonable the description of a compile-time implementation-defined control-flow stack. There is no  prescription as to how the control-flow stack is implemented, e.g., data stack, linked list, special array.  Each element of the control-flow stack mentioned above is the same size.
-
 制御フローでは、すべての分岐、つまり制御の転送は、どこかの目的地で終了しなければなりません。自然な実装では、スタックを使って前方分岐の始点と後方分岐の終点を記憶します。最低限、それぞれの始点または終点の位置だけは示さなければならないが、実装に依存する他の情報を保持することもできます。
 
-原点とは、分岐の場所そのものです。目的地とは、分岐が行われた場合に制御が継続される場所です。デスティネーションは、各起点の分岐アドレスを解決するために必要であり、逆に、すべての制御フロー経路が完了すれば、未使用のデスティネーションは残りません。
+始点は、分岐の場所そのものです。目的地とは、分岐が行われた場合に制御が継続される場所です。目的地は、各起点の分岐アドレスを解決するために必要であり、逆に、起点は各目的地の分岐アドレスを解決するために必要です。すべての制御フロー経路が完了すれば、未使用の目的地は残りません。
 
 たった3つのワード(`AHEAD`、`CS-ROLL`、`CS-PICK`)を追加するだけで、基本的な制御フローワードは、さまざまなトランスポート可能な制御構造をコンパイルするのに必要なプリミティブを提供します。必要な能力は、前方および後方の条件分岐と無条件分岐のコンパイルと、分岐の始点と終点のコンパイル時管理です。表A.1に望ましい動作を示します。
 
-制御フロー・ワードが他の制御フロー・ワードによって適切にバランスされるという要件は、コンパイル時実装定義の制御フロー・スタックの記述を妥当なものにしています。データスタック、リンクリスト、特殊配列など、制御フロースタックがどのように実装されるかについての規定はありません。 上記の制御フロー・スタックの各要素は同じサイズです。
+制御フローワードが他の制御フローワードによって適切にバランスされるという要件は、コンパイル時実装定義の制御フロースタックの記述を妥当なものにしています。データスタック、リンクリスト、特殊配列など、制御フロースタックがどのように実装されるかについての規定はありません。 上記の制御フロースタックの各要素は同じサイズです。
 
 <table>
 
@@ -422,18 +332,16 @@ Table A.1 - Compilation behavior of control-flow words
 
  |at compile time,<br>word:|supplies:|resolves:|is used to:|
  |--|:--:|:--:|--|
- |`IF`|orig|| mark origin of forward conditional branch  
- |`THEN`||orig|resolve IF or AHEAD 
- |`BEGIN`|dest|| mark backward destination  
- |`AGAIN`|| dest|resolve with backward unconditional branch  
- |`UNTIL`|| dest|resolve with backward conditional branch  
- |`AHEAD`|orig||mark origin of forward unconditional branch  
- |`CS-PICK`||| copy item on control-flow stack  
- |`CS-ROLL`|||reorder items on control-flow stack
+ |`IF`|orig|| 前方に向けた条件ブランチの始点の印を付ける
+ |`THEN`||orig|`IF`か`AHEAD`を解決する
+ |`BEGIN`|dest|| 後方の目的地の印を付ける
+ |`AGAIN`|| dest|後方向け無条件ブランチを置きそれを解決する
+ |`UNTIL`|| dest|後方向け条件ブランチを置きそれを解決する
+ |`AHEAD`|orig||前方向け無条件ブランチの始点に印を付ける
+ |`CS-PICK`|||制御フロースタックの要素をコピーする
+ |`CS-ROLL`|||制御フロースタックの要素を並べなおす
  
 </table>
-
-With these tools, the remaining basic control-structure elements, shown in figure A.2, can be defined. The  stack notation used here for immediate words is ( compilation / execution ).
 
 これらのツールを使って、図A.2に示す残りの基本的な制御構造要素を定義することができます。ここで使用される即時ワードのスタック表記は、( compilation / execution )です。
 
@@ -461,32 +369,22 @@ With these tools, the remaining basic control-structure elements, shown in figur
 
 Forth control flow provides a solution for well-known problems with strictly structured programming.
 
-The basic control structures can be supplemented, as shown in the examples in figure A.3, with additional  `WHILE`s in `BEGIN` ... `UNTIL` and `BEGIN` ... `WHILE` ... `REPEAT` structures. However, for  each additional `WHILE` there must be a `THEN` at the end of the structure. `THEN` completes the syntax with  `WHILE` and indicates where to continue execution when the `WHILE` transfers control. The use of more than  one additional `WHILE` is possible but not common. Note that if the user finds this use of THEN undesirable,  an alias with a more likable name could be defined.
-
-Additional actions may be performed between the control flow word (the `REPEAT` or `UNTIL`) and the  `THEN` that matches the additional `WHILE`. Further, if additional actions are desired for normal termination  and early termination, the alternative actions may be separated by the ordinary Forth `ELSE`. The  termination actions are all specified after the body of the loop.
-
 Forthの制御フローは、厳密に構造化されたプログラミングでよく知られている問題に対する解決策を提供します。
 
-基本的な制御構造は、図A.3の例のように、 `BEGIN` ... や `UNTIL` ... の `WHILE` を追加することで補うことができます。`UNTIL`や`BEGIN` .... `WHILE` ... `REPEAT`構造になっています。ただし、それぞれの `WHILE` の最後には `THEN` が必要です。`THEN`は `WHILE` との構文を完成させ、`WHILE` が制御を移したときにどこで実行を続行するかを示します。2つ以上の `WHILE` を使用することは可能ですが、一般的ではありません。もしユーザがこの`THEN`の使い方を好ましくないと思うのであれば、もっと好感の持てる名前のエイリアスを定義することができることに注意してください。
+基本的な制御構造は、図A.3の例のように、 `BEGIN` ... `UNTIL` や、`BEGIN` ... `WHILE` ... `REPEAT` 構造に `WHILE` を追加することで補うことができます。ただし、それぞれの `WHILE` の最後には `THEN` が必要です。`THEN`は `WHILE` との構文を完成させ、`WHILE` が制御を移したときにどこで実行を続行するかを示します。2つ以上の `WHILE` を使用することは可能ですが、一般的ではありません。もしユーザがこの`THEN`の使い方を好ましくないと思うのであれば、もっと好感の持てる名前のエイリアスを定義することができることに注意してください。
 
-制御フローワード(`REPEAT`や`UNTIL`)と追加の`WHILE`にマッチする`THEN`の間に、追加のアクションを実行することができます。さらに、通常の終了と早期終了のために追加のアクションが必要な場合は、通常の Forth の `ELSE` で区切ることができます。終了アクションはすべてループ本体の後に指定します。
+制御フローワード(`REPEAT`または`UNTIL`)と追加の`WHILE`にマッチする`THEN`の間に、追加のアクションを実行することができます。さらに、通常の終了と早期終了のために追加のアクションが必要な場合は、通常の Forth の `ELSE` で区切ることができます。終了アクションはすべてループ本体の後に指定します。
 
 <figure>
 <img width=250 src="img/fig-A3-extended-control-flow-pattern-examples.png" >
 <figcaption>Figure A.3 - Extended control-flow pattern examples.</figcaption>
 </figure>
 
-Note that `REPEAT` creates an anomaly when matching the `WHILE` with `ELSE` or `THEN`, most notable when  compared with the `BEGIN`...`UNTIL` case. That is, there will be one less `ELSE` or `THEN` than there are  WHILEs because `REPEAT` resolves one `THEN`. As above, if the user finds this count mismatch undesirable,  `REPEAT` could be replaced in-line by its own definition.
+`REPEAT`は `WHILE` と `ELSE` または `THEN` をマッチさせるときに異常が発生することに注意してください。この異常は `BEGIN` ... `UNTIL` と比較したときにもっとも顕著です。つまり、`REPEAT`が1つの`THEN`を解決するため、`WHILE`の数より1つ少ない`ELSE`または`THEN`が存在することになります。上記のように、もしユーザがこのカウントの不一致を望ましくないと思うのであれば、 `REPEAT` をインラインで独自の定義に置き換えることができます。
 
-Other loop-exit control-flow words, and even other loops, can be defined. The only requirements are that  the control-flow stack is properly maintained and manipulated.
+他のループ終了制御フローワードや、他のループを定義することもできます。唯一の要件は、制御フロースタックが適切に維持され、操作されることです。
 
-The simple implementation of the ANS Forth `CASE` structure below is an example of control structure  extension. Note the maintenance of the data stack to prevent interference with the possible control-flow  stack usage.
-
-`REPEAT`は `WHILE` と `ELSE` または `THEN` をマッチさせるときに異常が発生することに注意してください。つまり、`REPEAT`が1つの`THEN`を解決するため、WHILEの数より1つ少ない`ELSE`または`THEN`が存在することになります。上記のように、もしユーザがこのカウントの不一致を望ましくないと思うのであれば、 `REPEAT` をインラインで独自の定義に置き換えることができます。
-
-他のループ終了制御フロー語や、他のループを定義することもできます。唯一の要件は、制御フロースタックが適切に維持され、操作されることです。
-
-以下のANS Forth `CASE`構造の簡単な実装は、制御構造拡張の例です。可能な制御フロースタックの使用と干渉しないように、データスタックのメンテナンスに注意してください。
+以下のANS Forth `CASE`構造の簡単な実装は、制御構造拡張の例です。生じうる制御フロースタックの使用と干渉しないように、データスタックのメンテナンスに注意してください。
 
     0 CONSTANT CASE IMMEDIATE ( init count of OFs ) 
 
@@ -516,41 +414,27 @@ The simple implementation of the ANS Forth `CASE` structure below is an example 
 
 ##### A.3.2.3.3 Return stack 
 
-The restrictions in section **3.2.3.3  Return stack** are necessary if implementations are to be allowed to place  loop parameters on the return stack.
-
-3.2.3.3リターンスタック**節の制限は、実装がループパラメータをリターンスタックに置くことを許可する場合に必要です。
+**3.2.3.3リターンスタック**節の制限は、実装がループパラメータをリターンスタックに置くことを許可する場合に必要です。
 
 #### A.3.2.6 Environmental queries 
 
-The size in address units of various data types may be determined by phrases such as 1 CHARS. Similarly,  alignment may be determined by phrases such as 1 ALIGNED.
+様々なデータ型のアドレス単位でのサイズは、`1 CHARS`のようなフレーズで決定されます。同様に、アライメントも `1 ALIGNED` のようなフレーズで決定されます。
 
-様々なデータ型のアドレス単位でのサイズは、1 CHARSのようなフレーズで決定されます。同様に、アライメントも 1 ALIGNED のようなフレーズで決定されます。
+環境クエリは2つのグループに分けられます。常に同じ値を生成するものと、そうでないものです。前者のグループには、`MAX-N`のようなエントリが含まれます。この情報は、ハードウェアまたはForthシステムの設計によって固定されており、ユーザは一度質問すれば十分であることが保証されています。
 
-The environmental queries are divided into two groups: those that always produce the same value and those  that might not. The former groups include entries such as MAX-N. This information is fixed by the  hardware or by the design of the Forth system; a user is guaranteed that asking the question once is  sufficient.
+もう1つのグループは、時間の経過とともに変化することが正当なものに対する問い合わせです。例えば、アプリケーションは環境クエリを使って倍数ワードセットの有無をテストするかもしれません。もしそれがなければ、システムはワードセットをロードするためにシステム依存のプロセスを呼び出すかもしれません。システムは `ENVIRONMENT?`のデータベースを変更して、以後のqueryが現在の状態を表すことが許されています。
 
-環境クエリは2つのグループに分けられます。前者のグループには、MAX-Nのようなエントリーが含まれます。この情報は、ハードウェアまたはForthシステムの設計によって固定されており、ユーザは一度質問すれば十分であることが保証されています。
-
-The other group of queries are for things that may legitimately change over time. For example an  application might test for the presence of the Double Number word set using an environment query. If it is  missing, the system could invoke a system-dependent process to load the word set. The system is permitted  to change `ENVIRONMENT?`'s database so that subsequent queries about it indicate that it is present.
-
-もう1つのグループは、時間の経過とともに正当に変化する可能性のあるものに対する問い合わせです。例えば、アプリケーションは環境クエリを使ってダブルナンバーのワードセットの有無をテストするかもしれません。もしそれがなければ、システムはワードセットをロードするためにシステム依存のプロセスを呼び出すかもしれません。システムは `ENVIRONMENT?`のデータベースを変更して、以後のqueryが現在のものであることを表すことが許されています。
-
-Note that a query that returns an "unknown" response could produce a "known" result on a subsequent  query.
-
-"unknown" の応答を返す問い合わせは、その後の問い合わせで "known" の結果を返す可能性があることに注意すること。
+"unknown" の応答を返す問い合わせは、その後の問い合わせで "known" の結果を返す可能性があることに注意してください。
 
 ### A.3.3 The Forth dictionary 
 
-A Standard Program may redefine a standard word with a non-standard definition. The program is still  Standard (since it can be built on any Standard System), but the effect is to make the combined entity  (Standard System plus Standard Program) a non-standard system.
-
-標準プログラム(Standard Program)は、標準語を非標準の定義で再定義することができます。プログラムは依然として標準であるが(どの標準システム上でも構築できるので)、 その効果は、結合された実体(標準システム＋標準プログラム)を非標準システムにすることです。
+標準プログラムは、標準語を非標準の定義を用いて再定義することができます。プログラムは依然として標準であるが(どの標準システム上でも構築できるので)、 その効果は、結合された実体(標準システム＋標準プログラム)を非標準システムにしてしまうことです。
 
 #### A.3.3.1 Name space 
 
 ##### A.3.3.1.2 Definition names 
 
-The language in this section is there to ensure the portability of Standard Programs. If a program uses  something outside the Standard that it does not provide itself, there is no guarantee that another  implementation will have what the program needs to run. There is no intent whatsoever to imply that all  Forth programs will be somehow lacking or inferior because they are not standard; some of the finest jewels  of the programmer’s art will be non-standard. At the same time, the committee is trying to ensure that a  program labeled "Standard" will meet certain expectations, particularly with regard to portability.
-
-このセクションの文言は、標準プログラムの移植性を保証するためにあります。あるプログラムが、それ自身が提供しない標準規格外のものを使用する場合、他の実装が そのプログラムの実行に必要なものを持っているという保証はありません。プログラマの芸術の最も素晴らしい宝石のいくつかは、非標準のものでしょう。同時に委員会は、"Standard" とラベル付けされたプログラムが、特に移植性に関して一定の期待に応えることを保証しようとしています。
+このセクションの文言は、標準プログラムの移植性を保証するためにあります。あるプログラムが、それ自身が提供しない標準規格外のものを使用する場合、他の実装が そのプログラムの実行に必要なものを持っているという保証はありません。標準でないからといって、すべてのForthプログラムがいささか欠けており、劣っているというつもりはありません。プログラマの芸術の最も素晴らしい宝石のいくつかは、非標準のものでしょう。同時に委員会は、"Standard" とラベル付けされたプログラムが、特に移植性に関して一定の期待に応えることを保証しようとしています。
 
 In many system environments the input source is unable to supply certain non-graphic characters due to  external factors, such as the use of those characters for flow control or editing. In addition, when  interpreting from a text file, the parsing function specifically treats non-graphic characters like spaces; thus  words received by the text interpreter will not contain embedded non-graphic characters. To allow  implementations in such environments to call themselves Standard, this minor restriction on Standard  Programs is necessary.
 
@@ -663,7 +547,7 @@ Forth クロスコンパイラでは、実行セマンティクスをホスト�
 
 For a variety of reasons, this Standard does not define interpretation semantics for every word. Examples of  these words are `>R`, `."`, `DO`, and `IF`. Nothing in this Standard precludes an implementation from providing  interpretation semantics for these words, such as interactive control-flow words. However, a Standard  Program may not use them in interpretation state.
 
-さまざまな理由から、本標準ではすべてのワードの解釈セマンティクスを定義していません。これらのワードの例としては、`>R`、`."`、`DO`、`IF`などがあります。本標準のいかなる規定も、対話的制御フロー語のようなこれらの語に対する解釈セマンティクスを実装が提供することを妨げるものではありません。しかし、標準プログラムは解釈状態でこれらを使用してはなりません。
+さまざまな理由から、本標準ではすべてのワードの解釈セマンティクスを定義していません。これらのワードの例としては、`>R`、`."`、`DO`、`IF`などがあります。本標準のいかなる規定も、対話的制御フローワードのようなこれらの語に対する解釈セマンティクスを実装が提供することを妨げるものではありません。しかし、標準プログラムは解釈状態でこれらを使用してはなりません。
 
 #### A.3.4.5 Compilation 
 
@@ -1286,7 +1170,7 @@ Historically, 2>R has been used to implement DO. Hence the order of parameters o
 
 The primary advantage of 2>R is that it puts the top stack entry on the top of the return stack. For instance,  a double-cell number may be transferred to the return stack and still have the most significant cell accessible  on the top of the return stack.
 
-2>R の主な利点は、リターンスタックの最上位にスタック・エントリーを置くことです。例えば、ダブル・セル数がリターンスタックに転送されても、最上位セルがリターンスタックの最上位にアクセスできます。
+`2>R` の主な利点は、リターンスタックの最上位にスタックエントリを置くことです。例えば、ダブル・セル数がリターンスタックに転送されても、最上位セルがリターンスタックの最上位にアクセスできます。
 
 #### A.6.2.0410 2R> 
 
@@ -3364,7 +3248,7 @@ Forthの珍しい特徴の1つは、プログラマがアプリケーション�
 
 For example, Forth includes the words VARIABLE and 2VARIABLE to name locations in which data may  be stored, as well as CONSTANT and 2CONSTANT to name single and double-cell values. Suppose a  programmer finds that an application needs arrays that would be automatically indexed through a number of  two-cell items. Such an array might be called 2ARRAY. The prefix "2" in the name indicates that each  element in this array will occupy two cells (as would the contents of a 2VARIABLE or 2CONSTANT). The  prefix "2", however, has significance only to a human and is no more significant to the text interpreter than  any other character that may be used in a definition name.
 
-例えば、ForthにはVARIABLEと2VARIABLEというワードがあり、データを格納する場所を指定します。また、CONSTANTと2CONSTANTというワードもあり、シングルセルとダブルセルの値を指定します。あるプログラマが、アプリケーションで2セルの項目を自動的にインデックスする配列が必要だと考えたとします。そのような配列は2ARRAYと呼ばれるかもしれません。この名前の接頭辞 "2" は、この配列の各要素が2セルを占めることを示す(2VARIABLEや2CONSTANTの内容と同じ)。しかし、接頭辞 "2" は人間にとってのみ意味があり、テキストインタプリタにとっては、定義名で使用される他の文字よりも意味があるわけではありません。
+例えば、ForthにはVARIABLEと2VARIABLEというワードがあり、データを格納する場所を指定します。また、CONSTANTと2CONSTANTというワードもあり、単一セルとダブルセルの値を指定します。あるプログラマが、アプリケーションで2セルの項目を自動的にインデックスする配列が必要だと考えたとします。そのような配列は2ARRAYと呼ばれるかもしれません。この名前の接頭辞 "2" は、この配列の各要素が2セルを占めることを示す(2VARIABLEや2CONSTANTの内容と同じ)。しかし、接頭辞 "2" は人間にとってのみ意味があり、テキストインタプリタにとっては、定義名で使用される他の文字よりも意味があるわけではありません。
 
 Such a definition has two parts, as there are two "behaviors" associated with this new word 2ARRAY, one at  compile time, and one at run or execute time. These are best understood if we look at how 2ARRAY is used  to define its arrays, and then how the array might be used in an application. In fact, this is how one would  design and implement this word.
 
@@ -4323,7 +4207,7 @@ The remainder of this section is a (non-exhaustive) list of things to watch for 
 
 To convert a single-cell number to a double-cell number, ANS Forth provides the operator S>D. To  convert a double-cell number to single-cell, Forth programmers have traditionally used DROP. However,  this trick doesn’t work on sign-magnitude machines. For portability a D>S operator is available.  Converting an unsigned single-cell number to a double-cell number can be done portably by pushing a zero  on the stack.
 
-シングル・セル数をダブル・セル数に変換するには、ANS Forthは演算子S>Dを提供します。ダブルセル数をシングルセル数に変換するには、Forthプログラマは伝統的にDROPを使用してきました。しかし、このトリックは符号振幅の大きいマシンでは機能しません。ポータビリティのために、D>S演算子が用意されています。 符号なしシングル・セル数をダブル・セル数に変換するには、スタックに 0 をプッシュします。
+単一セル数をダブル・セル数に変換するには、ANS Forthは演算子S>Dを提供します。ダブルセル数を単一セル数に変換するには、Forthプログラマは伝統的にDROPを使用してきました。しかし、このトリックは符号振幅の大きいマシンでは機能しません。ポータビリティのために、D>S演算子が用意されています。 符号なしシングル・セル数をダブル・セル数に変換するには、スタックに 0 をプッシュします。
 
 ## E.4 Forth system implementation  
 

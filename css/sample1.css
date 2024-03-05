@@ -1,9 +1,10 @@
 @charset "utf-8";
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap');
 
 :root {
-	font-size: 14Q;
+	font-size: 12Q;
 	line-height: 18Q;
 	font-family: 'Noto Serif JP';
 	font-weight: 400;
@@ -11,7 +12,7 @@
 	widows: 1;
 	orphans: 1;
 }
-
+/*
 @font-face {
 	font-family: keyfont;
 	src: url('fonts/keyboard-JP-Regular.otf');
@@ -21,7 +22,7 @@
 	font-family: udevgothic-r;
 	src:url('fonts/UDEVGothic-Regular.ttf');
 }
-
+*/
 figure {
 	margin-block: 34mm;
 	margin-inline: 0;
@@ -94,7 +95,7 @@ img {
 
 @page {
     /*size: 177mm 252mm;*/ /*182mm 257mm;*/
-	font-size: 16Q;
+	font-size: 10Q;
 	/*padding-top: 10Q;*/
 	@bottom-center {
 		content: counter(page);
@@ -349,8 +350,8 @@ pre {
 	white-space: pre-wrap;
 	line-break: anywhare;
 	text-spacing: none;
-	font-size: 0.8em;
-	line-height: 1.1em;
+	font-size: 0.85em; /*0.8em;*/
+	line-height: 1.4em;
 	/*border: solid 0.3mm #000;*/
 	padding-block: 3mm;
 	padding-inline: 3mm;
@@ -377,11 +378,15 @@ figcaption {
 
 /* blockquote ... vscode style */
 blockquote {
-	margin: 0 7px 0 5px;
+	margin: 0; /*7px 0 5px;*/
 	padding: 0 16px 0 10px;
-	border: solid 0.3mm #000;
+	border: solid 1px #888;
 	border-left-width: 3px;
 	border-left-style: solid;
+}
+
+blockquote > p {
+	margin-left: 0;
 }
 
 /*
