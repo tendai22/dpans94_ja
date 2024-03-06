@@ -662,9 +662,9 @@ or
 
 #### A.6.1.0880 `CELL+` 
 
-`ALIGN`と`ALIGNED`と同様に、`CELL`と`CELL+`というワードは、異なるセルサ イズを持つシステム間での移動性を助けるために追加されました。これらは、整数個のセル幅でインデックスやアドレスを操作する際に使用することを意図しています。
+`ALIGN`と`ALIGNED`と同様に、`CELL`と`CELL+`というワードは、異なるセルサイズを持つシステム間での移動性を助けるために追加されました。これらは、整数個のセル幅でインデックスやアドレスを操作する際に使用することを意図しています。
 
-Example:
+例:
 
     2VARIABLE DATA 
     0 100 DATA 2! 
@@ -677,7 +677,7 @@ See: **A.6.1.0880 CELL+**.
 
 Example: `CREATE NUMBERS 100 CELLS ALLOT` 
 
-(Allots space in the array `NUMBERS` for 100 cells of data.) 
+(配列`NUMBERS`中に100セルのデータの空き領域をAllotする)
 
 #### A.6.1.0895 CHAR 
 
@@ -689,9 +689,7 @@ Typical use: ... `DECIMAL 10 CONSTANT TEN` ...
 
 #### A.6.1.1000 `CREATE` 
 
-The data-field address of a word defined by `CREATE` is given by the data-space pointer immediately  following the execution of `CREATE` Reservation of data field space is typically done with `ALLOT`.
-
-`CREATE` で定義されたワードのデータ・フィールド・アドレスは、`CREATE` の実行直後のデータ・スペース・ポインタによって与えられます。 データ・フィールド・スペースの予約は、通常 `ALLOT` で行われます。
+`CREATE` で定義されたワードのデータフィールドアドレスは、`CREATE` の実行直後のデータスペースポインタによって与えられます。 データフィールドスペースの予約は、通常 `ALLOT` で行われます。
 
 Typical use: ... `CREATE SOMETHING` ...
 
@@ -709,9 +707,7 @@ or
 
 Typical use: `: X ... DOES> ... ;` 
 
-Following `DOES>`, a Standard Program may not make any assumptions regarding the ability to find either  the name of the definition containing the `DOES>` or any previous definition whose name may be concealed  by it. `DOES>` effectively ends one definition and begins another as far as local variables and control-flow  structures are concerned. The compilation behavior makes it clear that the user is not entitled to place  `DOES>` inside any control-flow structures.
-
-`DOES>`の後では、標準プログラムは`DOES>`を含む定義名や、その定義名によって隠されている可能性のある以前の定義名を見つける能力に関して、いかなる仮定も置くことはできません。ローカル変数と制御フロー構造に関する限り、`DOES>`は事実上1つの定義を終了し、別の定義を開始します。コンパイルの動作は、ユーザが `DOES>` を制御フロー構造体の中に置く権利がないことを明確にしています。
+`DOES>`の後では、標準プログラムは、`DOES>`を含む定義の名前や、その名前によって隠されている可能性のある以前の定義名を見つける能力に関して、いかなる仮定も置くことはできません。ローカル変数と制御フロー構造に関する限り、`DOES>`は事実上1つの定義を終了し、別の定義を開始します。コンパイル動作は、ユーザが いかなる制御フロー構造の中にも `DOES>` を置く権利がないことを明確にしています。
 
 #### A.6.1.1310 `ELSE` 
 
@@ -719,19 +715,13 @@ Typical use: : `X ... test IF ... ELSE ... THEN ;`
 
 #### A.6.1.1345 `ENVIRONMENT?` 
 
-In a Standard System that contains only the Core word set, effective use of ENVIRONMENT? requires either  its use within a definition, or the use of user-supplied auxiliary definitions. The Core word set lacks both a  direct method for collecting a string in interpretation state (**11.6.1.2165  `S"`** is in an optional word set) and  also a means to test the returned flag in interpretation state (e.g. the optional 15.6.2.2532 `[IF]`).
+Coreワード集合のみを含む標準システムでは、`ENVIRONMENT?`を効果的に使用するには、定義内で使用するか、ユーザが提供する補助的な定義を使用する必要があります。Coreワード集合には、解釈状態で文字列を収集する直接的な方法(**11.6.1.2165 `S"`**はオプションのワード集合にある)と、解釈状態で返されたフラグをテストする手段(オプションの15.6.2.2532 `[IF]`など)の両方が欠けています。
 
-Coreワード集合のみを含む標準システムでは、ENVIRONMENT?を効果的に使用するには、定義内で使用するか、ユーザが提供する補助定義を使用する必要があります。Coreワード集合には、解釈状態で文字列を収集する直接的な方法(**11.6.1.2165 `S"`**はオプションのワード集合にある)と、解釈状態で返されたフラグをテストする手段(オプションの15.6.2.2532 `[IF]`など)の両方が欠けています。
-
-The combination of **6.1.1345 ENVIRONMENT?**, **11.6.1.2165 `S"`**, **15.6.2.2532 `[IF]`**, **15.6.2.2531 `[ELSE]`**,  and **15.6.2.2533 `[THEN]`** constitutes an effective suite of words for conditional compilation that works in  interpretation state.
-
-**6.1.1345 ENVIRONMENT?**, **11.6.1.2165 `S"`**, **15.6.2.2532 `[IF]`**, **15.6.2.2531 `[ELSE]`**, **15.6.2.2533 `[THEN]`** の組み合わせは、解釈状態において機能する条件付きコンパイルのための効果的なワード群を構成します。
+**6.1.1345 `ENVIRONMENT?`**, **11.6.1.2165 `S"`**, **15.6.2.2532 `[IF]`**, **15.6.2.2531 `[ELSE]`**, **15.6.2.2533 `[THEN]`** の組み合わせは、解釈状態において機能する条件付きコンパイルのための効果的なワード群を構成します。
 
 #### A.6.1.1360 `EVALUATE` 
 
-The Technical Committee is aware that this function is commonly spelled EVAL. However, there exist  implementations that could suffer by defining the word as is done here. We also find EVALUATE to be  more readable and explicit. There was some sentiment for calling this INTERPRET, but that too would  have undesirable effects on existing code. The longer spelling was not deemed significant since this is not a  word that should be used frequently in source code.
-
-技術委員会は、この関数が一般的にEVALと表記されることを認識しています。しかし、ここで行われているようにワードを定義することで苦しむ実装が存在します。また、我々はEVALUATEの方が読みやすく明示的であると考えます。これをINTERPRETと呼ぼうという意見もあったが、これも既存のコードに望ましくない影響を与えるでしょう。長いスペルは、ソースコードで頻繁に使用されるべきワードではないため、重要ではないと判断されました。
+技術委員会は、この機能が一般的に`EVAL`と表記されることを認識しています。しかし、このようにワードを定義することで苦しむ実装が存在します。また、我々は`EVALUATE`の方が読みやすく明示的であると考えます。これを`INTERPRET`と呼ぼうという意見もあったが、これも既存のコードに望ましくない影響を与えるでしょう。長いスペルは、ソースコードで頻繁に使用されるだろうワードではないため、重要ではないと判断されました。
 
 #### A.6.1.1380 EX`IT 
 
@@ -739,39 +729,23 @@ Typical use: `: X ... test IF ... EXIT THEN ... ;`
 
 #### A.6.1.1550 `FIND` 
 
- One of the more difficult issues which the Committee took on was the problem of divorcing the  specification of implementation mechanisms from the specification of the Forth language. Three basic  implementation approaches can be quickly enumerated:
-
-1) Threaded code mechanisms. These are the traditional approaches to implementing Forth, but other techniques may be used.
-2) Subroutine threading with "macro-expansion" (code copying). Short routines, like the code for DUP, are copied into a definition rather than compiling a JSR reference.
-3) Native coding with optimization. This may include stack optimization (replacing such phrases as SWAP ROT + with one or two machine instructions, for example), parallelization (the trend in the  newer RISC chips is to have several functional subunits which can execute in parallel), and so on.
-
-The initial requirement (inherited from Forth 83) that compilation addresses be compiled into the dictionary  disallowed type 2 and type 3 implementations.
-
-Type 3 mechanisms and optimizations of type 2 implementations were hampered by the explicit  specification of immediacy or non-immediacy of all standard words. POSTPONE allowed de-specification  of immediacy or non-immediacy for all but a few Forth words whose behavior must be STATE-independent.
-
 委員会が取り上げたより困難な問題の1つは、Forth言語の仕様から実装メカニズムの仕様を切り離す問題でした。3つの基本的な実装アプローチがすぐに列挙できます。
 
 1) スレッドコードメカニズム。これらは、Forthを実装するための伝統的なアプローチですが、他のテクニックを使用することもできます。
 2) 「マクロ拡張」(コードコピー)によるサブルーチンのスレッド化。DUPのコードのような短いルーチンは、JSR参照をコンパイルするのではなく、定義にコピーされます。
-3) 最適化を伴うネイティブ・コーディング。これには、スタックの最適化(例えば、SWAP ROT +のようなフレーズを1つか2つのマシン命令で置き換える)、並列化(新しいRISCチップのトレンドは、並列実行可能な複数の機能サブユニットを持つことである)などが含まれます。
+3) 最適化を伴うネイティブコーディング。これには、スタックの最適化(例えば、SWAP ROT +のようなフレーズを1つか2つのマシン命令で置き換える)、並列化(新しいRISCチップのトレンドは、並列実行可能な複数の機能サブユニットを持つことである)などが含まれます。
 
 コンパイルアドレスが辞書にコンパイルされるという最初の要件(Forth 83から継承)は、タイプ2やタイプ3の実装を認めませんでした。
 
-タイプ3のメカニズムやタイプ2の実装の最適化は、すべての標準ワードの即時性または非即時性の明示的な指定によって妨げられていました。POSTPONEでは、STATEに依存しない動作が必要な一部のForthワードを除き、即時性または非即時性の指定を解除することができた。
+タイプ3のメカニズムやタイプ2の実装の最適化は、すべての標準ワードの即時性または非即時性の明示的な指定によって妨げられていました。`POSTPONE`により、`STATE`に依存しない動作が必要な一部のForthワードを除き、即時性または非即時性の指定を解除することができた。
 
-One type 3 implementation, Charles Moore's cmForth, has both compiling and interpreting versions of  many Forth words. At the present, this appears to be a common approach for type 3 implementations. The  Committee felt that this implementation approach must be allowed. Consequently, it is possible that words  without interpretation semantics can be found only during compilation, and other words may exist in two  versions: a compiling version and an interpreting version. Hence the values returned by FIND may depend  on `STATE`, and ` and `[']` may be unable to find words without interpretation semantics.
-
-タイプ3の実装の1つであるCharles MooreのcmForthは、多くのForthワードのコンパイル版と解釈版の両方を持っています。現在のところ、これはタイプ3実装の一般的なアプローチのようです。委員会は、このような実装方法を認めなければならないと考えました。その結果、解釈セマンティクスのないワードはコンパイル中にしか見つからない可能性があり、他のワードはコンパイル版と解釈版の2つのバージョンが存在する可能性があります。したがって、FINDが返す値は`STATE`に依存し、`と`[']`は解釈セマンティクスを持たないワードを見つけることができないかもしれません。
+タイプ3の実装の1つであるCharles MooreのcmForthは、多くのForthワードについてコンパイル版と解釈版の両方を持っています。現在のところ、これはタイプ3実装の一般的なアプローチのようです。委員会は、このような実装方法を認めなければならないと考えました。その結果、解釈セマンティクスのないワードはコンパイル中にしか見つからない可能性があり、他のワードはコンパイル版と解釈版の2つのバージョンが存在する可能性があります。したがって、FINDが返す値は`STATE`に依存し、`'`と`[']`は解釈セマンティクスを持たないワードを見つけることができないかもしれません。
 
 #### A.6.1.1561 `FM/MOD` 
 
-By introducing the requirement for "floored" division, Forth 83 produced much controversy and concern on  the part of those who preferred the more common practice followed in other languages of implementing  division according to the behavior of the host CPU, which is most often symmetric (rounded toward zero).  In attempting to find a compromise position, this Standard provides primitives for both common varieties,  floored and symmetric (see `SM/REM`). `FM/MOD` is the floored version.
+Forth 83 は、切り捨て除算(floored division)の要件を導入することで、ホスト CPU の動作に従って除算を実装するという、他の言語ではより一般的な慣行を好む人々から、多くの論争と懸念が示されました。 妥協点を見出すために、本標準規格は、一般的な除算方式として切り捨て型と対称型の両方のプリミティブを提供する(`SM/REM`を参照)こととしました。`FM/MOD`は切り捨てバージョンです。
 
-Forth 83 は、"floored" 除算の要件を導入することで、ホスト CPU の動作に従って除算を実装するという、他の言語ではより一般的な慣行を好む人々から、多くの論争と懸念を生み出しました。 妥協点を見出すために、この標準は一般的なフロアー型と対称型の両方のプリミティブを提供する(`SM/REM`を参照)。`FM/MOD`はフロアードバージョンです。
-
-The Technical Committee considered providing two complete sets of explicitly named division operators,  and declined to do so on the grounds that this would unduly enlarge and complicate the Standard. Instead,  implementors may define the normal division words in terms of either `FM/MOD` or `SM/REM` providing they  document their choice. People wishing to have explicitly named sets of operators are encouraged to do so.  `FM/MOD` may be used, for example, to define:
-
-技術委員会は、明示的に命名された2つの除算演算子の完全なセットを提供することを検討したが、これは規格を不当に拡大し複雑にするという理由で、そのようなことはしなかった。その代わりに、実装者は通常の除算ワードを `FM/MOD` または `SM/REM` のどちらかで定義することができます。明示的に命名された演算子のセットを持ちたい人は、そうすることを推奨します。 FM/MOD`は例えば次のように定義するために使用することができます。
+技術委員会は、明示的に命名された2つの除算演算子の完全なセットを提供することを検討したが、これは規格を不当に拡大し複雑にするという理由で、そのやり方は採用されませんでした。その代わりに、実装者は通常の除算ワードを `FM/MOD` または `SM/REM` のどちらかで定義することができます。明示的に命名された演算子のセットを持ちたい人は、そうすることを推奨します。 `FM/MOD`は例えば次のような定義で使用することができます。
 
     : /_MOD ( n1 n2 -- n3 n4) >R S>D R> FM/MOD ; 
     : /_ ( n1 n2 -- n3) /_MOD SWAP DROP ; 
@@ -795,38 +769,28 @@ Typical use: `Typical use: : X ... ; IMMEDIATE `
 
 #### A.6.1.1720 INVERT 
 
-The word NOT was originally provided in Forth as a flag operator to make control structures readable.  Under its intended usage the following two definitions would produce identical results:
-
-NOTはもともと、制御構造を読みやすくするためのフラグ演算子としてForthに用意されました。 その意図された用法では、次の2つの定義は同じ結果を生むことになります。
+`NOT`はもともと、制御構造を読みやすくするためのフラグ演算子としてForthに用意されました。 その意図された用法では、次の2つの定義は同じ結果を生むことになります。
 
     : ONE ( flag -- ) 
         IF ." true" ELSE ." false" THEN ; 
     : TWO ( flag -- ) 
         NOT IF ." false" ELSE ." true" THEN ; 
 
-This was common usage prior to the Forth-83 Standard which redefined NOT as a cell-wide one's-complement operation, functionally equivalent to the phrase -1 XOR. At the same time, the data type  manipulated by this word was changed from a flag to a cell-wide collection of bits and the standard value  for true was changed from "1" (rightmost bit only set) to "-1" (all bits set). As these definitions of TRUE and NOT were incompatible with their previous definitions, many Forth users continue to rely on the old  definitions. Hence both versions are in common use.
+これは、`NOT` をセル全体の 1 の補数演算として再定義した Forth-83 Standard より前の一般的な用法であり、機能的には `-1 XOR` と同等です。同時に、このワードによって操作されるデータ型はフラグからセル全体のビットの集合に変更され、`TRUE` の標準値は "1"(右端のビットだけがセットされる)から "-1"(すべてのビットがセットされる)に変更されました。`TRUE`と`NOT`のこの定義は以前の定義と互換性がないため、多くのForthユーザは古い定義に依存し続けています。したがって、両方のバージョンが一般的に使用されています。
 
-Therefore, usage of NOT cannot be standardized at this time. The two traditional meanings of NOT - that of  negating the sense of a flag and that of doing a one's complement operation - are made available by 0= and  INVERT, respectively.
-
-これは、NOT をセル全体の 1 の補数演算として再定義した Forth-83 Standard より前の一般的な用法であり、機能的には -1 XOR と同等です。同時に、このワードによって操作されるデータ型はフラグからセル全体のビットの集合に変更され、TRUE の標準値は "1"(右端のビットだけがセットされる)から "-1"(すべてのビットがセットされる)に変更されました。これらのTRUEとNOTの定義は、以前の定義と互換性がないため、多くのForthユーザは古い定義に依存し続けています。したがって、両方のバージョンが一般的に使用されています。
-
-したがって、現時点ではNOTの用法を標準化することはできません。NOTの2つの伝統的な意味(フラグの意味を否定する意味と1補数演算を行う意味)は、それぞれ0=とINVERTによって利用可能になります。
+したがって、現時点では`NOT`の用法を標準化することはできません。`NOT`の2つの伝統的な意味(フラグの意味を否定する意味と1の補数演算を行う意味)は、それぞれ`0=`と`INVERT`によって利用可能になります。
 
 #### A.6.1.1730 J 
 
-J may only be used with a nested DO...LOOP, DO...+LOOP, ?DO...LOOP, or ?DO...+LOOP, for example, in  the form:  
-
-Jは、入れ子になったDO...LOOP、DO...+LOOP、?
+`J`は、入れ子になった `DO ... LOOP`、`DO ... +LOOP`、`?DO ... LOOP`、 `?DO ... +LOOP`だけで利用できます。例は以下の通りです。
 
     : X ... DO ... DO ... J ... LOOP ... +LOOP ... ; 
 
 #### A.6.1.1760 LEAVE 
 
-Note that LEAVE immediately exits the loop. No words following LEAVE within the loop will be executed.
+`LEAVE`は直ちにループを抜けることに注意してください。ループ内で`LEAVE`に続くワードは実行されません。
 
-LEAVEは直ちにループを抜けることに注意してください。ループ内でLEAVEに続くワードは実行されません。
-
-Typical use:
+典型的な用法は、
 
     : X ... DO ... IF ... LEAVE THEN ... LOOP ... ; 
 
@@ -844,18 +808,13 @@ or
 
     : X ... limit first ?DO ... LOOP ... ; 
 
-#### A.6.1.1810 M* 
+#### A.6.1.1810 `M*` 
 
-This word is a useful early step in calculation, going to extra precision conveniently. It has been in use  since the Forth systems of the early 1970's.
-
-このワードは、計算の初期段階で便利なもので、超精密な計算を便利に行うことができます。1970年代初期のForthシステムから使われています。
+このワードは、計算の初期段階で便利なもので、超精密な計算を便利に行うことができます。1970年代初頭のForthシステムから使われています。
 
 #### A.6.1.1900 MOVE 
 
-CMOVE and CMOVE> are the primary move operators in Forth 83. They specify a behavior for moving that  implies propagation if the move is suitably invoked. In some hardware, this specific behavior cannot be  achieved using the best move instruction. Further, CMOVE and CMOVE> move characters; ANS Forth needs  a move instruction capable of dealing with address units. Thus MOVE has been defined and added to the  Core word set, and CMOVE and CMOVE> have been moved to the String word set.
-
-
-`CMOVE` および `CMOVE>` は、Forth 83 の主要な移動演算子です。これらは、移動が適切に呼び出された場合に伝搬を意味する移動の動作を指定します。一部のハードウェアでは、この特定の動作は最良の移動命令を使用して達成することはできません。さらに、`CMOVE`と`CMOVE>`は文字を移動します。ANS Forthには、アドレス単位を扱うことができる移動命令が必要です。このため、MOVEが定義されてCoreワードセットに追加され、`CMOVE`と`CMOVE>`はStringワードセットに移動しました。
+`CMOVE` および `CMOVE>` は、Forth 83 の主要な移動演算子です。これらは、移動が適切に呼び出された場合に伝搬を意味する移動の動作を指定します。一部のハードウェアでは、この特定の動作は最良のmove命令を使用して達成することはできません。さらに、`CMOVE`と`CMOVE>`は文字を移動します。ANS Forthには、アドレス単位を扱うことができる移動命令が必要です。このため、`MOVE`が定義されてCoreワードセットに追加され、`CMOVE`と`CMOVE>`はStringワードセットに移動しました。
 
 #### A.6.1.2033 POSTPONE 
 
@@ -865,44 +824,32 @@ Typical use:
     : X ... IF ... ENDIF ... ; 
 
 
-POSTPONE replaces most of the functionality of COMPILE and [COMPILE]. COMPILE and [COMPILE] are used for the same purpose: postpone the compilation behavior of the next word in the parse area. COMPILE was designed to be applied to non-immediate words and [COMPILE] to immediate  words. This burdens the programmer with needing to know which words in a system are immediate.
-
-Consequently, Forth standards have had to specify the immediacy or non-immediacy of all words covered  by the Standard. This unnecessarily constrains implementors.
-
-A second problem with COMPILE is that some programmers have come to expect and exploit a particular  implementation, namely:  
-
-POSTPONEはCOMPILEと[COMPILE]の機能のほとんどを置き換えます。COMPILEと[COMPILE]は同じ目的で使用され、解析領域内の次のワードのコンパイル動作を延期します。COMPILEは非即値ワードに、[COMPILE]は即値ワードに適用されるように設計されています。このため、プログラマはシステム内のどのワードが即時ワードであるかを知る必要があり、負担が大きい。
+`POSTPONE`は`COMPILE`と`[COMPILE]`の機能のほとんどを置き換えます。`COMPILE`と`[COMPILE]`は同じ目的で使用され、解析領域内の次のワードのコンパイル動作を延期します。`COMPILE`は非即値ワードに、`[COMPILE]`は即値ワードに適用されるように設計されています。このため、プログラマはシステム内のどのワードが即時ワードであるかを知る必要があり、負担が大きくなります。
 
 その結果、Forth標準は、標準がカバーするすべてのワードの即時性または非即時性を指定しなければなりませんでした。これは、実装者を不必要に制約することになります。
 
-COMPILEに関する2つ目の問題は、一部のプログラマが特定の実装、つまり、COMPILEを期待し、利用するようになったことです。
+`COMPILE`に関する2つ目の問題は、一部のプログラマが特定の実装を期待し、利用するようになったことです。すなわち、
 
     : COMPILE R> DUP @ , CELL+ >R ; 
 
-This implementation will not work on native code Forth systems. In a native code Forth using inline code  expansion and peephole optimization, the size of the object code produced varies; this information is  difficult to communicate to a "dumb" COMPILE. A "smart" (i.e., immediate) COMPILE would not have  this problem, but this was forbidden in previous standards.
+です。
 
-For these reasons, COMPILE has not been included in the Standard and [COMPILE] has been moved in  favor of POSTPONE. Additional discussion can be found in Hayes, J.R., "Postpone", *Proceedings of the 1989 Rochester Forth Conference.*
+この実装は、ネイティブコードのForthシステムでは動作しません。インラインコード展開とピープホール最適化を使用するネイティブコードForthでは、生成されるオブジェクトコードのサイズが変化します。この情報は、"間抜けな"　`COMPILE`に伝えるのは困難です。"スマートな"(すなわち、即時的な)`COMPILE`にはこの問題はありませんが、これは以前の標準では禁止されていました。
 
-この実装は、ネイティブ・コードのForthシステムでは動作しません。インラインコード展開とピーホール最適化を使用するネイティブコードForthでは、生成されるオブジェクトコードのサイズが変化します。この情報を「ダム」COMPILEに伝えることは困難です。この情報は、"間抜けな"　`COMPILE`に伝えるのは困難です。"スマートな"(すなわち、即時的な)`COMPILE`にはこの問題はありませんが、これは以前の標準では禁止されていました。
-
-これらの理由から、COMPILEは規格に含まれず、`[COMPILE]`は`POSTPONE`を優先して移動されました。追加の議論は、Hayes, J.R., "Postpone", *Proceedings of the 1989 Rochester Forth Conference.*にあります。
+これらの理由から、`COMPILE`は規格に含まれず、`POSTPONE`を優先して`[COMPILE]`は席を譲りました。これ以上の議論は、Hayes, J.R., "Postpone", *Proceedings of the 1989 Rochester Forth Conference.*にあります。
 
 #### A.6.1.2120 RECURSE 
 
 Typical use: : X ... RECURSE ... ; 
 
-This is Forth's recursion operator; in some implementations it is called MYSELF. The usual example is the  coding of the factorial function.
-
-これはForthの再帰演算子で、実装によってはMYSELFと呼ばれることもあります。通常の例は階乗関数のコーディングです。
+これはForthの再帰演算子で、実装によっては`MYSELF`と呼ばれることもあります。通常の例は階乗関数のコーディングです。
 
     : FACTORIAL ( +n1 -- +n2) 
         DUP 2 < IF DROP 1 EXIT THEN 
         DUP 1- RECURSE * 
     ;
  
-*n2 = n1(n1-1)(n1-2)...*(2)(1), the product of n1 with all positive integers less than itself (as a special case,  zero factorial equals one). While beloved of computer scientists, recursion makes unusually heavy use of  both stacks and should therefore be used with caution. See alternate definition in A.6.1.2140 REPEAT.
-
-*n2 = n1(n1-1)(n1-2)...*(2)(1)、n1とそれ自身より小さいすべての正の整数の積(特殊なケースとして、階乗ゼロは1に等しい)。コンピュータ科学者に愛されているが、再帰は両方のスタックを異常に多用するので、使用には注意が必要です。A.6.1.2140 REPEATの代替定義を参照してください。
+$n_2 = n_1(n_1-1)(n_1-2)...(2)(1)$、$n_1$とそれ自身より小さいすべての正の整数の積(特殊なケースとして、階乗ゼロは1に等しい)。再起はコンピュータ科学者に愛されているが、両方のスタックを異常に多用するので、使用には注意が必要です。**A.6.1.2140 REPEAT**の代替定義を参照してください。
 
 #### A.6.1.2140 REPEAT 
 
@@ -920,15 +867,11 @@ Typical use:
 
 Typical use: : X ... S" ccc" ... ; 
 
-This word is found in many systems under the name " (quote). However, current practice is almost evenly  divided on the use of ", with many systems using the execution semantics given here, while others return the  address of a counted string. We attempt here to satisfy both camps by providing two words, S" and the  Core Extension word C" so that users may have whichever behavior they expect with a simple renaming  operation.
-
-このワードは多くのシステムで"(引用符)という名前で使われています。しかし、" の使用法については、多くのシステムでここで示した実行セマンティクスが使用されている一方で、カウントされた文字列のアドレスを返すシステムもあり、現在の慣行はほぼ均等に分かれています。ここでは、`S"`とCore Extensionの`C"`という2つのワードを提供することで、両陣営を満たそうと試みています。
+このワードは多くのシステムで`"`(引用符)という名前で使われています。しかし、`"` の使用法については、多くのシステムでここで示した実行セマンティクスが使用されている一方で、カウントされた文字列のアドレスを返すシステムもあり、現在の慣行はほぼ均等に分かれています。ここでは、`S"`とCore Extensionの`C"`という2つのワードを提供することで、両陣営を満たそうと試みています。
 
 #### A.6.1.2214 SM/REM 
 
-See the previous discussion of division under FM/MOD. SM/REM is the symmetric-division primitive,  which allows programs to define the following symmetric-division operators:  
-
-FM/MODでの除算については前述の説明を参照してください。SM/REM は対称除算プリミティブであり、以下の対称除算演算子をプログラムで定義できます。
+`FM/MOD`での除算については前述の説明を参照してください。`SM/REM` は対称除算プリミティブであり、以下の対称除算演算子をプログラムで定義できます。
 
     : /-REM ( n1 n2 -- n3 n4 ) >R S>D R> SM/REM ; 
     : /- ( n1 n2 -- n3 ) /-REM SWAP DROP ; 
@@ -938,48 +881,34 @@ FM/MODでの除算については前述の説明を参照してください。SM
 
 #### A.6.1.2216 SOURCE 
 
-SOURCE simplifies the process of directly accessing the input buffer by hiding the differences between its  location for different input sources. This also gives implementors more flexibility in their implementation  of buffering mechanisms for different input sources. The committee moved away from an input buffer  specification consisting of a collection of individual variables, declaring TIB and #TIB obsolescent.
+`SOURCE`は、異なる入力ソースに対する入力バッファの位置の違いを隠すことで、入力バッファに直接アクセスするプロセスを簡素化します。これにより、実装者は、異なる入力ソースに対するバッファリングメカニズムをより柔軟に実装することができます。委員会は、個々の変数の集まりからなる入力バッファ仕様から脱却し、`TIB`と`#TIB`の廃止を宣言しました。
 
-SOURCE in this form exists in F83, POLYFORTH, LMI's Forths and others. In conventional systems it is  equivalent to the phrase  
+この形式の`SOURCE`は、F83、POLYFORTH、LMIのForthsなどに存在します。従来のシステムでは、以下のフレーズ、
 
-SOURCEは、異なる入力ソースに対する入力バッファの位置の違いを隠すことで、入力バッファに直接アクセスするプロセスを簡素化します。これにより、実装者は、異なる入力ソースに対するバッファリング・メカニズムをより柔軟に実装することができます。委員会は、個々の変数の集まりからなる入力バッファ仕様から脱却し、TIBと#TIBの廃止を宣言した。
+    BLK @  IF BLK @ BLOCK 1024  ELSE TIB #TIB @ THEN  
 
-この形式のSOURCEは、F83、POLYFORTH、LMIのForthsなどに存在します。従来のシステムでは
-
-    BLK @ IF BLK @ BLOCK 1024 ELSE TIB #TIB @ THEN  
+と等価です。
 
 #### A.6.1.2250 STATE 
 
-Although EVALUATE, LOAD, INCLUDE-FILE, and INCLUDED are not listed as words which alter  STATE, the text interpreted by any one of these words could include one or more words which explicitly  alter STATE. EVALUATE, LOAD, INCLUDE-FILE, and INCLUDED do not in themselves alter STATE.
+`EVALUATE`、`LOAD`、`INCLUDE-FILE`、および`INCLUDED`は、`STATE`を変更するワードとしてリストされていないが、これらのワードのいずれか1つによって解釈されるテキストには、`STATE`を明示的に変更するワードが1つ以上含まれる可能性があります。`EVALUATE`、`LOAD`、`INCLUDE-FILE`、および`INCLUDED`は、それ自体が`STATE`を変更することはありません。
 
-STATE does not nest with text interpreter nesting. For example, the code sequence:  
+`STATE`は、テキストインタプリタのネストとは連動しません。例えば、次のようなコード列、
 
-EVALUATE、LOAD、INCLUDE-FILE、およびINCLUDEDは、STATEを変更するワードとしてリストされていないが、これらのワードのいずれか1つによって解釈されるテキストには、STATEを明示的に変更するワードが1つ以上含まれる可能性があります。EVALUATE、LOAD、INCLUDE-FILE、およびINCLUDEDは、それ自体がSTATEを変更することはありません。
+    : FOO S" ]" EVALUATE ;     FOO 
 
-STATEは、テキストインタプリタのネストとは連動しません。例えば、次のようなコード列があります。
+はシステムをコンパイル状態にします。同様に、`]`を含むブロックを`LOAD`した後、システムはコンパイル状態になります。
 
-    : FOO S" ]" EVALUATE ; FOO 
-
-will leave the system in compilation state. Similarly, after LOADing a block containing ], the system will be  in compilation state.
-
-を含むブロックを`LOAD`すると、システムはコンパイル状態になります。同様に、`]`を含むブロックを`LOAD`した後、システムはコンパイル状態になります。
-
-Note that ] does not affect the parse area and that the only effect that : has on the parse area is to parse a  word. This entitles a program to use these words to set the state with known side-effects on the parse area.
-
-また、:が構文解析領域に与える影響は、ワードを構文解析することだけです。これは、解析領域への副作用が知られている状態を設定するために、これらのワードを使用するプログラムの権利を与えます。
+また、`]`は構文解析領域に何の影響も与えません。`:`が構文解析領域に与える影響は、ワードを構文解析することだけです。これは、これらのワードを使用するプログラムに対して、これは、既知の副作用を解析領域に与えるとともに、とともに、状態をセットする権利を与えます。これらのワードを使用するプログラムに、解析領域への既知の副作用とともに状態をセットする権利を与えます。
 
 For example:  
 
     : NOP : POSTPONE ; IMMEDIATE ; 
     NOP ALIGN NOP ALIGNED  
     
-Some non-ANS Forth compliant systems have ] invoke a compiler loop in addition to setting STATE. Such  a system would inappropriately attempt to compile the second use of NOP.
+ANS Forthに準拠していないシステムの中には、`STATE`への値の設定に加えて、`]` にコンパイラループを呼び出させるものがあります。このようなシステムは、`NOP`の2回目の使用を不適切にコンパイルしようとします。
 
-Also note that nothing in the Standard prevents a program from finding the execution tokens of ] or [ and  using these to affect STATE. These facts suggest that implementations of ] will do nothing but set STATE and a single interpreter/compiler loop will monitor STATE.
-
-ANS Forthに準拠していないシステムの中には、STATEの設定に加えてコンパイラ・ループを呼び出さなければならないものがあります。このようなシステムは、NOPの2回目の使用を不適切にコンパイルしようとします。
-
-また、標準では、プログラムが ] や [ の実行トークンを見つけ、これらを使用して STATE に影響を与えることを妨げるものは何もないことに注意してください。これらの事実は、[ ]の実装はSTATEを設定する以外には何も行わず、単一のインタプリタ/コンパイラ・ループがSTATEを監視することを示唆しています。
+また、標準では、プログラムが `]` や `[` の実行トークンを見つけ、これらを使用して `STATE` に影響を与えることを妨げるものは何もないことに注意してください。これらの事実は、`[`の実装は`STATE`を設定する以外には何も行わず、単一のインタプリタ/コンパイラループが`STATE`を監視することを示唆しています。
 
 #### A.6.1.2270 THEN 
 
@@ -1001,9 +930,7 @@ Typical use:
         LOOP ...
     ;
  
-UNLOOP allows the use of EXIT within the context of DO ... LOOP and related do-loop constructs.  UNLOOP as a function has been called UNDO. UNLOOP is more indicative of the action: nothing gets  undone -- we simply stop doing it.
-
-UNLOOPは、DO ... のコンテキスト内でEXITを使用できるようにします。LOOPおよび関連するDO-LOOP構文の中でEXITを使うことができます。 関数としてのUNLOOPはUNDOと呼ばれてきた。UNLOOPの方がより動作を表しています。何も取り消されることはなく、単に実行を止めるだけです。
+`UNLOOP`は、`DO` ... `LOOP`のコンテキスト内で`EXIT`を使用できるようにします。`LOOP`および関連する`DO-LOOP`構文の中で`EXIT`を使うことができます。 関数としての`UNLOOP`は`DO`と呼ばれてきた。`UNLOOP`の方がより動作を表しています。何も取り消されることはなく、単に実行を止めるだけです。
 
 #### A.6.1.2390 UNTIL 
 
@@ -1041,27 +968,18 @@ Typical use: : X ... [ 1234 ] LITERAL ... ;
 
 ### A.6.2 Core extension words 
 
-The words in this collection fall into several categories:  
-
 このコレクションに含まれるワードは、いくつかのカテゴリーに分類されます。
 
-- Words that are in common use but are deemed less essential than Core words (e.g., 0&lt;>); 
-- Words that are in common use but can be trivially defined from Core words (e.g., FALSE); 
-- Words that are primarily useful in narrowly defined types of applications or are in less frequent use (e.g., PARSE); 
-- Words that are being deprecated in favor of new words introduced to solve specific problems (e.g., CONVERT).
-
-Because of the varied justifications for inclusion of these words, the Technical Committee does not  encourage implementors to offer the complete collection, but to select those words deemed most valuable to  their clientele.
-
-- 一般的に使用されているが、Coreワードよりも本質的ではないと考えられるワード(例: 0<>)； 
-- 一般的に使用されているが、Coreワードから簡単に定義できるワード(例: FALSE)； 
-- 主に限定された種類のアプリケーションで有用なワード、または使用頻度が低いワード(例: PARSE)； 
-- 特定の問題を解決するために導入された新しいワード(例: CONVERT)を優先して非推奨とされるワード。
+- 一般的に使用されているが、Coreワードよりも本質的ではないと考えられるワード(例: `0<>`)； 
+- 一般的に使用されているが、Coreワードから簡単に定義できるワード(例: `FALSE`)； 
+- 主に限定された種類のアプリケーションで有用なワード、または使用頻度が低いワード(例: `PARSE`)； 
+- 特定の問題を解決するために新しいワード(例: `CONVERT`)を導入した結果、非推奨となるワード。
 
 これらのワードを含める正当な理由は様々であるため、技術委員会は、実装者が完全なコレクションを提供することを推奨しておらず、顧客にとって最も価値があると考えられるワードを選択することを推奨しています。
 
 #### A.6.2.0060 #TIB 
 
-The function of #TIB has been superseded by SOURCE.
+`#TIB` の機能は `SOURCE` により肩代わりされました。
 
 #### A.6.2.0200 .( 
 
@@ -1069,45 +987,33 @@ Typical use: .( ccc)
 
 #### A.6.2.0210 .R 
 
-In .R, "R" is short for RIGHT.
+`.R`において、"R"が`RIGHT`の短縮形です。
 
 #### A.6.2.0340 2>R 
 
-Historically, 2>R has been used to implement DO. Hence the order of parameters on the return stack.
+歴史的に、`DO`の実装には`2>R`が使われてきました。従って、リターンスタック上のパラメータの順序も同じです。
 
-歴史的に、DOの実装には2>Rが使われてきた。従って、リターンスタック上のパラメーターの順序も同じです。
-
-The primary advantage of 2>R is that it puts the top stack entry on the top of the return stack. For instance,  a double-cell number may be transferred to the return stack and still have the most significant cell accessible  on the top of the return stack.
-
-`2>R` の主な利点は、リターンスタックの最上位にスタックエントリを置くことです。例えば、ダブル・セル数がリターンスタックに転送されても、最上位セルがリターンスタックの最上位にアクセスできます。
+`2>R` の主な利点は、スタックエントリの最上位をリターンスタックの最上位に置くことです。例えば、倍セルの数がリターンスタックに転送されても、リターンスタックの最上位へのアクセスが倍セルの数の上位桁へのアクセスになります。
 
 #### A.6.2.0410 2R> 
 
-2R>はR> R>と等価ではないことに注意してください。その代わり、2>R(A.6.2.0340参照)の動作を反映します。
+`2R>`は`R> R>`と等価ではないことに注意してください。その代わり、`2>R`(**A.6.2.0340**参照)の動作の映し鏡となります。
 
 #### A.6.2.0455 :NONAME 
 
 :NONAME allows a user to create an execution token with the semantics of a colon definition without an associated name. Previously, only : (colon) could create an execution token with these semantics. Thus,  Forth code could only be compiled using the syntax of :, that is:
 
-NONAMEを使用すると、コロン定義のセマンティクスを持つ実行トークンを、関連する名前なしで作成できます。これまでは、: (コロン) だけがこれらのセマンティクスを持つ実行トークンを作成できました。したがって、Forthコードは:の構文を使用してのみコンパイルできました。
+`:NONAME`を使用すると、コロン定義のセマンティクスを持つ実行トークンを名前なしで作成できます。これまでは、`:` (コロン) だけがこれらのセマンティクスを持つ実行トークンを作成できました。したがって、Forthコードは`:`の構文を使用してのみコンパイルできました。つまり、
 
     : NAME ... ; 
 
-:NONAME removes this constraint and places the Forth compiler in the hands of the programmer.
+の形式です。`:NONAME`はこの制約を取り除き、Forthコンパイラをプログラマの手に委ねることになります。
 
-:NONAMEはこの制約を取り除き、Forthコンパイラをプログラマの手に委ねる。
+`:NONAME`はアプリケーション固有のプログラミング言語を作成するために使用できます。一つのテクニックはForthのコード断片とアプリケーション固有の構成要素を混ぜることです。アプリケーション固有の構成要素は`:NONAME`を使ってForthコードをコンパイルし、得られた実行トークンをデータ構造に格納します。
 
-:NONAME can be used to create application-specific programming languages. One technique is to mix Forth code fragments with application-specific constructs. The application-specific constructs use  :NONAME to compile the Forth code and store the corresponding execution tokens in data structures.
+`:NONAME`の機能はどんなForthシステムにでも構築可能です。何年もの間、熟練したForthプログラマはシステムに対する深い知識を利用して、名前のないコード断片を生成してきました。今、この機能には名前が付けられ、移植可能なプログラムで使用することができるようになりました。
 
-:NONAMEはアプリケーション固有のプログラミング言語を作成するために使用できます。一つのテクニックはForthのコードフラグメントとアプリケーション固有の構成要素を混ぜることです。アプリケーション固有の構成要素は:NONAMEを使ってForthコードをコンパイルし、対応する実行トークンをデータ構造に格納します。
-
-The functionality of :NONAME can be built on any Forth system. For years, expert Forth programmers have  exploited intimate knowledge of their systems to generate unnamed code fragments. Now, this function has  been named and can be used in a portable program.
-
-:NONAMEの機能はどんなForthシステムでも構築可能です。何年もの間、熟練したForthプログラマはシステムの深い知識を利用して、名前のないコードフラグメントを生成してきました。今、この関数は名前が付けられ、移植可能なプログラムで使用することができます。
-
-For example, :NONAME can be used to build a table of code fragments where indexing into the table allows  executing a particular fragment. The declaration syntax of the table is:  
-
-例えば、:NONAMEを使ってコード・フラグメントのテーブルを作成し、そのテーブルにインデックスを付けることで、特定のフラグメントを実行することができます。テーブルの宣言構文は以下の通りです。
+例えば、`:NONAME`を使ってコード断片のテーブルを作成し、そのテーブルにインデックスを付けてアクセスすることで、特定のフラグメントを実行することができます。テーブルの宣言構文は以下の通りです。
 
     :NONAME .. code for command 0 .. ; 0 CMD ! 
     :NONAME .. code for command 1 .. ; 1 CMD ! 
@@ -1116,7 +1022,7 @@ For example, :NONAME can be used to build a table of code fragments where indexi
 
     ... 5 CMD @ EXECUTE ...
 
-The definitions of the table building words are:  
+このテーブルを構築するワードの定義は以下の通りです。
 
     CREATE CMD-TABLE \ table for command execution tokens  
        100 CELLS ALLOT 
@@ -1124,9 +1030,7 @@ The definitions of the table building words are:
     : CMD ( n -- a-addr ) \ nth element address in table 
        CELLS CMD-TABLE + ; 
 
-As a further example, a defining word can be created to allow performance monitoring. In the example  below, the number of times a word is executed is counted. : must first be renamed to allow the definition of  the new ;.
-
-さらなる例として、パフォーマンス・モニターを可能にする定義ワードを作成することができます。以下の例では、ワードの実行回数をカウントしています。
+さらなる例として、パフォーマンス・モニタを可能にする定義ワードを作成することができます。以下の例では、あるワードの実行回数をカウントしています。`:`の名前を最初に変えて、`;`の新しい定義を可能としています。
 
     : DOCOLON ( -- ) 
     \ Modify CREATEd word to execute like a colon def 
@@ -1143,9 +1047,7 @@ As a further example, a defining word can be created to allow performance monito
         :NONAME             \ begin unnamed colon definition 
     ;
 
-(Note the placement of DOES>: DOES> must modify the CREATEd word and not the :NONAME definition, so DOES> must execute before :NONAME.)  
-
-(DOES>の配置に注:  DOES>は:NONAMEの定義ではなくCREATEdのワードを変更しなければならないので、DOES>は:NONAMEの前に実行されなければならない)。
+(`DOES>`の配置に注意。  `DOES>`は`:NONAME`の定義ではなく`CREATE`されたワードを変更しなければならないので、`DOES>`は`:NONAME`の前に実行されなければならない)。
 
     OLD: ; ( a-addr xt colon-sys -- )  
     \ ends an execution-counting colon definition ) 
@@ -1153,15 +1055,11 @@ As a further example, a defining word can be created to allow performance monito
         SWAP CELL+ ! \ save execution token 
     ; IMMEDIATE 
 
-The new : and ; are used just like the standard ones to define words:  
-
 新しい`:`と`;`は、ワードを定義するために標準的なものと同じように使用されます。
 
     ... : xxx ... ; ... xxx ...
 
-Now however, these words may be "ticked" to retrieve the count (and execution token):  
-
-しかし現在では、これらのワードを "チック"してカウント(と実行トークン)を取り出すことができます。
+しかし現在では、これらのワードを "チック" してカウント(と実行トークン)を取り出すことができます。
 
     ... ' xxx >BODY ? ...
 
@@ -1169,17 +1067,15 @@ Now however, these words may be "ticked" to retrieve the count (and execution to
 
 Typical use: 
 
-    : FACTORIAL ( +n1 -- +n2 ) 1 SWAP 1+ ?DO I * LOOP ; 
+    : FACTORIAL ( +n1 -- +n2 )  1 SWAP 1+ ?DO  I *  LOOP ; 
 
-This word was added in response to many requests for a resolution of the difficulty introduced by Forth-83's  DO, which on a 16-bit system will loop 65,535 times if given equal arguments. As this Standard also  encourages 32-bit systems, this behavior can be intolerable. The Technical Committee considered applying  these semantics to DO, but declined on the grounds that it might break existing code.
-
-このワードは、Forth-83のDOによってもたらされた難題を解決してほしいという多くの要望に応えて追加されたもので、16ビット・システム上では、等しい引数が与えられると65,535回ループしてしまいます。本標準は32ビット・システムも推奨しているため、この動作は耐え難いものです。技術委員会はこれらのセマンティクスをDOに適用することを検討したが、既存のコードを壊すかもしれないという理由で断念した。
+このワードは、Forth-83の`DO`によってもたらされた難題「16ビットシステム上で、等しい引数が与えられると65,535回ループしてしまう」を解決してほしいという多くの要望に応えて追加されたものです。本標準は32ビット・システムも推奨しているため、この動作は耐え難いものです。技術委員会はこれらのセマンティクスをDOに適用することを検討しましたが、既存のコードを壊すかもしれないという理由でそれは断念しました。
 
 #### A.6.2.0700 AGAIN 
 
 Typical use: : X ... BEGIN ... AGAIN ... ; 
 
-Unless word-sequence has a way to terminate, this is an endless loop.
+ワード列中に終了させる方法がない限り、これは無限ループとなります。
 
 #### A.6.2.0855 C" 
 
@@ -3171,7 +3067,7 @@ Beginning the top-down design process, here’s how we would like to use 2ARRAY:
 
 In the first case, we are defining an array 100 elements long, whose name is RAW. In the second, the array is 50 elements long, and is named REFINED. In each case, a size parameter is supplied to 2ARRAY on the data stack (Forth’s text interpreter automatically puts numbers there when it encounters them), and the name  of the word immediately follows. This order is typical of Forth defining words.
 
-最初のケースでは、長さ100要素の配列を定義しており、その名前はRAWです。2番目のケースでは、配列の長さは50要素で、名前はREFINEDです。いずれの場合も、サイズ・パラメーターがデータスタック上の2ARRAYに供給され(Forthのテキストインタプリタは、数字に遭遇すると自動的にそこに数字を置く)、その直後にワードの名前が続きます。この順序は、Forthがワードを定義するときの典型的な順序です。
+最初のケースでは、長さ100要素の配列を定義しており、その名前はRAWです。2番目のケースでは、配列の長さは50要素で、名前はREFINEDです。いずれの場合も、サイズ・パラメータがデータスタック上の2ARRAYに供給され(Forthのテキストインタプリタは、数字に遭遇すると自動的にそこに数字を置く)、その直後にワードの名前が続きます。この順序は、Forthがワードを定義するときの典型的な順序です。
 
 When we use RAW or REFINED, we would like to supply on the stack the index of the element we want,  and get back the address of that element on the stack. Such a reference would characteristically take place  in a loop. Here’s a representative loop that accepts a two-cell value from a hypothetical application word  DATA and stores it in the next element of RAW:
 
@@ -4128,7 +4024,7 @@ Forth の歴史の中で、驚くほど多様な実装技術が開発されて�
 
 Traditionally, Forth definitions have consisted of the name of the Forth word, a dictionary search link, data  describing how to execute the definition, and parameters describing the definition itself. These components  are called the name, link, code, and parameter fields^^X . No method for accessing these fields has been found that works across all of the Forth implementations currently in use. Therefore, ANS Forth severely restricts  how the fields may be used. Specifically, a portable ANS Forth program may not use the name, link, or  code field in any way. Use of the parameter field (renamed to data field for clarity) is limited to the  operations described below.
 
-従来、Forth定義は、Forthワードの名前、辞書検索リンク、定義の実行方法を記述するデータ、および定義自体を記述するパラメータで構成されていました。これらの構成要素は、名前、リンク、コード、パラメーター・フィールドと呼ばれます^^X。これらのフィールドにアクセスする方法は、現在使用されているすべての Forth 実装で動作するものは見つかっていません。そのため、ANS Forthはフィールドの使用方法を厳しく制限しています。具体的には、移植可能な ANS Forth プログラムは、name、link、code フィールドを一切使用できません。パラメータフィールド(わかりやすくするためにデータフィールドと改名された)の使用は、以下に説明する操作に限定されます。
+従来、Forth定義は、Forthワードの名前、辞書検索リンク、定義の実行方法を記述するデータ、および定義自体を記述するパラメータで構成されていました。これらの構成要素は、名前、リンク、コード、パラメータ・フィールドと呼ばれます^^X。これらのフィールドにアクセスする方法は、現在使用されているすべての Forth 実装で動作するものは見つかっていません。そのため、ANS Forthはフィールドの使用方法を厳しく制限しています。具体的には、移植可能な ANS Forth プログラムは、name、link、code フィールドを一切使用できません。パラメータフィールド(わかりやすくするためにデータフィールドと改名された)の使用は、以下に説明する操作に限定されます。
 
 ^^X{These terms are not defined in the Standard. They are mentioned here for historical continuity.
 ^^}
