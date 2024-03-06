@@ -2,14 +2,15 @@
 
 多くの既存のForthシステムでは、これらの領域は`HERE`か、そのすぐ先にあり、それゆえに多くの制限があります。
 
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mn>2</mn>
-  <mi>n</mi>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mfenced><mrow><mn>2</mn>
+    <mi>n</mi>
+    </mrow></mfenced>
   <mo>+</mo>
-  <mn>b</mn>
-</math>
+  <mn>2</mn>
+</math>は、先頭のマイナス記号と末尾の空白を含み、区切り文字を含まない最大の倍長2進数の文字列表現を含む文字列のサイズです。</p>
 
-*(2\*\*n)+2*は、先頭のマイナス記号と末尾の空白を含み、区切り文字を含まない最大の倍長2進数の文字列表現を含む文字列のサイズです。
+$(2n)+2$は、先頭のマイナス記号と末尾の空白を含み、区切り文字を含まない最大の倍長2進数の文字列表現を含む文字列のサイズです。
 
 Implementation note: Since the minimum value of *n* is 16, the absolute minimum size of the pictured  numeric output string is 34 characters. But if your implementation has a larger *n*, you must also increase the  size of the pictured numeric output string.
 
