@@ -428,7 +428,7 @@ Forthの制御フローは、厳密に構造化されたプログラミングで
 
 ### A.3.3 The Forth dictionary 
 
-標準プログラムは、標準語を非標準の定義を用いて再定義することができます。プログラムは依然として標準であるが(どの標準システム上でも構築できるので)、 その効果は、結合された実体(標準システム＋標準プログラム)を非標準システムにしてしまうことです。
+標準プログラムは、標準ワードを非標準の定義を用いて再定義することができます。プログラムは依然として標準であるが(どの標準システム上でも構築できるので)、 その効果は、結合された実体(標準システム＋標準プログラム)を非標準システムにしてしまうことです。
 
 #### A.3.3.1 Name space 
 
@@ -496,40 +496,31 @@ Forth システムのデータ空間は、不連続な領域で構成されて�
 
 多くの既存のForthシステムでは、これらの領域は`HERE`か、そのすぐ先にあり、それゆえに多くの制限があります。
 
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mn>2</mn>
-  <mi>n</mi>
+<p><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mfenced><mrow><mn>2</mn>
+    <mi>n</mi>
+    </mrow></mfenced>
   <mo>+</mo>
-  <mn>b</mn>
-</math>
+  <mn>2</mn>
+</math>は、先頭のマイナス記号と末尾の空白を含み、区切り文字を含まない最大の倍長2進数の文字列表現を含む文字列のサイズです。</p>
 
-*(2\*\*n)+2*は、先頭のマイナス記号と末尾の空白を含み、区切り文字を含まない最大の倍長2進数の文字列表現を含む文字列のサイズです。
-
-Implementation note: Since the minimum value of *n* is 16, the absolute minimum size of the pictured  numeric output string is 34 characters. But if your implementation has a larger *n*, you must also increase the  size of the pictured numeric output string.
-
-実装上の注意:  *n*の最小値は16であるため、絵に描いたような数値出力文字列の絶対的な最小サイズは34文字です。しかし、実装で *n* を大きくする場合は、絵の数値出力文字列のサイズも大きくする必要があります。
+実装上の注意:  $n$の最小値は16であるため、絵に描いたような数値出力文字列の絶対的な最小サイズは34文字です。しかし、実装で $n# を大きくする場合は、絵の数値出力文字列のサイズも大きくする必要があります。
 
 ### A.3.4 The Forth text interpreter 
 
 #### A.3.4.3 Semantics 
 
-The "initiation semantics" correspond to the code that is executed upon entering a definition, analogous to  the code executed by `EXIT` upon leaving a definition. The "run-time semantics" correspond to code  fragments, such as literals or branches, that are compiled inside colon definitions by words with explicit  compilation semantics.
+「開始セマンティクス(initiation semantics)」は、定義に入るときに実行されるコードに対応し、定義を抜けるときに `EXIT` によって実行されるコードに似ています。「実行時セマンティクス(run-time semantics)」は、明示的なコンパイルセマンティクスを持つワードによってコロン定義の内部でコンパイルされる、リテラルやブランチなどのコード断片に対応します。
 
-開始セマンティクス」は、定義に入るときに実行されるコードに対応し、定義を抜けるときに `EXIT` によって実行されるコードに似ています。実行時セマンティクス」は、明示的なコンパイル・セマンティクスを持つワードによってコロン定義の内部でコンパイルされる、リテラルやブランチなどのコード・フラグメントに対応します。
-
-In a Forth cross-compiler, the execution semantics may be specified to occur in the host system only, the  target system only, or in both systems. For example, it may be appropriate for words such as `CELLS` to  execute on the host system returning a value describing the target, for colon definitions to execute only on  the target, and for `CONSTANT` and `VARIABLE` to have execution behaviors on both systems. Details of  cross-compiler behavior are beyond the scope of this Standard.
-
-Forth クロスコンパイラでは、実行セマンティクスをホストシステムのみ、ターゲットシステムのみ、または両方のシステムで発生するように指定することができます。例えば、`CELLS`のようなワードはホストシステムで実行され、ターゲットに記述された値を返します。また、コロン定義はターゲットでのみ実行され、`CONSTANT`と`VARIABLE`は両方のシステムで実行動作を持つことが適切かもしれません。クロスコンパイラの動作の詳細は、本標準の範囲外です。
+Forth クロスコンパイラでは、実行セマンティクスをホストシステムのみ、ターゲットシステムのみ、または両方のシステムで発生するように指定することができます。例えば、`CELLS`のようなワードはホストシステムで実行され、ターゲットに記述される値を返します。また、コロン定義はターゲットでのみ実行され、`CONSTANT`と`VARIABLE`は両方のシステムで実行動作を持つことが適切かもしれません。クロスコンパイラの動作の詳細は、本標準の範囲外です。
 
 ##### A.3.4.3.2 Interpretation semantics 
 
 For a variety of reasons, this Standard does not define interpretation semantics for every word. Examples of  these words are `>R`, `."`, `DO`, and `IF`. Nothing in this Standard precludes an implementation from providing  interpretation semantics for these words, such as interactive control-flow words. However, a Standard  Program may not use them in interpretation state.
 
-さまざまな理由から、本標準ではすべてのワードの解釈セマンティクスを定義していません。これらのワードの例としては、`>R`、`."`、`DO`、`IF`などがあります。本標準のいかなる規定も、対話的制御フローワードのようなこれらの語に対する解釈セマンティクスを実装が提供することを妨げるものではありません。しかし、標準プログラムは解釈状態でこれらを使用してはなりません。
+さまざまな理由から、本標準ではすべてのワードの解釈セマンティクス(interpretation semantics)を定義していません。これらのワードの例としては、`>R`、`."`、`DO`、`IF`などがあります。本標準のいかなる規定も、対話的制御フローワードのようなこれらのワードに対する解釈セマンティクスを実装が提供することを妨げるものではありません。しかし、標準プログラムは解釈状態でこれらを使用してはなりません。
 
 #### A.3.4.5 Compilation 
-
-Compiler recursion at the definition level consumes excessive resources, especially to support locals. The  Technical Committee does not believe that the benefits justify the costs. Nesting definitions is also not  common practice and won’t work on many systems.
 
 定義レベルでのコンパイラ再帰は、特にローカルのサポートに過剰なリソースを消費します。技術委員会は、そのメリットがコストを正当化するとは考えていません。また、定義を入れ子にすることは一般的ではなく、多くのシステムでは機能しません。
 
@@ -543,13 +534,9 @@ Compiler recursion at the definition level consumes excessive resources, especia
 
 ### A.5.1 ANS Forth systems 
 
-Section 5.1 defines the criteria that a system must meet in order to justify the label "ANS Forth System".  Briefly, the minimum requirement is that the system must "implement" the Core word set. There are several  ways in which this requirement may be met. The most obvious is that all Core words may be in a pre-compiled kernel. This is not the only way of satisfying the requirement, however. For example, some  words may be provided in source blocks or files with instructions explaining how to add them to the system  if they are needed. So long as the words are provided in such a way that the user can obtain access to them  with a clear and straightforward procedure, they may be considered to be present.
-
 セクション5.1では、「ANS Forth System」というラベルを正当化するためにシステムが満たすべき基準を定義しています。 簡単に説明すると、最小要件は、システムがCoreワードセットを「実装」していることです。この要件を満たすには、いくつかの方法があります。最も明白なのは、すべてのCoreワードがコンパイル済みのカーネルに含まれていることです。しかし、要件を満たす方法はこれだけではありません。例えば、いくつかのワードはソースブロックやファイルで提供され、それらが必要な場合にシステムに追加する方法を説明した説明書が付いていてもよいです。ユーザが明確でわかりやすい手順でアクセスできるような方法でワードが提供されている限り、ワードは存在するとみなすことができます。
 
-A Forth cross-compiler has many characteristics in common with an ANS Forth System, in that both use  similar compiling tools to process a program. However, in order to fully specify an ANS Forth cross  compiler it would be necessary to address complex issues dealing with compilation and execution semantics  in both host and target environments as well as ROMability issues. The level of effort to do this properly  has proved to be impractical at this time. As a result, although it may be possible for a Forth cross-compiler  to correctly prepare an ANS Forth program for execution in a target environment, it is inappropriate for a  cross-compiler to be labeled an ANS Forth System.
-
-Forth クロスコンパイラと ANS Forth システムには、プログラムを処理するために同様のコンパイルツールを使用するという点で、多くの共通点があります。しかし、ANS Forthクロスコンパイラを完全に仕様化するには、ホスト環境とターゲット環境の両方におけるコンパイルと実行のセマンティクス、およびROM互換性の問題を扱う複雑な問題に対処する必要があります。これを適切に行うための労力は、現時点では非現実的であることが判明しています。その結果、ForthクロスコンパイラがANS Forthプログラムをターゲット環境で実行できるように正しく準備することは可能かもしれませんが、クロスコンパイラにANS Forth Systemのラベルを付けることは不適切です。
+Forth クロスコンパイラと ANS Forth システムには、プログラムを処理するために同様のコンパイルツールを使用するという点で、多くの共通点があります。しかし、ANS Forthクロスコンパイラを完全に仕様化するには、ホスト環境とターゲット環境の両方におけるコンパイルと実行のセマンティクス、およびROM化の問題を扱う複雑な問題に対処する必要があります。これを適切に行うための労力は、現時点では非現実的であることが判明しています。その結果、ForthクロスコンパイラがANS Forthプログラムをターゲット環境で実行できるように正しく準備することは可能かもしれませんが、クロスコンパイラにANS Forth Systemのラベルを付けることは適切ではありません。
 
 ### A.5.2 ANS Forth programs 
 
@@ -790,11 +777,11 @@ Typical use: : `X ... test IF ... ELSE ... THEN ;`
 
 In a Standard System that contains only the Core word set, effective use of ENVIRONMENT? requires either  its use within a definition, or the use of user-supplied auxiliary definitions. The Core word set lacks both a  direct method for collecting a string in interpretation state (**11.6.1.2165  `S"`** is in an optional word set) and  also a means to test the returned flag in interpretation state (e.g. the optional 15.6.2.2532 `[IF]`).
 
-Core語集合のみを含む標準システムでは、ENVIRONMENT?を効果的に使用するには、定義内で使用するか、ユーザが提供する補助定義を使用する必要があります。Core語集合には、解釈状態で文字列を収集する直接的な方法(**11.6.1.2165 `S"`**はオプションの語集合にある)と、解釈状態で返されたフラグをテストする手段(オプションの15.6.2.2532 `[IF]`など)の両方が欠けています。
+Coreワード集合のみを含む標準システムでは、ENVIRONMENT?を効果的に使用するには、定義内で使用するか、ユーザが提供する補助定義を使用する必要があります。Coreワード集合には、解釈状態で文字列を収集する直接的な方法(**11.6.1.2165 `S"`**はオプションのワード集合にある)と、解釈状態で返されたフラグをテストする手段(オプションの15.6.2.2532 `[IF]`など)の両方が欠けています。
 
 The combination of **6.1.1345 ENVIRONMENT?**, **11.6.1.2165 `S"`**, **15.6.2.2532 `[IF]`**, **15.6.2.2531 `[ELSE]`**,  and **15.6.2.2533 `[THEN]`** constitutes an effective suite of words for conditional compilation that works in  interpretation state.
 
-**6.1.1345 ENVIRONMENT?**, **11.6.1.2165 `S"`**, **15.6.2.2532 `[IF]`**, **15.6.2.2531 `[ELSE]`**, **15.6.2.2533 `[THEN]`** の組み合わせは、解釈状態において機能する条件付きコンパイルのための効果的な語群を構成します。
+**6.1.1345 ENVIRONMENT?**, **11.6.1.2165 `S"`**, **15.6.2.2532 `[IF]`**, **15.6.2.2531 `[ELSE]`**, **15.6.2.2533 `[THEN]`** の組み合わせは、解釈状態において機能する条件付きコンパイルのための効果的なワード群を構成します。
 
 #### A.6.1.1360 `EVALUATE` 
 
@@ -826,7 +813,7 @@ Type 3 mechanisms and optimizations of type 2 implementations were hampered by t
 
 コンパイルアドレスが辞書にコンパイルされるという最初の要件(Forth 83から継承)は、タイプ2やタイプ3の実装を認めませんでした。
 
-タイプ3のメカニズムやタイプ2の実装の最適化は、すべての標準語の即時性または非即時性の明示的な指定によって妨げられていました。POSTPONEでは、STATEに依存しない動作が必要な一部のForth語を除き、即時性または非即時性の指定を解除することができた。
+タイプ3のメカニズムやタイプ2の実装の最適化は、すべての標準ワードの即時性または非即時性の明示的な指定によって妨げられていました。POSTPONEでは、STATEに依存しない動作が必要な一部のForthワードを除き、即時性または非即時性の指定を解除することができた。
 
 One type 3 implementation, Charles Moore's cmForth, has both compiling and interpreting versions of  many Forth words. At the present, this appears to be a common approach for type 3 implementations. The  Committee felt that this implementation approach must be allowed. Consequently, it is possible that words  without interpretation semantics can be found only during compilation, and other words may exist in two  versions: a compiling version and an interpreting version. Hence the values returned by FIND may depend  on `STATE`, and ` and `[']` may be unable to find words without interpretation semantics.
 
@@ -840,7 +827,7 @@ Forth 83 は、"floored" 除算の要件を導入することで、ホスト CPU
 
 The Technical Committee considered providing two complete sets of explicitly named division operators,  and declined to do so on the grounds that this would unduly enlarge and complicate the Standard. Instead,  implementors may define the normal division words in terms of either `FM/MOD` or `SM/REM` providing they  document their choice. People wishing to have explicitly named sets of operators are encouraged to do so.  `FM/MOD` may be used, for example, to define:
 
-技術委員会は、明示的に命名された2つの除算演算子の完全なセットを提供することを検討したが、これは規格を不当に拡大し複雑にするという理由で、そのようなことはしなかった。その代わりに、実装者は通常の除算語を `FM/MOD` または `SM/REM` のどちらかで定義することができます。明示的に命名された演算子のセットを持ちたい人は、そうすることを推奨します。 FM/MOD`は例えば次のように定義するために使用することができます。
+技術委員会は、明示的に命名された2つの除算演算子の完全なセットを提供することを検討したが、これは規格を不当に拡大し複雑にするという理由で、そのようなことはしなかった。その代わりに、実装者は通常の除算ワードを `FM/MOD` または `SM/REM` のどちらかで定義することができます。明示的に命名された演算子のセットを持ちたい人は、そうすることを推奨します。 FM/MOD`は例えば次のように定義するために使用することができます。
 
     : /_MOD ( n1 n2 -- n3 n4) >R S>D R> FM/MOD ; 
     : /_ ( n1 n2 -- n3) /_MOD SWAP DROP ; 
@@ -940,7 +927,7 @@ Consequently, Forth standards have had to specify the immediacy or non-immediacy
 
 A second problem with COMPILE is that some programmers have come to expect and exploit a particular  implementation, namely:  
 
-POSTPONEはCOMPILEと[COMPILE]の機能のほとんどを置き換えます。COMPILEと[COMPILE]は同じ目的で使用され、解析領域内の次のワードのコンパイル動作を延期します。COMPILEは非即値語に、[COMPILE]は即値語に適用されるように設計されています。このため、プログラマはシステム内のどのワードが即時ワードであるかを知る必要があり、負担が大きい。
+POSTPONEはCOMPILEと[COMPILE]の機能のほとんどを置き換えます。COMPILEと[COMPILE]は同じ目的で使用され、解析領域内の次のワードのコンパイル動作を延期します。COMPILEは非即値ワードに、[COMPILE]は即値ワードに適用されるように設計されています。このため、プログラマはシステム内のどのワードが即時ワードであるかを知る必要があり、負担が大きい。
 
 その結果、Forth標準は、標準がカバーするすべてのワードの即時性または非即時性を指定しなければなりませんでした。これは、実装者を不必要に制約することになります。
 
@@ -1195,7 +1182,7 @@ The definitions of the table building words are:
 
 As a further example, a defining word can be created to allow performance monitoring. In the example  below, the number of times a word is executed is counted. : must first be renamed to allow the definition of  the new ;.
 
-さらなる例として、パフォーマンス・モニターを可能にする定義語を作成することができます。以下の例では、ワードの実行回数をカウントしています。
+さらなる例として、パフォーマンス・モニターを可能にする定義ワードを作成することができます。以下の例では、ワードの実行回数をカウントしています。
 
     : DOCOLON ( -- ) 
     \ Modify CREATEd word to execute like a colon def 
@@ -1256,11 +1243,11 @@ Typical use: : X ... C" ccc" ... ;
 
 It is easy to convert counted strings to pointer/length but hard to do the opposite. C" is the only new word  that uses the "address of counted string" stack representation. It is provided as an aid to porting existing  programs to ANS Forth systems. It is relatively difficult to implement C" in terms of other standard words,  considering its "compile string into the current definition" semantics.
 
-カウントされた文字列をポインタ／長さに変換するのは簡単だが、その逆は難しい。`C"`は、「カウント文字列のアドレス」スタック表現を使用する唯一の新しいワードです。これは、既存のプログラムをANS Forthシステムに移植するための補助として提供されます。`C"`の「文字列を現在の定義にコンパイルする」というセマンティクスを考慮すると、他の標準語の観点から`C"`を実装することは比較的困難です。
+カウントされた文字列をポインタ／長さに変換するのは簡単だが、その逆は難しい。`C"`は、「カウント文字列のアドレス」スタック表現を使用する唯一の新しいワードです。これは、既存のプログラムをANS Forthシステムに移植するための補助として提供されます。`C"`の「文字列を現在の定義にコンパイルする」というセマンティクスを考慮すると、他の標準ワードの観点から`C"`を実装することは比較的困難です。
 
 Users of C" are encouraged to migrate their application code toward the consistent use of the preferred "c-addr u" stack representation with the alternate word S". This may be accomplished by converting application words with counted string input arguments to use the preferred "c-addr u" representation, thus  eliminating the need for C" .
 
-`C"`のユーザは、代替語`S"`を使用した好ましい "c-addr u"スタック表現の一貫した使用に向けて、アプリケーションコードを移行することが推奨されます。これは、カウントされた文字列入力引数を持つアプリケーションワードを、好ましい "c-addr u "表現を使用するように変換することによって達成することができます。
+`C"`のユーザは、代替ワード`S"`を使用した好ましい "c-addr u"スタック表現の一貫した使用に向けて、アプリケーションコードを移行することが推奨されます。これは、カウントされた文字列入力引数を持つアプリケーションワードを、好ましい "c-addr u "表現を使用するように変換することによって達成することができます。
 
 See: **A.3.1.3.4 Counted strings**.
 
@@ -1414,7 +1401,7 @@ b) `WORD`はその結果をカウントされた文字列として返します�
 
 The behavior of WORD with respect to skipping leading delimiters is useful for parsing blank-delimited  names. Many system implementations include an additional word for this purpose, similar to PARSE with  respect to the "c-addr u" return value, but without an explicit delimiter argument (the delimiter set is  implicitly "white space"), and which does skip leading delimiters. A common description for this word is:  
 
-先頭の区切り文字をスキップする`WORD`の動作は、空白で区切られた名前の解析に有用です。多くのシステム実装では、この目的のために、"c-addr u" 戻り値に関しては`PARSE`に似ているが、明示的なデリミタ引数を持たず(デリミタセットは暗黙的に "空白" である)、先頭のデリミタをスキップする追加語を含んでいる。このワードの一般的な説明は以下の通りです。
+先頭の区切り文字をスキップする`WORD`の動作は、空白で区切られた名前の解析に有用です。多くのシステム実装では、この目的のために、"c-addr u" 戻り値に関しては`PARSE`に似ているが、明示的なデリミタ引数を持たず(デリミタセットは暗黙的に "空白" である)、先頭のデリミタをスキップする追加ワードを含んでいる。このワードの一般的な説明は以下の通りです。
 
     PARSE-WORD ( "<spaces>name" -- c-addr u )  
 
@@ -1740,11 +1727,11 @@ Several similar Forth "multi-level `EXIT`" exception-handling schemes have been 
 
 THROW also provides a convenient implementation technique for the standard words `ABORT` and `ABORT"`,  allowing an application to define, through the use of CATCH, the behavior in the event of a system `ABORT`.
 
-THROWはまた、標準語の`ABORT`と`ABORT"`の便利な実装手法を提供し、アプリケーションがシステムの`ABORT`が発生した場合の動作をCATCHを使用して定義することを可能にします。
+THROWはまた、標準ワードの`ABORT`と`ABORT"`の便利な実装手法を提供し、アプリケーションがシステムの`ABORT`が発生した場合の動作をCATCHを使用して定義することを可能にします。
 
 This sample implementation of `CATCH` and `THROW` uses the non-standard words described below. They or  their equivalents are available in many systems. Other implementation strategies, including directly saving  the value of `DEPTH`, are possible if such words are not available.
 
-この `CATCH` と `THROW` のサンプル実装では、以下に説明する非標準語を使用しています。これらまたは同等のものは多くのシステムで利用可能です。`DEPTH` の値を直接保存するなど、他の実装方法も可能です。
+この `CATCH` と `THROW` のサンプル実装では、以下に説明する非標準ワードを使用しています。これらまたは同等のものは多くのシステムで利用可能です。`DEPTH` の値を直接保存するなど、他の実装方法も可能です。
 
 <miniterm>
 
@@ -1829,7 +1816,7 @@ Another solution is to execute `CATCH` within `QUIT`, so that there is always an
  
 This example assumes the existance of a system-implementation word `INTERPRET` that embodies the text  interpreter semantics described in 3.4 The Forth text interpreter. Note that this implementation of `QUIT` automatically handles the emptying of the stack and return stack, due to `THROW`’s inherent restoration of the  data and return stacks. Given this definition of `QUIT`, it’s easy to define:  
 
-この例では、3.4 The Forth text interpreter で説明したテキストインタプリタのセマンティクスを具現化するシステ ム実装語 `INTERPRET` が存在することを想定しています。この `QUIT` の実装では、 `THROW` 固有のデータスタックとリターンスタックの復元により、スタックとリターンスタックが空になることを自動的に処理することに注意してください。この `QUIT` の定義があれば、簡単に定義できます。  
+この例では、3.4 The Forth text interpreter で説明したテキストインタプリタのセマンティクスを具現化するシステム実装ワード `INTERPRET` が存在することを想定しています。この `QUIT` の実装では、 `THROW` 固有のデータスタックとリターンスタックの復元により、スタックとリターンスタックが空になることを自動的に処理することに注意してください。この `QUIT` の定義があれば、簡単に定義できます。  
 
     : ABORT -1 THROW ; 
 
@@ -1852,7 +1839,7 @@ No change to `THROW` is necessary in this case. Note that, as with all redefinit
 
 One important use of an exception handler is to maintain program control under many conditions which  `ABORT`. This is practicable only if a range of codes is reserved. Note that an application may overload  many standard words in such a way as to `THROW` ambiguous conditions not normally `THROW`n by a  particular system.
 
-例外ハンドラの重要な使用法の1つは、`ABORT`が発生する多くの条件下でプログラ ムの制御を維持することです。これは、コードの範囲が予約されている場合にのみ実行可能です。アプリケーションは、特定のシステムでは通常 `THROW`n されない曖昧な状態を `THROW` するように、多くの標準語をオーバーロードする可能性があることに注意してください。
+例外ハンドラの重要な使用法の1つは、`ABORT`が発生する多くの条件下でプログラ ムの制御を維持することです。これは、コードの範囲が予約されている場合にのみ実行可能です。アプリケーションは、特定のシステムでは通常 `THROW`n されない曖昧な状態を `THROW` するように、多くの標準ワードをオーバーロードする可能性があることに注意してください。
 
 #### A.9.3.6 Exception handling 
 
@@ -2170,7 +2157,7 @@ Typical use: ... S" ccc" ...
 
 The interpretation semantics for `S"` are intended to provide a simple mechanism for entering a string in the  interpretation state. Since an implementation may choose to provide only one buffer for interpreted strings,  an interpreted string is subject to being overwritten by the next execution of `S"` in interpretation state. It is  intended that no standard words other than `S"` should in themselves cause the interpreted string to be  overwritten. However, since words such as `EVALUATE`, `LOAD`, `INCLUDE-FILE` and `INCLUDED` can  result in the interpretation of arbitrary text, possibly including instances of `S"`, the interpreted string may be  invalidated by some uses of these words.
 
-`S"`の解釈セマンティクスは、解釈状態に文字列を入力するための単純なメカニズムを提供することを意図しています。実装は解釈された文字列のためのバッファを1つだけ提供することを選ぶかもしれないので、解釈された文字列は解釈状態の`S"`の次の実行によって上書きされる可能性があります。`S"`以外の標準語は、それ自体で解釈文字列を上書きしないように意図されています。しかし、`EVALUATE`、`LOAD`、`INCLUDE-FILE`、`INCLUDED` などのワードは任意のテキストを解釈する可能性があり、その中には `S"` のインスタンスも含まれる可能性があるため、これらのワードの使用によっては解釈された文字列が無効になる可能性があります。
+`S"`の解釈セマンティクスは、解釈状態に文字列を入力するための単純なメカニズムを提供することを意図しています。実装は解釈された文字列のためのバッファを1つだけ提供することを選ぶかもしれないので、解釈された文字列は解釈状態の`S"`の次の実行によって上書きされる可能性があります。`S"`以外の標準ワードは、それ自体で解釈文字列を上書きしないように意図されています。しかし、`EVALUATE`、`LOAD`、`INCLUDE-FILE`、`INCLUDED` などのワードは任意のテキストを解釈する可能性があり、その中には `S"` のインスタンスも含まれる可能性があるため、これらのワードの使用によっては解釈された文字列が無効になる可能性があります。
 
 When the possibility of overwriting a string can arise, it is prudent to copy the string to a "safe" buffer  allocated by the application.
 
@@ -2184,7 +2171,7 @@ Programs wishing to parse in the fashion of `S"` are advised to use `PARSE` or `
 
 The Technical Committee has considered many proposals dealing with the inclusion and makeup of the  Floating-Point Word Sets in ANS Forth. Although it has been argued that ANS Forth should not address  floating-point arithmetic and numerous Forth applications do not need floating-point, there are a growing  number of important Forth applications from spread sheets to scientific computations that require the use of  floating-point arithmetic. Initially the Technical Committee adopted proposals that made the Forth Vendors  Group Floating-Point Standard, first published in 1984, the framework for inclusion of Floating-Point in  ANS Forth. There is substantial common practice and experience with the Forth Vendors Group Floating-Point Standard. Subsequently the Technical Committee adopted proposals that placed the basic floating-point arithmetic, stack and support words in the Floating-Point word set and the floating-point  transcendental functions in the Floating-Point Extensions word set. The Technical Committee also adopted  proposals that:  
 
-技術委員会は、ANS Forth における浮動小数点ワードセットの組み込みと構成に関する多くの提案を検討してきました。ANS Forthは浮動小数点演算に対応すべきではなく、多数のForthアプリケーションは浮動小数点を必要としないと主張されてきましたが、表計算シートから科学計算まで、浮動小数点演算の使用を必要とする重要なForthアプリケーションが増えています。当初、技術委員会は、1984 年に初めて発行された Forth Vendors Group Floating-Point Standard を ANS Forth に浮動小数点を組み込むための枠組みとする提案を採択しました。Forth Vendors Group Floating-Point Standardを使用した一般的な慣行と経験はかなりあります。その後、技術委員会は、基本的な浮動小数点演算、スタック、およびサポート語を浮動小数点ワードセットに、浮動小数点超越関数を浮動小数点拡張ワードセットに配置する提案を採択しました。技術委員会はまた、以下の提案も採択した。  
+技術委員会は、ANS Forth における浮動小数点ワードセットの組み込みと構成に関する多くの提案を検討してきました。ANS Forthは浮動小数点演算に対応すべきではなく、多数のForthアプリケーションは浮動小数点を必要としないと主張されてきましたが、表計算シートから科学計算まで、浮動小数点演算の使用を必要とする重要なForthアプリケーションが増えています。当初、技術委員会は、1984 年に初めて発行された Forth Vendors Group Floating-Point Standard を ANS Forth に浮動小数点を組み込むための枠組みとする提案を採択しました。Forth Vendors Group Floating-Point Standardを使用した一般的な慣行と経験はかなりあります。その後、技術委員会は、基本的な浮動小数点演算、スタック、およびサポートワードを浮動小数点ワードセットに、浮動小数点超越関数を浮動小数点拡張ワードセットに配置する提案を採択しました。技術委員会はまた、以下の提案も採択した。  
 
 - changed names for clarity and consistency; e.g., `REALS` to `FLOATS`, and `REAL+` to `FLOAT+` .
 - removed words; e.g., `FPICK` .
@@ -2522,7 +2509,7 @@ See: **A.6.2.2295 TO**.
 
 A possible implementation of this word and an example of usage is given in A.13, above. It is intended as  an example only; any implementation yielding the described semantics is acceptable.
 
-この語の可能な実装と使用例は、上記のA.13に示されています。これはあくまで例であり、記述されたセマンティクスを実現する実装であれば、どのようなものでも構いません。
+このワードの可能な実装と使用例は、上記のA.13に示されています。これはあくまで例であり、記述されたセマンティクスを実現する実装であれば、どのようなものでも構いません。
 
 ## A.14 The optional Memory-Allocation word set 
 
@@ -2576,7 +2563,7 @@ Typical use: : namex ... &lt;create> ... ;CODE ...
 
 where namex is a defining word, and &lt;create> is CREATE or any user defined word that calls `CREATE`.
 
-ここで、namex は定義語で、&lt;create> は `CREATE` または `CREATE` を呼び出すユーザ定義語です。
+ここで、namex は定義ワードで、&lt;create> は `CREATE` または `CREATE` を呼び出すユーザ定義ワードです。
 
 ##### A.15.6.2.0930 CODE 
 
@@ -2693,7 +2680,7 @@ The encoding for word list identifiers wid might be a small-integer index into a
 
 検索順序の指定と制御機構は大きく異なります。FIG-Forth、Forth-79、polyFORTH、Forth-83の語彙と検索順序メカニズムは、すべて相互に互換性がありません。使用されている、あるいは提案されている互換性のないメカニズムの完全なリストは、もっと長い。Forth-83 Experimental Proposalに記述されているALSO/ONLYスキームは、コミュニティから大きな支持を得ています。しかし、多くの人が根本的な欠陥があると考え、激しく反対しています。
 
-このばらつきを認識し、本標準は、さまざまなスキームを構築することができる新しい「原始的な」ツールセットを規定します。この原始的な検索語集合は、ユーザインターフェースではなく、検索語を構築するための移植可能な "構築集合"であることを意図しています。ALSO/ONLYや主要なForthベンダーがサポートする様々な "語彙"スキームは、原始的な検索順序ワードセットで定義することができます。
+このばらつきを認識し、本標準は、さまざまなスキームを構築することができる新しい「原始的な」ツールセットを規定します。この原始的な検索ワードセットは、ユーザインターフェースではなく、検索ワードを構築するための移植可能な "構築集合"であることを意図しています。ALSO/ONLYや主要なForthベンダーがサポートする様々な "語彙"スキームは、原始的な検索順序ワードセットで定義することができます。
 
 ワードリスト識別子のエンコーディングは、ワードリスト定義レコードの配列への小整数のインデックス、そのようなレコードのデータ空間アドレス、ユーザ領域のオフセット、Forth-83スタイルの封印された語彙の実行トークン、ワードリストの最初の定義のリンクフィールドアドレス、または他のものであるかもしれません。 システム実装者次第です。
 
@@ -2750,7 +2737,7 @@ SEARCH-WORDLISTがワードを見つけられなかった場合、FINDのよう�
 
 Here is an implementation of ALSO/ONLY in terms of the primitive search-order word set.
 
-以下は、プリミティブ検索語集合の観点から ALSO/ONLY を実装したものです。
+以下は、プリミティブ検索ワードセットの観点から ALSO/ONLY を実装したものです。
 
     WORDLIST CONSTANT ROOT ROOT SET-CURRENT  
     : DO-VOCABULARY ( -- ) \ Implementation factor 
@@ -2986,7 +2973,7 @@ Forth’s extensibility goes beyond just adding new commands to the language. Wi
 
 Most professional implementations of Forth are written in Forth. Many Forth systems include a "meta-compiler" which allows the user to modify the internal structure of the Forth system itself.
 
-Forthの拡張性は、単に新しいコマンドを追加するだけではありません。同じように簡単に、新しい種類のワードを追加することもできます。つまり、ワードを定義するワードを作成することができます。このような定義語を作成する際、プログラマは、コンパイル時、実行時、またはその両方において有効な、作成する語の特殊な動作を指定することができます。この機能により、構造と動作の両方を完全に制御して、特殊なデータ型を定義することができます。このようなワードの実行時の動作は、高レベルでもコードでも定義できるため、この新しい定義ワードによって作成されるワードは、性能的には他のすべての種類のForthワードと同等です。さらに、特殊なループやその他の制御構造を実装するために、新しいコンパイラ指令を追加することさえ簡単です。
+Forthの拡張性は、単に新しいコマンドを追加するだけではありません。同じように簡単に、新しい種類のワードを追加することもできます。つまり、ワードを定義するワードを作成することができます。このような定義ワードを作成する際、プログラマは、コンパイル時、実行時、またはその両方において有効な、作成するワードの特殊な動作を指定することができます。この機能により、構造と動作の両方を完全に制御して、特殊なデータ型を定義することができます。このようなワードの実行時の動作は、高レベルでもコードでも定義できるため、この新しい定義ワードによって作成されるワードは、性能的には他のすべての種類のForthワードと同等です。さらに、特殊なループやその他の制御構造を実装するために、新しいコンパイラ指令を追加することさえ簡単です。
 
 Forthの専門的な実装のほとんどは、Forthで書かれています。多くのForthシステムには、ユーザがForthシステム自体の内部構造を変更できる「メタ・コンパイラ」が含まれています。
 
@@ -3049,7 +3036,7 @@ Forth 83が広く受け入れられたことに後押しされ、1986年にユ�
 
 Forth is an English-like language whose elements (called "words") are named data items, procedures, and  defining words capable of creating data items with customized characteristics. Procedures and defining  words may be defined in terms of previously defined words or in machine code, using an embedded  assembler.
 
-Forthは英語ライクな言語であり、その要素(「ワード」と呼ばれる)は、名前付きデータ項目、手続き、およびカスタマイズされた特性を持つデータ項目を作成できる定義語です。手続きや定義語は、以前に定義された語や、組み込みアセンブラを使用した機械語コードで定義することができます。
+Forthは英語ライクな言語であり、その要素(「ワード」と呼ばれる)は、名前付きデータ項目、手続き、およびカスタマイズされた特性を持つデータ項目を作成できる定義ワードです。手続きや定義ワードは、以前に定義されたワードや、組み込みアセンブラを使用した機械語コードで定義することができます。
 
 Forth "words" are functionally analogous to subroutines in other languages. They are also equivalent to  commands in other languages - Forth blurs the distinction between linguistic elements and functional  elements.
 
@@ -3089,7 +3076,7 @@ Forth プログラムは、システムで使用されるメモリの大部分�
 
 Words are added to the dictionary by "defining words", of which the most commonly used is : (colon).  
 
-ワードは「定義語」によって辞書に追加されます。 
+ワードは「定義ワード」によって辞書に追加されます。 
 
 When : is executed, it constructs a definition for the word that follows it. In classical implementations,^^X content of this definition is a string of addresses of previously defined words which will be executed in turn  whenever the word being defined is invoked. The definition is terminated by ; (semicolon). For example,  here is a definition:  
 
@@ -3168,11 +3155,11 @@ Forth辞書のほとんどのワードは、:(コロン)で定義され、アド
 
 Most implementations of Forth include a macro assembler for the CPU on which they run. By using the  defining word CODE the programmer can create a definition whose behavior will consist of executing actual  machine instructions. CODE definitions may be used to do I/O, implement arithmetic primitives, and do  other machine-dependent or time-critical processing. When using CODE the programmer has full control  over the CPU, as with any other assembler, and CODE definitions run at full machine speed.
 
-Forthのほとんどの実装には、実行するCPU用のマクロ・アセンブラが含まれています。定義語のCODEを使用することで、プログラマは実際のマシン命令を実行する動作を持つ定義を作成することができます。CODE定義は、I/O、算術プリミティブの実装、その他のマシン依存またはタイムクリティカルな処理に使用できます。CODEを使用する場合、プログラマは他のアセンブラと同様にCPUを完全に制御することができ、CODE定義は完全なマシン速度で実行されます。
+Forthのほとんどの実装には、実行するCPU用のマクロ・アセンブラが含まれています。定義ワードのCODEを使用することで、プログラマは実際のマシン命令を実行する動作を持つ定義を作成することができます。CODE定義は、I/O、算術プリミティブの実装、その他のマシン依存またはタイムクリティカルな処理に使用できます。CODEを使用する場合、プログラマは他のアセンブラと同様にCPUを完全に制御することができ、CODE定義は完全なマシン速度で実行されます。
 
 This is an important feature of Forth. It permits explicit computer-dependent code in manageable pieces  with specific interfacing conventions that are machine-independent. To move an application to a different  processor requires re-coding only the CODE words, which will interact with other Forth words in exactly the  same manner.
 
-これはForthの重要な特徴です。これはForthの重要な特徴であり、コンピュータに依存するコードを、マシンに依存しない特定のインターフェイス規則で管理可能な部分に明示的に記述することができます。アプリケーションを別のプロセッサに移行するには、CODE語だけを再コード化する必要があります。
+これはForthの重要な特徴です。これはForthの重要な特徴であり、コンピュータに依存するコードを、マシンに依存しない特定のインターフェイス規則で管理可能な部分に明示的に記述することができます。アプリケーションを別のプロセッサに移行するには、CODEワードだけを再コード化する必要があります。
 
 Forth assemblers are so compact (typically a few Kbytes) that they can be resident in the system (as are the  compiler, editor, and other programming tools). This means that the programmer can type in short CODE definitions and execute them immediately. This capability is especially valuable in testing custom  hardware.
 
@@ -3270,7 +3257,7 @@ DOES>の前の部分は、"コンパイル時" の動作、つまり、2ARRAYが
 
 Given this basic definition, one could easily modify it to do more sophisticated things. For example, the  compile-time code could be changed to initialize the array to zeros, spaces, or any other desired initial  value. The size of the array could be compiled at its beginning, so that the run-time code could compare the  index against it to ensure it is within range, or the entire array could be made to reside on disk instead of  main memory. None of these changes would affect the run-time usage we have specified in any way. This  illustrates a little of the flexibility available with these defining words.
 
-この基本的な定義があれば、もっと洗練されたことができるように簡単に変更できます。例えば、コンパイル時のコードを変更して、配列をゼロや空白、その他の任意の初期値に初期化することができます。配列のサイズを最初にコンパイルしておき、ランタイムコードがインデックスと比較して範囲内であることを確認できるようにしたり、配列全体をメインメモリではなくディスク上に置くようにしたりすることもできます。これらの変更はいずれも、我々が指定したランタイムの使用法には何ら影響を与えません。これは、これらの定義語で利用可能な柔軟性の一端を示しています。
+この基本的な定義があれば、もっと洗練されたことができるように簡単に変更できます。例えば、コンパイル時のコードを変更して、配列をゼロや空白、その他の任意の初期値に初期化することができます。配列のサイズを最初にコンパイルしておき、ランタイムコードがインデックスと比較して範囲内であることを確認できるようにしたり、配列全体をメインメモリではなくディスク上に置くようにしたりすることもできます。これらの変更はいずれも、我々が指定したランタイムの使用法には何ら影響を与えません。これは、これらの定義ワードで利用可能な柔軟性の一端を示しています。
 
 ### C.5.8 A programming example 
 
@@ -3322,7 +3309,7 @@ at the terminal.
 
 Line 9 provides the capability of naming individual lamps. In this application they are being used as  indicator lights. The word LAMP is a defining word which takes as an argument a mask which represents a  particular lamp, and compiles it as a named entity. Lines 10 and 11 contain five uses of LAMP to name  particular indicators. When one of these words such as POWER is executed, the mask is returned on the  stack. In fact, the behavior of defining a value such that when the word is invoked the value is returned, is  identical to the behavior of a Forth CONSTANT. We created a new defining word here, however, to  illustrate how this would be done.
 
-9行目には、個々のランプに名前を付ける機能があります。このアプリケーションでは、ランプは表示灯として使用されます。LAMPというワードは、特定のランプを表すマスクを引数として取り、それを名前付きエンティティとしてコンパイルする定義ワードです。10行目と11行目には、特定のインジケーターに名前を付けるためのLAMPが5つ使われています。POWER のようなワードが実行されると、そのマスクがスタックに戻されます。実際、ワードが呼び出されたときに値が返されるように値を定義する動作は、ForthのCONSTANTの動作と同じです。しかし、どのように定義するのかを説明するために、ここでは新しい定義語を作成しました。
+9行目には、個々のランプに名前を付ける機能があります。このアプリケーションでは、ランプは表示灯として使用されます。LAMPというワードは、特定のランプを表すマスクを引数として取り、それを名前付きエンティティとしてコンパイルする定義ワードです。10行目と11行目には、特定のインジケーターに名前を付けるためのLAMPが5つ使われています。POWER のようなワードが実行されると、そのマスクがスタックに戻されます。実際、ワードが呼び出されたときに値が返されるように値を定義する動作は、ForthのCONSTANTの動作と同じです。しかし、どのように定義するのかを説明するために、ここでは新しい定義ワードを作成しました。
 
 Finally, on lines 13 and 14, we have the words that will control the light panel. LAMPS is a variable that  contains the current state of the lamps. The word TOGGLE takes a mask (which might be supplied by one of  the LAMP words) and changes the state of that particular lamp, saving the result in LAMPS.
 
@@ -3781,7 +3768,7 @@ Forth 83 specified that a number of "compiling words" are "immediate", meaning t
 
 To force the compilation of a word that would normally be executed, Forth 83 provided the words  COMPILE , used with non-immediate words, and [COMPILE] , used with immediate words. ANS Forth  provides the single word POSTPONE , which is used with both immediate and non-immediate words,  automatically selecting the appropriate behavior.
 
-Forth 83は、多くの「コンパイル語」が「即時」であり、コンパイル時にコンパイルされる代わりに実行されることを意味すると規定しています。ANS Forthは、これらのワードのほとんどについてあまり具体的ではなく、その動作はコンパイル時にのみ定義されるとし、特定のコンパイル時の動作ではなくその結果を指定しています。
+Forth 83は、多くの「コンパイルワード」が「即時」であり、コンパイル時にコンパイルされる代わりに実行されることを意味すると規定しています。ANS Forthは、これらのワードのほとんどについてあまり具体的ではなく、その動作はコンパイル時にのみ定義されるとし、特定のコンパイル時の動作ではなくその結果を指定しています。
 
 通常実行されるワードのコンパイルを強制するために、Forth 83は、非即時ワードで使用されるCOMPILEというワードと、即時ワードで使用される[COMPILE]というワードを提供しています。ANS ForthはPOSTPONEという単一のワードを提供しており、これは即時ワードと非即時ワードの両方で使用され、自動的に適切な動作が選択されます。
 
@@ -3797,15 +3784,15 @@ The designation of particular words as either immediate or not depends upon the 
 
 When the membership of the set of immediate words is unclear, the decision about whether to use  COMPILE or [COMPILE] becomes unclear. Consequently, ANS Forth provides a "general purpose"  replacement word POSTPONE that serves the purpose of the vast majority of uses of both COMPILE and  [COMPILE], without requiring that the user know whether or not the "postponed" word is immediate.
 
-即値語の集合のメンバシップが不明確な場合、COMPILEと[COMPILE]のどちらを使用するかの判断が不明確になります。その結果、ANS Forthは「汎用」置換語POSTPONEを提供し、COMPILEと[COMPILE]の両方の大多数の使用目的を果たす。
+即値ワードの集合のメンバシップが不明確な場合、COMPILEと[COMPILE]のどちらを使用するかの判断が不明確になります。その結果、ANS Forthは「汎用」置換ワード`POSTPONE`を提供し、`COMPILE`と`[COMPILE]`の両方の大多数の使用目的を果たす。
 
 Similarly, the use of ' and ['] with compiling words is unclear if the precise compilation behavior of those  words is not specified, so ANS Forth does not permit a Standard Program to use ' or ['] with compiling  words.
 
-同様に、コンパイル語の正確なコンパイル動作が指定されていない場合、コンパイル語と共に'や[']を使用することは不明確であるため、ANS Forthは標準プログラムでコンパイル語と共に'や[']を使用することを許可していません。
+同様に、コンパイルワードの正確なコンパイル動作が指定されていない場合、コンパイルワードと共に'や[']を使用することは不明確であるため、ANS Forthは標準プログラムでコンパイルワードと共に'や[']を使用することを許可していません。
 
 The traditional (non-immediate) definition of the word COMPILE has an additional problem. Its traditional  definition assumes a threaded code implementation technique, and its behavior can only be properly  described in that context. In the context of ANS Forth, which permits other implementation techniques in  addition to threaded code, it is very difficult, if not impossible, to describe the behavior of the traditional  COMPILE. Rather than changing its behavior, and thus breaking existing code, ANS Forth does not include  the word COMPILE. This allows existing implementations to continue to supply the word COMPILE with  its traditional behavior, if that is appropriate for the implementation.
 
-COMPILEという語の伝統的な(非即物的な)定義には、さらに問題があります。その伝統的な定義は、スレッドコード実装技術を前提としており、その動作はそのコンテキストでのみ適切に記述できます。ANS Forthのコンテキストでは、スレッドコードに加えて他の実装技法も許可されているため、従来のCOMPILEの動作を記述することは、不可能ではないにしても、非常に困難です。ANS Forthでは、COMPILEの動作を変更し、既存のコードを破壊するのではなく、COMPILEというワードを使用しません。これにより、既存の実装では、その実装が適切であれば、従来の動作でCOMPILEというワードを供給し続けることができます。
+COMPILEというワードの伝統的な(非即物的な)定義には、さらに問題があります。その伝統的な定義は、スレッドコード実装技術を前提としており、その動作はそのコンテキストでのみ適切に記述できます。ANS Forthのコンテキストでは、スレッドコードに加えて他の実装技法も許可されているため、従来のCOMPILEの動作を記述することは、不可能ではないにしても、非常に困難です。ANS Forthでは、COMPILEの動作を変更し、既存のコードを破壊するのではなく、COMPILEというワードを使用しません。これにより、既存の実装では、その実装が適切であれば、従来の動作でCOMPILEというワードを供給し続けることができます。
 
 ||Impact:||
 [COMPILE] remains in ANS Forth, since its proper use does not depend on  knowledge of whether or not a word is immediate (Use of [COMPILE] with a non-immediate word is and  has always been a no-op). Whether or not you need to use [COMPILE] requires knowledge of whether or  not its target word is immediate, but it is always safe to use [COMPILE]. [COMPILE] is no longer in the  (required) core word set, having been moved to the Core Extensions word set, but the committee anticipates that most vendors will supply it anyway.
@@ -3934,9 +3921,9 @@ ANS Forth does not define the words VOCABULARY, CONTEXT, and CURRENT , which wer
 
 Forth-83’s "ALSO/ONLY" experimental search order word set is specified for the most part as the extension  portion of the ANS Forth Search Order word set.
 
-ANS Forthは、Forth 83に存在した`VOCABULARY`、`CONTEXT`、および`CURRENT`という語を定義していません。その代わりに、ANS Forthは検索順序の指定と制御のための原始的なワードセットを定義しており、これには以前のどの標準にも存在しなかったワードも含まれています。
+ANS Forthは、Forth 83に存在した`VOCABULARY`、`CONTEXT`、および`CURRENT`というワードを定義していません。その代わりに、ANS Forthは検索順序の指定と制御のための原始的なワードセットを定義しており、これには以前のどの標準にも存在しなかったワードも含まれています。
 
-Forth-83の "ALSO/ONLY" 実験的検索語セットは、ほとんどの部分でANS Forth検索語セットの拡張部分として指定されています。
+Forth-83の "ALSO/ONLY" 実験的検索ワードセットは、ほとんどの部分でANS Forth検索ワードセットの拡張部分として指定されています。
 
 <desc>
 
@@ -3950,7 +3937,7 @@ However, several vendors refuse to implement it, citing technical limitations. I
 
 ボキャブラリは、既存のシステム間で多くの乖離がある分野です。 主要なベンダーのシステムや以前の標準を考慮すると、VOCABULARYによって定義されたワードには、少なくとも5つの異なる、相互に互換性のない動作が存在します。Forth 83は、コンパイルされた語彙の階層と実行時の検索順序の間の特定の関係を指定しないことによって、「実行時の検索順序の指定」の方向に一歩を踏み出した。Forth 83はまた、ランタイム検索順序指定のための実験的メカニズムであるALSO/ONLYスキームを規定した。ALSO/ONLYは多くのシステムで実装され、Forthコミュニティではある程度の人気を獲得した。
 
-しかし、いくつかのベンダーは技術的な制限を理由に実装を拒否しています。これらの制限を解決し、ALSO/ONLY を批判的な人たちにも受け入れられるようにするために、委員会は ALSO/ONLY に対するいくつかの異論を修正するだけでなく、ALSO/ONLY や現在流行している他の全ての検索語集合を実装するのに十分なパワーを提供する単純な "プリミティブ語集合" を指定しました。
+しかし、いくつかのベンダーは技術的な制限を理由に実装を拒否しています。これらの制限を解決し、ALSO/ONLY を批判的な人たちにも受け入れられるようにするために、委員会は ALSO/ONLY に対するいくつかの異論を修正するだけでなく、ALSO/ONLY や現在流行している他の全ての検索ワードセットを実装するのに十分なパワーを提供する単純な "プリミティブワードセット" を指定しました。
 
 The Forth 83 ALSO/ONLY word set is provided as an optional extension to the search-order word set. This  allows implementors that are so inclined to provide this word set, with well-defined standard behavior, but  does not compel implementors to do so. Some vendors have publicly stated that they will not implement  ALSO/ONLY, no matter what, and one major vendor stated an unwillingness to implement ANS Forth at all  if ALSO/ONLY is mandated. The committee feels that its actions are prudent, specifying ALSO/ONLY to the  extent possible without mandating its inclusion in all systems, and also providing a primitive search-order  word set that vendors may be more likely to implement, and which can be used to synthesize ALSO/ONLY.
 
@@ -4090,7 +4077,7 @@ ANS Forth eliminates many portability problems by using the above definitions. O
 
 ### E.2.3 メモリのアドレス指定  
 
-ANS Forth では、上記の定義を使用することで、多くの移植性の問題を解消しています。最も一般的な移植性の問題の 1 つは、メモリ内の連続するセルのアドレス指定です。あるセルのメモリ・アドレスが与えられたとき、次のセルのアドレスはどの ように見つけるのでしょうか? Forth 83では、これは簡単です。 2 + . このコードは、メモリが8ビット単位(バイト)でアドレス指定され、セルが16ビット幅であると仮定しています。32ビット・セルを持つバイト・アドレス・マシンでは、次のセルを見つけるコードは 4 + . セルアドレスのプロセッサでは 1+、16 ビットセルを持つビットアドレスのプロセッサでは 16 + となります。ANS Forthには、これらのすべてのケースで使用できるCELL+というネクストセル演算子が用意されています。アドレスが与えられると、CELL+はセルのサイズ(アドレス単位で測定)でアドレスを調整します。関連する問題として、セルの配列を任意の順序でアドレス指定することがあります。 Forth83を使ってセルの配列を作成するための定義語は次のようになります。
+ANS Forth では、上記の定義を使用することで、多くの移植性の問題を解消しています。最も一般的な移植性の問題の 1 つは、メモリ内の連続するセルのアドレス指定です。あるセルのメモリ・アドレスが与えられたとき、次のセルのアドレスはどの ように見つけるのでしょうか? Forth 83では、これは簡単です。 2 + . このコードは、メモリが8ビット単位(バイト)でアドレス指定され、セルが16ビット幅であると仮定しています。32ビット・セルを持つバイト・アドレス・マシンでは、次のセルを見つけるコードは 4 + . セルアドレスのプロセッサでは 1+、16 ビットセルを持つビットアドレスのプロセッサでは 16 + となります。ANS Forthには、これらのすべてのケースで使用できるCELL+というネクストセル演算子が用意されています。アドレスが与えられると、CELL+はセルのサイズ(アドレス単位で測定)でアドレスを調整します。関連する問題として、セルの配列を任意の順序でアドレス指定することがあります。 Forth83を使ってセルの配列を作成するための定義ワードは次のようになります。
 
     : ARRAY CREATE 2* ALLOT DOES> SWAP 2* + ; 
 
@@ -4107,7 +4094,7 @@ ANS Forth generalizes the definition of some Forth words that operate on chunks 
 
 文字の配列のアドレス指定にも移植性の問題があります。Forth 83(および最も一般的な ANS Forth 実装)では、文字のサイズはアドレス単位のサイズに等しくなります。 その結果、メモリ内の連続する文字のアドレスは1+を使用して求めることができ、文字配列へのインデックスのスケーリングは不要です(つまり、1 *)。しかし、1文字がアドレス単位より大きい場合もあります。例えば、(1)アドレス単位が小さいシステム(例えば、ビットアドレスやニブルアドレスシステム)、(2)文字セットが大きいシステム(例えば、バイトアドレスマシンの16ビット文字)。CHAR+およびCHARS演算子(CELL+およびCELLSに類似)は、最大限の移植性を可能にするために利用可能です。
 
-ANS Forthは、アドレス単位を使用するために、メモリのチャンクを操作するいくつかのForth語の定義を一般化しています。その一例がALLOTです。ALLOTの前に適切なスケーリング演算子(CELLS、CHARSなど)を付けることで、任意のデータ構造用のスペースを割り当てることができます(上記の配列の定義を参照)。例えば
+ANS Forthは、アドレス単位を使用するために、メモリのチャンクを操作するいくつかのForthワードの定義を一般化しています。その一例がALLOTです。ALLOTの前に適切なスケーリング演算子(CELLS、CHARSなど)を付けることで、任意のデータ構造用のスペースを割り当てることができます(上記の配列の定義を参照)。例えば
 
     CREATE ABUFFER 5 CHARS ALLOT ( allot 5 character buffer)  
 
@@ -4209,7 +4196,7 @@ Only words defined with CREATE or with other defining words that call CREATE hav
 
 In ANS Forth, FIND, ['] and ' (tick) return an unspecified entity called an "execution token". There are  only a few things that may be done with an execution token. The token may be passed to EXECUTE to  execute the word ticked or compiled into the current definition with COMPILE,. The token can also be  stored in a variable and used later. Finally, if the word ticked was defined via CREATE, >BODY converts  the execution token into the word’s data-field address.
 
-CREATEまたはCREATEを呼び出す他の定義語で定義されたワードのみがデータフィールドを持ちます。規格の他の定義語(VARIABLE、CONSTANT、:など)はCREATEで実装されていないかもしれません。そのため、標準プログラムでは、VARIABLE、CONSTANT、 : などで定義されたワードはデータフィールドを持たない可能性があると仮定しなければなりません。標準プログラムには、定数の値を変更したり、コロン定義の意味を変更したりする方法はありません。定義語のDOES>の部分はデータフィールドを操作します。 CREATEされたワードのみがデータフィールドを持つので、DOES>はCREATEまたはCREATEを呼び出すワードとしか組み合わせることができません。
+CREATEまたはCREATEを呼び出す他の定義ワードで定義されたワードのみがデータフィールドを持ちます。規格の他の定義ワード(VARIABLE、CONSTANT、:など)はCREATEで実装されていないかもしれません。そのため、標準プログラムでは、VARIABLE、CONSTANT、 : などで定義されたワードはデータフィールドを持たない可能性があると仮定しなければなりません。標準プログラムには、定数の値を変更したり、コロン定義の意味を変更したりする方法はありません。定義ワードのDOES>の部分はデータフィールドを操作します。 CREATEされたワードのみがデータフィールドを持つので、DOES>はCREATEまたはCREATEを呼び出すワードとしか組み合わせることができません。
 
 ANS Forthでは、FIND、[']、および'(tick)は「実行トークン」と呼ばれる不特定の実体を返します。実行トークンで実行できることは限られています。トークンをEXECUTEに渡してtickされたワードを実行したり、COMPILE,で現在の定義にコンパイルしたりすることができます。トークンは変数に格納し、後で使用することもできます。最後に、ワードtickedがCREATEで定義された場合、>BODYは実行トークンをワードのデータフィールドアドレスに変換します。
 
@@ -4276,6 +4263,6 @@ ANS Forth Standardは、ポータブルなプログラムを書くことを誰�
 
 In the following list, the last, four-digit, part of the reference number establishes a sequence corresponding  to the alphabetic ordering of all standard words. The first two or three parts indicate the word set and  glossary section in which the word is defined.
 
-以下のリストにおいて、参照番号の最後の4桁の部分は、すべての標準語のアルファベット順に対応するシーケンスを確立します。最初の2桁または3桁の部分は，そのワードが定義されているワードセットと用語集セクションを示します。
+以下のリストにおいて、参照番号の最後の4桁の部分は、すべての標準ワードのアルファベット順に対応するシーケンスを確立します。最初の2桁または3桁の部分は，そのワードが定義されているワードセットと用語集セクションを示します。
 
 ### LIST OF WORDS(low.md) SHOULD BE HERE
