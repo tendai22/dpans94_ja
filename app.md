@@ -516,9 +516,7 @@ Forth クロスコンパイラでは、実行セマンティクスをホスト�
 
 ##### A.3.4.3.2 Interpretation semantics 
 
-For a variety of reasons, this Standard does not define interpretation semantics for every word. Examples of  these words are `>R`, `."`, `DO`, and `IF`. Nothing in this Standard precludes an implementation from providing  interpretation semantics for these words, such as interactive control-flow words. However, a Standard  Program may not use them in interpretation state.
-
-さまざまな理由から、本標準ではすべてのワードの解釈セマンティクス(interpretation semantics)を定義していません。これらのワードの例としては、`>R`、`."`、`DO`、`IF`などがあります。本標準のいかなる規定も、対話的制御フローワードのようなこれらのワードに対する解釈セマンティクスを実装が提供することを妨げるものではありません。しかし、標準プログラムは解釈状態でこれらを使用してはなりません。
+さまざまな理由から、本標準ではすべてのワードの解釈セマンティクス(interpretation semantics)を定義していません。これらのワードの例としては、`>R`、`."`、`DO`、`IF`などがあります。本標準のいかなる規定も、対話的制御フローワードのようなこれらワードの解釈セマンティクスを実装が提供することを妨げるものではありません。しかし、標準プログラムは解釈状態でこれらを使用してはなりません。
 
 #### A.3.4.5 Compilation 
 
@@ -542,35 +540,19 @@ Forth クロスコンパイラと ANS Forth システムには、プログラム
 
 #### A.5.2.2 Program labeling 
 
-Declaring an environmental dependency should not be considered undesirable, merely an acknowledgment  that the author has taken advantage of some assumed architecture. For example, most computers in  common use are based on two’s complement binary arithmetic. By acknowledging an environmental  dependency on this architecture, a programmer becomes entitled to use the number -1 to represent all bits  set without significantly restricting the portability of the program.
+環境依存を宣言することは望ましくないと考えてはいけません。このような宣言は、単に作者が想定するアーキテクチャの利点を生かしたことを認めているに過ぎないと考えるべきです。例えば、一般に使用されているほとんどのコンピュータは2の補数2進演算に基づいています。このアーキテクチャへの環境依存を認めることで、プログラマはプログラムの移植性を大幅に制限することなく、すべてのビットがセットされた値を表すために数値-1を使用する権利を得ます。
 
-Because all programs require space for data and instructions, and time to execute those instructions, they  depend on the presence of an environment providing those resources. It is impossible to predict how little  of some of these resources (e.g. stack space) might be necessary to perform some task, so this Standard does  not do so.
+すべてのプログラムは、データと命令のための空間と、それらの命令を実行するための時間を必要とするため、これらのリソースを提供する環境の存在に依存します。あるタスクを実行するために、これらの資源(例えばスタック空間)のうちどれだけの量が必要になるかを予測することは不可能であるため、本標準ではそのようなことを行いません。
 
-On the other hand, as a program requires increasing levels of resources, there will probably be sucessively  fewer systems on which it will execute sucessfully. An algorithm requiring an array of 109 cells might run  on fewer computers than one requiring only 103.
-
-Since there is also no way of knowing what minimum level of resources will be implemented in a system  useful for at least some tasks, any program performing real work labeled simply an "ANS Forth Program" is  unlikely to be labeled correctly.
-
-環境依存を宣言することは望ましくないことではなく、単に作者が想定されるアーキテクチャを利用したことを認めることに過ぎないと考えるべきです。例えば、一般に使用されているほとんどのコンピュータは2の補数2進演算に基づいています。このアーキテクチャへの環境依存を認めることで、プログラマはプログラムの移植性を大幅に制限することなく、セットされたすべてのビットを表すために数値-1を使用する権利を得る。
-
-すべてのプログラムは、データと命令のためのスペースと、それらの命令を実行するための時間を必要とするため、これらのリソースを提供する環境の存在に依存します。あるタスクを実行するために、これらの資源(例えばスタック空間)のうちどれだけの量が必要になるかを予測することは不可能であるため、本標準ではそのようなことを行いません。
-
-一方、プログラムが必要とする資源のレベルが高くなるにつれて、そのプログラムが正常に実行されるシステムは次第に少なくなっていくでしょう。109個のセルの配列を必要とするアルゴリズムは、103個しか必要としないものより少ないコンピュータで実行されるかもしれません。
-
-また、少なくともいくつかのタスクに有用なシステムに実装されるリソースの最小レベルを知る方法もないため、単に「ANS Forthプログラム」とラベル付けされた実際の作業を実行するプログラムは、正しくラベル付けされる可能性は低い。
+一方、プログラムが必要とする資源のレベルが高くなるにつれて、そのプログラムが正常に実行されるシステムは次第に少なくなっていくでしょう。109個のセルの配列を必要とするアルゴリズムは、103個しか必要としないものより実行できるコンピュータの数は少なくなるかもしれません。
 
 ## A.6 Glossary 
 
-In this and following sections we present rationales for the handling of specific words: why we included  them, why we placed them in certain word sets, or why we specified their names or meaning as we did.
-
-Words in this section are organized by word set, retaining their index numbers for easy cross-referencing to  the glossary.
-
-Historically, many Forth systems have been written in Forth. Many of the words in Forth originally had as  their primary purpose support of the Forth system itself. For example, `WORD` and `FIND` are often used as  the principle instruments of the Forth text interpreter, and `CREATE` in many systems is the primitive for  building dictionary entries. In defining words such as these in a standard way, we have endeavored not to  do so in such a way as to preclude their use by implementors. One of the features of Forth that has endeared  it to its users is that the same tools that are used to implement the system are available to the application  programmer - a result of this approach is the compactness and efficiency that characterizes most Forth  implementations.
-
-このセクションと次のセクションで、特定のワードを扱った理由、特定のワードセットに入れた理由、またはそのワードの名前や意味を指定した理由を説明します。
+このセクションと次のセクションで、特定のワードを扱った理由、特定のワードセットに入れた理由、またはそのワードの名前や意味を規定した理由を説明します。
 
 このセクションのワードは、用語集との相互参照を容易にするため、インデックス番号を保持したまま、ワードセットごとに整理されています。
 
-歴史的に、多くのForthシステムはForthで書かれてきました。Forthのワードの多くは、もともとForthシステム自体のサポートを主な目的としていました。例えば、`WORD`と`FIND`はForthのテキストインタプリタの主要な道具としてよく使われ、`CREATE`は多くのシステムで辞書エントリを構築するためのプリミティブです。これらのようなワードを標準的な方法で定義する際、実装者による使用を妨げないように努めた。Forthがユーザに愛されている特徴の1つは、システムの実装に使用されるのと同じツールがアプリケーション・プログラマにも利用可能であることです。
+歴史的に、多くのForthシステムはForthで書かれてきました。Forthのワードの多くは、もともとForthシステム自体のサポートを主な目的としていました。例えば、`WORD`と`FIND`はForthのテキストインタプリタの主要な道具としてよく使われ、`CREATE`は多くのシステムで辞書エントリを構築するためのプリミティブです。これらのようなワードを標準的な方法で定義する際、実装者による使用を妨げないように努めました。Forthがユーザに愛されている特徴の1つは、システムの実装に使用されるのと同じツールがアプリケーションプログラマにも利用可能であることです。このアプローチの結果として、ほとんどのForth実装の特徴であるコンパクトさと効率性があります。
 
 ### A.6.1 Core words 
 
@@ -578,7 +560,7 @@ Historically, many Forth systems have been written in Forth. Many of the words i
 
 Typical use: `... ' name `.
 
-Many Forth systems use a state-smart tick. Many do not. ANS Forth follows the usage of Forth 83.
+ステートスマートなティック(tick)を使うForthシステムは多いが、そうでないものも多いです。ANS ForthはForth 83の用法を踏襲しました。
 
 **See: A.3.4.3..2 Interpretation semantics, A.6.1.1550 FIND**.
 
@@ -596,7 +578,7 @@ Typical use:
 
 Typical use:  
 
-The use of , (comma) for compiling execution tokens is not portable.
+`,`(コンマ)を実行トークンのコンパイルに用いることには移植性がありません。
 
 See: **6.2.0945 COMPILE,**.
 
@@ -604,25 +586,17 @@ See: **6.2.0945 COMPILE,**.
 
 Typical use: `: X ... ." ccc" ... ;` 
 
-An implementation may define interpretation semantics for `."` if desired. In one plausible implementation,  interpreting `."` would display the delimited message. In another plausible implementation, interpreting `."` would compile code to display the message later. In still another plausible implementation, interpreting `."` would be treated as an exception. Given this variation a Standard Program may not use `."` while  interpreting. Similarly, a Standard Program may not compile `POSTPONE` `."` inside a new word, and then  use that word while interpreting.
-
-実装は必要に応じて `."` の解釈セマンティクスを定義することができます。あるもっともらしい実装では、`."`を解釈すると区切られたメッセージが表示されます。別のもっともらしい実装では、`."`を解釈すると、後でメッセージを表示するためにコードをコンパイルします。さらに別のもっともらしい実装では、`."`の解釈は例外として扱われます。このようなバリエーションがある場合、標準プログラムは `."` を解釈中に使用してはなりません。同様に、標準プログラムは `POSTPONE` `."` を新しいワードの中にコンパイルして、そのワードを解釈中に使用してはなりません。
+実装は必要に応じて `."` の解釈セマンティクスを定義することができます。あるもっともらしい実装では、`."`を解釈すると区切られたメッセージが表示されます。別のもっともらしい実装では、`."`を解釈すると、後でメッセージを表示するためにコードをコンパイルします。さらに別のもっともらしい実装では、`."`の解釈は例外として扱われます。このようなバリエーションがあるとするなら、標準プログラムは `."` を解釈中に使用してはなりません。同様に、標準プログラムは `POSTPONE ."` を新しいワードの中にコンパイルして、そのワードを解釈中に使用してはなりません。
 
 #### A.6.1.0320 `2*` 
 
-Historically, `2*` has been implemented on two's-complement machines as a logical left-shift instruction.  Multiplication by two is an efficient side-effect on these machines. However, shifting implies a knowledge  of the significance and position of bits in a cell. While the name implies multiplication, most implementors  have used a hardware left shift to implement `2*`.
-
-歴史的に、`2*` は論理左シフト命令として 2 の補数マシンに実装されてきた。 これらのマシンでは、2による乗算は効率的な副作用です。しかし、シフトにはセル内のビットの意味と位置の知識が必要です。その名前は乗算を意味するが、ほとんどの実装者は`2*`を実装するためにハードウェア左シフトを使用してきました。
+歴史的に、`2*` は論理左シフト命令として 2 の補数マシンに実装されてきました。 これらのマシンでは、2による乗算は効率的な副作用です。しかし、シフトにはセル内のビットの意味と位置の知識が必要です。名前は乗算を意味しますが、ほとんどの実装者は`2*`を実装するためにハードウェア左シフトを使用してきました。
 
 #### A.6.1.0330 `2/` 
 
-This word has the same common usage and misnaming implications as `2*`. It is often implemented on  two's-complement machines with a hardware right shift that propagates the sign bit.
-
-このワードは`2*`と同じ一般的な用法と誤った命名の意味を持っています。符号ビットを伝播するハードウェア右シフトを持つ2補数マシンでよく実装されます。
+このワードも`2*`と同様の一般的な用法を持ち、意味が不適切な名前を持っています。符号ビットを伝播するハードウェア右シフトを持つ2の補数マシンでよく実装されます。
 
 #### A.6.1.0350 `2@` 
-
-With `2@` the storage order is specified by the Standard.
 
 `2@`では、格納順序は標準によって指定されます。
 
@@ -630,27 +604,17 @@ With `2@` the storage order is specified by the Standard.
 
 Typical use: `: name ... ;` 
 
-In Forth 83, this word was specified to alter the search order. This specification is explicitly removed in this  Standard. We believe that in most cases this has no effect; however, systems that allow many search orders  found the Forth-83 behavior of colon very undesirable.
+Forth 83 では、このワードは検索順序を変更すると規定されていました。この仕様は、本標準では明示的に削除されています。しかし、多くの検索順序を許容するシステムにより、コロンのForth-83の動作は非常に望ましくないものだと分かりました。
 
-Forth 83 では、このワードは検索順序を変更するために指定されていました。この仕様は、本標準では明示的に削除されています。しかし、多くの検索順序を許可しているシステムでは、コロンのForth-83の動作は非常に望ましくないものでした。
-
-Note that colon does not itself invoke the compiler. Colon sets compilation state so that later words in the  parse area are compiled.
-
-コロン自体はコンパイラを起動しないことに注意してください。コロンはコンパイル状態を設定し、解析領域内の後のワードがコンパイルされるようにします。
+コロン自体はコンパイラを起動しないことに注意してください。コロンはコンパイル状態を設定し、解析領域内のこの後のワードがコンパイルされるようにします。
 
 #### A.6.1.0460 `;` 
 
 Typical use: `: name ... ;` 
 
-One function performed by both `;` and `;CODE` is to allow the current definition to be found in the  dictionary. If the current definition was created by `:NONAME` the current definition has no definition name  and thus cannot be found in the dictionary. If `:NONAME` is implemented the Forth compiler must maintain  enough information about the current definition to allow `;` and `;CODE` to determine whether or not any  action must be taken to allow it to be found.
+`;`と`;CODE`の両方が実行する機能の1つは、現在の定義を辞書で見つけられるようにすることである。現在の定義が `:NONAME` によって作成された場合、現在の定義には定義名がない。よって辞書で見つけることができない。`:NONAME`が実装されている場合、Forthコンパイラは現在の定義に関する十分な情報を保持し、`;`と`;CODE`が現在の定義を見つけられるようにするために何らかのアクションを実行しなければならないかどうかを判断できるようにしなければならない。
 
 #### A.6.1.0550 `>BODY` 
-
-*a-addr* is the address that `HERE` would have returned had it been executed immediately after the execution  of the `CREATE` that defined *xt*.
-
-と`;CODE`の両方が実行する機能の1つは、現在の定義を辞書で見つけられるようにすることです。現在の定義が `:NONAME` によって作成された場合、現在の定義には定義名がないため、辞書で見つけることができません。`NONAME`が実装されている場合、Forthコンパイラーは現在の定義に関する十分な情報を保持し、`;`と`;CODE`が現在の定義を見つけられるようにするために何らかのアクションを実行しなければならないかどうかを判断できるようにする必要があります。
-
-#### a.6.1.0550 `>body` 
 
 *a-addr* は、*xt* を定義した `CREATE` の実行直後に `HERE` が実行された場合に返されたであろうアドレスです。
 
@@ -660,39 +624,23 @@ Typical use: `: X ... test ABORT" ccc" ... ; `
 
 #### A.6.1.0695 ACCEPT 
 
-Previous standards specified that collection of the input string terminates when either a "return" is received  or when +n1 characters have been received. Terminating when +n1 characters have been received is  difficult, expensive, or impossible to implement in some system environments. Consequently, a number of  existing implementations do not comply with this requirement. Since line-editing and collection functions  are often implemented by system components beyond the control of the Forth implementation, this Standard  imposes no such requirement. A Standard Program may only assume that it can receive an input string with  `ACCEPT` or `EXPECT`. The detailed sequence of user actions necessary to prepare and transmit that line are  beyond the scope of this Standard.
+以前の規格では、入力文字列の収集は、"return" を受信するか、+n1文字を受信したときに終了すると規定されていました。n1文字を受信したときに終了することは、システム環境によっては実装が困難であったり、高価であったり、不可能であったりします。そのため、多くの既存の実装はこの要件に準拠していません。行の編集や収集機能は、Forth 実装の制御を超えたシステムコンポーネントによって実装されることが多いため、本標準ではそのような要件を課していません。標準プログラムは `ACCEPT` または `EXPECT` で入力文字列を受け取ることができると仮定するだけでよいです。その行を準備して送信するために必要なユーザアクションの詳細なシーケンスは、本標準の範囲外です。
 
-以前の規格では、入力文字列の収集は、"return" を受信するか、+n1文字を受信したとき に終了すると規定されていました。n1文字を受信したときに終了することは、システム環境によっては実装が困難であったり、高価であったり、不可能であったりします。そのため、多くの既存の実装はこの要件に準拠していません。行の編集や収集機能は、Forth 実装の制御を超えたシステムコンポーネントによって実装されることが多いため、本標準ではそのような要件を課していません。標準プログラムは `ACCEPT` または `EXPECT` で入力文字列を受け取ることができると仮定するだけでよいです。その行を準備して送信するために必要なユーザアクションの詳細なシーケンスは、本標準の範囲外です。
+`ACCEPT`にゼロでない正の整数カウント(+n1)を規定することで、実装者によっては、 特別な動作をトリガするフラグとしてゼロまたは負の値を使用する習慣を継続することができます。そのような動作が標準の外にある限り、標準プログラムはそれに依存することはできませんが、技術委員会は不必要に排除することを望みません。実際の値はほとんど常に小さな整数であるため、この制限によって機能が損なわれることはありません。
 
-Specification of a non-zero, positive integer count (+n1) for ACCEPT allows some implementors to  continue their practice of using a zero or negative value as a flag to trigger special behavior. Insofar as such  behavior is outside the Standard, Standard Programs cannot depend upon it, but the Technical Committee  doesn't wish to preclude it unnecessarily. Since actual values are almost always small integers, no  functionality is impaired by this restriction.
+`ACCEPT` と `EXPECT` は似たような機能を行います。新しいプログラムでは `ACCEPT` が推奨され、今後、 `EXPECT` を使用することは推奨されません。
 
-`ACCEPT`にゼロでない正の整数カウント(+n1)を指定することで、実装者によっては、 特別な動作をトリガするフラグとしてゼロまたは負の値を使用する習慣を継続することができます。そのような動作が標準の外にある限り、標準プログラムはそれに依存することはできませんが、技術委員会は不必要に排除することを望みません。実際の値はほとんど常に小さな整数であるため、この制限によって機能が損なわれることはありません。
+図形文字以外の文字はすべて編集や制御機能のために予約しておき、入力文字列に保存しないことを推奨します。
 
-`ACCEPT` and `EXPECT` perform similar functions. `ACCEPT` is recommended for new programs, and future  use of `EXPECT` is discouraged.
+一般的に、ユーザがプログラムに送信する入力文字列を準備しているとき、システムは最終版の文字列を送信する前にユーザがその文字列を編集して間違いを修正することを許可します。編集機能は、Forthシステム自体から提供されることもあれば、外部のシステムソフトウェアやハードウェアから提供されることもあります。したがって、制御文字や制御機能は、すべてのシステムで利用できるとは限りません。通常の場合、編集処理の終了と文字列の最終的な送信は、ユーザが "Return" または "Enter" キーを押すことによって示されます。
 
-It is recommended that all non-graphic characters be reserved for editing or control functions and not be  stored in the input string.
+これまでの標準と同様に、`EXPECT`は要求された文字数が入力された直後と、行終端文字を受信したときに入力文字列を返します。「指定された文字数が入力された後に自動的に終了する」動作は、ユーザが知らない時点で入力編集プロセスの「コントロールを失う」(ユーザは `EXPECT` から要求された文字数を必ずしも知らない)ため、望ましくないと広く考えられています。そのため `EXPECT` と `SPAN` は使用非推奨とされ、既存の実装に対する譲歩としてのみ標準に存在しています。もし `EXPECT` が標準システムに存在するなら、それは "入力の自動終了" の動作を持たねばなりません。
 
-Commonly, when the user is preparing an input string to be transmitted to a program, the system allows the  user to edit that string and correct mistakes before transmitting the final version of the string. The editing  function is supplied sometimes by the Forth system itself, and sometimes by external system software or  hardware. Thus, control characters and functions may not be available on all systems. In the usual case, the  end of the editing process and final transmission of the string is signified by the user pressing a "Return" or  "Enter" key.
-
-As in previous standards, `EXPECT` returns the input string immediately after the requested number of  characters are entered, as well as when a line terminator is received. The "automatic termination after  specified count of characters have been entered" behavior is widely considered undesirable because the user "loses control" of the input editing process at a potentially unknown time (the user does not necessarily know how many characters were requested from `EXPECT`). Thus `EXPECT` and `SPAN` have been made  obsolescent and exist in the Standard only as a concession to existing implementations. If `EXPECT` exists in  a Standard System it must have the "automatic termination" behavior.
-
-`ACCEPT` と `EXPECT` は似たような機能を果たす。新しいプログラムでは `ACCEPT` が推奨され、将来的に `EXPECT` を使用することは推奨されません。
-
-グラフィック以外の文字はすべて編集や制御機能のために予約しておき、入力文字列に保存しないことを推奨します。
-
-一般的に、ユーザがプログラムに送信する入力文字列を準備しているとき、システムは最終版の文字列を送信する前にユーザがその文字列を編集して間違いを修正することを許可します。編集機能は、Forthシステム自体から提供されることもあれば、外部のシステム・ソフトウェアやハードウェアから提供されることもあります。したがって、制御文字や制御機能は、すべてのシステムで利用できるとは限りません。通常の場合、編集処理の終了と文字列の最終的な送信は、ユーザが "Return" または "Enter" キーを押すことによって示されます。
-
-これまでの標準と同様に、`EXPECT`は要求された文字数が入力された直後と、行終端文字を受信したときに入力文字列を返します。指定された文字数が入力された後に自動的に終了する」動作は、ユーザが未知の可能性のある時点で入力編集プロセスの「コントロールを失う」(ユーザは `EXPECT` から要求された文字数を必ずしも知らない)ため、広く望ましくないと考えられています。そのため `EXPECT` と `SPAN` は廃止され、既存の実装に対する譲歩としてのみ標準に存在しています。もし `EXPECT` が標準システムに存在するなら、それは "自動翻訳" の動作を持たねばなりません。
-
-`ACCEPT` does not have the "automatic termination" behavior of `EXPECT`. However, because external  system hardware and software may perform the `ACCEPT` function, when a line terminator is received the  action of the cursor, and therefore the display, is implementation-defined. It is recommended that the cursor  remain immediately following the entered text after a line terminator is received.
-
-`ACCEPT` は `EXPECT` のような「自動終了」の動作を持ちません。しかし、外部システムのハードウェアとソフトウェアが `ACCEPT` 機能を実行するかもしれないので、行終端を受信したときのカーソルの動作、したがって表示は実装によって定義されます。行終端を受信した後、カーソルは入力されたテキストの直後に残ることが推奨されます。
+`ACCEPT` は `EXPECT` のような「自動終了」の動作を持ちません。しかし、外部システムのハードウェアとソフトウェアが `ACCEPT` 機能を実行するかもしれないので、行終端を受信したときのカーソルの動作、したがって表示は実装によって定義されます。行終端文字を受信した後、カーソルは入力されたテキストの直後に残ることが推奨されます。
 
 #### A.6.1.0705 ALIGN 
 
-In this Standard we have attempted to provide transportability across various CPU architectures. One of the  frequent causes of transportability problems is the requirement of cell-aligned addresses on some CPUs. On  these systems, `ALIGN` and `ALIGNED` may be required to build and traverse data structures built with `C,`.  Implementors may define these words as no-ops on systems for which they aren't functional.
-
-本標準では、様々なCPUアーキテクチャ間での移植性を提供することを試みた。移植性の問題の頻繁な原因の1つは、いくつかのCPUでセル揃えのアドレスが要求されることです。このようなシステムでは、`C,`で構築されたデータ構造をビルドしたりトラバースしたりするために `ALIGN` と `ALIGNED` が必要になることがあります。 実装者は、これらのワードが機能しないシステムでは、これらのワードをno-opsとして定義することができます。
+本標準では、様々なCPUアーキテクチャ間での移植性を提供することを試みました。しばしば生じる移植性の問題の原因の1つは、いくつかのCPUでセル整列のアドレスが要求されることです。このようなシステムでは、`C,`で構築されたデータ構造をビルドしたりトラバースしたりするために `ALIGN` と `ALIGNED` が必要になることがあります。 実装者は、これらのワードが機能しないシステムでは、これらのワードをno-opsとして定義することができます。
 
 #### A.6.1.0706 `ALIGNED` 
 
@@ -710,13 +658,9 @@ or
 
 #### A.6.1.0770 `BL` 
 
-Because space is used throughout Forth as the standard delimiter, this word is the only way a program has to  find and use the system value of "space". The value of a space character can not be obtained with `CHAR`,  for instance.
-
 スペースはForth全体で標準的な区切り文字として使用されているため、このワードはプログラムが「スペース」のシステム値を検索して使用する唯一の方法です。スペース文字の値は、例えば `CHAR` では取得できません。
 
 #### A.6.1.0880 `CELL+` 
-
-As with `ALIGN` and `ALIGNED`, the words `CELL` and `CELL+` were added to aid in transportability across  systems with different cell sizes. They are intended to be used in manipulating indexes and addresses in  integral numbers of cell-widths.
 
 `ALIGN`と`ALIGNED`と同様に、`CELL`と`CELL+`というワードは、異なるセルサ イズを持つシステム間での移動性を助けるために追加されました。これらは、整数個のセル幅でインデックスやアドレスを操作する際に使用することを意図しています。
 
