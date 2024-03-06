@@ -436,96 +436,74 @@ Forthの制御フローは、厳密に構造化されたプログラミングで
 
 このセクションの文言は、標準プログラムの移植性を保証するためにあります。あるプログラムが、それ自身が提供しない標準規格外のものを使用する場合、他の実装が そのプログラムの実行に必要なものを持っているという保証はありません。標準でないからといって、すべてのForthプログラムがいささか欠けており、劣っているというつもりはありません。プログラマの芸術の最も素晴らしい宝石のいくつかは、非標準のものでしょう。同時に委員会は、"Standard" とラベル付けされたプログラムが、特に移植性に関して一定の期待に応えることを保証しようとしています。
 
-In many system environments the input source is unable to supply certain non-graphic characters due to  external factors, such as the use of those characters for flow control or editing. In addition, when  interpreting from a text file, the parsing function specifically treats non-graphic characters like spaces; thus  words received by the text interpreter will not contain embedded non-graphic characters. To allow  implementations in such environments to call themselves Standard, this minor restriction on Standard  Programs is necessary.
+多くのシステム環境では、入力ソースは、フロー制御や編集のためにそれらの文字を使用するなどの外部要因のために、特定の非グラフィック文字を供給することができません。さらに、テキストファイルから解釈する場合、構文解析機能は非図形文字を空白文字のように特別に扱います。従って、テキストインタプリタが受け取るワードには非図形文字が埋め込まれません。このような環境での実装が標準規格準拠を名乗ることを許可するために、標準プログラムに対するこの小さな制限が必要です。
 
-多くのシステム環境では、入力ソースは、フロー制御や編集のためにそれらの文字を使用するなどの外部要因のために、特定の非グラフィック文字を供給することができません。さらに、テキストファイルから解釈する場合、構文解析機能は非図形文字を空白文字のように特別に扱います。従って、テキストインタプリタが受け取るワードには非図形文字が埋め込まれません。このような環境での実装がStandardを名乗ることを許可するために、Standard Programsに対するこの小さな制限が必要です。
-
-A Standard System is allowed to permit the creation of definition names containing non-graphic characters.  Historically, such names were used for keyboard editing functions and "invisible" words.
-
-Standard Systemは、非図形文字を含む定義名の作成を許可します。 歴史的に、このような名前はキーボード編集機能や "見えない" ワードに使用されてきた。
+標準システムは、非図形文字を含む定義名の作成を許可します。 歴史的に、このような名前はキーボード編集機能や "見えない" ワードに使用されてきました。
 
 #### A.3.3.2 Code space 
 
 
 #### A.3.3.3 Data space 
 
-The words `#TIB`, `>IN`, `BASE`, `BLK`, `SCR`, `SOURCE`, `SOURCE-ID`, `STATE`, and `TIB` contain information  used by the Forth system in its operation and may be of use to the application. Any assumption made by the  application about data available in the Forth system it did not store other than the data just listed is an  environmental dependency.
+ワード `TIB`、`>IN`、`BASE`、`BLK`、`SCR`、`SOURCE`、`SOURCE-ID`、`STATE`、および `TIB` には、Forth システム自身の動作で使用される情報が含まれており、アプリケーションも使用する可能性があります。Forthシステムで利用可能なデータについて、Forthシステムが今挙げたデータ以外を保存していないとアプリケーションが仮定することは、環境依存です。
 
-TIB`、`>IN`、`BASE`、`BLK`、`SCR`、`SOURCE`、`SOURCE-ID`、`STATE`、および `TIB` には、Forth システムの動作で使用される情報が含まれており、アプリケーショ ンが使用する可能性があります。アプリケーションは、Forthシステムで利用可能なデータについて、今挙げたデータ以外を保存していないと仮定することは、環境依存です。
+何がアドレス指定可能で何がアドレス指定不可能かを(規格で)規定することに意味はありません。
 
-There is no point in specifying (in the Standard) both what is and what is not addressable.
+標準プログラムは以下のアドレス指定を*してはなりません*。
 
-何がアドレス指定可能で何がアドレス指定不可能かを(規格で)指定することに意味はありません。
+- データスタックやリターンスタックへの直接のアドレス指定、
+- アプリケーションによって保存されていない場合に、定義のデータフィールドに対するアドレス指定。
 
-A Standard Program may NOT address:  
-
-標準プログラムは以下のアドレス指定をしてはなりません。
-
-- Directly into the data or return stacks; 
-- Into a definition’s data field if not stored by the application.
-
-- データスタックやリターンスタックへの直接のアドレス指定； 
-- アプリケーションによって保存されていない場合は、定義のデータフィールドに。
-
-The read-only restrictions arise because some Forth systems run from ROM and some share I/O buffers with  other users or systems. Portable programs cannot know which areas are affected, hence the general  restrictions.
-
-一部の Forth システムは ROM から実行され、他のユーザやシステムと I/O バッファを共有しているため、読み取り専用の制限が発生します。ポータブル・プログラムでは、どの領域が影響を受けるかを知ることはできません。
+一部の Forth システムは ROM から実行され、他のユーザやシステムと I/O バッファを共有しているため、読み取り専用の制限が発生します。この制限は一般的であり、移植可能なプログラムは、どの領域が影響を受けるかを知ることはできません。
 
 ##### A.3.3.3.1 Address alignment 
 
-Many processors have restrictions on the addresses that can be used by memory access instructions. For  example, on a Motorola 68000, 16-bit or 32-bit data can be accessed only at even addresses. Other  examples include RISC architectures where 16-bit data can be loaded or stored only at even addresses and  32-bit data only at addresses that are multiples of four.
+多くのプロセッサでは、メモリアクセス命令で使用できるアドレスに制限があります。例えば、モトローラ 68000 では、16 ビットまたは 32 ビットのデータは偶数アドレスでのみアクセスできます。他の例として、RISCアーキテクチャでは16ビット・データは偶数アドレスでのみ、32ビット・データは4の倍数のアドレスでのみロードまたはストアできます。
 
-多くのプロセッサでは、メモリ・アクセス命令で使用できるアドレスに制限があります。例えば、モトローラ 68000 では、16 ビットまたは 32 ビットのデータは偶数アドレスでのみアクセスできます。他の例として、RISCアーキテクチャでは16ビット・データは偶数アドレスでのみ、32ビット・データは4の倍数のアドレスでのみロードまたはストアできます。
-
-An implementor of ANS Forth can handle these alignment restrictions in one of two ways. Forth’s memory  access words (@, !, +!, etc.) could be implemented in terms of smaller-width access instructions which  have no alignment restrictions. For example, on a 68000 Forth with 16-bit cells, @ could be implemented  with two 68000 byte-fetch instructions and a reassembly of the bytes into a 16-bit cell. Although this  conceals hardware restrictions from the programmer, it is inefficient, and may have unintended side effects  in some hardware environments. An alternate implementation of ANS Forth could define each memory access word using the native instructions that most closely match the word’s function. On a 68000 Forth  with 16-bit cells, @ would use the 68000’s 16-bit move instruction. In this case, responsibility for giving @ a  correctly-aligned address falls on the programmer. A portable ANS Forth program must assume that  alignment may be required and follow the requirements of this section.
-
-ANS Forthの実装者は、このアラインメント制限を2つの方法のいずれかで処理できます。Forthのメモリアクセスワード(@、! 例えば、16ビットセルを持つ68000 Forthでは、@は2つの68000バイトフェッチ命令と16ビットセルへのバイトの再組み立てで実装できます。これは、ハードウェアの制約をプログラマから隠すことができますが、非効率的であり、ハードウェア環境によっては意図しない副作用が生じる可能性があります。ANS Forthの別の実装では、ワードの機能に最も近いネイティブ命令を使用して、各メモリアクセスワードを定義できます。16 ビットセルを持つ 68000 Forth では、@ は 68000 の 16 ビット移動命令を使用します。この場合、@に正しく整列されたアドレスを与える責任はプログラマにあります。移植可能な ANS Forth プログラムは、アライメントが必要な場合があることを想定し、本節の要件に従わなければなりません。
+ANS Forthの実装者は、このアライメント制限を2つの方法のいずれかで処理できます。Forthのメモリアクセスワード(`@`、`!`、`+!`など)は、より小さな幅でアクセスできる、アライメント制限のない命令を用いて実装することもできます。例えば、16ビットセルを持つ68000 Forthでは、`@`は2つの68000バイトフェッチ命令とバイトから16ビットセルへの再組み立てにより実装できます。これは、ハードウェアの制約をプログラマから隠すことができますが、非効率的であり、ハードウェア環境によっては意図しない副作用が生じる可能性があります。ANS Forthの別の実装では、ワードの機能に最も近いネイティブ命令を使用して、各メモリアクセスワードを定義することができます。16 ビットセルを持つ 68000 Forth では、`@` は 68000 の 16 ビットmove命令を使用します。この場合、`@`に正しく整列されたアドレスを与える責任はプログラマにあります。移植可能な ANS Forth プログラムは、アライメントが必要な場合があることを想定し、本節の要件に従わなければなりません。
 
 ##### A.3.3.3.2 Contiguous regions 
 
-The data space of a Forth system comes in discontinuous regions! The location of some regions is provided  by the system, some by the program. Data space is contiguous within regions, allowing address arithmetic  to generate valid addresses only within a single region. A Standard Program cannot make any assumptions  about the relative placement of multiple regions in memory.
-
-Forth システムのデータ空間は、不連続な領域で構成されています。一部の領域はシステムによって提供され、一部の領域はプログラムによって提供されます。データ空間は領域内で連続しているため、アドレス演算は1つの領域内でのみ有効なアドレスを生成することができます。標準プログラムでは、メモリ内の複数の領域の相対的な配置を仮定することはできません。
-
-Section **3.3.3.2**  does prescribe conditions under which contiguous regions of data space may be obtained.
+Forth システムのデータ空間は、不連続な領域で構成されています。一部の領域はシステムが提供し、一部の領域はプログラムが提供します。データ空間は領域内で連続しているため、アドレス演算は1つの領域内でのみ有効なアドレスを生成することができます。標準プログラムでは、メモリ内の複数の領域の相対的な配置を仮定することはできません。
 
 セクション**3.3.3.2**では、データ空間の連続した領域を取得できる条件を規定しています。
 
-For example:  
+例えば、
 
     CREATE TABLE 1 C, 2 C, ALIGN 1000 , 2000 ,  
 
-makes a table whose address is returned by TABLE. In accessing this table,  
+は`TABLE`が返すアドレスにあるテーブルを作成します。このテーブルにアクセスする場合、
 
     TABLE C@                            will return 1  
     TABLE CHAR+ C@                      will return 2  
     TABLE 2 CHARS + ALIGNED @           will return 1000  
     TABLE 2 CHARS + ALIGNED CELL+ @     will return 2000.
 
-Similarly,  
+となります。同様に、
 
     CREATE DATA 1000 ALLOT  
 
-makes an array 1000 address units in size. A more portable strategy would define the array in application  units, such as:      
-
-は1000アドレス・ユニットの配列になります。より移植性の高い戦略としては、以下のようにアプリケーション単位で配列を定義します。
+は1000アドレス単位の配列になります。より移植性の高い戦略として、以下のようにアプリケーション単位で配列を定義することもできます。
 
     500 CONSTANT NCELLS 
     CREATE CELL-DATA NCELLS CELLS ALLOT  
 
-This array can be indexed like this:  
+この配列は以下のようにインデックスを使いアクセスできます。
 
     : LOOK NCELLS 0 DO CELL-DATA I CELLS + ? LOOP ; 
 
 ##### A.3.3.3.6 Other transient regions 
 
-In many existing Forth systems, these areas are at `HERE` or just beyond it, hence the many restrictions.
+多くの既存のForthシステムでは、これらの領域は`HERE`か、そのすぐ先にあり、それゆえに多くの制限があります。
 
-多くの既存のForthシステムでは、これらの領域は`HERE`にあるか、そのすぐ先にあり、それゆえに多くの制限があります。
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mn>2</mn>
+  <mi>n</mi>
+  <mo>+</mo>
+  <mn>b</mn>
+</math>
 
-(2**n*)+2 is the size of a character string containing the unpunctuated binary representation of the maximum double number with a leading minus sign and a trailing space.
-
-*(2\*\*n)+2*は、先頭のマイナス記号と末尾の空白を含む最大2進数の非区切り2進数表現を含む文字列のサイズです。
+*(2\*\*n)+2*は、先頭のマイナス記号と末尾の空白を含み、区切り文字を含まない最大の倍長2進数の文字列表現を含む文字列のサイズです。
 
 Implementation note: Since the minimum value of *n* is 16, the absolute minimum size of the pictured  numeric output string is 34 characters. But if your implementation has a larger *n*, you must also increase the  size of the pictured numeric output string.
 
@@ -3440,7 +3418,7 @@ Forth-79 Standardは、Forthユーザとベンダーの国際的なグループ�
 
 Forth 79 described a set of words defined on a 16-bit, twos-complement, unaligned, linear byte-addressing  virtual machine. It prescribed an implementation technique known as "indirect threaded code", and used the  ASCII character set.
 
-Forth 79は、16ビット、2進補数、アラインメントなし、リニアバイトアドレッシングの仮想マシン上で定義されたワードのセットについて説明したものです。「間接スレッドコード」として知られる実装技術を規定し、ASCII文字セットを使用しました。
+Forth 79は、16ビット、2進補数、アライメントなし、リニアバイトアドレッシングの仮想マシン上で定義されたワードのセットについて説明したものです。「間接スレッドコード」として知られる実装技術を規定し、ASCII文字セットを使用しました。
 
 The Forth-79 Standard served as the basis for several public domain and commercial implementations,  some of which are still available and supported today.
 
@@ -3704,7 +3682,7 @@ The number "2" by itself is sometimes used for address calculations as an argume
 
 Forth 83 imposes no restriction upon the alignment of addresses to any boundary. ANS Forth specifies that  a Standard System may require alignment of addresses for use with various "@" and "!" operators.
 
-Forth 83 では、アドレスのアラインメントに制限はありません。ANS Forthは、標準システムがさまざまな「@」演算子や「!」演算子を使う際にアドレスアライメントを要求してくるかもしれません。
+Forth 83 では、アドレスのアライメントに制限はありません。ANS Forthは、標準システムがさまざまな「@」演算子や「!」演算子を使う際にアドレスアライメントを要求してくるかもしれません。
 
 <desc>
 
@@ -3715,7 +3693,7 @@ Forth 83 では、アドレスのアラインメントに制限はありませ�
 Many computers have hardware restrictions that favor the use of aligned  addresses. On some machines, the native memory-access instructions will cause an exception trap if used  with an unaligned address. Even on machines where unaligned accesses do not cause exception traps,  aligned accesses are usually faster.
 
 ||理由||
-多くのコンピュータでは、アラインメントされたアドレスの使用を推奨するハードウェア制限があります。一部のマシンでは、アラインされていないアドレスで使用すると、ネイティブのメモリアクセス命令が例外トラップを引き起こす。アンアラインド・アクセスが例外トラップを引き起こさないマシンであっても、アラインド・アクセスの方が通常は高速です。
+多くのコンピュータでは、アライメントされたアドレスの使用を推奨するハードウェア制限があります。一部のマシンでは、アラインされていないアドレスで使用すると、ネイティブのメモリアクセス命令が例外トラップを引き起こす。アンアラインド・アクセスが例外トラップを引き起こさないマシンであっても、アラインド・アクセスの方が通常は高速です。
 
 ||Impact:||
 All of the ANS Forth words that return addresses suitable for use with aligned "@" and "!" words must return aligned addresses. In most cases, there will be no problem. Problems can arise from the use of user-defined data structures containing a mixture of character data and cell-sized data.
@@ -3725,17 +3703,17 @@ Many existing Forth systems, especially those currently in use on computers with
 ||影響||
 アラインされた"@"および"!"ワードの使用に適したアドレスを返すANS Forthワードは、すべてアラインされたアドレスを返さなければなりません。ほとんどの場合、問題はありません。文字データとセル・サイズ・データが混在したユーザ定義のデータ構造を使用すると、問題が発生することがあります。
 
-既存のForthシステムの多く、特に強いアライメント要求を持つコンピュータで現在使用されているものは、すでにアライメントを要求しています。そのようなマシンで現在使用されている既存のForthコードの多くは、アラインメント環境で使用するためにすでに変換されています。
+既存のForthシステムの多く、特に強いアライメント要求を持つコンピュータで現在使用されているものは、すでにアライメントを要求しています。そのようなマシンで現在使用されている既存のForthコードの多くは、アライメント環境で使用するためにすでに変換されています。
 
 ||Transition/Conversion:||
 There are two possible approaches to conversion of programs for use on a system  requiring address alignment.
 
 ||移行/変換:||
-アドレス・アラインメントを必要とするシステムで使用するためのプログラムの変換には、2つのアプローチが考えられます。
+アドレス・アライメントを必要とするシステムで使用するためのプログラムの変換には、2つのアプローチが考えられます。
 
 The easiest approach is to redefine the system’s aligned "@" and "!" operators so that they do not require  alignment. For example, on a 16-bit little-endian byte-addressed machine, unaligned "@" and "!" could be  defined:  
 
-最も簡単な方法は、システムの整列演算子"@"と"!"を再定義し、整列を必要としないようにすることです。例えば、16ビットのリトルエンディアン・バイトアドレス・マシンでは、アラインメントなしの"@"と"!"を定義することができます。
+最も簡単な方法は、システムの整列演算子"@"と"!"を再定義し、整列を必要としないようにすることです。例えば、16ビットのリトルエンディアン・バイトアドレス・マシンでは、アライメントなしの"@"と"!"を定義することができます。
 
     : @ ( addr -- x ) DUP C@ SWAP CHAR+ C@ 8 LSHIFT OR ; 
     : ! ( x addr -- ) OVER 8 RSHIFT OVER CHAR+ C! C! ; 
@@ -3760,7 +3738,7 @@ This approach will probably result in faster application execution speed, at the
 
 Finally, it is possible to combine the preceding techniques by identifying exactly those data fields that are  unaligned, and using "unaligned" versions of the memory access operators for only those fields. This  "hybrid" approach affects a compromise between execution speed and memory utilization.
 
-最後に、アラインメントされていないデータ・フィールドを正確に特定し、そのフィールドだけに「アラインメントされていない」バージョンのメモリ・アクセス演算子を使用することで、前述のテクニックを組み合わせることが可能です。この "ハイブリッド" アプローチは、実行速度とメモリ使用率の妥協点に影響を与えます。
+最後に、アライメントされていないデータ・フィールドを正確に特定し、そのフィールドだけに「アライメントされていない」バージョンのメモリ・アクセス演算子を使用することで、前述のテクニックを組み合わせることが可能です。この "ハイブリッド" アプローチは、実行速度とメモリ使用率の妥協点に影響を与えます。
 
 ### D.6.6 Division/modulus rounding direction 
 
@@ -4098,7 +4076,7 @@ Three terms defined by ANS Forth are address unit, cell, and character. The addr
 
 The cell is the fundamental data type of a Forth system. A cell can be a single-cell integer or a memory address. Forth’s parameter and return stacks are stacks of cells. Forth 83 specifies that a cell is 16-bits. In  ANS Forth the size of a cell is an implementation-defined number of address units. Thus, an ANS Forth  implemented on a 16-bit microprocessor could use a 16-bit cell and an implementation on a 32-bit machine  could use a 32-bit cell. Also 18-bit machines, 36-bit machines, etc., could support ANS Forth systems with  18 or 36-bit cells respectively. In all of these systems, DUP does the same thing: it duplicates the top of the data stack. ! (store) behaves consistently too: given two cells on the data stack it stores the second cell in  the memory location designated by the top cell.
 
-ANS Forthで定義されている3つの用語は、アドレスユニット、セル、およびキャラクタです。ANS Forthシステムのアドレス空間は、アドレス単位の配列に分割されます。アドレス単位とは、アドレス指定が可能な最小のビットの集まりです。言い換えれば、アドレスユニットとは、アドレスaddrとaddr+1にまたがるビット数のことです。 最も一般的なマシンは8ビットのアドレス・ユニットを使用しています。このような「バイトアドレス」マシンには、インテル8086やモトローラ68000ファミリーがあります。しかし、他のアドレス・ユニット・サイズも存在します。ビットアドレスのマシンもあれば、4ビットニブルアドレス のマシンもあります。また、アドレス単位が8ビットより大きいマシンもあります。例えば、いくつかのForth-in-hardwareコンピュータはセルアドレスです。
+ANS Forthで定義されている3つの用語は、アドレスユニット、セル、およびキャラクタです。ANS Forthシステムのアドレス空間は、アドレス単位の配列に分割されます。アドレス単位とは、アドレス指定が可能な最小のビットの集まりです。言い換えれば、アドレスユニットとは、アドレスaddrとaddr+1にまたがるビット数のことです。 最も一般的なマシンは8ビットのアドレス単位を使用しています。このような「バイトアドレス」マシンには、インテル8086やモトローラ68000ファミリーがあります。しかし、他のアドレス単位・サイズも存在します。ビットアドレスのマシンもあれば、4ビットニブルアドレス のマシンもあります。また、アドレス単位が8ビットより大きいマシンもあります。例えば、いくつかのForth-in-hardwareコンピュータはセルアドレスです。
 
 セルは Forth システムの基本的なデータ型です。セルは単一セル整数でもメモリアドレスでもよいです。Forthのパラメータ・スタックとリターンスタックはセルのスタックです。Forth 83では、セルは16ビットであると規定されています。ANS Forthでは、セルのサイズは実装で定義されたアドレス単位の数です。したがって、16ビットのマイクロプロセッサ上で実装されたANS Forthは16ビットのセルを使用することができ、32ビットのマシン上で実装されたANS Forthは32ビットのセルを使用することができます。また、18ビットマシンや36ビットマシンなども、それぞれ18ビットセルや36ビットセルを持つANS Forthシステムをサポートすることができます。これらすべてのシステムで、DUP はデータスタックの先頭を複製するという同じことを行います。! (ストア)の動作も一貫しています。データスタック上に2つのセルがあると、2番目のセルを一番上のセルが指定するメモリ位置に格納します。
 
@@ -4108,7 +4086,7 @@ Similarly, the definition of a character has been generalized to be an implement
 
 ANS Forth eliminates many portability problems by using the above definitions. One of the most common  portability problems is addressing successive cells in memory. Given the memory address of a cell, how do  you find the address of the next cell? In Forth 83 this is easy: 2 + . This code assumes that memory is  addressed in 8-bit units (bytes) and a cell is 16-bits wide. On a byte-addressed machine with 32-bit cells the  code to find the next cell would be 4 + . The code would be 1+ on a cell-addressed processor and 16 + on a bit-addressed processor with 16-bit cells. ANS Forth provides a next-cell operator named CELL+ that  can be used in all of these cases. Given an address, CELL+ adjusts the address by the size of a cell  (measured in address units). A related problem is that of addressing an array of cells in an arbitrary order.  A defining word to create an array of cells using Forth 83 would be:  
 
-同様に、文字の定義は、実装で定義されたアドレス・ユニット数(ただし、少なくとも8ビット)に一般化されました。これにより、Forthの実装者は、不適切なプロセッサ上で8ビット文字を提供する必要がなくなりました。例えば、9ビットのアドレス・ユニットを持つ18ビット・マシンでは、9ビット文字が最も便利です。定義上、アドレス・ユニットより小さいものをアドレスにすることはできないので、文字は少なくともアドレス・ユニットと同じ大きさでなければなりません。このため、アドレス・ユニットが大きいマシンでは大きな文字になります。例えば、16 ビット・セル・アドレスのマシンでは、16 ビット・キャラクタが最も理にかなっています。
+同様に、文字の定義は、実装で定義されたアドレス単位数(ただし、少なくとも8ビット)に一般化されました。これにより、Forthの実装者は、不適切なプロセッサ上で8ビット文字を提供する必要がなくなりました。例えば、9ビットのアドレス単位を持つ18ビット・マシンでは、9ビット文字が最も便利です。定義上、アドレス単位より小さいものをアドレスにすることはできないので、文字は少なくともアドレス単位と同じ大きさでなければなりません。このため、アドレス単位が大きいマシンでは大きな文字になります。例えば、16 ビット・セル・アドレスのマシンでは、16 ビット・キャラクタが最も理にかなっています。
 
 ### E.2.3 メモリのアドレス指定  
 
@@ -4118,7 +4096,7 @@ ANS Forth では、上記の定義を使用することで、多くの移植性�
 
 Use of 2* to scale the array index assumes byte addressing and 16-bit cells again. As in the example above,  different versions of the code would be needed for different machines. ANS Forth provides a portable  scaling operator named CELLS. Given a number n, CELLS returns the number of address units needed to  hold n cells. A portable definition of array is:  
 
-配列のインデックスをスケールするために2*を使用することは、バイトアドレッシングと16ビットセルを再び想定しています。上記の例のように、マシンによって異なるバージョンのコードが必要になります。ANS Forthは、CELLSというポータブルなスケーリング演算子を提供しています。数値nが与えられると、CELLSはn個のセルを保持するのに必要なアドレス・ユニットの数を返します。ポータブルな配列の定義は
+配列のインデックスをスケールするために2*を使用することは、バイトアドレッシングと16ビットセルを再び想定しています。上記の例のように、マシンによって異なるバージョンのコードが必要になります。ANS Forthは、CELLSというポータブルなスケーリング演算子を提供しています。数値nが与えられると、CELLSはn個のセルを保持するのに必要なアドレス単位の数を返します。ポータブルな配列の定義は
 
     : ARRAY CREATE CELLS ALLOT 
         DOES> SWAP CELLS + ; 
@@ -4127,7 +4105,7 @@ There are also portability problems with addressing arrays of characters. In For
 
 ANS Forth generalizes the definition of some Forth words that operate on chunks of memory to use address  units. One example is ALLOT. By prefixing ALLOT with the appropriate scaling operator (CELLS,  CHARS, etc.), space for any desired data structure can be allocated (see definition of array above). For  example:  
 
-文字の配列のアドレス指定にも移植性の問題があります。Forth 83(および最も一般的な ANS Forth 実装)では、文字のサイズはアドレス単位のサイズに等しくなります。 その結果、メモリ内の連続する文字のアドレスは1+を使用して求めることができ、文字配列へのインデックスのスケーリングは不要です(つまり、1 *)。しかし、1文字がアドレス・ユニットより大きい場合もあります。例えば、(1)アドレス単位が小さいシステム(例えば、ビットアドレスやニブルアドレスシステム)、(2)文字セットが大きいシステム(例えば、バイトアドレスマシンの16ビット文字)。CHAR+およびCHARS演算子(CELL+およびCELLSに類似)は、最大限の移植性を可能にするために利用可能です。
+文字の配列のアドレス指定にも移植性の問題があります。Forth 83(および最も一般的な ANS Forth 実装)では、文字のサイズはアドレス単位のサイズに等しくなります。 その結果、メモリ内の連続する文字のアドレスは1+を使用して求めることができ、文字配列へのインデックスのスケーリングは不要です(つまり、1 *)。しかし、1文字がアドレス単位より大きい場合もあります。例えば、(1)アドレス単位が小さいシステム(例えば、ビットアドレスやニブルアドレスシステム)、(2)文字セットが大きいシステム(例えば、バイトアドレスマシンの16ビット文字)。CHAR+およびCHARS演算子(CELL+およびCELLSに類似)は、最大限の移植性を可能にするために利用可能です。
 
 ANS Forthは、アドレス単位を使用するために、メモリのチャンクを操作するいくつかのForth語の定義を一般化しています。その一例がALLOTです。ALLOTの前に適切なスケーリング演算子(CELLS、CHARSなど)を付けることで、任意のデータ構造用のスペースを割り当てることができます(上記の配列の定義を参照)。例えば
 
