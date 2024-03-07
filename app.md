@@ -46,7 +46,7 @@ X3J14技術委員会のメンバは、相対的な優劣を判断する際、以
 
 第一に、ANS Forthシステムは、他のどの言語単独よりも幅広いハードウェアに実装することができます。必要なのはCoreワードセットだけなので、非常に制約の厳しいハードウェアでもANS Forthの実装に対応できます。
 
-第二に、アプリケーションの移植性に加え、プログラマの移植性がより高くなることが期待されます。オプションのワードセットは、それまで幅広く実装されていたが、統一された定義名や方法論、同じレベルの完全性を持たなかったさまざまな関数(浮動小数点など)を標準化するものです。このようなワードがオプショナル・ワードセットで標準化されたことで、プログラマ間の口頭によるコミュニケーションや、雑誌やジャーナルの記事によるコミュニケーションの水準が飛躍的に向上することでしょう。また、コードやアプリケーションの共有の質とレベルも飛躍的に向上するはずです。
+第二に、アプリケーションの移植性に加え、プログラマの移植性がより高くなることが期待されます。オプションのワードセットは、それまで幅広く実装されていたが、統一された定義名や方法論、同じレベルの完全性を持たなかったさまざまな関数(浮動小数点数など)を標準化するものです。このようなワードがオプショナル・ワードセットで標準化されたことで、プログラマ間の口頭によるコミュニケーションや、雑誌やジャーナルの記事によるコミュニケーションの水準が飛躍的に向上することでしょう。また、コードやアプリケーションの共有の質とレベルも飛躍的に向上するはずです。
 
 第3に、ANS Forthシステムは、ユーザが選択的に、さらには動的に、1つ以上のオプションのワードセットまたはその一部を含めたり除外したりできるように設計されているかもしれません。また、Coreワードセットを必要とし、それ以上を必要としないユーザ向けに、低価格の製品を提供することもできます。このようにして、理論上は無制限の柔軟性がユーザに提供されます。
 
@@ -418,7 +418,7 @@ Forthの制御フローは、厳密に構造化されたプログラミングで
 
 #### A.3.2.6 Environmental queries 
 
-様々なデータ型のアドレス単位でのサイズは、`1 CHARS`のようなフレーズで決定されます。同様に、アライメントも `1 ALIGNED` のようなフレーズで決定されます。
+さまざまなデータ型のアドレス単位でのサイズは、`1 CHARS`のようなフレーズで決定されます。同様に、アライメントも `1 ALIGNED` のようなフレーズで決定されます。
 
 環境クエリは2つのグループに分けられます。常に同じ値を生成するものと、そうでないものです。前者のグループには、`MAX-N`のようなエントリが含まれます。この情報は、ハードウェアまたはForthシステムの設計によって固定されており、ユーザは一度質問すれば十分であることが保証されています。
 
@@ -640,7 +640,7 @@ Typical use: `: X ... test ABORT" ccc" ... ; `
 
 #### A.6.1.0705 ALIGN 
 
-本標準では、様々なCPUアーキテクチャ間での移植性を提供することを試みました。しばしば生じる移植性の問題の原因の1つは、いくつかのCPUでセル整列のアドレスが要求されることです。このようなシステムでは、`C,`で構築されたデータ構造をビルドしたりトラバースしたりするために `ALIGN` と `ALIGNED` が必要になることがあります。 実装者は、これらのワードが機能しないシステムでは、これらのワードをno-opsとして定義することができます。
+本標準では、さまざまなCPUアーキテクチャ間での移植性を提供することを試みました。しばしば生じる移植性の問題の原因の1つは、いくつかのCPUでセル整列のアドレスが要求されることです。このようなシステムでは、`C,`で構築されたデータ構造をビルドしたりトラバースしたりするために `ALIGN` と `ALIGNED` が必要になることがあります。 実装者は、これらのワードが機能しないシステムでは、これらのワードをno-opsとして定義することができます。
 
 #### A.6.1.0706 `ALIGNED` 
 
@@ -1168,7 +1168,7 @@ Typical use: char PARSE ccc&lt;char>
 
 伝統的なForthの構文解析のためのワードは`WORD`です。`PARSE` は `WORD` の以下の問題を解決します。  
 
-a) `WORD`は常に先頭の区切り文字をスキップします。この動作は、空白でない文字のシーケンスを検索するテキスト・インタプリタの使用には適していますが、`(` , `.(` , `."`のようなワードで使用するには不適切です。次の(欠陥のある) `.(` の定義を考えてみましょう。
+a) `WORD`は常に先頭の区切り文字をスキップします。この動作は、空白でない文字のシーケンスを検索するテキストインタプリタの使用には適していますが、`(` , `.(` , `."`のようなワードで使用するには不適切です。次の(欠陥のある) `.(` の定義を考えてみましょう。
 
     : .( [CHAR] ) WORD COUNT TYPE ; IMMEDIATE 
 
@@ -1583,7 +1583,7 @@ Typical use:
 
 キーボードとマウスの両方のイベントを1つの「イベントストリーム」にまとめるシステムでは、`EKEY`が返す1つの数値は、入力の可能性の全範囲を表すには不十分かもしれません。そのようなシステムでは、1つの "イベントレコード" が、タイムスタンプ、マウス位置のx,y座標、キーボードの状態、マウスボタンの状態を含むかもしれません。そのようなシステムでは、`EKEY`が他の情報を抽出できる「イベントレコード」のアドレスを返すことが適切かもしれません。
 
-また、PC互換機上のMS-DOSで動作する仮想のForthシステムを考えてみましょう。実装で定義されている文字セットは、「通常の」8ビットPC文字セットであると仮定します。この文字セットでは、0から127までのコードがASCII文字に対応します。128から255までのコードは、英語以外のさまざまな言語の文字、数学記号、線画に使われるいくつかの図形記号を表しています。これらの文字に加え、キーボードは、矢印キーやファンクションキーなどの非文字イベントを表す様々な「スキャンコード」を生成することができます。
+また、PC互換機上のMS-DOSで動作する仮想のForthシステムを考えてみましょう。実装で定義されている文字セットは、「通常の」8ビットPC文字セットであると仮定します。この文字セットでは、0から127までのコードがASCII文字に対応します。128から255までのコードは、英語以外のさまざまな言語の文字、数学記号、線画に使われるいくつかの図形記号を表しています。これらの文字に加え、キーボードは、矢印キーやファンクションキーなどの非文字イベントを表すさまざまな「スキャンコード」を生成することができます。
 
 同じ標準文字に対応する、異なるスキャンコードを持つ複数のキーがあってもよいです。例えば、数字の「1」を表す文字は、アルファベットキーの上にある数字キーの列と、独立したテンキーパッドの両方に存在することが多いです。
 
@@ -1677,45 +1677,29 @@ MS-DOSで`EKEY`を使用するもう1つの方法は、BIOSの "Read Keyboard St
 
 ## A.11 The optional File-Access word set 
 
-Many Forth systems support access to a host file system, and many of these support interpretation of Forth  from source text files. The Forth-83 Standard did not address host OS files. Nevertheless, a degree of  similarity exists among modern implementations.
+多くのForthシステムはホストファイルシステムへのアクセスをサポートしており、これらの多くはソーステキストファイルからのForthの解釈をサポートしています。Forth-83標準では、ホストOSファイルには対応していませんでした。とはいえ、現代の実装の間にはある程度の類似性があります。
 
-多くのForthシステムはホストファイルシステムへのアクセスをサポートしており、これらの多くはソーステキストファイルからのForthの解釈をサポートしています。Forth-83スタンダードでは、ホストOSファイルには対応していませんでした。とはいえ、現代の実装にはある程度の類似性があります。
+例えば、ファイルのオープンとクローズ、ファイルの作成と削除が必要です。Forthファイルシステムの実装の主な差異は、例外コードの扱いと処理、およびファイル識別文字列の形式にあります。ファイル制御ブロックを作成する基本的なメカニズムは、見えるものと見えないものとがありえます。われわれは見えないようにすることとしました。
 
-For example, files must be opened and closed, created and deleted. Forth file-system implementations  differ mostly in the treatment and disposition of the exception codes, and in the format of the file identification strings. The underlying mechanism for creating file-control blocks might or might not be  visible. We have chosen to keep it invisible.
+ファイルは読み書きもできなければなりません。テキストファイルをサポートする場合は、1行ずつ読み書きしなければなりません。 テキストファイルの解釈は、テキストインタプリタの入力メカニズムに何らかの形で組み込まれることを意味します。これらの要件やその他の要件を経て、ファイルアクセス拡張のワードセットが形成されました。
 
-例えば、ファイルのオープンとクローズ、作成と削除が必要です。Forthファイルシステムの実装は、例外コードの扱いと処理、およびファイル識別文字列の形式において、主に異なっています。ファイル制御ブロックを作成する基本的なメカニズムは、見えるかもしれないし、見えないかもしれません。われわれは見えないようにすることにした。
+調査対象となった既存の実装のほとんどは、一般的なホストファイル機能に単純な英語のワードを使用しています。  `OPEN`、`CLOSE`、`READ`などです。我々もそうしたかったのですが、これらのワードの実装には非常に多くのマイナーな差異があり、特定の意味を採用することは多くの既存のコードを壊してしまうことになります。我々は、これらのワードのほとんどに接尾辞-FILEを付けた名前を使用することとしました。私たちは、実装者が自分たちの単一ワードプリミティブをANSの動作に適合させることを奨励するとともに、これが広く行われるようになり、将来の標準規格でより良い定義名を採用できることを望んでいます。
 
-Files must also be read and written. Text files, if supported, must be read and written one line at a time.  Interpretation of text files implies that they are somehow integrated into the text interpreter input  mechanism. These and other requirements have shaped the file-access extensions word set.
-
-ファイルは読み書きもできなければなりません。テキスト・ファイルをサポートする場合は、1行ずつ読み書きしなければなりません。 テキスト・ファイルの解釈は、テキストインタプリタの入力メカニズムに何らかの形で組み込まれることを意味します。これらの要件やその他の要件が、ファイルアクセス拡張のワードセットを形成してきました。
-
-Most of the existing implementations studied use simple English words for common host file functions:  OPEN, CLOSE, READ, etc. Although we would have preferred to do likewise, there were so many minor  variations in implementation of these words that adopting any particular meaning would have broken much  existing code. We have used names with a suffix -FILE for most of these words. We encourage  implementors to conform their single-word primitives to the ANS behaviors, and hope that if this is done on  a widespread basis we can adopt better definition names in a future standard.
-
-研究された既存の実装のほとんどは、一般的なホストファイル機能に単純な英ワードを使用しています。  OPEN、CLOSE、READなどです。我々もそうしたかったが、これらのワードの実装には非常に多くのマイナーなバリエーションがあり、特定の意味を採用することは多くの既存のコードを壊してしまうことになります。我々は、これらのワードのほとんどに接尾辞-FILEを付けた名前を使用しました。私たちは、実装者が自分たちの単一ワードプリミティブをANSの動作に適合させることを奨励し、これが広く行われれば、将来のスタンドでより良い定義名を採用できることを望んでいる。
-
-Specific rationales for members of this word set follow.
-
-このワードセットのメンバに関する具体的な根拠は以下の通りです。
+このワードセットのメンバに関する具体的な根拠・背景説明は以下の通りです。
 
 ### A.11.3 Additional usage requirements 
 
 #### A.11.3.2 Blocks in files 
 
-Many systems reuse file identifiers; when a file is closed, a subsequently opened file may be given the same  identifier. If the original file has blocks still in block buffers, these will be incorrectly associated with the  newly opened file with disastrous results. The block buffer system must be flushed to avoid this.
-
-多くのシステムではファイル識別子を再利用します。ファイルが閉じられると、その後に開かれるファイルにも同じ識別子が与えられることがあります。元のファイルがブロック・バッファにブロックを残している場合、そのブロックは新しくオープンされたファイルに誤って関連付けられ、悲惨な結果を招きます。これを避けるには、ブロック・バッファ・システムをフラッシュする必要があります。
+多くのシステムではファイル識別子を再利用します。ファイルが閉じられると、その後に開かれるファイルにも同じ識別子が与えられることがあります。元のファイルがブロックバッファにブロックを残している場合、そのブロックは新しくオープンされたファイルに誤って関連付けられ、悲惨な結果を招きます。これを避けるには、ブロックバッファシステムをフラッシュする必要があります。
 
 ### A.11.6 Glossary 
 
 ##### A.11.6.1.0765 BIN 
 
-Some operating systems require that files be opened in a different mode to access their contents as an  unstructured stream of binary data rather than as a sequence of lines.
+オペレーティングシステムによっては、ファイルの内容を一連の行としてではなく、 構造化されていないバイナリ・データのストリームとしてアクセスするために、 異なるモードでファイルを開くことを要求するものがあります。
 
-オペレーティング・システムによっては、ファイルの内容を一連の行としてではなく、 構造化されていないバイナリ・データのストリームとしてアクセスするために、 異なるモードでファイルを開くことを要求するものがあります。
-
-The arguments to `READ-FILE` and `WRITE-FILE` are arrays of character storage elements, each  element consisting of at least 8 bits. The Technical Committee intends that, in BIN mode, the contents of  these storage elements can be written to a file and later read back without alteration. The Technical  Committee has declined to address issues regarding the impact of "wide" characters on the File and Block  word sets.
-
-READ-FILE`と`WRITE-FILE`の引数は文字格納要素の配列であり、各要素は少なくとも8ビットで構成されます。技術委員会は、BINモードでは、これらの記憶エレメントの内容をファイルに書き込んで、後でそのまま読み返すことができることを意図しています。技術委員会は、"ワイド "文字がファイルとブロックのワードセットに与える影響に関する問題への対処を拒否した。
+`READ-FILE`と`WRITE-FILE`の引数は文字格納要素の配列であり、各要素は少なくとも8ビットで構成されます。技術委員会は、`BIN`モードでは、これらの記憶エレメントの内容をファイルに書き込んで、後でそのまま読み返すことができることを意図しています。技術委員会は、"ワイド" 文字がファイルとブロックのワードセットに与える影響に関する問題への対処を拒絶しました。
 
 ##### A.11.6.1.1010 CREATE-FILE 
 
@@ -1724,12 +1708,6 @@ Typical use:
     : X .. S" TEST.FTH" R/W CREATE-FILE ABORT" CREATE-FILE FAILED" ... ; 
 
 ##### A.11.6.1.1717 INCLUDE-FILE 
-
-Here are two implementation alternatives for saving the input source specification in the presence of text file  input:  
-
-1) Save the file position (as returned by `FILE-POSITION`) of the beginning of the line being interpreted. To restore the input source specification, seek to that position and re-read the line into the  input buffer.
-
-2) Allocate a separate line buffer for each active text input file, using that buffer as the input buffer.  This method avoids the "seek and reread" step, and allows the use of "pseudo-files" such as pipes and  other sequential-access-only communication channels.
 
 ここでは、テキストファイル入力がある場合に、入力ソース指定を保存するための2つの実装方法を示します。  
 
@@ -1749,7 +1727,7 @@ Typical use:
 
 ##### A.11.6.1.2080 READ-FILE 
 
-A typical sequential file-processing algorithm might look like:  
+典型的なファイル処理アルゴリズムは以下のようになります。
 
     BEGIN                   ( )  
         ... READ-FILE THROW ( length ) 
@@ -1757,23 +1735,17 @@ A typical sequential file-processing algorithm might look like:
         ...                 ( ) 
     REPEAT                  ( )  
 
-In this example, `THROW` is used to handle (unexpected) exception conditions, which are reported as non-zero values of the ior return value from `READ-FILE`. End-of-file is reported as a zero value of the  "length" return value.
-
 この例では、`THROW`は(予期しない)例外条件を処理するために使用され、 `READ-FILE`の戻り値の0以外の値として報告されます。ファイルの終了は、"length" 戻り値のゼロ値として報告されます。
 
 ##### A.11.6.1.2090 READ-LINE 
 
-Implementations are allowed to store the line terminator in the memory buffer in order to allow the use of  line reading functions provided by host operating systems, some of which store the terminator. Without this  provision, a temporary buffer might be needed. The two-character limitation is sufficient for the vast  majority of existing operating systems. Implementations on host operating systems whose line terminator  sequence is longer than two characters may have to take special action to prevent the storage of more than  two terminator characters.
-
-ホスト・オペレーティング・システムが提供する行読み取り関数を使用できるようにするため、 メモリ・バッファに行終端を格納することが許可されています。この規定がなければ、一時的なバッファが必要になるかもしれません。既存のオペレーティング・システムの大部分では、2文字の制限で十分です。行終端文字列が2文字より長いホストオペレーティングシステムの実装では、2文字以上の終端文字の格納を防ぐために特別な措置を取らなければならないかもしれません。
-
-Standard Programs may not depend on the presence of any such terminator sequence in the buffer.
+ホスト・オペレーティングシステムが提供する行読み取り機能を使用できるようにするため、 メモリバッファに行終端を格納することが許可されています。この規定がなければ、一時的なバッファが必要になっていたかもしれません。既存のオペレーティングシステムの大部分では、2文字の制限で十分です。行終端文字列が2文字より長いホストオペレーティングシステムの実装では、2文字以上の終端文字の格納を防ぐために特別な措置を取らなければならないかもしれません。
 
 標準プログラムは、バッファにそのような終端シーケンスがあるかどうかに依存してはなりません。
 
 A typical line-oriented sequential file-processing algorithm might look like:  
 
-典型的な行指向シーケンシャル・ファイル処理アルゴリズムは次のようなものです。
+典型的な行指向のシーケンシャルファイル処理アルゴリズムは次のようなものです。
 
     BEGIN               ( )  
         . . . READ-LINE THROW ( length not-eof-flag ) 
@@ -1781,64 +1753,40 @@ A typical line-oriented sequential file-processing algorithm might look like:
         . . .           ( ) 
     REPEAT DROP         ( )  
 
-In this example, THROW is used to handle (unexpected) I/O exception condition, which are reported as non-zero values of the "ior" return value from READ-LINE.
-
 この例では、`THROW`は(予期しない)I/O例外条件を処理するために使用され、これは`READ-LINE`からの "ior"戻り値のゼロ以外の値として報告されます。
 
-`READ-LINE` needs a separate end-of-file flag because empty (zero-length) lines are a routine occurrence,  so a zero-length line cannot be used to signify end-of-file.
-
-`READ-LINE`は、空の(長さゼロの)行がルーチンで発生するため、別のファイル終了フラグを必要とします。
+`READ-LINE`は、空の(長さゼロの)行がルーチンで発生し、長さゼロでファイル末尾を表すことができないため、別のファイル終了フラグを必要とします。
 
 ##### A.11.6.1.2165 S" 
 
 Typical use: ... S" ccc" ...
 
-The interpretation semantics for `S"` are intended to provide a simple mechanism for entering a string in the  interpretation state. Since an implementation may choose to provide only one buffer for interpreted strings,  an interpreted string is subject to being overwritten by the next execution of `S"` in interpretation state. It is  intended that no standard words other than `S"` should in themselves cause the interpreted string to be  overwritten. However, since words such as `EVALUATE`, `LOAD`, `INCLUDE-FILE` and `INCLUDED` can  result in the interpretation of arbitrary text, possibly including instances of `S"`, the interpreted string may be  invalidated by some uses of these words.
-
 `S"`の解釈セマンティクスは、解釈状態に文字列を入力するための単純なメカニズムを提供することを意図しています。実装は解釈された文字列のためのバッファを1つだけ提供することを選ぶかもしれないので、解釈された文字列は解釈状態の`S"`の次の実行によって上書きされる可能性があります。`S"`以外の標準ワードは、それ自体で解釈文字列を上書きしないように意図されています。しかし、`EVALUATE`、`LOAD`、`INCLUDE-FILE`、`INCLUDED` などのワードは任意のテキストを解釈する可能性があり、その中には `S"` のインスタンスも含まれる可能性があるため、これらのワードの使用によっては解釈された文字列が無効になる可能性があります。
 
-When the possibility of overwriting a string can arise, it is prudent to copy the string to a "safe" buffer  allocated by the application.
+文字列が上書きされる可能性がある場合は、アプリケーションが割り当てた「安全な」バッファに文字列をコピーするのが賢明です。
 
-文字列が上書きされる可能性がある場合は、アプリケーションによって割り当てられた「安全な」バッファに文字列をコピーするのが賢明です。
-
-Programs wishing to parse in the fashion of `S"` are advised to use `PARSE` or `WORD` `COUNT` instead of `S"`,  preventing the overwriting of the interpreted string buffer.
-
-`S"`の方法で解析したいプログラムは、`S"`の代わりに `PARSE` または `WORD` `COUNT` を使用し、解釈された文字列バッファの上書きを防ぐことを推奨します。
+`S"`の方法で解析したいプログラムは、`S"` を使わずに `PARSE` または `WORD` `COUNT` を使用し、解釈された文字列バッファの上書きを防ぐことを推奨します。
 
 ## A.12 The optional Floating-Point word set 
 
-The Technical Committee has considered many proposals dealing with the inclusion and makeup of the  Floating-Point Word Sets in ANS Forth. Although it has been argued that ANS Forth should not address  floating-point arithmetic and numerous Forth applications do not need floating-point, there are a growing  number of important Forth applications from spread sheets to scientific computations that require the use of  floating-point arithmetic. Initially the Technical Committee adopted proposals that made the Forth Vendors  Group Floating-Point Standard, first published in 1984, the framework for inclusion of Floating-Point in  ANS Forth. There is substantial common practice and experience with the Forth Vendors Group Floating-Point Standard. Subsequently the Technical Committee adopted proposals that placed the basic floating-point arithmetic, stack and support words in the Floating-Point word set and the floating-point  transcendental functions in the Floating-Point Extensions word set. The Technical Committee also adopted  proposals that:  
+技術委員会は、ANS Forth における浮動小数点数ワードセットの組み込みと構成に関する多くの提案を検討してきました。ANS Forthは浮動小数点数演算に対応すべきではなく、浮動小数点数を必要としないForthアプリケーションは山のようにあると主張されてきましたが、表計算シートから科学計算まで、浮動小数点数演算の使用を必要とする重要なForthアプリケーションが増えています。最初に、技術委員会は、1984 年に初めて発行された Forth Vendors Group Floating-Point Standard を ANS Forth に浮動小数点数を組み込むための枠組みとする提案を採択しました。Forth Vendors Group Floating-Point Standardを使用した一般的な慣行と経験はかなりあります。その後、技術委員会は、基本的な浮動小数点数演算、スタック、およびサポートワードを浮動小数点数ワードセットに、浮動小数点数超越関数を浮動小数点数拡張ワードセットに配置するという提案を採択しました。技術委員会はまた、以下の提案も採択しました。  
 
-技術委員会は、ANS Forth における浮動小数点ワードセットの組み込みと構成に関する多くの提案を検討してきました。ANS Forthは浮動小数点演算に対応すべきではなく、多数のForthアプリケーションは浮動小数点を必要としないと主張されてきましたが、表計算シートから科学計算まで、浮動小数点演算の使用を必要とする重要なForthアプリケーションが増えています。当初、技術委員会は、1984 年に初めて発行された Forth Vendors Group Floating-Point Standard を ANS Forth に浮動小数点を組み込むための枠組みとする提案を採択しました。Forth Vendors Group Floating-Point Standardを使用した一般的な慣行と経験はかなりあります。その後、技術委員会は、基本的な浮動小数点演算、スタック、およびサポートワードを浮動小数点ワードセットに、浮動小数点超越関数を浮動小数点拡張ワードセットに配置する提案を採択しました。技術委員会はまた、以下の提案も採択した。  
+- 明確さと一貫性のために名前を変更した。例えば、`REALS`は「`FLOATS`」に、「`REAL+`」は「`FLOAT+`」に。
+- ワードを削除した。例えば、`FPICK`。
+- 機能強化と完全さのためにワードを追加した。例えば、`FSINCOS`、`F~`、`DF@`、`DF!`、`SF@`、`SF!`などです。
 
-- changed names for clarity and consistency; e.g., `REALS` to `FLOATS`, and `REAL+` to `FLOAT+` .
-- removed words; e.g., `FPICK` .
-- added words for completeness and increased functionality; e.g., `FSINCOS`, `F~`, `DF@`, `DF!`, `SF@` and `SF!` 
-
-- 例えば、「`REALS`」は「`FLOATS`」に、「`REAL+`」は「`FLOAT+`」に。
-- ワードを削除；例えば、`FPICK` 。
-- 例えば、`FSINCOS`、`F~`、`DF@`、`DF!`、`SF@`、`SF!`などです。
-
-Several issues concerning the Floating-Point word set were resolved by consensus in the Technical  Committee:  
-
-浮動小数点ワードセットに関するいくつかの問題は、技術委員会のコンセンサスによって解決されました。
+浮動小数点数ワードセットに関するいくつかの問題は、技術委員会のコンセンサスによって解決されました。
 
 <miniterm>
 
 ||Floating-point stack:||
-By default the floating-point stack is separate from the data and return stacks;  however, an implementation may keep floating-point numbers on the data stack. A program can  determine whether floating-point numbers are kept on the data stack by passing the string `FLOATING-STACK` to `ENVIRONMENT?` It is the experience of several members of the Technical Committee that  with proper coding practices it is possible to write floating-point code that will run identically on  systems with a separate floating-point stack and with floating-point numbers kept on the data stack.
-
-デフォルトでは、浮動小数点スタックはデータスタックとリターンスタックから分離されています。浮動小数点数がデータスタックに保持されるかどうかは、`ENVIRONMENT?` に `FLOATING-STACK` という文字列を渡すことでプログラムが判断できます。技術委員会の何人かのメンバの経験では、適切なコーディングを行えば、浮動小数点数がデータスタックに保持されている場合と、浮動小数点スタックが分離されているシステムで同じように動作する浮動小数点コードを書くことが可能です。
+デフォルトでは、浮動小数点数スタックはデータスタックとリターンスタックから分離されています。浮動小数点数がデータスタックに保持されるかどうかは、`ENVIRONMENT?` に `FLOATING-STACK` という文字列を渡すことでプログラムが判断できます。技術委員会の何人かのメンバの経験では、適切なコーディングを行えば、浮動小数点数がデータスタックに保持されている場合と、浮動小数点数スタックが分離されているシステムで同じように動作する浮動小数点数コードを書くことが可能です。
 
 ||Floating-point input:||
-The current base must be `DECIMAL`. Floating-point input is not allowed in an  arbitrary base. All floating-point numbers to be interpreted by an ANS Forth system must contain the  exponent indicator "E" (see **12.3.7  Text interpreter input number conversion**). Consensus in the  Technical Committee deemed this form of floating-point input to be in more common use than the  alternative that would have a floating-point input mode that would allow numbers with embedded  decimal points to be treated as floating-point numbers.
-
-現在のベースは `DECIMAL` でなければなりません。任意の基数での浮動小数点入力は許されません。ANS Forthシステムで解釈される浮動小数点数は、指数指示子 "E" を含んでいなければならない(**12.3.7 テキストインタプリタ入力数値変換**参照)。技術委員会のコンセンサスでは、この形式の浮動小数点入力は、小数点を埋め込んだ数値を浮動小数点数として扱えるようにする浮動小数点入力モードを持つ代替案よりも、より一般的に使用されているとみなされました。
+浮動小数点数を入力するときの基数は `DECIMAL` でなければなりません。任意の基数での浮動小数点数入力は許されません。ANS Forthシステムで解釈される浮動小数点数は、指数指示子 "E" を含んでいなければなりません(**12.3.7 テキストインタプリタ入力数値変換**参照)。技術委員会のコンセンサスでは、この形式の浮動小数点数入力は、小数点を埋め込んだ数値を浮動小数点数として扱えるようにする浮動小数点数入力モードを持つ代替案よりも、より一般的に使用されているとみなされました。
 
 ||Floating-point representation:||
-Although the format and precision of the significand and the format and  range of the exponent of a floating-point number are implementation defined in ANS Forth, the  Floating-Point Extensions word set contains the words `DF@`, `SF@`, `DF!`, and `SF!` for fetching and  storing double- and single-precision IEEE floating-point-format numbers to memory. The IEEE  floating-point format is commonly used by numeric math co-processors and for exchange of floating-point data between programs and systems.
-
-浮動小数点数のシグニフィカンドの形式と精度、および指数の形式と範囲は ANS Forth で実装定義されていますが、浮動小数点拡張ワードセットには、倍精度および単精度の IEEE 浮動小数点形式の数値をメモリにフェッチおよび格納するためのワード `DF@`、`SF@`、`DF!`、`SF!` が含まれています。IEEE浮動小数点フォーマットは、数値演算コプロセッサや、プログラムやシステム間の浮動小数点データの交換によく使用されます。
+浮動小数点数の仮数の形式と精度、および指数の形式と範囲は ANS Forth で実装定義とされていますが、浮動小数点数拡張ワードセットには、倍精度および単精度の IEEE 浮動小数点数形式の数値をメモリにフェッチおよび格納するためのワード `DF@`、`SF@`、`DF!`、`SF!` が含まれています。IEEE浮動小数点数フォーマットは、数値演算コプロセッサや、プログラムやシステム間の浮動小数点数データの交換によく使用されます。
 
 </miniterm>
 
@@ -1846,9 +1794,7 @@ Although the format and precision of the significand and the format and  range o
 
 #### A.12.3.5 Address alignment 
 
-In defining custom floating-point data structures, be aware that CREATE doesn’t necessarily leave the data  space pointer aligned for various floating-point data types. Programs may comply with the requirement for  the various kinds of floating-point alignment by specifying the appropriate alignment both at compile-time  and execution time. For example:  
-
-カスタム浮動小数点データ構造を定義する際には、`CREATE`が様々な浮動小数点データ型に対して必ずしもデータ空間ポインタを整列させたままにするとは限らないことに注意してください。プログラムは、コンパイル時と実行時の両方で適切なアライメントを指定することで、様々な種類の浮動小数点アライメントの要件に準拠することができます。例えば
+カスタム浮動小数点数データ構造を定義する際には、`CREATE`がさまざまな浮動小数点数データ型に対して必ずしもデータ空間ポインタを整列させたままにするとは限らないことに注意してください。プログラムは、コンパイル時と実行時の両方で適切なアライメントを指定することで、さまざまな種類の浮動小数点数アライメントの要件に準拠することができます。例えば
 
     : FCONSTANT ( F: r -- ) 
         CREATE FALIGN HERE 1 FLOATS ALLOT F! 
@@ -1856,29 +1802,21 @@ In defining custom floating-point data structures, be aware that CREATE doesn’
 
 #### A.12.3.7 Text interpreter input number conversion 
 
-The Technical Committee has more than once received the suggestion that the text interpreter in Standard  Forth systems should treat numbers that have an embedded decimal point, but no exponent, as floating-point  numbers rather than double cell numbers. This suggestion, although it has merit, has always been voted  down because it would break too much existing code; many existing implementations put the full digit string  on the stack as a double number and use other means to inform the application of the location of the decimal  point.
-
-技術委員会は、Standard Forth システムのテキスト・インタプリタが、小数点は埋め込まれているが指数は埋め込まれていない数値を、ダブル・セル数ではなく浮動小数点数として扱うべきだという提案を何度も受けてきました。既存の実装の多くは、完全な桁数の文字列を 2 倍数としてスタックに置き、小数点 の位置をアプリケーションに知らせるために他の手段を使用しています。
+技術委員会は、Standard Forth システムのテキストインタプリタが、小数点は埋め込まれているが指数は埋め込まれていない数値を、倍セル数ではなく浮動小数点数として扱うべきだという提案を何度も受けてきました。この提案には利点もあることはわかっていますが、投票で常に否決されています。その理由は、既存のコードに対する影響が大きすぎることです。既存の実装の多くは、完全な桁数の文字列を 2倍数としてスタックに置き、小数点の位置をアプリケーションに知らせるために他の手段を使用しています。
 
 ### A.12.6 Glossary 
 
 ##### A.12.6.1.0558 >FLOAT 
 
-`>FLOAT` enables programs to read floating-point data in legible ASCII format. It accepts a much broader syntax than does the text interpreter since the latter defines rules for composing source programs whereas `>FLOAT` defines rules for accepting data. >FLOAT is defined as broadly as is feasible to permit input of data from ANS Forth systems as well as other widely used standard programming environments.
-
-プログラムで浮動小数点データを読みやすい ASCII 形式で読み込めるようにします。テキストインタプリタがソース・プログラムを作成するためのルールを定義しているのに対して、 `>FLOAT` はデータを受け入れるためのルールを定義しているためです。`>FLOAT`は、ANS Forthシステムや他の広く使われている標準的なプログラミング環境からのデータ入力を可能にするために、可能な限り広く定義されています。
-
-This is a synthesis of common FORTRAN practice. Embedded spaces are explicitly forbidden in much  scientific usage, as are other field separators such as comma or slash.
+`>FLOAT`は、プログラムで浮動小数点数データを読みやすい ASCII 形式で読み込めるようにします。これは、テキストインタプリタが受理するものよりはるかに広い構文を受け入れます。これは、テキストインタプリタがソースプログラムを作成するためのルールを定義しているのに対して、 `>FLOAT` はデータを受け入れるためのルールを定義しているためです。`>FLOAT`は、ANS Forthシステムに加えて、他の広く使われている標準的なプログラミング環境からのデータ入力を可能にするために、可能な限り広く定義されています。
 
 これは一般的なFORTRANの慣行を統合したものです。コンマやスラッシュのような他のフィールド区切り文字と同様に、埋め込みスペースは多くの科学的使用において明確に禁止されています。
 
-While `>FLOAT` is not required to treat a string of blanks as zero, this behavior is strongly encouraged, since  a future version of ANS Forth may include such a requirement.
-
-`>FLOAT`は空白の文字列をゼロとして扱う必要はないが、将来のANS Forthのバージョンではこのような要件が含まれる可能性があるため、この動作は強く推奨されます。
+`>FLOAT`は空白の文字列をゼロとして扱う必要はありませんが、将来のANS Forthのバージョンではこのような要件が含まれる可能性があるため、この動作を強く推奨します。
 
 ##### A.12.6.1.1427 F.
 
-For example, 1E3 F. displays 1000. .
+For example, `1E3 F.` displays `1000.` .
 
 ##### A.12.6.1.1492 FCONSTANT 
 
@@ -1896,7 +1834,7 @@ Typical use: `FVARIABLE name`
 
 This word provides a primitive for floating-point display. Some floating-point formats, including those  specified by IEEE-754, allow representations of numbers outside of an implementation-defined range.  These include plus and minus infinities, denormalized numbers, and others. In these cases we expect that  REPRESENT will usually be implemented to return appropriate character strings, such as "+infinity" or  "nan", possibly truncated.
 
-このワードは浮動小数点表示用のプリミティブを提供します。IEEE-754を含むいくつかの浮動小数点フォーマットでは、実装で定義された範囲外の数値を表現することができます。 これにはプラスマイナス無限大、非正規化数などが含まれます。このような場合、`REPRESENT`は通常、"+infinity "や "nan" などの適切な文字列を返すように実装されることが期待されます。
+このワードは浮動小数点数表示用のプリミティブを提供します。IEEE-754を含むいくつかの浮動小数点数フォーマットでは、実装で定義された範囲外の数値を表現することができます。 これにはプラスマイナス無限大、非正規化数などが含まれます。このような場合、`REPRESENT`は通常、"+infinity "や "nan" などの適切な文字列を返すように実装されることが期待されます。
 
 ##### A.12.6.2.1489 FATAN2 
 
@@ -1969,7 +1907,7 @@ See: **A.12.6.2.1489 FATAN2**.
 
 This provides the three types of "floating point equality" in common use -- "close" in absolute terms, exact  equality as represented, and "relatively close".
 
-これは、一般的に使用される3種類の「浮動小数点の等値性」を提供するものです。絶対的な意味での「近い」、表現上の完全な等値性、そして「比較的近い」です。
+これは、一般的に使用される3種類の「浮動小数点数の等値性」を提供するものです。絶対的な意味での「近い」、表現上の完全な等値性、そして「比較的近い」です。
 
 ## A.13 The optional Locals word set 
 
@@ -2077,7 +2015,7 @@ A second set of examples illustrates various things that break the rules. We ass
 
 ロカールの名前は、JOEがコンパイルされた後に消えます。JOEのローカルが宣言されたときに、ローカルの格納場所と意味が現れ、JOEが ; (セミコロン)で呼び出し元に戻るときに消えます。
 
-2つ目の例では、ルールを破る様々なことを説明します。ここでは、上記の`LOCAL`と`END-LOCALS`の定義と、前の例の`{`が存在すると仮定します。
+2つ目の例では、ルールを破るさまざまなことを説明します。ここでは、上記の`LOCAL`と`END-LOCALS`の定義と、前の例の`{`が存在すると仮定します。
 
 d) : ZERO 0 POSTPONE LITERAL POSTPONE LOCAL ; IMMEDIATE  
 
@@ -2153,7 +2091,7 @@ A possible implementation of this word and an example of usage is given in **A.1
 
 The Memory-Allocation word set provides a means for acquiring memory other than the contiguous data  space that is allocated by ALLOT. In many operating system environments it is inappropriate for a process  to pre-allocate large amounts of contiguous memory (as would be necessary for the use of ALLOT). The  Memory-Allocation word set can acquire memory from the system at any time, without knowing in advance  the address of the memory that will be acquired.
 
-メモリ割り当て(Memory-Allocation)ワードセットは、`ALLOT`で確保される連続データ空間以外のメモリを確保する手段を提供します。多くのオペレーティング・システム環境では、(`ALLOT`を使用するために必要な)大容量の連続メモリをプロセスが事前に割り当てることは不適切です。メモリアロケーション・ワードセットは、獲得されるメモリのアドレスを事前に知らなくても、いつでもシステムからメモリを獲得することができます。
+メモリ割り当て(Memory-Allocation)ワードセットは、`ALLOT`で確保される連続データ空間以外のメモリを確保する手段を提供します。多くのオペレーティングシステム環境では、(`ALLOT`を使用するために必要な)大容量の連続メモリをプロセスが事前に割り当てることは不適切です。メモリアロケーション・ワードセットは、獲得されるメモリのアドレスを事前に知らなくても、いつでもシステムからメモリを獲得することができます。
 
 ## A.15 The optional Programming-Tools word set 
 
@@ -2207,7 +2145,7 @@ where namex is a defining word, and &lt;create> is CREATE or any user defined wo
 
 Some Forth systems implement the assembly function by adding an ASSEMBLER word list to the search  order, using the text interpreter to parse a postfix assembly language with lexical characteristics similar to  Forth source code. Typically, in such systems, assembly ends when a word END-CODE is interpreted.
 
-一部の Forth システムでは、`ASSEMBLER` ワードリストを検索順序に追加してアセンブリ機能を実装し、テキスト・インタプリタを使用して、Forth ソース・コードに似た字句特性を持つポストフィックス・アセンブリ言語を解析します。通常、このようなシステムでは、ワード`END-CODE`が解釈されるとアセンブリが終了します。
+一部の Forth システムでは、`ASSEMBLER` ワードリストを検索順序に追加してアセンブリ機能を実装し、テキストインタプリタを使用して、Forth ソース・コードに似た字句特性を持つポストフィックス・アセンブリ言語を解析します。通常、このようなシステムでは、ワード`END-CODE`が解釈されるとアセンブリが終了します。
 
 ##### A.15.6.2.1015 CS-PICK 
 
@@ -2318,7 +2256,7 @@ The encoding for word list identifiers wid might be a small-integer index into a
 
 検索順序の指定と制御機構は大きく異なります。FIG-Forth、Forth-79、polyFORTH、Forth-83の語彙と検索順序メカニズムは、すべて相互に互換性がありません。使用されている、あるいは提案されている互換性のないメカニズムの完全なリストは、もっと長い。Forth-83 Experimental Proposalに記述されているALSO/ONLYスキームは、コミュニティから大きな支持を得ています。しかし、多くの人が根本的な欠陥があると考え、激しく反対しています。
 
-このばらつきを認識し、本標準は、さまざまなスキームを構築することができる新しい「原始的な」ツールセットを規定します。この原始的な検索ワードセットは、ユーザインターフェースではなく、検索ワードを構築するための移植可能な "構築集合"であることを意図しています。ALSO/ONLYや主要なForthベンダーがサポートする様々な "語彙"スキームは、原始的な検索順序ワードセットで定義することができます。
+このばらつきを認識し、本標準は、さまざまなスキームを構築することができる新しい「原始的な」ツールセットを規定します。この原始的な検索ワードセットは、ユーザインターフェースではなく、検索ワードを構築するための移植可能な "構築集合"であることを意図しています。ALSO/ONLYや主要なForthベンダーがサポートするさまざまな "語彙"スキームは、原始的な検索順序ワードセットで定義することができます。
 
 ワードリスト識別子のエンコーディングは、ワードリスト定義レコードの配列への小整数のインデックス、そのようなレコードのデータ空間アドレス、ユーザ領域のオフセット、Forth-83スタイルの封印された語彙の実行トークン、ワードリストの最初の定義のリンクフィールドアドレス、または他のものであるかもしれません。 システム実装者次第です。
 
@@ -2593,7 +2531,7 @@ Forthはインタラクティブなプログラミング環境を提供します
 
 Forthは言語として語られることが多いです。しかし実際には、Forthは従来のプログラミング言語以上でもあり、それ以下でもあります。通常、独立したプログラム(コンパイラ、エディタなど)の大規模なポートフォリオに関連するすべての機能がその範囲に含まれているという点ではそれ以上であり、ほとんどの高級言語に特徴的な複雑な構文が(意図的に)欠如しているという点ではそれ以下です。
 
-Forthの最初の実装は、通常は別々のオペレーティング・システム、エディタ、コンパイラ、アセンブラ、デバッガ、その他のユーティリティによって実行される機能を含むスタンドアロン・システムでした。単一のシンプルで一貫性のあるルールセットが、この機能の全範囲を支配していました。今日でも、非常に高速なスタンドアロン版が多くのプロセッサ向けに販売されているが、MS-DOSやUNIXのような従来のオペレーティング・システムと同居して動作するバージョンも数多くあります。
+Forthの最初の実装は、通常は別々のオペレーティングシステム、エディタ、コンパイラ、アセンブラ、デバッガ、その他のユーティリティによって実行される機能を含むスタンドアロン・システムでした。単一のシンプルで一貫性のあるルールセットが、この機能の全範囲を支配していました。今日でも、非常に高速なスタンドアロン版が多くのプロセッサ向けに販売されているが、MS-DOSやUNIXのような従来のオペレーティングシステムと同居して動作するバージョンも数多くあります。
 
 Forth is not derived from any other language. As a result, its appearance and internal characteristics may  seem unfamiliar to new users. But Forth’s simplicity, extreme modularity, and interactive nature offset the  initial strangeness, making it easy to learn and use. A new Forth programmer must invest some time  mastering its large command repertoire. After a month or so of full-time use of Forth, that programmer  could understand more of its internal working than is possible with conventional operating systems and  compilers.
 
@@ -2601,7 +2539,7 @@ The most unconventional feature of Forth is its extensibility. The programming p
 
 This extensibility facilitates the development of special application languages for particular problem areas  or disciplines.
 
-Forthは他の言語から派生したものではありません。そのため、Forthの外観や内部的な特徴は、新しいユーザにとっては見慣れないものに見えるかもしれません。しかし、Forthのシンプルさ、極端なモジュール性、対話的な性質は、最初の奇妙さを相殺し、学びやすく、使いやすくしています。新しいForthプログラマは、その膨大なコマンドのレパートリーをマスターするのに時間をかけなければなりません。Forthを1ヶ月ほどフルタイムで使えば、従来のオペレーティング・システムやコンパイラでは不可能なほど、Forthの内部動作を理解できるようになります。
+Forthは他の言語から派生したものではありません。そのため、Forthの外観や内部的な特徴は、新しいユーザにとっては見慣れないものに見えるかもしれません。しかし、Forthのシンプルさ、極端なモジュール性、対話的な性質は、最初の奇妙さを相殺し、学びやすく、使いやすくしています。新しいForthプログラマは、その膨大なコマンドのレパートリーをマスターするのに時間をかけなければなりません。Forthを1ヶ月ほどフルタイムで使えば、従来のオペレーティングシステムやコンパイラでは不可能なほど、Forthの内部動作を理解できるようになります。
 
 Forthの最も型破りな特徴は、その拡張性にあります。Forthのプログラミング・プロセスは、新しい「ワード」、つまり実際には言語の新しいコマンドを定義することからなります。これらのワードは、以前に定義されたワードの観点から定義することができます。このようなワードは「ハイレベル定義」と呼ばれます。また、ほとんどのForth実装にはホスト・プロセッサ用のアセンブラが含まれているため、新しいワードをアセンブリ・コードで定義することもできます。
 
@@ -2733,7 +2671,7 @@ The name of the new word is RECEIVE. The comment (in parentheses) indicates that
 
 The example above illustrates the use of push-down stacks for passing parameters between Forth words.  Forth maintains two push-down stacks, or LIFO lists. These provide communication between Forth words  plus an efficient mechanism for controlling logical flow. A stack contains 16-bit items on 8-bit and 16-bit  computers, and 32-bit items on 32-bit processors. Double-cell numbers occupy two stack positions, with  the most-significant part on top. Items on either stack may be addresses or data items of various kinds.  Stacks are of indefinite size, and usually grow towards low memory.
 
-上記の例では、Forth ワード間のパラメータ受け渡しにプッシュダウン・スタックを使用し ています。 Forth は、2 つのプッシュダウン・スタック(LIFO リスト)を保持します。これらは、Forth ワード間の通信と、論理フローを制御するための効率的なメカニズムを提供します。スタックには、8 ビットと 16 ビットのコンピュータでは 16 ビットの項目が、32 ビットのプロセッサでは 32 ビットの項目が含まれます。ダブルセル番号は2つのスタック位置を占め、最上位が上になります。どちらのスタック上の項目も、アドレスであったり、様々な種類のデータ項目であったりします。 スタックの大きさは不定で、通常はメモリが少ないほど大きくなります。
+上記の例では、Forth ワード間のパラメータ受け渡しにプッシュダウン・スタックを使用し ています。 Forth は、2 つのプッシュダウン・スタック(LIFO リスト)を保持します。これらは、Forth ワード間の通信と、論理フローを制御するための効率的なメカニズムを提供します。スタックには、8 ビットと 16 ビットのコンピュータでは 16 ビットの項目が、32 ビットのプロセッサでは 32 ビットの項目が含まれます。ダブルセル番号は2つのスタック位置を占め、最上位が上になります。どちらのスタック上の項目も、アドレスであったり、さまざまな種類のデータ項目であったりします。 スタックの大きさは不定で、通常はメモリが少ないほど大きくなります。
 
 Although the structure of both stacks is the same, they have very different uses. The user interacts most  directly with the Data Stack, which contains arguments passed between words. This function replaces the  calling sequences used by conventional languages. It is efficient internally, and makes routines intrinsically  re-entrant. The second stack is called the Return Stack, as its main function is to hold return addresses for  nested definitions, although other kinds of data are sometimes kept there temporarily.
 
@@ -2811,7 +2749,7 @@ Forthの最後のユニークな要素は、ディスクやその他の大容量
 
 Block-oriented disk handling is efficient and easy for native Forth systems to implement. As a result, blocks  provide a completely transportable mechanism for handling program source and data across both native and  co-resident versions of Forth on different host operating systems.
 
-ブロック指向のディスク処理は効率的で、ネイティブのForthシステムにとって実装しやすいものです。その結果、ブロックは、異なるホスト・オペレーティング・システム上のForthのネイティブ・バージョンと同居バージョンの両方にわたって、プログラム・ソースとデータを処理するための完全に移植可能なメカニズムを提供します。
+ブロック指向のディスク処理は効率的で、ネイティブのForthシステムにとって実装しやすいものです。その結果、ブロックは、異なるホスト・オペレーティングシステム上のForthのネイティブ・バージョンと同居バージョンの両方にわたって、プログラム・ソースとデータを処理するための完全に移植可能なメカニズムを提供します。
 
 Definitions in program source blocks are compiled into memory by the word LOAD. Most implementations  include an editor, which formats a block for display into 16 lines of 64 characters each, and provides  commands modifying the source. An example of a Forth source block is given in Fig. C.1 below.
 
@@ -2981,7 +2919,7 @@ and see if all the lamps come on. If not, the presumption is that something is a
 
 Multiprogrammed Forth systems have existed since about 1970. The earliest public Forth systems  propagated the "hooks" for this capability despite the fact that many did not use them. Nevertheless the  underlying assumptions have been common knowledge in the community, and there exists considerable  common ground among these multiprogrammed systems. These systems are not just language processors,  but contain operating system characteristics as well. Many of these integrated systems run entirely stand-alone, performing all necessary operating system functions.
 
-マルチプログラムForthシステムは1970年頃から存在しています。初期の公開Forthシステムは、その多くが使用しなかったにもかかわらず、この機能の「フック」を広めた。とはいえ、根本的な前提はコミュニティーの共通認識であり、これらのマルチプログラム・システムにはかなりの共通項が存在します。これらのシステムは単なる言語プロセッサではなく、オペレーティング・システムの特性も含んでいる。これらの統合システムの多くは、完全にスタンドアロンで動作し、必要なオペレーティング・システム機能をすべて実行します。
+マルチプログラムForthシステムは1970年頃から存在しています。初期の公開Forthシステムは、その多くが使用しなかったにもかかわらず、この機能の「フック」を広めた。とはいえ、根本的な前提はコミュニティーの共通認識であり、これらのマルチプログラム・システムにはかなりの共通項が存在します。これらのシステムは単なる言語プロセッサではなく、オペレーティングシステムの特性も含んでいる。これらの統合システムの多くは、完全にスタンドアロンで動作し、必要なオペレーティングシステム機能をすべて実行します。
 
 Some Forth systems are very fast, and can support both multi-tasking and multi-user operation even on  computers whose hardware is usually thought incapable of such advanced operation. For example, one  producer of telephone switchboards is running over 50 tasks on a Z80. There are several multiprogrammed  products for PC’s, some of which even support multiple users. Even on computers that are commonly used  in multi-user operations, the number of users that can be supported may be much larger than expected. One  large data-base application running on a single 68000 has over 100 terminals updating and querying its  data-base, with no significant degradation.
 
@@ -3075,7 +3013,7 @@ Forth-83スタンダードが発表されて以来、コンピュータ業界は
 
 The operating systems and programming-language environments of small systems are much more powerful  than they were in the early 80’s.
 
-小型システムのオペレーティング・システムやプログラミング言語環境は、80年代前半に比べはるかに強力になっています。
+小型システムのオペレーティングシステムやプログラミング言語環境は、80年代前半に比べはるかに強力になっています。
 
 The personal-computer marketplace has changed from a predominantly "hobbyist" market to a mature  business and commercial market.
 
@@ -3104,8 +3042,8 @@ In order to take full advantage of this evolving technology, and to better compe
 - 一部のForthシステムは、実行するハードウェアのアドレス・アライメント制限を採用しています。 
 - 一部のForthシステムは、従来の「スレッドコード」ではなく、ネイティブコード生成、マイクロコード生成、最適化技術を使用しています。 
 - 一部のForthシステムは、セグメント化されたアドレス指定アーキテクチャを利用し、Forthの「辞書」の一部を異なるセグメントに配置しています。 
-- 現在では、より多くのForthシステムが、従来のForth「ブロック」ではなく、OSのテキストファイルをソースコードに使用し、別の「標準」オペレーティング・システムの環境で動作しています。 
-- 一部のForthシステムでは、外部のオペレーティング・システム・ソフトウェア、ウィンドウ・ソフトウェア、ターミナル・コンセントレータ、または通信チャネルがユーザ入力を処理または前処理することを許可しており、その結果、Forth 83で規定された入力編集、文字セットの可用性、および画面管理の動作から逸脱しています。
+- 現在では、より多くのForthシステムが、従来のForth「ブロック」ではなく、OSのテキストファイルをソースコードに使用し、別の「標準」オペレーティングシステムの環境で動作しています。 
+- 一部のForthシステムでは、外部のオペレーティングシステム・ソフトウェア、ウィンドウ・ソフトウェア、ターミナル・コンセントレータ、または通信チャネルがユーザ入力を処理または前処理することを許可しており、その結果、Forth 83で規定された入力編集、文字セットの可用性、および画面管理の動作から逸脱しています。
 
 Competitive pressure from other programming languages (predominantly "C") and from other Forth  vendors have led Forth vendors to optimizations that do not fit in well with the "virtual machine model"  implied by existing Forth standards.
 
