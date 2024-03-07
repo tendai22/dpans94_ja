@@ -88,7 +88,7 @@ X3J14技術委員会のメンバは、相対的な優劣を判断する際、以
 
 #### A.2.2.2 Stack notation 
 
-スタック効果の図で *sys*、*orig*、*dest* データ型を使用することにより、2つの情報を伝えます。第一に、多くの実装がこれらの目的のために不特定の方法でデータスタックを使用するため、制御フロースタックまたはデータスタック上で、この下の項目が利用できないことを読者に警告します。第2に、*orig*と*dest*が使用される場合、明示的なペアリング規則は、その結果がスタックの使用と等価になるように、すべてのシステムがそのモデルを実装し、実際に多くの実装がこの目的のためにデータスタックを使用するという前提で文書化されています。しかし、本標準では、モデルの暗黙の動作が維持される限り、この目的のためにデータスタック(または他のスタック)を実際に使用することを実装に要求するものはありません。
+スタック効果の図で *sys*、*orig*、*dest* データ型を使用することにより、2つの情報を伝えます。第一に、多くの実装がこれらの目的のために不特定の方法でデータスタックを使用するため、制御フロースタックまたはデータスタック上で、この下の項目が利用できないことを読者に警告します。第2に、*orig*と*dest*が使用される場合、明示的なペアリング規則は、その結果がスタックの使用と等価になるように、すべてのシステムがそのモデルを実装し、実際に多くの実装がこの目的のためにデータスタックを使用するという前提で文書化されています。しかし、本標準規格では、モデルの暗黙の動作が維持される限り、この目的のためにデータスタック(または他のスタック)を実際に使用することを実装に要求するものはありません。
 
 ## A.3 Usage requirements 
 
@@ -512,11 +512,11 @@ Forth システムのデータ空間は、不連続な領域で構成されて�
 
 「開始セマンティクス(initiation semantics)」は、定義に入るときに実行されるコードに対応し、定義を抜けるときに `EXIT` によって実行されるコードに似ています。「実行時セマンティクス(run-time semantics)」は、明示的なコンパイルセマンティクスを持つワードによってコロン定義の内部でコンパイルされる、リテラルやブランチなどのコード断片に対応します。
 
-Forth クロスコンパイラでは、実行セマンティクスをホストシステムのみ、ターゲットシステムのみ、または両方のシステムで発生するように指定することができます。例えば、`CELLS`のようなワードはホストシステムで実行され、ターゲットに記述される値を返します。また、コロン定義はターゲットでのみ実行され、`CONSTANT`と`VARIABLE`は両方のシステムで実行動作を持つことが適切かもしれません。クロスコンパイラの動作の詳細は、本標準の範囲外です。
+Forth クロスコンパイラでは、実行セマンティクスをホストシステムのみ、ターゲットシステムのみ、または両方のシステムで発生するように指定することができます。例えば、`CELLS`のようなワードはホストシステムで実行され、ターゲットに記述される値を返します。また、コロン定義はターゲットでのみ実行され、`CONSTANT`と`VARIABLE`は両方のシステムで実行動作を持つことが適切かもしれません。クロスコンパイラの動作の詳細は、本標準規格の範囲外です。
 
 ##### A.3.4.3.2 Interpretation semantics 
 
-さまざまな理由から、本標準ではすべてのワードの解釈セマンティクス(interpretation semantics)を定義していません。これらのワードの例としては、`>R`、`."`、`DO`、`IF`などがあります。本標準のいかなる規定も、対話的制御フローワードのようなこれらワードの解釈セマンティクスを実装が提供することを妨げるものではありません。しかし、標準プログラムは解釈状態でこれらを使用してはなりません。
+さまざまな理由から、本標準規格ではすべてのワードの解釈セマンティクス(interpretation semantics)を定義していません。これらのワードの例としては、`>R`、`."`、`DO`、`IF`などがあります。本標準規格のいかなる規定も、対話的制御フローワードのようなこれらワードの解釈セマンティクスを実装が提供することを妨げるものではありません。しかし、標準プログラムは解釈状態でこれらを使用してはなりません。
 
 #### A.3.4.5 Compilation 
 
@@ -542,7 +542,7 @@ Forth クロスコンパイラと ANS Forth システムには、プログラム
 
 環境依存を宣言することは望ましくないと考えてはいけません。このような宣言は、単に作者が想定するアーキテクチャの利点を生かしたことを認めているに過ぎないと考えるべきです。例えば、一般に使用されているほとんどのコンピュータは2の補数2進演算に基づいています。このアーキテクチャへの環境依存を認めることで、プログラマはプログラムの移植性を大幅に制限することなく、すべてのビットがセットされた値を表すために数値-1を使用する権利を得ます。
 
-すべてのプログラムは、データと命令のための空間と、それらの命令を実行するための時間を必要とするため、これらのリソースを提供する環境の存在に依存します。あるタスクを実行するために、これらの資源(例えばスタック空間)のうちどれだけの量が必要になるかを予測することは不可能であるため、本標準ではそのようなことを行いません。
+すべてのプログラムは、データと命令のための空間と、それらの命令を実行するための時間を必要とするため、これらのリソースを提供する環境の存在に依存します。あるタスクを実行するために、これらの資源(例えばスタック空間)のうちどれだけの量が必要になるかを予測することは不可能であるため、本標準規格ではそのようなことを行いません。
 
 一方、プログラムが必要とする資源のレベルが高くなるにつれて、そのプログラムが正常に実行されるシステムは次第に少なくなっていくでしょう。109個のセルの配列を必要とするアルゴリズムは、103個しか必要としないものより実行できるコンピュータの数は少なくなるかもしれません。
 
@@ -604,7 +604,7 @@ Typical use: `: X ... ." ccc" ... ;`
 
 Typical use: `: name ... ;` 
 
-Forth 83 では、このワードは検索順序を変更すると規定されていました。この仕様は、本標準では明示的に削除されています。しかし、多くの検索順序を許容するシステムにより、コロンのForth-83の動作は非常に望ましくないものだと分かりました。
+Forth 83 では、このワードは検索順序を変更すると規定されていました。この仕様は、本標準規格では明示的に削除されています。しかし、多くの検索順序を許容するシステムにより、コロンのForth-83の動作は非常に望ましくないものだと分かりました。
 
 コロン自体はコンパイラを起動しないことに注意してください。コロンはコンパイル状態を設定し、解析領域内のこの後のワードがコンパイルされるようにします。
 
@@ -624,7 +624,7 @@ Typical use: `: X ... test ABORT" ccc" ... ; `
 
 #### A.6.1.0695 ACCEPT 
 
-以前の規格では、入力文字列の収集は、"return" を受信するか、+n1文字を受信したときに終了すると規定されていました。n1文字を受信したときに終了することは、システム環境によっては実装が困難であったり、高価であったり、不可能であったりします。そのため、多くの既存の実装はこの要件に準拠していません。行の編集や収集機能は、Forth 実装の制御を超えたシステムコンポーネントによって実装されることが多いため、本標準ではそのような要件を課していません。標準プログラムは `ACCEPT` または `EXPECT` で入力文字列を受け取ることができると仮定するだけでよいです。その行を準備して送信するために必要なユーザアクションの詳細なシーケンスは、本標準の範囲外です。
+以前の規格では、入力文字列の収集は、"return" を受信するか、+n1文字を受信したときに終了すると規定されていました。n1文字を受信したときに終了することは、システム環境によっては実装が困難であったり、高価であったり、不可能であったりします。そのため、多くの既存の実装はこの要件に準拠していません。行の編集や収集機能は、Forth 実装の制御を超えたシステムコンポーネントによって実装されることが多いため、本標準規格ではそのような要件を課していません。標準プログラムは `ACCEPT` または `EXPECT` で入力文字列を受け取ることができると仮定するだけでよいです。その行を準備して送信するために必要なユーザアクションの詳細なシーケンスは、本標準規格の範囲外です。
 
 `ACCEPT`にゼロでない正の整数カウント(+n1)を規定することで、実装者によっては、 特別な動作をトリガするフラグとしてゼロまたは負の値を使用する習慣を継続することができます。そのような動作が標準の外にある限り、標準プログラムはそれに依存することはできませんが、技術委員会は不必要に排除することを望みません。実際の値はほとんど常に小さな整数であるため、この制限によって機能が損なわれることはありません。
 
@@ -640,7 +640,7 @@ Typical use: `: X ... test ABORT" ccc" ... ; `
 
 #### A.6.1.0705 ALIGN 
 
-本標準では、さまざまなCPUアーキテクチャ間での移植性を提供することを試みました。しばしば生じる移植性の問題の原因の1つは、いくつかのCPUでセル整列のアドレスが要求されることです。このようなシステムでは、`C,`で構築されたデータ構造をビルドしたりトラバースしたりするために `ALIGN` と `ALIGNED` が必要になることがあります。 実装者は、これらのワードが機能しないシステムでは、これらのワードをno-opsとして定義することができます。
+本標準規格では、さまざまなCPUアーキテクチャ間での移植性を提供することを試みました。しばしば生じる移植性の問題の原因の1つは、いくつかのCPUでセル整列のアドレスが要求されることです。このようなシステムでは、`C,`で構築されたデータ構造をビルドしたりトラバースしたりするために `ALIGN` と `ALIGNED` が必要になることがあります。 実装者は、これらのワードが機能しないシステムでは、これらのワードをno-opsとして定義することができます。
 
 #### A.6.1.0706 `ALIGNED` 
 
@@ -1067,7 +1067,7 @@ Typical use:
 
     : FACTORIAL ( +n1 -- +n2 )  1 SWAP 1+ ?DO  I *  LOOP ; 
 
-このワードは、Forth-83の`DO`によってもたらされた難題「16ビットシステム上で、等しい引数が与えられると65,535回ループしてしまう」を解決してほしいという多くの要望に応えて追加されたものです。本標準は32ビット・システムも推奨しているため、この動作は耐え難いものです。技術委員会はこれらのセマンティクスをDOに適用することを検討しましたが、既存のコードを壊すかもしれないという理由でそれは断念しました。
+このワードは、Forth-83の`DO`によってもたらされた難題「16ビットシステム上で、等しい引数が与えられると65,535回ループしてしまう」を解決してほしいという多くの要望に応えて追加されたものです。本標準規格は32ビット・システムも推奨しているため、この動作は耐え難いものです。技術委員会はこれらのセマンティクスをDOに適用することを検討しましたが、既存のコードを壊すかもしれないという理由でそれは断念しました。
 
 #### A.6.2.0700 AGAIN 
 
@@ -1913,7 +1913,7 @@ See: **A.12.6.2.1489 FATAN2**.
 
 `(LOCAL)`を定義するこのアプローチは、現在使用されているローカルスキーマのすべてではな、一部について、それを実装するために少数のユーザコーディングで使用できるものとして提案されています。以下のコーディング例では、2つの構文を実装するためにどのように使用できるかを説明します。
 
-- 本標準で定義され、Creative Solutions, Inc.のシステムで使用されている構文。
+- 本標準規格で定義され、Creative Solutions, Inc.のシステムで使用されている構文。
 
 <pre>
     : LOCALS| ( "name...name |" -- ) 
@@ -1927,7 +1927,7 @@ See: **A.12.6.2.1489 FATAN2**.
         LOCALS| N | N DUP N * DUP N * ; 
 </pre>
 
-- 本標準が提案する構文: ( LOCAL name ) に使用上の規則を追加したもの
+- 本標準規格が提案する構文: ( LOCAL name ) に使用上の規則を追加したもの
 
 <pre>
     : LOCAL ( "name" -- ) BL WORD COUNT (LOCAL) ; IMMEDIATE 
@@ -2125,11 +2125,7 @@ Typical use: ... flag [IF] ... [ELSE] ... [THEN] ...
 
 Typical use: ... flag [IF] ... [ELSE] ... [THEN] ...
 
-Software that runs in several system environments often contains some source code that is environmentally  dependent. Conditional compilation - the selective inclusion or exclusion of portions of the source code at  compile time - is one technique that is often used to assist in the maintenance of such source code.
-
 複数のシステム環境で動作するソフトウェアには、環境に依存するソースコードが含まれていることが多いです。条件付きコンパイル(コンパイル時にソースコードの一部を選択的に包含または除外すること)は、そのようなソースコードの保守を支援するためによく使われる手法の1つです。
-
-Conditional compilation is sometimes done with "smart comments" - definitions that either skip or do not  skip the remainder of the line based on some test. For example:  
 
 条件付きコンパイルは、「スマート・コメント」(何らかのテストに基づいて、行の残りをスキップしたりスキップしなかったりする定義)を使って行われることもあります。例えば
 
@@ -2139,11 +2135,7 @@ Conditional compilation is sometimes done with "smart comments" - definitions th
     : 16BIT\ ( -- ) 16-BIT? @ IF POSTPONE \ THEN 
     ; IMMEDIATE 
 
-This technique works on a line by line basis, and is good for short, isolated variant code sequences.
-
 このテクニックは行単位で動作し、短くて孤立したバリアントコードのシーケンスに適しています。
-
-More complicated conditional compilation problems suggest a nestable method that can encompass more  than one source line at a time. The words included in the ANS Forth optional Programming tools  extensions word set are useful for this purpose. The implementation given below works with any input  source (keyboard, EVALUATE, BLOCK, or text file).
 
 より複雑な条件付きコンパイルの問題では、一度に複数のソース行を包含できるネスト可能な方法をお勧めします。ANS Forthオプショナル・プログラミング・ツール拡張のワードセットに含まれているワードは、この目的に便利です。以下に示す実装は、どの入力ソース(キーボード、`EVALUATE`、`BLOCK`、またはテキストファイル)でも動作します。
 
@@ -2173,33 +2165,19 @@ More complicated conditional compilation problems suggest a nestable method that
 
 ## A.16 The optional Search-Order word set 
 
-Search-order specification and control mechanisms vary widely. The FIG-Forth, Forth-79, polyFORTH,  and Forth-83 vocabulary and search order mechanisms are all mutually incompatible. The complete list of  incompatible mechanisms, in use or proposed, is much longer. The ALSO/ONLY scheme described in a  Forth-83 Experimental Proposal has substantial community support. However, many consider it to be  fundamentally flawed, and oppose it vigorously.
+検索順序の指定と制御機構の差異は大きいです。FIG-Forth、Forth-79、polyFORTH、Forth-83の語彙と検索順序メカニズムは、すべて相互に互換性がありません。使用されている、あるいは提案されている互換性のないメカニズムの完全なリストは、もっと長いです。Forth-83 Experimental Proposalに記述されている`ALSO`/`ONLY`スキームは、コミュニティから大きな支持を得ています。しかし、多くの人が根本的な欠陥があると考え、激しく反対しています。
 
-Recognizing this variation, this Standard specifies a new "primitive" set of tools from which various  schemes may be constructed. This primitive search-order word set is intended to be a portable  "construction set" from which search-order words may be built, rather than a user interface. ALSO/ONLY or the various "vocabulary" schemes supported by the major Forth vendors can be defined in terms of the  primitive search-order word set.
-
-The encoding for word list identifiers wid might be a small-integer index into an array of word-list  definition records, the data-space address of such a record, a user-area offset, the execution token of a  Forth-83 style sealed vocabulary, the link-field address of the first definition in a word list, or anything else.  It is entirely up to the system implementor.
-
-検索順序の指定と制御機構は大きく異なります。FIG-Forth、Forth-79、polyFORTH、Forth-83の語彙と検索順序メカニズムは、すべて相互に互換性がありません。使用されている、あるいは提案されている互換性のないメカニズムの完全なリストは、もっと長い。Forth-83 Experimental Proposalに記述されているALSO/ONLYスキームは、コミュニティから大きな支持を得ています。しかし、多くの人が根本的な欠陥があると考え、激しく反対しています。
-
-このばらつきを認識し、本標準は、さまざまなスキームを構築することができる新しい「原始的な」ツールセットを規定します。この原始的な検索ワードセットは、ユーザインターフェースではなく、検索ワードを構築するための移植可能な "構築集合"であることを意図しています。ALSO/ONLYや主要なForthベンダーがサポートするさまざまな "語彙"スキームは、原始的な検索順序ワードセットで定義することができます。
+このばらつきを認識し、本標準規格は、さまざまなスキームを構築することができる新しい「原始的な」ツールセットを規定します。この原始的な検索ワードセットは、ユーザインターフェースではなく、検索ワードを構築するための移植可能な "構築集合"であることを意図しています。`ALSO`/`ONLY`や主要なForthベンダーがサポートするさまざまな "語彙" スキームは、原始的な検索順序ワードセットで定義することができます。
 
 ワードリスト識別子のエンコーディングは、ワードリスト定義レコードの配列への小整数のインデックス、そのようなレコードのデータ空間アドレス、ユーザ領域のオフセット、Forth-83スタイルの封印された語彙の実行トークン、ワードリストの最初の定義のリンクフィールドアドレス、または他のものであるかもしれません。 システム実装者次第です。
 
-In some systems the interpretation of numeric literals is controlled by including "pseudo word lists" that  recognize numbers at the end of the search order. This technique is accommodated by the "default search  order" behavior of SET-ORDER when given an argument of -1. In a system using the traditional  implementation of ALSO/ONLY , the minimum search order would be equivalent to the word ONLY.
+システムによっては、検索順序の最後に数字を認識する「擬似ワードリスト」を含めることで、数値リテラルの解釈を制御しています。このテクニックは、引数に-1が与えられた時のSET-ORDERの "デフォルトの検索順序"動作によって対応されます。`ALSO`/`ONLY`の伝統的な実装を使用するシステムでは、最小の検索順序は、ワード`ONLY`と等価です。
 
-There has never been a portable way to restore a saved search order. F83 (not Forth 83) introduced the  word PREVIOUS , which almost made it possible to "unload" the search order by repeatedly executing the  phrase CONTEXT @ PREVIOUS. The search order could be "reloaded" by repeating ALSO CONTEXT  !. Unfortunately there was no portable way to determine how many word lists were in the search order.
+保存された検索順序を復元するポータブルな方法はこれまではありませんでした。F83(Forth83ではない)では`PREVIOUS`というワードが導入され、`CONTEXT @ PREVIOUS`というフレーズを繰り返し実行することで、検索順序を「アンロード」することがほぼ可能になりました。`ALSO CONTEXT !`を繰り返すことで、検索順序を「再ロード」することができました。残念ながら、検索順序にいくつのワードリストが含まれているかを判断するポータブルな方法はありませんでした。
 
-ANS Forth has removed the word CONTEXT because in many systems its contents refer to more than one  word list, compounding portability problems.
+ANS Forthは`CONTEXT`というワードを削除しましたが、これは多くのシステムで`CONTEXT`の内容が複数のワードリストを参照しており、移植性の問題を複雑にしているためです。
 
-Note that : (colon) no longer affects the search order. The previous behavior, where the compilation word  list replaces the first word list of the search order, can be emulated with the following redefinition of : (colon).
-
-システムによっては、検索順序の最後に数字を認識する「擬似ワードリスト」を含めることで、数値リテラルの解釈を制御しています。このテクニックは、引数に-1が与えられた時のSET-ORDERの "デフォルトの検索順序"動作によって対応されます。従来のALSO/ONLYの実装を使用するシステムでは、最小の検索順序は、ワードONLYと等価です。
-
-保存された検索順序を復元するポータブルな方法はこれまでなかった。F83(Forth83ではない)ではPREVIOUSというワードが導入され、CONTEXT @ PREVIOUSというフレーズを繰り返し実行することで、検索順序を「アンロード」することがほぼ可能になりました。ALSO CONTEXT !を繰り返すことで、検索順序を「再ロード」することができた。残念ながら、検索順序にいくつのワードリストが含まれているかを判断するポータブルな方法はありませんでした。
-
-ANS ForthはCONTEXTというワードを削除しましたが、これは多くのシステムでCONTEXTの内容が複数のワードリストを参照しており、移植性の問題を複雑にしているためです。
-
-コロン)が検索順序に影響しなくなったことに注意してください。コンパイルのワードリストが検索順序の最初のワードリストを置き換えるという以前の動作は、次のように: (colon)を再定義することでエミュレートできます。
+`:`(コロン)が検索順序に影響しなくなったことに注意してください。コンパイルのワードリストが検索順序の最初のワードリストを置き換えるという以前の動作は、次のように`:` (colon)を再定義することでエミュレートできます。
 
     : : GET-ORDER SWAP DROP GET-CURRENT SWAP SET-ORDER : ; 
 
@@ -2207,8 +2185,6 @@ ANS ForthはCONTEXTというワードを削除しましたが、これは多く�
 
 <term>
 ||search order||
-Note that the use of the term "list" does not necessarily imply implementation as a linked list.
-
 「リスト」という用語の使用は、必ずしもリンクリストとしての実装を意味しないことに注意してください。
 
 </term>
@@ -2216,29 +2192,25 @@ Note that the use of the term "list" does not necessarily imply implementation a
 #### A.16.3.3 Finding definition names 
 
 In other words, the following is not guaranteed to work:  
+言葉を換えると、以下のコードが動作することは保証されません。
+
 
     : FOO ... [ ... SET-CURRENT ] ... RECURSE ...
     ; IMMEDIATE 
 
-RECURSE, ; (semicolon), and IMMEDIATE may or may not need information stored in the compilation  word list.
+`RECURSE`, `;` (semicolon), and `IMMEDIATE` はコンパイルワードリストに格納された情報を必要とするかもしれないし、必要としないかもしれません。
 
 ### A.16.6 Glossary 
 
 ##### A.16.6.1.2192 SEARCH-WORDLIST 
 
-The string argument to SEARCH-WORDLIST is represented by c-addr u, rather than by just c-addr as with  FIND. The committee wishes to establish c-addr u as the preferred representation of a string on the stack,  and has adopted that representation for all new functions that accept string arguments. While this decision  may cause the implementation of SEARCH-WORDLIST to be somewhat more difficult in existing systems,  the committee feels that the additional difficulty is minor.
+`SEARCH-WORDLIST`の文字列引数は、`FIND`のように単なる*c-addr*ではなく、*c-addr u*で表現されます。委員会は、*c-addr u*をスタック上の文字列の好ましい表現として確立することを望み、文字列引数を受け付けるすべての新しい関数にこの表現を採用しました。この決定により、既存のシステムでは`SEARCH-WORDLIST`の実装がいくらか難しくなるかもしれないが、委員会は、追加の難しさは軽微であると感じています。
 
-SEARCH-WORDLISTの文字列引数は、FINDのように単なるc-addrではなく、c-addr uで表現されます。委員会は、c-addr uをスタック上の文字列の好ましい表現として確立することを望み、文字列引数を受け付けるすべての新しい関数にこの表現を採用した。この決定により、既存のシステムではSEARCH-WORDLISTの実装がいくらか難しくなるかもしれないが、委員会は、追加の難しさは軽微であると感じています。
-
-When SEARCH-WORDLIST fails to find the word, it does not return the string, as does FIND. This is in  accordance with the general principle that Forth words consume their arguments.
-
-SEARCH-WORDLISTがワードを見つけられなかった場合、FINDのように文字列を返しません。これは、Forth のワードは引数を消費するという一般的な原則に従っています。
+`SEARCH-WORDLIST` がワードを見つけられなかった場合、`FIND` のように文字列を返すことはしません。これは、Forth のワードは引数を消費するという一般的な原則に従っています。
 
 ##### A.16.6.2.0715 ALSO 
 
-Here is an implementation of ALSO/ONLY in terms of the primitive search-order word set.
-
-以下は、プリミティブ検索ワードセットの観点から ALSO/ONLY を実装したものです。
+以下は、プリミティブ検索ワードセットを使って `ALSO`/`ONLY` を実装したものです。
 
     WORDLIST CONSTANT ROOT ROOT SET-CURRENT  
     : DO-VOCABULARY ( -- ) \ Implementation factor 
@@ -2262,15 +2234,13 @@ Here is an implementation of ALSO/ONLY in terms of the primitive search-order wo
 
 The preceding definition of ONLY in terms of a "ROOT" word list follows F83 usage, and assumes that the  default search order just includes ROOT and FORTH. A more portable definition of FORTH and ONLY,  without the assumptions, is:  
 
-前述の「ROOT」ワードリストによるONLYの定義は、F83の用法に従ったもので、デフォルトの検索順序がROOTとFORTHを含むだけであると仮定しています。FORTHとONLYのよりポータブルな定義(仮定なし)は以下の通りです。
+前述の「ROOT」ワードリストによる`ONLY`の定義は、F83の用法に従ったもので、デフォルトの検索順序が`ROOT`と`FORTH`を含むだけと仮定しています。`FORTH`と`ONLY`のよりポータブルな定義(仮定なし)は以下の通りです。
 
     <omit the ... WORDLIST CONSTANT ROOT ... line> 
     CREATE FORTH GET-ORDER OVER , DISCARD DO-VOCABULARY  
     : ONLY ( -- ) -1 SET-ORDER ; 
 
-Here is a simple implementation of GET-ORDER and SET-ORDER, including a corresponding definition of  FIND. The implementations of WORDLIST, SEARCH-WORDLIST, GET-CURRENT and SET-CURRENT depend on system details and are not given here.
-
-ここでは、`GET-ORDER`と`SET-ORDER`の簡単な実装と、それに対応する`FIND`の定義を示します。`WORDDLIST`、`SEARCH-WORDLIST`、`GET-CURRENT`、`SET-CURRENT`の実装は、システムの詳細に依存するので、ここでは示しません。
+ここで、`GET-ORDER`と`SET-ORDER`の簡単な実装と、それに対応する`FIND`の定義を示します。`WORDDLIST`、`SEARCH-WORDLIST`、`GET-CURRENT`、`SET-CURRENT`の実装は、システムの詳細に依存するので、ここでは示しません。
 
     16 CONSTANT #VOCS 
     VARIABLE #ORDER  
@@ -2300,61 +2270,49 @@ Here is a simple implementation of GET-ORDER and SET-ORDER, including a correspo
         LOOP                    ( c-addr 0 | w 1 | w -1 ) 
     ; 
 
-In an implementation where the dictionary search mechanism uses a hash table or lookup cache to reduce  the search time, SET-ORDER might need to reconstruct the hash table or flush the cache.
-
-辞書検索メカニズムが検索時間を短縮するためにハッシュテーブルまたはルックアップ キャッシュを使用する実装では、SET-ORDERはハッシュテーブルを再構築するか、キャッシュをフラッシュする必要があるかもしれません。
+辞書検索メカニズムが検索時間を短縮するためにハッシュテーブルまたはルックアップキャッシュを使用する実装では、SET-ORDERはハッシュテーブルを再構築するか、キャッシュをフラッシュする必要があるかもしれません。
 
 ## A.17 The optional String word set 
 
-
 ### A.17.6 Glossary 
-
 
 ##### A.17.6.1.0245 /STRING 
 
-/STRING is used to remove or add characters relative to the "left" end of the character string. Positive values of n will exclude characters from the string while negative values of n will include characters to the  left of the string. /STRING is a natural factor of WORD and commonly available.
-
-`/STRING`は、文字列の "左"端から相対的に文字を削除または追加するために使用されます。nの正の値は文字列から文字を除外し、nの負の値は文字列の左端に文字を含めます。`/STRING`は`WORD`の自然数であり、一般的に使用できます。
+`/STRING`は、文字列の "左" 端から相対的に文字を削除または追加するために使用されます。*n*の正の値は文字列から文字を除外し、*n*の負の値は文字列の左端に文字を含めます。`/STRING`は`WORD`の自然な因子であり、一般的に使用できます。
 
 ##### A.17.6.1.0910 CMOVE 
 
-If c-addr2 lies within the source region (i.e., when c-addr2 is not less than c-addr1 and c-addr2 is less than  the quantity c-addr1 u CHARS +), memory propagation occurs.
+If *c-addr2* lies within the source region (i.e., when *c-addr2* is not less than *c-addr1* and *c-addr2* is less than  the quantity *c-addr1 u* `CHARS +`), memory propagation occurs.
 
-c-addr2 がソース領域内にある場合(つまり、c-addr2 が c-addr1 よりも小さくなく、かつ c-addr2 が量 c-addr1 u CHARS + よりも小さい場合)、メモリ伝搬が発生します。
-
-Typical use: Assume a character string at address 100: "ABCD". Then after  
+*c-addr2* がソース領域内にある場合(つまり、*c-addr2* が *c-addr1* よりも小さくなく、かつ *c-addr2* が量 *c-addr1 u* `CHARS` `+` よりも小さい場合)、メモリ伝搬が発生します。
 
 典型的な使用例:  アドレス100に "ABCD" という文字列があるとします。次に
 
     100 DUP CHAR+ 3 CMOVE the string at address 100 is "AAAA".
 
-Rationale for CMOVE and CMOVE> follows MOVE.
+`CMOVE` と `CMOVE>` に対する解説は `MOVE` に続きます。
 
 ##### A.17.6.1.0920 CMOVE> 
 
-If c-addr1 lies within the destination region (i.e., when c-addr1 is greater than or equal to c-addr2 and c-addr2 is less than the quantity c-addr1 u CHARS +), memory propagation occurs.
+*c-addr1*がデスティネーション領域内にある場合(すなわち、*c-addr1*が*c-addr2*以上であり、かつ*c-addr2*が量*c-addr1 u* `CHARS` `+`より小さい場合)、メモリ伝搬が起こります。
 
-c-addr1がデスティネーション領域内にある場合(すなわち、c-addr1がc-addr2以上であり、かつc-addr2が量c-addr1 u CHARS +より小さい場合)、メモリ伝搬が起こる。
+Typical use: アドレス100に文字列 "ABCD" があり、そのあと、
 
-Typical use: Assume a character string at address 100: "ABCD". Then after   
-
-    100 DUP CHAR+ SWAP 3 CMOVE> the string at address 100 is "DDDD".
+    100 DUP CHAR+ SWAP 3 CMOVE> 
+    
+を実行すると、アドレス100の文字列は "DDDD" です。
 
 ##### A.17.6.1.0935 COMPARE 
-
-Existing Forth systems perform string comparison operations using words that differ in spelling, input and  output arguments, and case sensitivity. One in widespread use was chosen.
 
 既存のForthシステムは、スペル、入力引数、出力引数、大文字と小文字の区別が異なるワードを使って文字列比較演算を行います。広く使われているものを選びました。
 
 ##### A.17.6.1.2191 SEARCH 
 
-Existing Forth systems perform string searching operations using words that differ in spelling, input and  output arguments, and case sensitivity. One in widespread use was chosen.
-
 既存のForthシステムは、スペル、入出力引数、大文字と小文字の区別が異なるワードを使って文字列検索操作を行います。広く使われているものを選びました。
 
 ##### A.17.6.1.2212 SLITERAL 
 
-The current functionality of **6.1.2165  S"** may be provided by the following definition:  
+**6.1.2165  S"** の現在の機能は以下の定義で提供されます。
 
     : S" ( "ccc<quote>" -- ) 
         [CHAR] " PARSE POSTPONE SLITERAL 
@@ -2372,391 +2330,249 @@ Forth-79 Standard, Forth Standards Team.
 
 Forth-83 Standard and Appendices, Forth Standards Team.
 
-The standards referenced in this section were developed by the Forth Standards Team, a volunteer group  which included both implementors and users. This was a volunteer organization operating under its own  charter and without any formal ties to ANSI, IEEE or any similar standards body. Several members of the  Forth Standards Team have also been members of the X3J14 Technical Committee.
-
-このセクションで言及されている標準は、実装者とユーザの両方を含むボランティアグループであるForth Standards Teamによって開発されました。これは、ANSI、IEEE、または類似の標準化団体と正式な関係を持たず、独自の憲章の下で運営されるボランティア団体でした。Forth標準化チームのメンバの何人かは、X3J14技術委員会のメンバでもありました。
+このセクションで言及されている標準規格は、実装者とユーザの両方を含むボランティアグループであるForth標準化チーム(Forth Standards Team)によって開発されました。これは、ANSI、IEEE、または類似の標準化団体と正式な関係を持たず、独自の憲章の下で運営されるボランティア団体でした。Forth標準化チームのメンバの何人かは、X3J14技術委員会のメンバでもありました。
 
 ## Books  
 
-Brodie, L. Starting FORTH (2nd ed). Englewood Cliffs, NJ: Prentice Hall, 1987.
+Brodie, L. *Starting FORTH* (2nd ed). Englewood Cliffs, NJ: Prentice Hall, 1987.
 
-Brodie, L. Thinking FORTH. Englewood Cliffs, NJ: Prentice Hall, 1984.
+Brodie, L. *Thinking FORTH*. Englewood Cliffs, NJ: Prentice Hall, 1984.
 
-Feierbach, G. and Thomas, P. Forth Tools & Applications. Reston, VA: Reston Computer Books, 1985.
+Feierbach, G. and Thomas, P. *Forth Tools & Applications*. Reston, VA: Reston Computer Books, 1985.
 
-Haydon, Dr. Glen B. All About FORTH, Third Edition. La Honda, CA: 1990.
+Haydon, Dr. Glen B. *All About FORTH, Third Edition*. La Honda, CA: 1990.
 
-Kelly, Mahlon G. and Spies, N. FORTH: A Text and Reference. Englewood Cliffs, NJ: Prentice Hall,  1986.
+Kelly, Mahlon G. and Spies, N. *FORTH: A Text and Reference*. Englewood Cliffs, NJ: Prentice Hall,  1986.
 
-Knecht, K. Introduction to Forth. Indiana: Howard Sams & Co., 1982.
+Knecht, K. *Introduction to Forth*. Indiana: Howard Sams & Co., 1982.
 
-Koopman, P. Stack Computers, The New Wave. Chichester, West Sussex, England: Ellis Horwood Ltd. 1989 
+Koopman, P. *Stack Computers, The New Wave*. Chichester, West Sussex, England: Ellis Horwood Ltd. 1989 
 
-Martin, Thea, editor. A Bibliography of Forth References, Third Edition. Rochester, New York: Institute  of Applied Forth Research, 1987.
+Martin, Thea, editor. *A Bibliography of Forth References, Third Edition*. Rochester, New York: Institute  of Applied Forth Research, 1987.
 
-McCabe, C. K. Forth Fundamentals (2 volumes). Oregon: Dilithium Press, 1983.
+McCabe, C. K. *Forth Fundamentals* (2 volumes). Oregon: Dilithium Press, 1983.
 
-Pountain, R. Object Oriented Forth. London, England: Academic Press, 1987.
+Pountain, R. *Object Oriented Forth*. London, England: Academic Press, 1987.
 
-Ouverson, Marlin, editor. Dr. Dobbs Toolbook of Forth. Redwood City, CA: M&T Press, Vol. 1, 1986;  Vol. 2, 1987.
+Ouverson, Marlin, editor. *Dr. Dobbs Toolbook of Forth*. Redwood City, CA: M&T Press, Vol. 1, 1986;  Vol. 2, 1987.
 
-Terry, J. D. Library of Forth Routines and Utilities. New York: Shadow Lawn Press, 1986  
+Terry, J. D. *Library of Forth Routines and Utilities*. New York: Shadow Lawn Press, 1986  
 
-Tracy, M. and Anderson, A. Mastering FORTH (revised ed). New York: Brady Books, 1989.
+Tracy, M. and Anderson, A. *Mastering FORTH* (revised ed). New York: Brady Books, 1989.
 
-Winfield, A. The Complete Forth. New York: Wiley Books, 1983.
+Winfield, A. *The Complete Forth*. New York: Wiley Books, 1983.
 
 ## Journals, magazines and newsletters  
 
-Forsley, Lawrence P., Conference Chairman. Rochester Forth Conference Proceedings. Rochester, New  York: Institute of Applied Forth Research, 1981 to present.
+Forsley, Lawrence P., Conference Chairman. *Rochester Forth Conference Proceedings*. Rochester, New  York: Institute of Applied Forth Research, 1981 to present.
 
-Forsley, Lawrence P., Editor-in-Chief. The Journal of Forth Application and Research. Rochester, New  York: Institute of Applied Forth Research, 1983 to present.
+Forsley, Lawrence P., Editor-in-Chief. *The Journal of Forth Application and Research*. Rochester, New  York: Institute of Applied Forth Research, 1983 to present.
 
-Frenger, Paul, editor. SIGForth Newsletter. New York, NY: Association for Computing Machinery, 1989  to present.
+Frenger, Paul, editor. *SIGForth Newsletter*. New York, NY: Association for Computing Machinery, 1989  to present.
 
-Ouverson, Marlin, editor. Forth Dimensions. San Jose, CA: The Forth Interest Group, 1978 to present.
+Ouverson, Marlin, editor. *Forth Dimensions*. San Jose, CA: The Forth Interest Group, 1978 to present.
 
-Reiling, Robert, editor. FORML Conference Proceedings. San Jose, CA: The Forth Interest Group, 1980  to present.
+Reiling, Robert, editor. *FORML Conference Proceedings*. San Jose, CA: The Forth Interest Group, 1980  to present.
 
-Ting, Dr. C. H., editor. More on Forth Engines. San Mateo, CA: Offete Enterprises, 1986 to present.
+Ting, Dr. C. H., editor. *More on Forth Engines*. San Mateo, CA: Offete Enterprises, 1986 to present.
 
 ## Selected articles  
 
-Hayes, J.R. "Postpone" Proceedings of the 1989 Rochester Forth Conference. Rochester, New York:  Institute for Applied Forth Research, 1989.
+Hayes, J.R. "Postpone" *Proceedings of the 1989 Rochester Forth Conference*. Rochester, New York:  Institute for Applied Forth Research, 1989.
 
-Kelly, Guy M. "Forth." McGraw-Hill Personal Computer Programming Encyclopedia - Languages and Operation Systems. New York: McGraw-Hill, 1985.
+Kelly, Guy M. "Forth." *McGraw-Hill Personal Computer Programming Encyclopedia - Languages and Operation Systems*. New York: McGraw-Hill, 1985.
 
-Kogge, P. M. "An Architectural Trail to Threaded Code Systems." IEEE Computer (March, 1982).
+Kogge, P. M. "An Architectural Trail to Threaded Code Systems." *IEEE Computer* (March, 1982).
 
-Moore, C. H. "The Evolution of FORTH - An Unusual Language." Byte (August 1980).
+Moore, C. H. "The Evolution of FORTH - An Unusual Language." *Byte* (August 1980).
 
-Rather, E. D. "Forth Programming Language." Encyclopedia of Physical Science & Technology (Vol. 5).
-New York: Academic Press, 1987.
+Rather, E. D. "Forth Programming Language." *Encyclopedia of Physical Science & Technology* (Vol. 5).  New York: Academic Press, 1987.
 
-Rather, E. D. "FORTH." Computer Programming Management. Auerbach Publishers, Inc., 1985.
+Rather, E. D. "FORTH." *Computer Programming Management*. Auerbach Publishers, Inc., 1985.
 
-Rather, E. D.; Colburn, D. R.; Moore, C. H. "The Evolution of FORTH." ACM SIGPLAN Notices.
-(Vol. 28, No. 3, March 1993).
+Rather, E. D.; Colburn, D. R.; Moore, C. H. "The Evolution of FORTH." *ACM SIGPLAN Notices*.  (Vol. 28, No. 3, March 1993).
 
 # C. Perspective (informative annex)  
 
-The purpose of this section is to provide an informal overview of Forth as a language, illustrating its history,  most prominent features, usage, and common implementation techniques. Nothing in this section should be  considered as binding upon either implementors or users. A list of books and articles is given in Annex B for those interested in learning more about Forth.
-
-このセクションの目的は、言語としてのForthの非公式な概要を提供し、その歴史、最も顕著な特徴、使用法、および一般的な実装技術を説明することです。このセクションの内容は、実装者やユーザを拘束するものではありません。Forthについてもっと知りたいという人のために、書籍と記事のリストを付録Bに示します。
+このセクションの目的は、言語としてのForthの非公式な概要を提供し、その歴史、最も顕著な特徴、使用法、および一般的な実装技術を説明することです。このセクションの内容は、実装者やユーザを拘束するものではありません。Forthについてもっと知りたいという人のために、書籍と記事のリストを付録**B**に示します。
 
 ## C.1 Features of Forth 
 
-Forth provides an interactive programming environment. Its primary uses have been in scientific and  industrial applications such as instrumentation, robotics, process control, graphics and image processing,  artificial intelligence and business applications. The principal advantages of Forth include rapid, interactive  software development and efficient use of computer hardware.
+Forthはインタラクティブなプログラミング環境を提供します。その主な用途は、計測器、ロボット工学、プロセス制御、グラフィックス、画像処理、人工知能、ビジネスアプリケーションなどの科学的・産業的アプリケーションです。Forthの主な利点は、迅速でインタラクティブなソフトウェア開発と、コンピュータハードウェアの効率的な使用です。
 
-Forth is often spoken of as a language because that is its most visible aspect. But in fact, Forth is both more  and less than a conventional programming language: more in that all the capabilities normally associated  with a large portfolio of separate programs (compilers, editors, etc.) are included within its range and less in  that it lacks (deliberately) the complex syntax characteristic of most high-level languages.
+Forthは言語として語られることが多いです。その見た目で目立つところだからでしょう。しかし、実際には、Forthは従来のプログラミング言語以上でもあり、それ以下でもあります。通常、独立したプログラム(コンパイラ、エディタなど)の大規模なポートフォリオに関連するすべての機能がその範囲に含まれているという点ではそれ以上であり、ほとんどの高級言語に特徴的な複雑な構文が(意図的に)欠如しているという点ではそれ以下です。
 
-The original implementations of Forth were stand-alone systems that included functions normally performed  by separate operating systems, editors, compilers, assemblers, debuggers and other utilities. A single  simple, consistent set of rules governed this entire range of capabilities. Today, although very fast stand-alone versions are still marketed for many processors, there are also many versions that run co-resident with  conventional operating systems such as MS-DOS and UNIX.
+Forthの最初の実装はスタンドアロンシステムでした。通常は別々のもの、オペレーティングシステム、エディタ、コンパイラ、アセンブラ、デバッガ、その他のユーティリティによって実行される機能を含むスタンドアロンシステムだったのです。単一のシンプルで一貫性のあるルールセットが、この機能の全範囲を支配していました。今日でも、非常に高速なスタンドアロン版が多くのプロセッサ向けに販売されていますが、MS-DOSやUNIXのような伝統的なオペレーティングシステムと同居して動作するバージョンも数多くあります。
 
-Forthはインタラクティブなプログラミング環境を提供します。その主な用途は、計測器、ロボット工学、プロセス制御、グラフィックス、画像処理、人工知能、ビジネス・アプリケーションなどの科学的・産業的アプリケーションです。Forthの主な利点は、迅速でインタラクティブなソフトウェア開発と、コンピュータ・ハードウェアの効率的な使用です。
+Forthは他のいかなる言語から派生したものではありません。そのため、Forthの外観や内部的な特徴は、新しいユーザにとっては見慣れないものに見えるかもしれません。しかし、Forthのシンプルさ、極端なモジュール性、対話的な性質は、最初の奇妙さを相殺し、学びやすく、使いやすくしています。新しいForthプログラマは、その膨大なコマンドのレパートリーをマスターするのに時間をかけなければなりません。Forthを1ヶ月ほどフルタイムで使えば、従来のオペレーティングシステムやコンパイラでは不可能なほど、Forthの内部動作を理解できるようになります。
 
-Forthは言語として語られることが多いです。しかし実際には、Forthは従来のプログラミング言語以上でもあり、それ以下でもあります。通常、独立したプログラム(コンパイラ、エディタなど)の大規模なポートフォリオに関連するすべての機能がその範囲に含まれているという点ではそれ以上であり、ほとんどの高級言語に特徴的な複雑な構文が(意図的に)欠如しているという点ではそれ以下です。
-
-Forthの最初の実装は、通常は別々のオペレーティングシステム、エディタ、コンパイラ、アセンブラ、デバッガ、その他のユーティリティによって実行される機能を含むスタンドアロン・システムでした。単一のシンプルで一貫性のあるルールセットが、この機能の全範囲を支配していました。今日でも、非常に高速なスタンドアロン版が多くのプロセッサ向けに販売されているが、MS-DOSやUNIXのような従来のオペレーティングシステムと同居して動作するバージョンも数多くあります。
-
-Forth is not derived from any other language. As a result, its appearance and internal characteristics may  seem unfamiliar to new users. But Forth’s simplicity, extreme modularity, and interactive nature offset the  initial strangeness, making it easy to learn and use. A new Forth programmer must invest some time  mastering its large command repertoire. After a month or so of full-time use of Forth, that programmer  could understand more of its internal working than is possible with conventional operating systems and  compilers.
-
-The most unconventional feature of Forth is its extensibility. The programming process in Forth consists of  defining new "words" - actually new commands in the language. These may be defined in terms of  previously defined words, much as one teaches a child concepts by explaining them in terms of previously  understood concepts. Such words are called "high-level definitions". Alternatively, new words may also be  defined in assembly code, since most Forth implementations include an assembler for the host processor.
-
-This extensibility facilitates the development of special application languages for particular problem areas  or disciplines.
-
-Forthは他の言語から派生したものではありません。そのため、Forthの外観や内部的な特徴は、新しいユーザにとっては見慣れないものに見えるかもしれません。しかし、Forthのシンプルさ、極端なモジュール性、対話的な性質は、最初の奇妙さを相殺し、学びやすく、使いやすくしています。新しいForthプログラマは、その膨大なコマンドのレパートリーをマスターするのに時間をかけなければなりません。Forthを1ヶ月ほどフルタイムで使えば、従来のオペレーティングシステムやコンパイラでは不可能なほど、Forthの内部動作を理解できるようになります。
-
-Forthの最も型破りな特徴は、その拡張性にあります。Forthのプログラミング・プロセスは、新しい「ワード」、つまり実際には言語の新しいコマンドを定義することからなります。これらのワードは、以前に定義されたワードの観点から定義することができます。このようなワードは「ハイレベル定義」と呼ばれます。また、ほとんどのForth実装にはホスト・プロセッサ用のアセンブラが含まれているため、新しいワードをアセンブリ・コードで定義することもできます。
+Forthの最も型破りな特徴は、その拡張性にあります。Forthのプログラミング・プロセスは、新しい「ワード」、つまり実際には言語の新しいコマンドを定義することからなります。これらのワードは、以前に定義されたワードを用いて定義することができます。このようなワードは「ハイレベル定義」と呼ばれます。また、ほとんどのForth実装にはホストプロセッサ用のアセンブラが含まれているため、新しいワードをアセンブリコードで定義することもできます。
 
 このような拡張性により、特定の問題分野や専門分野に特化したアプリケーション言語の開発が容易になります。
 
-Forth’s extensibility goes beyond just adding new commands to the language. With equivalent ease, one  can also add new kinds of words. That is, one may create a word which itself will define words. In creating  such a defining word the programmer may specify a specialized behavior for the words it will create which  will be effective at compile time, at run-time, or both. This capability allows one to define specialized data  types, with complete control over both structure and behavior. Since the run-time behavior of such words  may be defined either in high-level or in code, the words created by this new defining word are equivalent to  all other kinds of Forth words in performance. Moreover, it is even easy to add new compiler directives to  implement special kinds of loops or other control structures.
+Forthの拡張性は、単に新しいコマンドを追加するだけではありません。同じように簡単に、新しい種類のワードを追加することもできます。つまり、ワードを定義するワードを作成することができます。このような定義ワードを作成する際、プログラマは、コンパイル時、実行時、またはその両方において有効な、作成するワードの特殊な動作を指定することができます。この機能により、構造と動作の両方を完全に制御して、特殊なデータ型を定義することができます。このようなワードの実行時の動作は、高レベルでもコードでも定義できるため、この新しい定義ワードによって作成されるワードは、性能的には他のすべての種類のForthワードと同等です。さらに、特殊なループやその他の制御構造を実装するために、新しいコンパイラ指令を追加することさえかなり簡単にできます。
 
-Most professional implementations of Forth are written in Forth. Many Forth systems include a "meta-compiler" which allows the user to modify the internal structure of the Forth system itself.
-
-Forthの拡張性は、単に新しいコマンドを追加するだけではありません。同じように簡単に、新しい種類のワードを追加することもできます。つまり、ワードを定義するワードを作成することができます。このような定義ワードを作成する際、プログラマは、コンパイル時、実行時、またはその両方において有効な、作成するワードの特殊な動作を指定することができます。この機能により、構造と動作の両方を完全に制御して、特殊なデータ型を定義することができます。このようなワードの実行時の動作は、高レベルでもコードでも定義できるため、この新しい定義ワードによって作成されるワードは、性能的には他のすべての種類のForthワードと同等です。さらに、特殊なループやその他の制御構造を実装するために、新しいコンパイラ指令を追加することさえ簡単です。
-
-Forthの専門的な実装のほとんどは、Forthで書かれています。多くのForthシステムには、ユーザがForthシステム自体の内部構造を変更できる「メタ・コンパイラ」が含まれています。
+専門家向けのForth実装のほとんどは、Forthで書かれています。多くのForthシステムには、ユーザがForthシステム自体の内部構造を変更できる「メタコンパイラ」が含まれています。
 
 
 ## C.2 History of Forth 
 
-Forth was invented by Charles H. Moore. A direct outgrowth of Moore’s work in the 1960’s, the first  program to be called Forth was written in about 1970. The first complete implementation was used in 1971  at the National Radio Astronomy Observatory’s 11-meter radio telescope in Arizona. This system was  responsible for pointing and tracking the telescope, collecting data and recording it on magnetic tape, and  supporting an interactive graphics terminal on which an astronomer could analyze previously recorded data.
+Forthはチャールズ・H・ムーアによって発明されました。1960年代のムーアの研究から直接発展し、Forthと呼ばれる最初のプログラムは1970年頃に書かれました。最初の完全な実装は、1971年にアリゾナ州にある国立電波天文台の11メートル電波望遠鏡で使われました。このシステムは、望遠鏡のポインティングとトラッキング、データの収集と磁気テープへの記録、天文学者が以前に記録したデータを分析するための対話型グラフィック端末のサポートを担いました。
 
-The multi-tasking nature of the system allowed all these functions to be performed concurrently, without  timing conflicts or other interference - a very advanced concept for that time.
-
-The system was so useful that astronomers from all over the world began asking for copies. Its use spread  rapidly, and in 1976 Forth was adopted as a standard language by the International Astronomical Union.
-
-In 1973, Moore and colleagues formed FORTH, Inc. to explore commercial uses of the language. FORTH,  Inc. developed multi-user versions of Forth on minicomputers for diverse projects ranging from data bases  to scientific applications such as image processing. In 1977, FORTH, Inc. developed a version for the  newly introduced 8-bit microprocessors called "microFORTH", which was successfully used in embedded  microprocessor applications in the United States, Britain and Japan.
-
-Forthはチャールズ・H・ムーアによって発明されました。1960年代のムーアの研究から直接発展し、Forthと呼ばれる最初のプログラムは1970年頃に書かれた。最初の完全な実装は、1971年にアリゾナ州にある国立電波天文台の11メートル電波望遠鏡で使われた。このシステムは、望遠鏡のポインティングとトラッキング、データの収集と磁気テープへの記録、天文学者が以前に記録したデータを分析するための対話型グラフィック端末のサポートを担当した。
-
-このシステムのマルチタスク性により、これらすべての機能を、タイミングの衝突や他の干渉なしに同時に実行することができた。
+このシステムにはマルチタスクに対応しており、これらすべての機能を、タイミングの衝突や他の干渉なしに同時に実行することができた。当時としては非常に先進的なコンセプトだった。
 
 このシステムは非常に便利であったため、世界中の天文学者がコピーを求め始めた。その使用は急速に広まり、1976年には国際天文学連合によってForthが標準言語として採用されました。
 
-1973年、ムーアと同僚たちはFORTH, Inc.を設立し、この言語の商業的利用を模索した。FORTH, Inc.は、データ・ベースから画像処理のような科学的アプリケーションまで、さまざまなプロジェクトのためにミニコンピュータ上でForthのマルチユーザ版を開発した。1977年、FORTH, Inc.は「microFORTH」と呼ばれる新しく登場した8ビットマイクロプロセッサ用のバージョンを開発し、アメリカ、イギリス、日本の組み込みマイクロプロセッサ・アプリケーションで成功しました。
+1973年、ムーアと仲間たちはFORTH, Inc.を設立し、この言語の商業的利用を模索した。FORTH, Inc.は、データ・ベースから画像処理のような科学的アプリケーションまで、さまざまなプロジェクトのためにミニコンピュータ上でForthのマルチユーザ版を開発しました。1977年、FORTH, Inc.は「microFORTH」と呼ばれる新しく登場した8ビットマイクロプロセッサ用のバージョンを開発し、アメリカ、イギリス、日本の組み込みマイクロプロセッサアプリケーションで成功しました。
 
-Stimulated by the volume marketing of microFORTH, a group of computer hobbyists in Northern California  became interested in Forth, and in 1978 formed the Forth Interest Group (FIG). They developed a  simplified model which they implemented on several microprocessors and published listings and disks at  very low cost. Interest in Forth spread rapidly, and today there are chapters of the Forth Interest Group  throughout the U.S. and in over fifteen countries.
+microFORTHの販売量の大きさに刺激され、北カリフォルニアのコンピュータホビイストのグループがForthに興味を持ち、1978年にForth Interest Group(FIG)を結成しました。彼らは簡略化したモデルを開発し、いくつかのマイクロプロセッサに実装して、非常に安価なリストとディスクを出版しました。Forthへの関心は急速に広まり、現在ではForth Interest Groupの支部が全米と15カ国以上に存在します。
 
-microFORTHの量販に刺激され、北カリフォルニアのコンピュータ趣味のグループがForthに興味を持ち、1978年にForth Interest Group(FIG)を結成した。彼らは簡略化したモデルを開発し、いくつかのマイクロプロセッサに実装して、非常に安価なリストとディスクを出版した。Forthへの関心は急速に広まり、現在ではForth Interest Groupの支部が全米と15カ国以上に存在します。
-
-By 1980, a number of new Forth vendors had entered the market with versions of Forth based upon the FIG  model. Primarily designed for personal computers, these relatively inexpensive Forth systems have been  distributed very widely.
-
-1980年までに、多くの新しいForthベンダーが、FIGモデルに基づいたバージョンのForthを市場に投入した。主にパーソナルコンピュータ用に設計されたこれらの比較的安価なForthシステムは、非常に広く配布されています。
+1980年までに、多くの新しいForthベンダーが、FIGモデルに基づいたバージョンのForthを市場に投入しました。主にパーソナルコンピュータ用に設計されたこれらの比較的安価なForthシステムは、非常に幅広く配布されています。
 
 ## C.3 Hardware implementations of Forth 
 
-The internal architecture of Forth simulates a computer with two stacks, a set of registers, and other  standardized features. As a result, it was almost inevitable that someone would attempt to build a hardware  representation of an actual Forth computer.
+Forthの内部アーキテクチャは、2つのスタック、いくつかのレジスタ、およびその他の標準化された機能を持つコンピュータをシミュレートしています。その結果として、誰かが実際のForthコンピュータをハードウェアで表現しようとするのは、ほぼ必然的なことでした。
 
-Forthの内部アーキテクチャは、2つのスタック、レジスタのセット、およびその他の標準化された機能を持つコンピュータをシミュレートしています。その結果、誰かが実際のForthコンピュータをハードウェアで表現しようとするのは、ほぼ必然的なことでした。
+1980年代初頭、ロックウェル社は、オンボードROMにForthプリミティブを搭載した6502の変種、ロックウェル65F11を製造しました。このチップは、多くの組み込みマイクロプロセッサアプリケーションで成功裏に使用されました。1980年代半ば、ZilogはマイクロコードでENTER(ネスト)、EXIT(アンネスト)、NEXTを提供するz8800(Super8)を開発しました。
 
-In the early 1980’s, Rockwell produced a 6502-variant with Forth primitives in on-board ROM, the  Rockwell 65F11. This chip has been used successfully in many embedded microprocessor applications. In  the mid-1980’s Zilog developed the z8800 (Super8) which offered ENTER (nest), EXIT (unnest) and  NEXT in microcode.
-
-1980年代初頭、ロックウェル社は、オンボードROMにForthプリミティブを搭載した6502変種、ロックウェル65F11を製造しました。このチップは、多くの組み込みマイクロプロセッサ・アプリケーションで成功裏に使用されました。1980年代半ば、ZilogはマイクロコードでENTER(ネスト)、EXIT(アンネスト)、NEXTを提供するz8800(Super8)を開発した。
-
-In 1981, Moore undertook to design a chip-level implementation of the Forth virtual machine. Working  first at FORTH, Inc. and subsequently with the start-up company NOVIX, formed to develop the chip,  Moore completed the design in 1984, and the first prototypes were produced in early 1985. More recently,  Forth processors have been developed by Harris Semiconductor Corp., Johns Hopkins University, and  others.
-
-1981年、ムーアはForth仮想マシンのチップレベル実装の設計に着手した。最初はFORTH社で、その後チップを開発するために設立された新興企業NOVIX社と共同で、ムーアは1984年に設計を完了し、1985年初めに最初のプロトタイプが製造されました。最近では、ハリス・セミコンダクター社やジョンズ・ホプキンス大学などがForthプロセッサを開発しています。
+1981年、ムーアはForth仮想マシンのチップレベル実装の設計に着手しました。最初はFORTH社で、その後チップを開発するために設立されたスタートアップNOVIX社と共同で、ムーアは1984年に設計を完了し、1985年初めに最初のプロトタイプが製造されました。最近では、ハリス・セミコンダクター社やジョンズ・ホプキンス大学などがForthプロセッサを開発しています。
 
 ## C.4 Standardization efforts 
 
-The first major effort to standardize Forth was a meeting in Utrecht in 1977. The attendees produced a  preliminary standard, and agreed to meet the following year. The 1978 meeting was also attended by  members of the newly formed Forth Interest Group. In 1979 and 1980 a series of meetings attended by both  users and vendors produced a more comprehensive standard called Forth 79.
-
-Forthを標準化するための最初の大きな取り組みは、1977年にユトレヒトで開かれた会議でした。出席者は予備的な標準を作成し、翌年に会合を開くことに合意しました。1978年の会議には、新しく結成されたForth Interest Groupのメンバも参加した。1979年と1980年には、ユーザとベンダーの両方が参加する一連の会議が開かれ、より包括的な標準規格「Forth 79」が策定されました。
-
-Although Forth 79 was very influential, many Forth users and vendors found serious flaws in it, and in 1983  a new standard called Forth 83 was released.
+Forthを標準化するための最初の大きな取り組みは、1977年にユトレヒトで開かれた会議でした。出席者は予備的な標準規格を作成し、翌年に会合を開くことに合意しました。1978年の会議には、新しく結成されたForth Interest Groupのメンバも参加しました。1979年と1980年には、ユーザとベンダーの両方が参加する一連の会議が開かれ、より包括的な標準規格「Forth 79」が策定されました。
 
 Forth 79は非常に大きな影響力を持ったが、多くのForthユーザやベンダーが重大な欠陥を発見し、1983年にForth 83と呼ばれる新しい標準がリリースされました。
 
-Encouraged by the widespread acceptance of Forth 83, a group of users and vendors met in 1986 to  investigate the feasibility of an American National Standard. The X3J14 Technical Committee for ANS  Forth held its first meeting in 1987. This Standard is the result.
-
-Forth 83が広く受け入れられたことに後押しされ、1986年にユーザとベンダーのグループが集まり、米国国家標準の実現可能性を調査することになりました。ANS ForthのためのX3J14技術委員会は、1987年に最初の会合を開きました。この規格はその結果です。
+Forth 83が広く受け入れられたことに後押しされ、1986年にユーザとベンダーのグループが集まり、米国国家標準の実現可能性を調査することになりました。ANS ForthのためのX3J14技術委員会は、1987年に最初の会合を開きました。本標準規格はその結果です。
 
 ## C.5 Programming in Forth 
 
-Forth is an English-like language whose elements (called "words") are named data items, procedures, and  defining words capable of creating data items with customized characteristics. Procedures and defining  words may be defined in terms of previously defined words or in machine code, using an embedded  assembler.
-
 Forthは英語ライクな言語であり、その要素(「ワード」と呼ばれる)は、名前付きデータ項目、手続き、およびカスタマイズされた特性を持つデータ項目を作成できる定義ワードです。手続きや定義ワードは、以前に定義されたワードや、組み込みアセンブラを使用した機械語コードで定義することができます。
 
-Forth "words" are functionally analogous to subroutines in other languages. They are also equivalent to  commands in other languages - Forth blurs the distinction between linguistic elements and functional  elements.
+Forthの「ワード」は、機能的には他の言語のサブルーチンに類似しています。また、他の言語のコマンドに相当するものでもあります。Forthでは、言語的要素と機能的要素の区別を曖昧にしています。
 
-Forthの「ワード」は、機能的には他の言語のサブルーチンに類似しています。Forthは、言語的要素と機能的要素の区別を曖昧にしています。
-
-Words are referred to either from the keyboard or in program source by name. As a result, the term "word"  is applied both to program (and linguistic) units and to their text names. In parsing text, Forth considers a  word to be any string of characters bounded by spaces. There are a few special characters that cannot be  included in a word or start a word: space (the universal delimiter), CR (which ends terminal input), and  backspace or DEL (for backspacing during keyboard input). Many groups adopt naming conventions to  improve readability. Words encountered in text fall into three categories: defined words (i.e., Forth  routines), numbers, and undefined words. For example, here are four words:
-
-ワードは、キーボードから、あるいはプログラム・ソースの中で、名前によって参照されます。そのため、「ワード」という用語は、プログラム(および言語)単位とそのテキスト名の両方に適用されます。テキストの解析では、Forth はワードをスペースで区切られた文字列とみなします。スペース(世界共通の区切り文字)、CR(端末入力を終了させる)、バックスペースまたはDEL(キーボード入力中にバックスペースする)です。多くのグループは、読みやすさを向上させるために命名規則を採用しています。テキストで使われるワードは、定義されたワード(Forthルーチン)、数字、未定義のワードの3つに分類されます。例えば、次の4つのワードがあります。
+ワードは、キーボードから、あるいはプログラムソースの中で、名前によって参照されます。そのため、「ワード」という用語は、プログラム(および言語)単位とそのテキスト名の両方に適用されます。テキストの解析では、Forth はワードをスペースで区切られた文字列とみなします。スペース(世界共通の区切り文字)、CR(端末入力を終了させる)、バックスペースまたはDEL(キーボード入力中にバックスペースする)です。多くのグループは、読みやすさを向上させるために命名規則を採用しています。テキスト中で遭遇するワードは、定義されたワード(Forthルーチン)、数字、未定義のワードの3つに分類されます。例えば、次に示すワードが4つあります。
 
     HERE DOES> ! 8493
     
-The first three are standard-defined words. This means that they have entries in Forth’s dictionary,  described below, explaining what Forth is to do when these words are encountered. The number "8493"  will presumably not be found in the dictionary, and Forth will convert it to binary and place it on its push-down stack for parameters. When Forth encounters an undefined word and cannot convert it to a number,  the word is returned to the user with an exception message.
-
-最初の3つは標準定義のワードです。これは、後述するForthの辞書に、これらのワードに遭遇したときにForthが何をすべきかを説明する項目があることを意味します。8493」という数字はおそらく辞書にはなく、Forth はこれをバイナリに変換し、パラメータ用のプッシュダウン・スタックに置きます。Forthが未定義のワードに遭遇し、それを数字に変換できない場合、そのワードは例外メッセージとともにユーザに返されます。
-
-Architecturally, Forth words adhere strictly to the principles of "structured programming":  
+最初の3つは標準定義のワードです。これは、後述するForthの辞書に、これらのワードに遭遇したときにForthが何をすべきかを説明する項目があることを意味します。数字「8493」はおそらく辞書にはなく、Forth はこれをバイナリに変換し、パラメータ用のプッシュダウンスタックに置きます。Forthが未定義のワードに遭遇し、それを数字に変換できない場合、そのワードは例外メッセージとともにユーザに返されます。
 
 アーキテクチャ上、Forthのワードは「構造化プログラミング」の原則に厳密に従います。  
 
-- Words must be defined before they are used.
-- Logical flow is restricted to sequential, conditional, and iterative patterns. Words are included to implement the most useful program control structures.
-- The programmer works with many small, independent modules (words) for maximum testability and reliability.
-
-- ワードは使用される前に定義されていなければなりません。
+- ワードは使用する前に定義されていなければなりません。
 - 論理フローは、シーケンシャル、条件付き、反復のパターンに制限されています。ワードは、最も有用なプログラム制御構造を実装するために含まれています。
 - プログラマは、テスト容易性と信頼性を最大化するために、多くの独立した小さなモジュール(ワード)を使って作業します。
 
-Forth is characterized by five major elements: a dictionary, two push-down stacks, interpreters, an  assembler, and virtual storage. Although each of these may be found in other systems, the combination  produces a synergy that yields a powerful and flexible system.
-
-Forthは、辞書、2つのプッシュダウン・スタック、インタプリタ、アセンブラ、仮想記憶装置という5つの主要な要素を特徴としています。これらの各要素は他のシス テムにもあるかもしれませんが、組み合わせることで相乗効果が生まれ、強力で柔軟なシス テムが生まれます。
+Forthは、辞書、2つのプッシュダウンスタック、インタプリタ、アセンブラ、仮想記憶装置という5つの主要な要素を特徴としています。これらの各要素は他のシステムにもあるかもしれませんが、組み合わせることで相乗効果が生まれ、強力で柔軟なシステムが生まれます。
 
 ### C.5.1 The Forth dictionary 
 
-A Forth program is organized into a dictionary that occupies most of the memory used by the system. This  dictionary is a threaded list of variable-length items, each of which defines a word. The content of each  definition depends upon the type of word (data item, constant, sequence of operations, etc.). The dictionary  is extensible, usually growing toward high memory. On some multi-user systems individual users have  private dictionaries, each of which is connected to a shared system dictionary.
+Forth プログラムは、システムで使用されるメモリの大部分を占める辞書の中に構築されます。この辞書は可変長項目のスレッドリストであり、各項目はワードを定義します。各定義の内容は、ワードのタイプ(データ項目、定数、演算シーケンスなど)に依存します。辞書は拡張可能であり、通常はメモリ高位側に成長します。マルチユーザシステムの中には、各ユーザがプライベート辞書を持ち、それぞれが共有システム辞書に接続されているものもあります。
 
-Forth プログラムは、システムで使用されるメモリの大部分を占める辞書に編成されます。この辞書は可変長項目のスレッドリストであり、各項目はワードを定義します。各定義の内容は、ワードのタイプ(データ項目、定数、演算シーケンスなど)に依存します。辞書は拡張可能であり、通常は大容量メモリに向かって成長します。マルチユーザシステムでは、各ユーザがプライベート辞書を持ち、それぞれが共有システム辞書に接続され ているものもあります。
+ワードは「定義ワード」によって辞書に追加されます。 その中でもっとも普通に使用するのが`:`(コロン)です。
 
-Words are added to the dictionary by "defining words", of which the most commonly used is : (colon).  
-
-ワードは「定義ワード」によって辞書に追加されます。 
-
-When : is executed, it constructs a definition for the word that follows it. In classical implementations,^^X content of this definition is a string of addresses of previously defined words which will be executed in turn  whenever the word being defined is invoked. The definition is terminated by ; (semicolon). For example,  here is a definition:  
-
-`:`(コロン) が実行されると、それに続くワードの定義が構築されます。古典的な実装では、この定義の内容は、定義されているワードが呼び出されるたびに順番に実行される、以前に定義されたワードのアドレスの文字列です。定義は;(セミコロン)で終了します。例えば、次のような定義があります。
+`:`(コロン) が実行されると、それに続くワードの定義が構築されます。古典的な実装では、この定義の内容は、定義されているワードが呼び出されるたびに順番に実行される、以前に定義されたワードのアドレスの列です。定義は`;`(セミコロン)で終了します。例えば、次のような定義があります。
 
 ^^X{Other common implementation techniques include direct translation to code and other types of tokens.
 ^^}
 
     : RECEIVE ( -- addr n ) PAD DUP 32 ACCEPT ; 
 
-The name of the new word is RECEIVE. The comment (in parentheses) indicates that it requires no  parameters and will return an address and count on the data stack. When RECEIVE is executed, it will  perform the words in the remainder of the definition in sequence. The word PAD places on the stack the  address of a scratch pad used to handle strings. DUP duplicates the top stack item, so we now have two  copies of the address. The number 32 is also placed on the stack. The word ACCEPT takes an address  (provided by PAD) and length (32) on the stack, accepts from the keyboard a string of up to 32 characters which will be placed at the specified address, and returns the number of characters received. The copy of  the scratch-pad address remains on the stack below the count so that the routine that called RECEIVE can  use it to pick up the received string.
-
-新しいワードの名前は `RECEIVE` です。コメント(括弧内)は、パラメータを必要とせず、データスタック上のアドレスとカウントを返すことを示しています。RECEIVEが実行されると、定義の残りのワードを順番に実行します。PAD は、文字列を扱うためのスクラッチパッドのアドレスをスタックに置きます。DUPはスタックの一番上の項目を複製するので、アドレスのコピーが2つあることになります。32番もスタックに置かれます。ACCEPTは、スタック上のアドレス(PADによって与えられる)と長さ(32)を受け取り、キーボードから最大32文字の文字列を受け取り、指定されたアドレスに配置し、受け取った文字数を返します。スクラッチ・パッド・アドレスのコピーは、RECEIVE を呼び出したルーチンが受信した文字列をピックアップするために使用できるように、カウントの下のスタックに残ります。
+新しいワードの名前は `RECEIVE` です。コメント(括弧内)は、パラメータを必要とせず、データスタック上のアドレスとカウントを返すことを示しています。`RECEIVE`が実行されると、定義の残りのワードを順番に実行します。`PAD` は、文字列を扱うためのスクラッチパッドのアドレスをスタックに置きます。`DUP`はスタックの一番上の項目を複製するので、アドレスのコピーが2つあることになります。数32がスタックのその上に置かれます。`ACCEPT`は、スタック上のアドレス(`PAD`によって与えられる)と長さ(32)を受け取り、キーボードから最大32文字の文字列を受け取り、指定されたアドレスに配置し、受け取った文字数を返します。スクラッチパッドアドレスのコピーは、`RECEIVE` を呼び出したルーチンが受信した文字列を取り出すために使用できるように、カウントの下のスタックに残ります。
 
 ### C.5.2 Push-down stacks 
 
-The example above illustrates the use of push-down stacks for passing parameters between Forth words.  Forth maintains two push-down stacks, or LIFO lists. These provide communication between Forth words  plus an efficient mechanism for controlling logical flow. A stack contains 16-bit items on 8-bit and 16-bit  computers, and 32-bit items on 32-bit processors. Double-cell numbers occupy two stack positions, with  the most-significant part on top. Items on either stack may be addresses or data items of various kinds.  Stacks are of indefinite size, and usually grow towards low memory.
+上記の例では、Forth ワード間のパラメータ受け渡しにプッシュダウンスタックを使用しています。 Forth は、2 つのプッシュダウンスタック(LIFO リスト)を保持します。これらは、Forth ワード間の通信と、論理フローを制御するための効率的なメカニズムを提供します。スタックには、8 ビットと 16 ビットのコンピュータでは 16 ビットの項目が、32 ビットのプロセッサでは 32 ビットの項目が含まれます。バ倍セル番号は2つのスタック位置を占め、最上位が上になります。どちらのスタック上の項目も、アドレスであったり、さまざまな種類のデータ項目であったりします。 スタックの大きさは不定で、通常はメモリの低位の方に伸びてゆきます。
 
-上記の例では、Forth ワード間のパラメータ受け渡しにプッシュダウン・スタックを使用し ています。 Forth は、2 つのプッシュダウン・スタック(LIFO リスト)を保持します。これらは、Forth ワード間の通信と、論理フローを制御するための効率的なメカニズムを提供します。スタックには、8 ビットと 16 ビットのコンピュータでは 16 ビットの項目が、32 ビットのプロセッサでは 32 ビットの項目が含まれます。ダブルセル番号は2つのスタック位置を占め、最上位が上になります。どちらのスタック上の項目も、アドレスであったり、さまざまな種類のデータ項目であったりします。 スタックの大きさは不定で、通常はメモリが少ないほど大きくなります。
+両スタックの構造は同じだが、その用途は大きく異なります。ユーザは、ワード間で渡される引数を含むデータスタックと最も直接的にやりとりします。この機能は、従来の言語で使われていた呼び出しシーケンスに取って代わるものです。内部は効率的で、ルーチンを本質的にリエントラントにします。第2のスタックはリターンスタックと呼ばれ、その主な機能は定義のネストのリターンアドレスを保持することですが、他の種類のデータが一時的に保持されることもあります。
 
-Although the structure of both stacks is the same, they have very different uses. The user interacts most  directly with the Data Stack, which contains arguments passed between words. This function replaces the  calling sequences used by conventional languages. It is efficient internally, and makes routines intrinsically  re-entrant. The second stack is called the Return Stack, as its main function is to hold return addresses for  nested definitions, although other kinds of data are sometimes kept there temporarily.
-
-両スタックの構造は同じだが、その用途は大きく異なります。ユーザは、ワード間で渡される引数を含むデータスタックと最も直接的にやりとりします。この機能は、従来の言語で使われていた呼び出しシーケンスに取って代わるものです。内部的に効率的で、ルーチンを本質的にリエントラントにします。第2のスタックはリターンスタックと呼ばれ、その主な機能はネストされた定義のリターン・アドレスを保持することですが、他の種類のデータが一時的に保持されることもあります。
-
-The use of the Data Stack (often called just "the stack") leads to a notation in which operands precede  operators. The word ACCEPT in the example above took an address and count from the stack and left  another address there. Similarly, a word called BLANK expects an address and count, and will place the  specified number of space characters (20H) in the region starting at that address. Thus, 
-
-データスタック(しばしば単に "スタック" と呼ばれる)の使用は、演算子の前にオペランドを置く表記法につながります。上の例のACCEPTというワードは、スタックからアドレスとカウントを取り出し、そこに別のアドレスを残します。同様に、BLANKと呼ばれるワードはアドレスとカウントを期待し、そのアドレスから始まる領域に指定された数のスペース文字(20H)を配置します。このように
+データスタック(しばしば単に "スタック" と呼ばれる)の使用は、演算子の前にオペランドを置く表記法につながります。上の例の`ACCEPT`というワードは、スタックからアドレスとカウントを取り出し、そこに別のアドレスを残します。同様に、`BLANK`と呼ばれるワードはアドレスとカウントを期待し、そのアドレスから始まる領域に指定された数のスペース文字(20H)を配置します。このように
 
     PAD 25 BLANK
     
-will fill the scratch region whose address is pushed on the stack by PAD with 25 spaces. Application words  are usually defined to work similarly. For example,
-
-は、PADによってスタックにプッシュされたアドレスのスクラッチ領域を25個のスペースで埋めます。通常、アプリケーション・ワードも同様に定義されます。例えば
+は、`PAD`によってスタックにプッシュされたアドレスのスクラッチ領域を25個のスペースで埋めます。通常、アプリケーションワードも同様に定義されます。例えば
 
     100 SAMPLES 
 
-might be defined to record 100 measurements in a data array.
+は、100個の測定値を記録するデータ配列を定義するかもしれません。
 
-は、データ配列に100個の測定値を記録するように定義されるかもしれません。
-
-Arithmetic operators also expect values and leave results on the stack. For example, + adds the top two  numbers on the stack, replacing them both by their sum. Since results of operations are left on the stack,  operations may be strung together without a need to define variables to use for temporary storage.
-
-算術演算子もまた、値を期待し、結果をスタックに残します。例えば、 `+` はスタックの上の2つの数値を加算し、その和で置き換えます。演算の結果はスタックに残されるので、一時記憶用の変数を定義しなくても、演算を連続させることができます。
+算術演算子もまた、値を期待し、演算結果をスタックに残します。例えば、 `+` はスタックの上の2つの数値を加算し、その和で置き換えます。演算の結果はスタックに残るので、一時記憶用の変数を定義しなくても、演算を連続させることができます。
 
 ### C.5.3 Interpreters 
 
-Forth is traditionally an interpretive system, in that program execution is controlled by data items rather than  machine code. Interpreters can be slow, but Forth maintains the high speed required of real-time  applications by having two levels of interpretation.
+Forth は伝統的にインタプリタシステムであり、プログラムの実行は機械語ではなくデータ項目によって制御されます。インタプリタは低速になることがありますが、Forth は2レベルのインタプリタを保持することで、実時間アプリケーションに要求される高速性を維持しています。
 
-Forth は伝統的にインタプリタ・システムであり、プログラムの実行はマシン・コードで はなくデータ項目によって制御されます。インタプリタは低速になることがありますが、Forth は 2 つのレベルのインタプリタを持つことで、リアル タイム・アプリケーションに要求される高速性を維持しています。
+1つ目はテキストインタプリタで、端末や大容量記憶装置からの文字列を解析し、各ワードを辞書で調べます。ワードが見つかると、2番目のレベルであるアドレスインタプリタを呼び出して実行します。
 
-The first is the text interpreter, which parses strings from the terminal or mass storage and looks each word  up in the dictionary. When a word is found it is executed by invoking the second level, the address  interpreter.
+もうひとつは「アドレスインタプリタ」です。すべてのForthシステムがこの方法で実装されているわけではありませんが、最初の実装で用いられた技術であり、現在でも主要な実装技術となっています。アドレスインタプリタは、わずかな性能のコストで、非常にコンパクトなオブジェクトプログラムを作成することができ、これが、組み込みシステムや、オブジェクト・サイズが小さいことが望ましい他のアプリケーションにおいて、Forthが広く受け入れられている大きな要因となっています。
 
-1つ目はテキストインタプリタで、端末や大容量記憶装置からの文字列を解析し、各ワードを辞書で調べます。ワードが見つかると、2番目のレベルであるアドレス・インタプリタを呼び出して実行します。
+アドレスインタプリタは、`:`(コロン)で作成された定義にコンパイルされたアドレスやトークンの文字列を、それぞれが指す定義を実行することで処理します。ほとんどの定義の内容は、以前に定義されたワードのアドレスの列であり、アドレスインタプリタによって順番に実行されます。したがって、ワード`RECEIVE`(さきほど定義したもの)が実行されると、ワード`PAD`、ワード`DUP`、リテラル32、ワード`ACCEPT`が順に実行されます。この処理はセミコロンで終了します。なぜなら、RECEIVEが*コンパイル*されたとき、各ワードについて辞書が検索され、そのアドレス(または他のトークン)がエントリの次の連続するセルに置かれたからです。テキストはメモリに保存されず、圧縮形式でも保持されていません。
 
-The second is an "address interpreter". Although not all Forth systems are implemented in this way, it was  the first and is still the primary implementation technology. For a small cost in performance, an address  interpreter can yield a very compact object program, which has been a major factor in Forth’s wide  acceptance in embedded systems and other applications where small object size is desirable.
+アドレスインタプリタには2つの重要な特性があります。第一に、高速です。実際の速度は実装に依存しますが、プロの実装は高度に最適化されており、多くの場合、1アドレスあたり1～2個の機械命令しか必要としません。ほとんどのベンチマークにおいて、優れたForthの実装はBASICやLISPのようなインタプリタ型言語を大幅に凌駕し、他のコンパイル済み高級言語と比べても遜色ありません。
 
-もうひとつは「アドレスインタプリタ」です。すべてのForthシステムがこの方法で実装されているわけではありませんが、最初の実装技術であり、現在でも主要な実装技術となっています。アドレスインタプリタは、わずかな性能のコストで、非常にコンパクトなオブジェクトプログラムを作成することができ、これが、組み込みシステムや、オブジェクト・サイズが小さいことが望ましい他のアプリケーションにおいて、Forthが広く受け入れられている大きな要因となっています。
+第二に、アドレスインタプリタにより、Forthの定義は非常にコンパクトになります。それに比べ、ほとんどのコンパイラで作成されるサブルーチンコールは、CALLまたはJSR命令とアドレスの前後に、呼び出しシーケンスを処理する命令(Forthではスタックがあるため不要)を含んでいます。
 
-The address interpreter processes strings of addresses or tokens compiled in definitions created by : (colon), by executing the definition pointed to by each. The content of most definitions is a sequence of addresses of previously defined words, which will be executed by the address interpreter in turn. Thus,  when the word RECEIVE (defined above) is executed, the word PAD, the word DUP, the literal 32, and the  word ACCEPT will be executed in sequence. The process is terminated by the semicolon. This execution  requires no dictionary searches, parsing, or other logic, because when RECEIVE was *compiled* the  dictionary was searched for each word, and its address (or other token) was placed in the next successive  cell of the entry. The text was not stored in memory, not even in condensed form.
-
-アドレスインタプリタは、:(コロン)で作成された定義にコンパイルされたアドレスやトークンの文字列を、それぞれが指す定義を実行することで処理します。ほとんどの定義の内容は、以前に定義されたワードのアドレスの列であり、アドレスインタプリタによって順番に実行されます。したがって、ワードRECEIVE(上で定義)が実行されると、ワードPAD、ワードDUP、リテラル32、ワードACCEPTが順に実行されます。この処理はセミコロンで終了します。なぜなら、RECEIVEが*コンパイル*されたとき、各ワードについて辞書が検索され、そのアドレス(または他のトークン)がエントリの次の連続するセルに置かれたからです。テキストはメモリに保存されず、凝縮された形でも保存されなかった。
-
-The address interpreter has two important properties. First, it is fast. Although the actual speed depends  upon the specific implementation, professional implementations are highly optimized, often requiring only  one or two machine instructions per address. On most benchmarks, a good Forth implementation  substantially out-performs interpretive languages such as BASIC or LISP, and will compare favorably with  other compiled high-level languages.
-
-アドレスインタープリタには2つの重要な特性があります。第一に、高速です。実際の速度は特定の実装に依存しますが、プロの実装は高度に最適化されており、多くの場合、1アドレスあたり1～2個の機械命令しか必要としません。ほとんどのベンチマークにおいて、優れたForthの実装はBASICやLISPのようなインタープリタ型言語を大幅に凌駕し、他のコンパイル済み高級言語と比べても遜色ありません。
-
-Second, the address interpreter makes Forth definitions extremely compact, as each reference requires only  one cell. In comparison, a subroutine call constructed by most compilers involves instructions for handling  the calling sequence (unnecessary in Forth because of the stack) before and after a CALL or JSR instruction  and address.
-
-第二に、アドレス・インタプリタにより、Forthの定義は非常にコンパクトになります。それに比べ、ほとんどのコンパイラで作成されるサブルーチン・コールは、CALLまたはJSR命令とアドレスの前後に、呼び出しシーケンスを処理する命令(Forthではスタックがあるため不要)を含んでいます。
-
-Most of the words in a Forth dictionary will be defined by : (colon) and interpreted by the address  interpreter. Most of Forth itself is defined this way.
-
-Forth辞書のほとんどのワードは、:(コロン)で定義され、アドレス・インタプリタによって解釈されます。Forth自体のほとんどは、このように定義されています。
+Forth辞書のほとんどのワードは、`:`(コロン)で定義され、アドレスインタプリタによって解釈されます。Forth自体のほとんどは、このように定義されています。
 
 ### C.5.4 Assembler 
 
-Most implementations of Forth include a macro assembler for the CPU on which they run. By using the  defining word CODE the programmer can create a definition whose behavior will consist of executing actual  machine instructions. CODE definitions may be used to do I/O, implement arithmetic primitives, and do  other machine-dependent or time-critical processing. When using CODE the programmer has full control  over the CPU, as with any other assembler, and CODE definitions run at full machine speed.
+Forthのほとんどの実装には、実行するCPU用のマクロアセンブラが含まれています。定義ワードの`CODE`を使用することで、プログラマはマシン命令そのものを実行する動作を持つ定義を作成することができます。`CODE`定義は、I/O、算術プリミティブの実装、その他のマシン依存またはタイムクリティカルな処理に使用できます。`CODE`を使用する場合、プログラマは他のアセンブラと同様にCPUを完全に制御することができ、`CODE`定義は完全なマシン速度で実行されます。
 
-Forthのほとんどの実装には、実行するCPU用のマクロ・アセンブラが含まれています。定義ワードのCODEを使用することで、プログラマは実際のマシン命令を実行する動作を持つ定義を作成することができます。CODE定義は、I/O、算術プリミティブの実装、その他のマシン依存またはタイムクリティカルな処理に使用できます。CODEを使用する場合、プログラマは他のアセンブラと同様にCPUを完全に制御することができ、CODE定義は完全なマシン速度で実行されます。
+これはForthの重要な特徴であり、コンピュータに依存するコードを、マシンに依存しない特定のインターフェイス規則で管理可能な部分に明示的に記述することができます。アプリケーションを別のプロセッサに移行するには、CODEワードだけを再コード化する必要があります。一方、CODEワードと他のForthワードとの相互作用は全く同一のままです。
 
-This is an important feature of Forth. It permits explicit computer-dependent code in manageable pieces  with specific interfacing conventions that are machine-independent. To move an application to a different  processor requires re-coding only the CODE words, which will interact with other Forth words in exactly the  same manner.
-
-これはForthの重要な特徴です。これはForthの重要な特徴であり、コンピュータに依存するコードを、マシンに依存しない特定のインターフェイス規則で管理可能な部分に明示的に記述することができます。アプリケーションを別のプロセッサに移行するには、CODEワードだけを再コード化する必要があります。
-
-Forth assemblers are so compact (typically a few Kbytes) that they can be resident in the system (as are the  compiler, editor, and other programming tools). This means that the programmer can type in short CODE definitions and execute them immediately. This capability is especially valuable in testing custom  hardware.
-
-Forthアセンブラは非常にコンパクト(通常は数Kバイト)なので、(コンパイラ、エディタ、その他のプログラミング・ツールと同様に)システムに常駐させることができます。つまり、プログラマは短いCODE定義を入力してすぐに実行することができます。この機能は、カスタム・ハードウェアのテストにおいて特に価値があります。
+Forthアセンブラは非常にコンパクト(通常は数キロバイト)なので、(コンパイラ、エディタ、その他のプログラミング・ツールと同様に)システムに常駐させることができます。つまり、プログラマは短いCODE定義を入力してすぐに実行することができます。この機能は、カスタムハードウェアのテストにおいて特に価値があります。
 
 ### C.5.5 Virtual memory 
 
-The final unique element of Forth is its way of using disk or other mass storage as a form of "virtual  memory" for data and program source. As in the case of the address interpreter, this approach is historically  characteristic of Forth, but is by no means universal. Disk is divided into 1024-byte blocks. Two or more  buffers are provided in memory, into which blocks are read automatically when referred to. Each block has  a fixed block number, which in native systems is a direct function of its physical location. If a block is  changed in memory, it will be automatically written out when its buffer must be reused. Explicit reads and  writes are not needed; the program will find the data in memory whenever it accesses it.
+Forthの最後のユニークな要素は、ディスクやその他の大容量記憶装置を、データやプログラムソースのための「仮想メモリ」の一形態として使用する方法です。アドレスインタプリタの場合と同様、このアプローチはForthの歴史的な特徴ですが、決して普遍的なものではありません。ディスクは1024バイトのブロックに分割されます。メモリ上には2つ以上のバッファが用意されており、参照されると自動的にブロックが読み込まれます。各ブロックは固定のブロック番号を持ち、ネイティブシステム上で物理的な位置に直接対応します。メモリ上でブロックが変更された場合、そのバッファを再利用する必要があるときには自動的に書き出されます。明示的な読み込みと書き込みは必要ありません。プログラムがデータにアクセスするときはいつでも、メモリ内にデータを見つけることができます。
 
-Forthの最後のユニークな要素は、ディスクやその他の大容量記憶装置を、データやプログラム・ソースのための「仮想メモリ」の一形態として使用する方法です。アドレスインタプリタの場合と同様、このアプローチは歴史的にForthの特徴ですが、決して普遍的なものではありません。ディスクは1024バイトのブロックに分割されます。メモリ上には2つ以上のバッファが用意されており、参照されると自動的にブロックが読み込まれます。各ブロックは固定のブロック番号を持ち、ネイティブ・システムではこれは物理的な位置の直接関数です。メモリ上でブロックが変更された場合、そのバッファを再利用する必要があるときには自動的に書き出されます。明示的な読み込みと書き込みは必要ありません。プログラムがデータにアクセスするときはいつでも、メモリ内のデータを見つけることができます。
+ブロック指向のディスク処理は効率的で、ネイティブのForthシステムにとって実装しやすいものです。その結果、ブロックは、異なるホストオペレーティングシステム上の共存バージョンとネイティブバージョンとの双方に対して、プログラムソースとデータを処理する完全に移植可能なメカニズムを提供します。
 
-Block-oriented disk handling is efficient and easy for native Forth systems to implement. As a result, blocks  provide a completely transportable mechanism for handling program source and data across both native and  co-resident versions of Forth on different host operating systems.
+プログラムソースブロック中の定義は、ワード`LOAD`によってメモリにコンパイルされます。ほとんどの実装にはエディタが含まれており、ブロックを64文字ずつ16行に整形して表示し、ソースを修正するコマンドを提供します。Forthソースブロックの例を図C.1に示します。
 
-ブロック指向のディスク処理は効率的で、ネイティブのForthシステムにとって実装しやすいものです。その結果、ブロックは、異なるホスト・オペレーティングシステム上のForthのネイティブ・バージョンと同居バージョンの両方にわたって、プログラム・ソースとデータを処理するための完全に移植可能なメカニズムを提供します。
+ソースブロックは、歴史的にForthスタイルにおける重要な要素です。Forthの定義が自然言語の文に相当するならば、ブロックは段落に相当します。 ブロックには通常、「ベクトル算術」など、ある共通なテーマに関連する定義が含まれています。ブロックの一番上の行にあるコメントで、このテーマを特定します。アプリケーションは必要なブロックを選択的にロードすることができます。
 
-Definitions in program source blocks are compiled into memory by the word LOAD. Most implementations  include an editor, which formats a block for display into 16 lines of 64 characters each, and provides  commands modifying the source. An example of a Forth source block is given in Fig. C.1 below.
+ブロックはデータの保存にも使用されます。小さなレコードを1つのブロックにまとめたり、大きなレコードを複数のブロックにまたがったりすることができます。プログラマは、アプリケーションに適した方法でブロックを割り当てることができ、ネイティブシステムでは、ディスクヘッドの動きを最小限にするようにデータを整理することで、パフォーマンスを向上させることができます。いくつかのForthベンダーは、Forthブロックをベースとした洗練されたファイルシステムおよびデータベースシステムを開発しています。
 
-プログラム・ソース・ブロックの定義は、LOADというワードによってメモリにコンパイルされます。ほとんどの実装にはエディタが含まれており、ブロックを64文字ずつ16行に整形して表示し、ソースを修正するコマンドを提供します。Forthソース・ブロックの例を図C.1に示します。
-
-Source blocks have historically been an important element in Forth style. Just as Forth definitions may be  considered the linguistic equivalent of sentences in natural languages, a block is analogous to a paragraph.  A block normally contains definitions related to a common theme, such as "vector arithmetic". A comment  on the top line of the block identifies this theme. An application may selectively load the blocks it needs.
-
-ソース・ブロックは、歴史的にForthスタイルにおける重要な要素です。Forthの定義が自然言語の文章に相当するように、ブロックは段落に相当します。 ブロックには通常、「ベクトル算術」など、共通のテーマに関連する定義が含まれています。ブロックの一番上の行にあるコメントで、このテーマを特定します。アプリケーションは必要なブロックを選択的にロードすることができます。
-
-Blocks are also used to store data. Small records can be combined into a block, or large records spread over  several blocks. The programmer may allocate blocks in whatever way suits the application, and on native  systems can increase performance by organizing data to minimize disk head motion. Several Forth vendors  have developed sophisticated file and data base systems based on Forth blocks.
-
-ブロックはデータの保存にも使用されます。小さなレコードを1つのブロックにまとめたり、大きなレコードを複数のブロックにまたがったりすることができます。プログラマは、アプリケーションに適した方法でブロックを割り当てることができ、ネイティブ・システムでは、ディスク・ヘッドの動きを最小限にするようにデータを整理することで、パフォーマンスを向上させることができます。いくつかのForthベンダーは、Forthブロックをベースとした洗練されたファイルシステムおよびデータベース・システムを開発しています。
-
-Versions of Forth that run co-resident with a host OS often implement blocks in host OS files. Others use  the host files exclusively. The Standard requires that blocks be available on systems providing any disk  access method, as they are the only means of referencing disk that can be transportable across both native  and co-resident implementations.
-
-ホストOSと同居して動作するForthのバージョンは、ホストOSのファイルにブロックを実装することが多いです。また、ホスト・ファイルを排他的に使用するものもあります。ブロックは、ネイティブ実装と同居実装の両方にまたがって移動可能な唯一のディスク参照手段であるため、本標準では、あらゆるディスクアクセス方式を提供するシステムで利用可能であることを要求しています。
+ホストOSと同居して動作するForthのバージョンは、ホストOSのファイルにブロックを実装することが多いです。また、ホストファイルを排他的に使用するものもあります。ブロックは、ネイティブ実装と同居実装の両方にまたがって移動可能な唯一のディスク参照手段であるため、本標準規格では、ディスクアクセス方式を提供するあらゆるシステムで利用可能であることを要求しています。
 
 ### C.5.6 Programming environment 
 
-Although this Standard does not require it, most Forth systems include a resident editor. This enables a  programmer to edit source and recompile it into executable form without leaving the Forth environment. As  it is easy to organize an application into layers, it is often possible to recompile only the topmost layer (which is usually the one currently under development), a process which rarely takes more than a few seconds.
+本標準規格では必須ではありませんが、ほとんどのForthシステムにはエディタが常駐しています。これにより、プログラマはForth環境を離れることなくソースを編集し、実行可能な形式に再コンパイルすることができます。アプリケーションを階層化することは容易であるため、最上位階層(通常、現在開発中のもの)のみを再コンパイルすることが可能な場合が多く、この処理に数秒以上かかることはほとんどありません。
 
-本標準では必須ではありませんが、ほとんどのForthシステムにはエディタが常駐しています。これにより、プログラマはForth環境を離れることなくソースを編集し、実行可能な形式に再コンパイルすることができます。アプリケーションを階層化することは容易であるため、最上位階層(通常、現在開発中のもの)のみを再コンパイルすることが可能な場合が多く、この処理に数秒以上かかることはほとんどありません。
+ほとんどのForthシステムでは、常駐型の対話型デバッグ支援機能も提供されています。**15 オプションのProgramming-Toolsワードセット**のようなワードを含むだけでなく、`VARIABLE`やその他のデータ項目の内容を調べたり変更したりする機能や、基本的なForthシステムと開発中のアプリケーションの両方の構成ワードのほとんどをキーボードから実行する機能も備えています。
 
-Most Forth systems also provide resident interactive debugging aids, not only including words such as those  in **15. The optional Programming-Tools word set**, but also having the ability to examine and change the  contents of VARIABLEs and other data items and to execute from the keyboard most of the component  words in both the underlying Forth system and the application under development.
-
-ほとんどのForthシステムでは、常駐型の対話型デバッグ支援機能も提供されています。**15 オプションのProgramming-Toolsワードセット**のようなワードを含むだけでなく、VARIABLEやその他のデータ項目の内容を調べたり変更したりする機能や、基本的なForthシステムと開発中のアプリケーションの両方の構成ワードのほとんどをキーボードから実行する機能も備えています。
-
-The combination of resident editor, integrated debugging tools, and direct executability of most defined  words leads to a very interactive programming style, which has been shown to shorten development time.
-
-常駐エディタ、統合されたデバッグ・ツール、および定義されたほとんどのワードの直接実行可能性の組み合わせは、非常にインタラクティブなプログラミング・スタイルにつながり、開発時間を短縮することが示されています。
+常駐エディタ、統合デバッグツール、および定義されたほとんどのワードを直接実行できるということの組み合わせは、非常にインタラクティブなプログラミングスタイルにつながり、これにより開発時間が短縮できることが示されています。
 
 ### C.5.7 Advanced programming features 
 
-One of the unusual characteristics of Forth is that the words the programmer defines in building an  application become integral elements of the language itself, adding more and more powerful application-oriented features.
+Forthの珍しい特徴の1つは、プログラマがアプリケーションを構築する際に定義するワードが言語自体に統合され、要素の一つになり、より強力なアプリケーション指向の機能の追加になることです。
 
-Forthの珍しい特徴の1つは、プログラマがアプリケーションを構築する際に定義するワードが言語自体の不可欠な要素となり、より強力なアプリケーション指向の機能を追加していくことです。
+例えば、Forthには`VARIABLE`と`2VARIABLE`というワードがあり、データを格納する場所を指定します。また、`CONSTANT`と`2CONSTANT`というワードもあり、単一セルとダブルセルの値を指定します。あるプログラマが、アプリケーションで2セルの項目を自動的にインデックスする配列が必要だと考えたとします。そのような配列は`2ARRAY`と呼ばれるかもしれません。この名前の接頭辞 "2" は、この配列の各要素が2セルを占めることを示す(`2VARIABLE`や`2CONSTANT`の内容と同じ)。しかし、接頭辞 "2" は人間にとってのみ意味があり、テキストインタプリタにとっては、定義名で使用される他の文字よりも意味があるわけではありません。
 
-For example, Forth includes the words VARIABLE and 2VARIABLE to name locations in which data may  be stored, as well as CONSTANT and 2CONSTANT to name single and double-cell values. Suppose a  programmer finds that an application needs arrays that would be automatically indexed through a number of  two-cell items. Such an array might be called 2ARRAY. The prefix "2" in the name indicates that each  element in this array will occupy two cells (as would the contents of a 2VARIABLE or 2CONSTANT). The  prefix "2", however, has significance only to a human and is no more significant to the text interpreter than  any other character that may be used in a definition name.
+このような定義には2つの部分があり、この新しいワード`2ARRAY`に関連付けられた2つの挙動、1つはコンパイル時、もう1つは実行時です。これらは、`2ARRAY`がその配列を定義するためにどのように使用され、次にその配列がアプリケーションでどのように使用されるかを見れば、最もよく理解できます。実際、これがこのワードを設計し実装する方法です。
 
-例えば、ForthにはVARIABLEと2VARIABLEというワードがあり、データを格納する場所を指定します。また、CONSTANTと2CONSTANTというワードもあり、単一セルとダブルセルの値を指定します。あるプログラマが、アプリケーションで2セルの項目を自動的にインデックスする配列が必要だと考えたとします。そのような配列は2ARRAYと呼ばれるかもしれません。この名前の接頭辞 "2" は、この配列の各要素が2セルを占めることを示す(2VARIABLEや2CONSTANTの内容と同じ)。しかし、接頭辞 "2" は人間にとってのみ意味があり、テキストインタプリタにとっては、定義名で使用される他の文字よりも意味があるわけではありません。
-
-Such a definition has two parts, as there are two "behaviors" associated with this new word 2ARRAY, one at  compile time, and one at run or execute time. These are best understood if we look at how 2ARRAY is used  to define its arrays, and then how the array might be used in an application. In fact, this is how one would  design and implement this word.
-
-このような定義には2つの部分があり、1つはコンパイル時、もう1つは実行時です。これらは、2ARRAYがその配列を定義するためにどのように使用され、次にその配列がアプリケーションでどのように使用されるかを見れば、最もよく理解できます。実際、これがこのワードを設計し実装する方法です。
-
-Beginning the top-down design process, here’s how we would like to use 2ARRAY:  
-
-トップダウンの設計プロセスとして、2ARRAYをどのように使いたいかを説明しましょう。
+トップダウン設計プロセスのとっかかりとして、`2ARRAY`をどのように使いたいかを説明しましょう。
 
     100 2ARRAY RAW 50 2ARRAY REFINED 
 
-In the first case, we are defining an array 100 elements long, whose name is RAW. In the second, the array is 50 elements long, and is named REFINED. In each case, a size parameter is supplied to 2ARRAY on the data stack (Forth’s text interpreter automatically puts numbers there when it encounters them), and the name  of the word immediately follows. This order is typical of Forth defining words.
+最初のケースでは、長さ100要素の配列を定義しており、その名前は`RAW`です。2番目のケースでは、配列の長さは50要素で、名前は`REFINED`です。いずれの場合も、サイズパラメータがデータスタック上の`2ARRAY`に供給され(Forthのテキストインタプリタは、数字に遭遇すると自動的にそこに数字を置きます)、その直後にワードの名前が続きます。この順序は、Forthがワードを定義するときの典型的な順序です。
 
-最初のケースでは、長さ100要素の配列を定義しており、その名前はRAWです。2番目のケースでは、配列の長さは50要素で、名前はREFINEDです。いずれの場合も、サイズ・パラメータがデータスタック上の2ARRAYに供給され(Forthのテキストインタプリタは、数字に遭遇すると自動的にそこに数字を置く)、その直後にワードの名前が続きます。この順序は、Forthがワードを定義するときの典型的な順序です。
-
-When we use RAW or REFINED, we would like to supply on the stack the index of the element we want,  and get back the address of that element on the stack. Such a reference would characteristically take place  in a loop. Here’s a representative loop that accepts a two-cell value from a hypothetical application word  DATA and stores it in the next element of RAW:
-
-RAWやREFINEDを使用する場合、スタック上に欲しい要素のインデックスを与え、スタック上のその要素のアドレスを取得したい。このような参照は、典型的にはループの中で行われます。以下はその代表的なループで、仮想的なアプリケーション・ワード DATA から 2 セルの値を受け取り、それを RAW の次の要素に格納します。
+`RAW`や`REFINED`を使用する場合、スタック上に欲しい要素のインデックスを与え、スタック上のその要素のアドレスを取得したい。このような参照は、典型的にはループの中で行われます。以下はその代表的なループで、仮想的なアプリケーションワード `DATA` から 2 セルの値を受け取り、それを `RAW` の次の要素に格納します。
 
     : ACQUIRE 100 0 DO DATA I RAW 2! LOOP ; 
 
-The name of this definition is ACQUIRE. The loop begins with DO, ends with LOOP, and will execute with  index values running from 0 through 99. Within the loop, DATA gets a value. The word I returns the  current value of the loop index, which is the argument to RAW. The address of the selected element,  returned by RAW, and the value, which has remained on the stack since DATA, are passed to the word 2! (pronounced "two-store"), which stores two stack items in the address.
+この定義の名前は`ACQUIRE`です。ループは`DO`で始まり、`LOOP`で終わり、0から99までのインデックス値で実行されます。ループ内で`DATA`が値を取得します。ワード`I`は、`RAW`の引数であるループインデックスの現在値を返します。`RAW`が返す選択要素のアドレスと、`DATA`以降スタックに残っている値が、ワード`2!`(「ツーストア」と発音する)に渡され、そのアドレスに2つのスタック項目が格納されます。
 
-この定義の名前は`ACQUIRE`です。ループは`DO`で始まり、`LOOP`で終わり、0から99までのインデックス値で実行されます。ワードIは、`RAW`の引数であるループ・インデックスの現在値を返します。`RAW`が返す選択要素のアドレスと、`DATA`以降スタックに残っている値が、ワード`2!`(「ツーストア」と発音する)に渡され、そのアドレスに2つのスタック項目が格納されます。
-
-Now that we have specified exactly what 2ARRAY does and how the words it defines are to behave, we are  ready to write the two parts of its definition:  
-
-これで`2ARRAY`が何をするのか、そして`2ARRAY`が定義するワードがどのように動作するのかを正確に指定することができたので、定義の2つの部分を書く準備ができた。
+これで`2ARRAY`が何をするのか、そして`2ARRAY`が定義するワードがどのように動作するのかを正確に指定することができたので、定義の2つの部分を書く準備ができました。
 
     : 2ARRAY  ( n -- ) 
        CREATE  2* CELLS ALLOT 
        DOES>  ( i a -- a')  SWAP  2* CELLS + ; 
 
-The part of the definition before the word DOES> specifies the "compile-time" behavior, that is, what the 2ARRAY will do when it us used to define a word such as RAW. The comment indicates that this part expects a number on the stack, which is the size parameter. The word CREATE constructs the definition for  the new word. The phrase 2* CELLS converts the size parameter from two-cell units to the internal  addressing units of the system (normally characters). ALLOT then allocates the specified amount of  memory to contain the data to be associated with the newly defined array.
+`DOES>`の前の部分は、"コンパイル時" の動作、つまり、`2ARRAY`が`RAW`のようなワードを定義するために使われたときの動作を指定します。コメントは、この部分がスタック上の数値を期待していることを示しています。`CREATE`は新しいワードの定義を構築します。`2* CELLS`というフレーズは、サイズパラメータを2セル単位からシステムの内部アドレス単位(通常は文字)に変換します。`ALLOT`は、新しく定義された配列に関連付けられるデータを格納するために、指定された量のメモリを確保します。
 
-The second line defines the "run-time" behavior that will be shared by all words defined by 2ARRAY, such  as RAW and REFINED. The word DOES> terminates the first part of the definition and begins the second  part. A second comment here indicates that this code expects an index and an address on the stack, and will  return a different address. The index is supplied on the stack by the caller (of RAW in the example), while  the address of the content of a word defined in this way (the ALLOTted region) is automatically pushed on  top of the stack before this section of the code is to be executed. This code works as follows: SWAP reverses the order of the two stack items, to get the index on top. 2* CELLS converts the index to the  internal addressing units as in the compile-time section, to yield an offset from the beginning of the array.  The word + then adds the offset to the address of the start of the array to give the effective address, which is  the desired result.
-
-DOES>の前の部分は、"コンパイル時" の動作、つまり、2ARRAYがRAWのようなワードを定義するために使われたときの動作を指定します。コメントは、この部分がスタック上の数値を期待していることを示しています。CREATEは新しいワードの定義を構築します。`2* CELLS`というフレーズは、サイズ・パラメータを2セル単位からシステムの内部アドレス単位(通常は文字)に変換します。ALLOTは、新しく定義された配列に関連付けられるデータを格納するために、指定された量のメモリを確保します。
-
-2行目は、`RAW`や`REFINED`のような`2ARRAY`によって定義されるすべてのワードによって共有される「実行時」の動作を定義します。`DOES>`は定義の最初の部分を終了し、2番目の部分を開始します。ここでの2つ目のコメントは、このコードがスタック上のインデックスとアドレスを期待し、異なるアドレスを返すことを示しています。インデックスは(この例ではRAWの)呼び出し元からスタック上に供給され、一方、この方法で定義されたワードの内容(`ALLOT`された領域)のアドレスは、コードのこのセクションが実行される前に、自動的にスタックの一番上にプッシュされます。このコードは次のように動作します。 `SWAP`は2つのスタック項目の順序を逆にして、一番上のインデックスを取得します。`2* CELLS`は、コンパイル時のセクションと同じように、インデックスを内部アドレッシング単位に変換し、配列の先頭からのオフセットを得る。 次に、ワード`+`は、オフセットを配列の開始アドレスに加算し、実効アドレスを与えます。
-
-Given this basic definition, one could easily modify it to do more sophisticated things. For example, the  compile-time code could be changed to initialize the array to zeros, spaces, or any other desired initial  value. The size of the array could be compiled at its beginning, so that the run-time code could compare the  index against it to ensure it is within range, or the entire array could be made to reside on disk instead of  main memory. None of these changes would affect the run-time usage we have specified in any way. This  illustrates a little of the flexibility available with these defining words.
+2行目は、`RAW`や`REFINED`のような、`2ARRAY`が定義するすべてのワードによって共有される "実行時" の動作を定義します。`DOES>`は定義の最初の部分を終了し、2番目の部分を開始します。ここでの2つ目のコメントは、このコードがスタック上のインデックスとアドレスを期待し、異なるアドレスを返すことを示しています。インデックスは(この例では`RAW`の)呼び出し元からスタック上に供給され、一方、この方法で定義されたワードの内容(`ALLOT`された領域)のアドレスは、コードのこのセクションが実行される前に、自動的にスタックの一番上にプッシュされます。このコードは次のように動作します。 `SWAP`は2つのスタック項目の順序を逆にして、一番上のインデックスを取得します。`2* CELLS`は、コンパイル時のセクションと同じように、インデックスを内部アドレッシング単位に変換し、配列の先頭からのオフセットを得る。 次に、ワード`+`は、オフセットを配列の開始アドレスに加算し、実効アドレスを与えます。これが所望の結果です。
 
 この基本的な定義があれば、もっと洗練されたことができるように簡単に変更できます。例えば、コンパイル時のコードを変更して、配列をゼロや空白、その他の任意の初期値に初期化することができます。配列のサイズを最初にコンパイルしておき、ランタイムコードがインデックスと比較して範囲内であることを確認できるようにしたり、配列全体をメインメモリではなくディスク上に置くようにしたりすることもできます。これらの変更はいずれも、我々が指定したランタイムの使用法には何ら影響を与えません。これは、これらの定義ワードで利用可能な柔軟性の一端を示しています。
 
@@ -2978,29 +2794,29 @@ Competitive pressure from other programming languages (predominantly "C") and fr
 
 The ANS Forth committee addressed the serious fragmentation of the Forth community caused by the  differences between Forth 79 and Forth 83, and the divergence from either of these two industry standards  caused by marketplace pressures.
 
-Consequently, the committee has chosen to base its compatibility decisions not upon a strict comparison  with the Forth-83 Standard, but instead upon consideration of the variety of existing implementations,  especially those with substantial user bases and/or considerable success in the marketplace.
-
-The committee feels that, if ANS Forth prescribes stringent requirements upon the virtual machine model,  as did the previous standards, then many implementors will chose not to comply with ANS Forth. The  committee hopes that ANS Forth will serve to unify rather than to further divide the Forth community, and  thus has chosen to encompass rather than invalidate popular implementation techniques.
-
-Many of the changes from Forth 83 are justified by this rationale. Most fall into the category that "an ANS  Forth Standard Program may not assume x", where "x" is an entitlement resulting from the virtual machine  model prescribed by the Forth-83 Standard. The committee feels that these restrictions are reasonable,  especially considering that a substantial number of existing Forth implementations do not correctly  implement the Forth-83 virtual model, thus the Forth-83 entitlements exist "in theory" but not "in practice".
-
 ANS Forth委員会は、Forth 79とForth 83の違いによって引き起こされるForthコミュニティの深刻な分断、および市場の圧力によって引き起こされるこれら2つの業界標準のいずれかからの分岐に対処しました。
+
+Consequently, the committee has chosen to base its compatibility decisions not upon a strict comparison  with the Forth-83 Standard, but instead upon consideration of the variety of existing implementations,  especially those with substantial user bases and/or considerable success in the marketplace.
 
 その結果、委員会は、Forth-83 Standardとの厳密な比較ではなく、既存のさまざまな実装、特にかなりのユーザベースおよび/または市場でかなりの成功を収めている実装を考慮して互換性を決定することにしました。
 
+The committee feels that, if ANS Forth prescribes stringent requirements upon the virtual machine model,  as did the previous standards, then many implementors will chose not to comply with ANS Forth. The  committee hopes that ANS Forth will serve to unify rather than to further divide the Forth community, and  thus has chosen to encompass rather than invalidate popular implementation techniques.
+
 委員会は、ANS Forthが以前の規格のように仮想マシンモデルに対して厳しい要件を規定した場合、多くの実装者がANS Forthに準拠しないことを選択するだろうと感じています。委員会は、ANS ForthがForthコミュニティの分断を深めるのではなく、むしろ統一に役立つことを望んでおり、そのため、一般的な実装技術を無効にするのではなく、包含することを選択しました。
+
+Many of the changes from Forth 83 are justified by this rationale. Most fall into the category that "an ANS  Forth Standard Program may not assume x", where "x" is an entitlement resulting from the virtual machine  model prescribed by the Forth-83 Standard. The committee feels that these restrictions are reasonable,  especially considering that a substantial number of existing Forth implementations do not correctly  implement the Forth-83 virtual model, thus the Forth-83 entitlements exist "in theory" but not "in practice".
 
 Forth 83からの変更の多くは、この理論的根拠によって正当化されます。そのほとんどは、「ANS Forth Standard Programはxを仮定してはならない」という範疇に入るもので、ここで「x」とは、Forth-83 Standardが規定する仮想マシンモデルから生じる権利のことです。委員会は、特に、既存のForth実装の相当数がForth-83仮想モデルを正しく実装していないことを考慮すると、これらの制限は妥当であると感じています。
 
 Another way of looking at this is that while ANS Forth acknowledges the diversity of current Forth practice,  it attempts to document the similarity therein. In some sense, ANS Forth is thus a "description of reality"  rather than a "prescription for a particular virtual machine".
 
-Since there is no previous American National Standard for Forth, the action requirements prescribed by  section 3.4 of X3/SD-9, "Policy and Guidelines", regarding previous standards do not apply.
-
-The following discussion describes differences between ANS Forth and Forth 83. In most cases, Forth 83 is  representative of Forth 79 and FIG Forth for the purposes of this discussion. In many of these cases,  however, ANS Forth is more representative of the existing state of the Forth industry than the previously-published standards.
-
 別の見方をすれば、ANS Forthは現在のForthの実践の多様性を認めながらも、そこにある類似性を文書化しようと試みているということです。ある意味で、ANS Forthは「特定の仮想マシンの処方箋」ではなく、「現実の記述」なのです。
 
+Since there is no previous American National Standard for Forth, the action requirements prescribed by  section 3.4 of X3/SD-9, "Policy and Guidelines", regarding previous standards do not apply.
+
 Forthには以前の米国国家規格が存在しないため、以前の規格に関するX3/SD-9「ポリシーとガイドライン」の3.4項で規定される動作要件は適用されません。
+
+The following discussion describes differences between ANS Forth and Forth 83. In most cases, Forth 83 is  representative of Forth 79 and FIG Forth for the purposes of this discussion. In many of these cases,  however, ANS Forth is more representative of the existing state of the Forth industry than the previously-published standards.
 
 以下の説明では、ANS Forth と Forth 83 の違いについて説明します。ほとんどの場合、Forth 83は、この議論の目的上、Forth 79およびFIG Forthを代表するものです。しかし、これらの多くの場合において、ANS Forth は、以前に公表された標準よりも、Forth 業界の既存の状態を代表するものです。
 
@@ -3060,25 +2876,25 @@ Forth 83 は、2 の補数による数値表現と算術演算を規定してい
 ||Words affected:||
 all arithmetic and logical operators, LOOP, +LOOP
 
-||Reason:||
-Some computers use one’s-complement or signed-magnitude. The committee  did not wish to force Forth implementations for those machines to emulate two’s-complement arithmetic,  and thus incur severe performance penalties. The experience of some committee members with such  machines indicates that the usage restrictions necessary to support their number representations are not  overly burdensome.
-
-||Impact:||
-An ANS Forth Standard Program may declare an "environmental dependency on  two’s-complement arithmetic". This means that the otherwise-Standard Program is only guaranteed to work  on two’s-complement machines. Effectively, this is not a severe restriction, because the overwhelming  majority of current computers use two’s-complement. The committee knows of no Forth-83 compliant  implementations for non-two’s-complement machines at present, so existing Forth-83 programs will still  work on the same class of machines on which they currently work.
-
-||Transition/Conversion:||
-Existing programs wishing to take advantage of the possibility of ANS Forth  Standard Systems on non-two’s-complement machines may do so by eliminating the use of arithmetic  operators to perform logical functions, by deriving bit-mask constants from bit operations as described in  the section about stack width, by restricting the usage range of unsigned numbers to the range of positive  numbers, and by using the provided operators for conversion from single numbers to double numbers.
-
 ||影響を受けるワード:||
 すべての算術演算子および論理演算子、LOOP、+LOOP
+
+||Reason:||
+Some computers use one’s-complement or signed-magnitude. The committee  did not wish to force Forth implementations for those machines to emulate two’s-complement arithmetic,  and thus incur severe performance penalties. The experience of some committee members with such  machines indicates that the usage restrictions necessary to support their number representations are not  overly burdensome.
 
 ||理由:||
 コンピュータの中には、1補数や符号付き桁数を使用するものがあります。委員会は、そのようなマシン用のForth実装に2補数の算術演算をエミュレートすることを強制し、深刻な性能上のペナルティを負わせることを望んでいませんでした。このようなマシンを使用している委員会メンバの経験から、これらの数値表現をサポートするために必要な使用制限は、過度に負担になるものではないことが示されています。
 
+||Impact:||
+An ANS Forth Standard Program may declare an "environmental dependency on  two’s-complement arithmetic". This means that the otherwise-Standard Program is only guaranteed to work  on two’s-complement machines. Effectively, this is not a severe restriction, because the overwhelming  majority of current computers use two’s-complement. The committee knows of no Forth-83 compliant  implementations for non-two’s-complement machines at present, so existing Forth-83 programs will still  work on the same class of machines on which they currently work.
+
 ||影響:||
 ANS Forth標準プログラムは、「2の補数演算への環境依存」を宣言することができます。これは、標準プログラムが2の補数マシン上でのみ動作することを保証することを意味します。事実上、現在のコンピュータの圧倒的多数は2の補数を使用しているので、これは厳しい制限ではありません。委員会は、現在のところ、2 の補数でないマシン用の Forth-83 準拠の実装を知らないため、既存の Forth-83 プログラムは、現在動作しているマシンと同じクラスで動作します。
 
-|移行/変換:||
+||Transition/Conversion:||
+Existing programs wishing to take advantage of the possibility of ANS Forth  Standard Systems on non-two’s-complement machines may do so by eliminating the use of arithmetic  operators to perform logical functions, by deriving bit-mask constants from bit operations as described in  the section about stack width, by restricting the usage range of unsigned numbers to the range of positive  numbers, and by using the provided operators for conversion from single numbers to double numbers.
+
+||移行/変換:||
 ANSフォース標準システムを非2補数マシン上で利用したい既存のプログラムでは、論理関数を実行するための算術演算子の使用を排除したり、スタック幅のセクションで説明したようにビット演算からビットマスク定数を導出したり、符号なし数値の使用範囲を正数の範囲に制限したり、1進数から2進数への変換に提供されている演算子を使用したりすることができます。
 
 </desc>
@@ -3208,17 +3024,17 @@ The easiest approach is to redefine the system’s aligned "@" and "!" operators
 
 These definitions, and similar ones for "+!", "2@", "2!", ",", and "?" as needed, can be compiled before  an unaligned application, which will then work as expected.
 
-This approach may conserve memory if the application uses substantial numbers of data structures  containing unaligned fields.
-
-Another approach is to modify the application’s source code to eliminate unaligned data fields. The ANS  Forth words ALIGN and ALIGNED may be used to force alignment of data fields. The places where such  alignment is needed may be determined by inspecting the parts of the application where data structures  (other than simple variables) are defined, or by "smart compiler" techniques (see the "Smart Compiler" discussion below).
-
-This approach will probably result in faster application execution speed, at the possible expense of  increased memory utilization for data structures.
-
 これらの定義、および必要に応じて "+!"、"2@"、"2!"、","、"? "に対応する同様の定義を、アラインされていないアプリケーションの前にコンパイルすることができます。
+
+This approach may conserve memory if the application uses substantial numbers of data structures  containing unaligned fields.
 
 この方法は、アプリケーションがアラインされていないフィールドを含むデータ構造を大量に使用する場合、メモリを節約することができます。
 
+Another approach is to modify the application’s source code to eliminate unaligned data fields. The ANS  Forth words ALIGN and ALIGNED may be used to force alignment of data fields. The places where such  alignment is needed may be determined by inspecting the parts of the application where data structures  (other than simple variables) are defined, or by "smart compiler" techniques (see the "Smart Compiler" discussion below).
+
 もう1つの方法は、アプリケーションのソースコードを変更して、アラインされていないデータフィールドをなくすことです。ANS Forth のワード ALIGN と ALIGNED を使用して、データ・フィールドを強制的に整列させることができます。このような整列が必要な場所は、アプリケーションのデータ構造(単純な変数以外)が定義されている部分を検査するか、「スマートコンパイラ」技術(後述の「スマートコンパイラ」の説明を参照)によって決定することができます。
+
+This approach will probably result in faster application execution speed, at the possible expense of  increased memory utilization for data structures.
 
 この方法は、データ構造のメモリ使用量を増加させる可能性はありますが、アプリケー ションの実行速度はおそらく速くなります。
 
@@ -3267,9 +3083,9 @@ For programs that require a specific rounding behavior with division operands of
 
 Forth 83 specified that a number of "compiling words" are "immediate", meaning that they are executed  instead of compiled during compilation. ANS Forth is less specific about most of these words, stating that  their behavior is only defined during compilation, and specifying their results rather than their specific  compile-time actions.
 
-To force the compilation of a word that would normally be executed, Forth 83 provided the words  COMPILE , used with non-immediate words, and [COMPILE] , used with immediate words. ANS Forth  provides the single word POSTPONE , which is used with both immediate and non-immediate words,  automatically selecting the appropriate behavior.
-
 Forth 83は、多くの「コンパイルワード」が「即時」であり、コンパイル時にコンパイルされる代わりに実行されることを意味すると規定しています。ANS Forthは、これらのワードのほとんどについてあまり具体的ではなく、その動作はコンパイル時にのみ定義されるとし、特定のコンパイル時の動作ではなくその結果を指定しています。
+
+To force the compilation of a word that would normally be executed, Forth 83 provided the words  COMPILE , used with non-immediate words, and [COMPILE] , used with immediate words. ANS Forth  provides the single word POSTPONE , which is used with both immediate and non-immediate words,  automatically selecting the appropriate behavior.
 
 通常実行されるワードのコンパイルを強制するために、Forth 83は、非即時ワードで使用されるCOMPILEというワードと、即時ワードで使用される[COMPILE]というワードを提供しています。ANS ForthはPOSTPONEという単一のワードを提供しており、これは即時ワードと非即時ワードの両方で使用され、自動的に適切な動作が選択されます。
 
@@ -3306,9 +3122,9 @@ In nearly all cases, it is correct to replace both [COMPILE] and COMPILE with PO
 
 a) Use of [COMPILE] with non-immediate words. This is sometimes done with the words ' (tick, which  was immediate in Forth 79 but not in Forth 83) and LEAVE (which was immediate in Forth 83 but not  in Forth 79), in order to force the compilation of those words without regard to whether you are using a  Forth 79 or Forth 83 system.
 
-b) Use of the phrase COMPILE [COMPILE] &lt;immediate word> to "doubly postpone" an  immediate word.
-
 a) `[COMPILE]`の非即時ワードでの使用。これは、Forth 79システムとForth 83システムのどちらを使用しているかに関係なく、これらのワードのコンパイルを強制するために、'(Forth 79では即時だったがForth 83では即時でなかったtick)やLEAVE(Forth 83では即時だったがForth 79では即時でなかった)というワードで行われることがあります。
+
+b) Use of the phrase COMPILE [COMPILE] &lt;immediate word> to "doubly postpone" an  immediate word.
 
 b) `COMPILE` `[COMPILE]` &lt;即時ワード> というフレーズを使用して、即時ワードを「二重に延期」します。
 
@@ -3394,9 +3210,9 @@ UM/MOD
 ||Reason:||
 The problem with UM/MOD is a result of allowing non-two’s-complement  number representations, as already described.
 
-ANS Forth provides the words LSHIFT and RSHIFT to perform logical shifts. This is usually more  efficient, and certainly more descriptive, than the use of UM/MOD for logical shifting.
-
 UM/MODの問題は、すでに説明したように、非2補数表現を許可した結果です。
+
+ANS Forth provides the words LSHIFT and RSHIFT to perform logical shifts. This is usually more  efficient, and certainly more descriptive, than the use of UM/MOD for logical shifting.
 
 ANS Forthには、論理シフトを実行するためのLSHIFTとRSHIFTというワードが用意されています。これは通常、論理シフトにUM/MODを使用するよりも効率的で、より記述的です。
 
@@ -3408,9 +3224,9 @@ Programs running on ANS Forth systems with two’s-complement arithmetic (the  m
 ||Transition/Conversion:||
 A program that requires UM/MOD to behave as a shift operation may declare an  environmental dependency on two’s-complement arithmetic.
 
-A program that cannot declare an environmental dependency on two’s-complement arithmetic may require  editing to replace incompatible uses of UM/MOD with other operators defined within the application.
-
 UM/MODがシフト演算として動作することを必要とするプログラムは、2の補数演算への環境依存を宣言することができます。
+
+A program that cannot declare an environmental dependency on two’s-complement arithmetic may require  editing to replace incompatible uses of UM/MOD with other operators defined within the application.
 
 2の補数演算への環境依存を宣言できないプログラムは、互換性のないUM/MODの使用をアプリケーション内で定義された他の演算子で置き換えるための編集を必要とするかもしれません。
 
@@ -3420,9 +3236,9 @@ UM/MODがシフト演算として動作することを必要とするプログ�
 
 ANS Forth does not define the words VOCABULARY, CONTEXT, and CURRENT , which were present in  Forth 83. Instead, ANS Forth defines a primitive word set for search order specification and control,  including words which have not existed in any previous standard.
 
-Forth-83’s "ALSO/ONLY" experimental search order word set is specified for the most part as the extension  portion of the ANS Forth Search Order word set.
-
 ANS Forthは、Forth 83に存在した`VOCABULARY`、`CONTEXT`、および`CURRENT`というワードを定義していません。その代わりに、ANS Forthは検索順序の指定と制御のための原始的なワードセットを定義しており、これには以前のどの標準にも存在しなかったワードも含まれています。
+
+Forth-83’s "ALSO/ONLY" experimental search order word set is specified for the most part as the extension  portion of the ANS Forth Search Order word set.
 
 Forth-83の "ALSO/ONLY" 実験的検索ワードセットは、ほとんどの部分でANS Forth検索ワードセットの拡張部分として指定されています。
 
@@ -3434,9 +3250,9 @@ VOCABULARY CONTEXT CURRENT
 ||Reason:||
 Vocabularies are an area of much divergence among existing systems.  Considering major vendors’ systems and previous standards, there are at least 5 different and mutually  incompatible behaviors of words defined by VOCABULARY. Forth 83 took a step in the direction of "run-time search-order specification" by declining to specify a specific relationship between the hierarchy of  compiled vocabularies and the run-time search order. Forth 83 also specified an experimental mechanism  for run-time search-order specification, the ALSO/ONLY scheme. ALSO/ONLY was implemented in  numerous systems, and has achieved some measure of popularity in the Forth community.
 
-However, several vendors refuse to implement it, citing technical limitations. In an effort to address those  limitations and thus hopefully make ALSO/ONLY more palatable to its critics, the committee specified a  simple "primitive word set" that not only fixes some of the objections to ALSO/ONLY, but also provides  sufficient power to implement ALSO/ONLY and all of the other search-order word sets that are currently  popular.
-
 ボキャブラリは、既存のシステム間で多くの乖離がある分野です。 主要なベンダーのシステムや以前の標準を考慮すると、VOCABULARYによって定義されたワードには、少なくとも5つの異なる、相互に互換性のない動作が存在します。Forth 83は、コンパイルされた語彙の階層と実行時の検索順序の間の特定の関係を指定しないことによって、「実行時の検索順序の指定」の方向に一歩を踏み出した。Forth 83はまた、ランタイム検索順序指定のための実験的メカニズムであるALSO/ONLYスキームを規定した。ALSO/ONLYは多くのシステムで実装され、Forthコミュニティではある程度の人気を獲得した。
+
+However, several vendors refuse to implement it, citing technical limitations. In an effort to address those  limitations and thus hopefully make ALSO/ONLY more palatable to its critics, the committee specified a  simple "primitive word set" that not only fixes some of the objections to ALSO/ONLY, but also provides  sufficient power to implement ALSO/ONLY and all of the other search-order word sets that are currently  popular.
 
 しかし、いくつかのベンダーは技術的な制限を理由に実装を拒否しています。これらの制限を解決し、ALSO/ONLY を批判的な人たちにも受け入れられるようにするために、委員会は ALSO/ONLY に対するいくつかの異論を修正するだけでなく、ALSO/ONLY や現在流行している他の全ての検索ワードセットを実装するのに十分なパワーを提供する単純な "プリミティブワードセット" を指定しました。
 
@@ -3466,9 +3282,9 @@ none
 ||Reason:||
 The meaning of "multiprogramming impact" is precise only in the context of a  specific model for multiprogramming. Although many Forth systems do provide multiprogramming  capabilities using a particular round-robin, cooperative, block-buffer sharing model, that model is not  universal. Even assuming the classical model, the "M" designations did not contain enough information to  enable writing of applications that interacted in a multiprogrammed system.
 
-Practically speaking, the "M" designations in Forth 83 served to document usage rules for block buffer  addresses in multiprogrammed systems. These addresses often become meaningless after a task has  relinquished the CPU for any reason, most often for the purposes of performing I/O, awaiting an event, or  voluntarily sharing CPU resources using the word PAUSE. It was essential that portable applications  respect those usage rules to make it practical to run them on multiprogrammed systems; failure to adhere to  the rules could easily compromise the integrity of other applications running on those systems as well as the  applications actually in error. Thus, "M" appeared on all words that by design gave up the CPU, with the  understanding that other words NEVER gave it up.
+「マルチプログラミングの影響」の意味は、マルチプログラミングの特定のモデルにおいてのみ正確です。多くのForthシステムは、特定のラウンドロビン、協調、ブロックバッファ共有モデルを使用してマルチプログラミング機能を提供していますが、そのモデルは普遍的なものではありません。古典的なモデルを仮定しても、"M" という名称には、マルチプログラミング・システムで相互作用するアプリケーションを記述するのに十分な情報が含まれていませんでした。
 
-マルチプログラミングの影響」の意味は、マルチプログラミングの特定のモデルにおいてのみ正確です。多くのForthシステムは、特定のラウンドロビン、協調、ブロックバッファ共有モデルを使用してマルチプログラミング機能を提供していますが、そのモデルは普遍的なものではありません。古典的なモデルを仮定しても、"M" という名称には、マルチプログラミング・システムで相互作用するアプリケーションを記述するのに十分な情報が含まれていませんでした。
+Practically speaking, the "M" designations in Forth 83 served to document usage rules for block buffer  addresses in multiprogrammed systems. These addresses often become meaningless after a task has  relinquished the CPU for any reason, most often for the purposes of performing I/O, awaiting an event, or  voluntarily sharing CPU resources using the word PAUSE. It was essential that portable applications  respect those usage rules to make it practical to run them on multiprogrammed systems; failure to adhere to  the rules could easily compromise the integrity of other applications running on those systems as well as the  applications actually in error. Thus, "M" appeared on all words that by design gave up the CPU, with the  understanding that other words NEVER gave it up.
 
 現実的に言えば、Forth83の "M" 指定は、マルチプログラム・システムにおけるブロック・バッファ・アドレスの使用規則を文書化する役割を果たした。これらのアドレスは、タスクが何らかの理由でCPUを手放した後、多くの場合、I/Oを実行したり、イベントを待ったり、PAUSEというワードを使って自発的にCPUリソースを共有したりする目的で無意味になります。ポータブル・アプリケーションをマルチプログラミング・システム上で実用的に動作させるためには、このような使用規則を尊重することが不可欠でした。この規則を守らないと、実際にエラーが発生したアプリケーションだけでなく、システム上で動作している他のアプリケーションの整合性も簡単に損なわれてしまいます。したがって、"M" は、設計上CPUを放棄するすべてのワードに表示され、他のワードは決してCPUを放棄しないことを理解した。
 
@@ -3479,17 +3295,17 @@ These usage rules have been explicitly documented in the Block word set where th
 ||Impact:||
 In practice, none.
 
-In the sense that any application that depends on multiprogramming must consist of at least two tasks that  share some resource(s) and communicate between themselves, Forth 83 did not contain enough information  to enable writing of a standard program that DEPENDED on multiprogramming. This is also true of ANS  Forth.
-
-Non-multiprogrammed applications in Forth 83 were required to respect usage rules for BLOCK so that they  could be run properly on multiprogrammed systems. The same is true of ANS Forth.
-
-The only difference is the documentation method used to define the BLOCK usage rules. The Technical  Committee believes that the current method is clearer than the concept of "multiprogramming impact".
-
 実際には、ありません。
+
+In the sense that any application that depends on multiprogramming must consist of at least two tasks that  share some resource(s) and communicate between themselves, Forth 83 did not contain enough information  to enable writing of a standard program that DEPENDED on multiprogramming. This is also true of ANS  Forth.
 
 マルチプログラミングに依存するアプリケーションは、何らかのリソースを共有し、タスク間で通信を行う少なくとも2つのタスクから構成されなければならないという意味で、Forth83にはマルチプログラミングに依存する標準的なプログラムを書くのに十分な情報が含まれていませんでした。これは、ANS Forthにも当てはまります。
 
+Non-multiprogrammed applications in Forth 83 were required to respect usage rules for BLOCK so that they  could be run properly on multiprogrammed systems. The same is true of ANS Forth.
+
 Forth 83の非マルチプログラミング・アプリケーションは、マルチプログラミング・システム上で適切に実行できるように、BLOCKの使用規則を尊重する必要がありました。ANS Forthも同様です。
+
+The only difference is the documentation method used to define the BLOCK usage rules. The Technical  Committee believes that the current method is clearer than the concept of "multiprogramming impact".
 
 唯一の違いは、BLOCKの使用規則を定義するための文書化方法です。技術委員会は、「マルチプログラミングの影響」という概念よりも現在の方法の方が明確であると考えています。
 
@@ -3517,9 +3333,9 @@ Forthシステムは、メモリ容量が限られている環境で使用され
 ||Impact:||
 In order to use a Standard Program with a given ANS Forth implementation, it  may be necessary to precede the program with an implementation-dependent "preface" to make "source form" words executable. This is similar to the methods that other computer languages require for selecting  the library routines needed by a particular application.
 
-In languages like C, the goal of eliminating unnecessary routines from the memory image of an application  is usually accomplished by providing libraries of routines, using a "linker" program to incorporate only the  necessary routines into an executable application. The method of invoking and controlling the linker is  outside the scope of the language definition.
-
 あるANS Forth実装で標準プログラムを使用するには、「ソース形式」のワードを実行可能にするために、実装に依存した「序文」をプログラムの前に置く必要がある場合があります。これは、他のコンピュータ言語が特定のアプリケーションに必要なライブラリルーチンを選択するために必要とする方法に似ています。
+
+In languages like C, the goal of eliminating unnecessary routines from the memory image of an application  is usually accomplished by providing libraries of routines, using a "linker" program to incorporate only the  necessary routines into an executable application. The method of invoking and controlling the linker is  outside the scope of the language definition.
 
 C言語のような言語では、アプリケーションのメモリイメージから不要なルーチンを排除するという目標は、通常、ルーチンのライブラリを提供し、「リンカ」プログラムを使って必要なルーチンのみを実行可能なアプリケーションに組み込むことで達成されます。リンカを呼び出して制御する方法は、言語定義の範囲外です。
 
@@ -3536,13 +3352,13 @@ Before compiling a program, the programmer may need to perform some action  to m
 
 The most popular architectures used to implement Forth have had byte-addressed memory, 16-bit  operations, and two’s-complement number representation. The Forth-83 Standard dictates that these  particular features must be present in a Forth-83 Standard system and that Forth-83 programs may exploit  these features freely.
 
-However, there are many beasts in the architectural jungle that are bit addressed or cell addressed, or prefer  32-bit operations, or represent numbers in one’s complement. Since one of Forth’s strengths is its usefulness in "strange" environments on "unusual" hardware with "peculiar" features, it is important that a  Standard Forth run on these machines too.
-
-A primary goal of the ANS Forth Standard is to increase the types of machines that can support a Standard  Forth. This is accomplished by allowing some key Forth terms to be implementation-defined (e.g., how big  is a cell?) and by providing Forth operators (words) that conceal the implementation. This frees the  implementor to produce the Forth system that most effectively utilizes the native hardware. The machine  independent operators, together with some programmer discipline, enable a programmer to write Forth  programs that work on a wide variety of machines.
-
 Forthを実装するために使用される最も一般的なアーキテクチャは、バイトアドレスメモリ、16ビット演算、および2の補数数表現を持っていました。Forth-83 Standardは、これらの特定の機能がForth-83 Standardシステムに存在しなければならず、Forth-83プログラムがこれらの機能を自由に利用できることを規定しています。
 
+However, there are many beasts in the architectural jungle that are bit addressed or cell addressed, or prefer  32-bit operations, or represent numbers in one’s complement. Since one of Forth’s strengths is its usefulness in "strange" environments on "unusual" hardware with "peculiar" features, it is important that a  Standard Forth run on these machines too.
+
 しかし、ビットアドレスやセルアドレス、32ビット演算、1補数での数値表現など、アーキテクチャのジャングルには多くの獣が存在します。Forthの強みの1つは、「特殊な」機能を持つ「特殊な」ハードウェア上の「特殊な」環境において有用であることであるため、Standard Forthがこれらのマシン上でも動作することは重要です。
+
+A primary goal of the ANS Forth Standard is to increase the types of machines that can support a Standard  Forth. This is accomplished by allowing some key Forth terms to be implementation-defined (e.g., how big  is a cell?) and by providing Forth operators (words) that conceal the implementation. This frees the  implementor to produce the Forth system that most effectively utilizes the native hardware. The machine  independent operators, together with some programmer discipline, enable a programmer to write Forth  programs that work on a wide variety of machines.
 
 ANS Forth Standardの主な目標は、Standard Forthをサポートできるマシンの種類を増やすことです。これは、いくつかの重要なForth用語を実装で定義できるようにし(例えば、セルの大きさはどのくらいか)、実装を隠蔽するForth演算子(ワード)を提供することによって達成されます。これにより、実装者はネイティブ・ハードウェアを最も効果的に利用するForthシステムを作成することができます。マシンに依存しない演算子は、プログラマの規律とともに、プログラマがさまざまなマシンで動作するForthプログラムを書くことを可能にします。
 
@@ -3562,21 +3378,19 @@ Data and memory are the stones and mortar of program construction. Unfortunately
 
 Three terms defined by ANS Forth are address unit, cell, and character. The address space of an ANS Forth  system is divided into an array of address units; an address unit is the smallest collection of bits that can be  addressed. In other words, an address unit is the number of bits spanned by the addresses addr and addr+1.  The most prevalent machines use 8-bit address units. Such "byte addressed" machines include the Intel  8086 and Motorola 68000 families. However, other address unit sizes exist. There are machines that are bit addressed and machines that are 4-bit nibble addressed. There are also machines with address units larger  than 8-bits. For example, several Forth-in-hardware computers are cell addressed.
 
-The cell is the fundamental data type of a Forth system. A cell can be a single-cell integer or a memory address. Forth’s parameter and return stacks are stacks of cells. Forth 83 specifies that a cell is 16-bits. In  ANS Forth the size of a cell is an implementation-defined number of address units. Thus, an ANS Forth  implemented on a 16-bit microprocessor could use a 16-bit cell and an implementation on a 32-bit machine  could use a 32-bit cell. Also 18-bit machines, 36-bit machines, etc., could support ANS Forth systems with  18 or 36-bit cells respectively. In all of these systems, DUP does the same thing: it duplicates the top of the data stack. ! (store) behaves consistently too: given two cells on the data stack it stores the second cell in  the memory location designated by the top cell.
-
 ANS Forthで定義されている3つの用語は、アドレスユニット、セル、およびキャラクタです。ANS Forthシステムのアドレス空間は、アドレス単位の配列に分割されます。アドレス単位とは、アドレス指定が可能な最小のビットの集まりです。言い換えれば、アドレスユニットとは、アドレスaddrとaddr+1にまたがるビット数のことです。 最も一般的なマシンは8ビットのアドレス単位を使用しています。このような「バイトアドレス」マシンには、インテル8086やモトローラ68000ファミリーがあります。しかし、他のアドレス単位・サイズも存在します。ビットアドレスのマシンもあれば、4ビットニブルアドレス のマシンもあります。また、アドレス単位が8ビットより大きいマシンもあります。例えば、いくつかのForth-in-hardwareコンピュータはセルアドレスです。
+
+The cell is the fundamental data type of a Forth system. A cell can be a single-cell integer or a memory address. Forth’s parameter and return stacks are stacks of cells. Forth 83 specifies that a cell is 16-bits. In  ANS Forth the size of a cell is an implementation-defined number of address units. Thus, an ANS Forth  implemented on a 16-bit microprocessor could use a 16-bit cell and an implementation on a 32-bit machine  could use a 32-bit cell. Also 18-bit machines, 36-bit machines, etc., could support ANS Forth systems with  18 or 36-bit cells respectively. In all of these systems, DUP does the same thing: it duplicates the top of the data stack. ! (store) behaves consistently too: given two cells on the data stack it stores the second cell in  the memory location designated by the top cell.
 
 セルは Forth システムの基本的なデータ型です。セルは単一セル整数でもメモリアドレスでもよいです。Forthのパラメータ・スタックとリターンスタックはセルのスタックです。Forth 83では、セルは16ビットであると規定されています。ANS Forthでは、セルのサイズは実装で定義されたアドレス単位の数です。したがって、16ビットのマイクロプロセッサ上で実装されたANS Forthは16ビットのセルを使用することができ、32ビットのマシン上で実装されたANS Forthは32ビットのセルを使用することができます。また、18ビットマシンや36ビットマシンなども、それぞれ18ビットセルや36ビットセルを持つANS Forthシステムをサポートすることができます。これらすべてのシステムで、DUP はデータスタックの先頭を複製するという同じことを行います。! (ストア)の動作も一貫しています。データスタック上に2つのセルがあると、2番目のセルを一番上のセルが指定するメモリ位置に格納します。
 
 Similarly, the definition of a character has been generalized to be an implementation-defined number of  address units (but at least eight bits). This removes the need for a Forth implementor to provide 8-bit  characters on processors where it is inappropriate. For example, on an 18-bit machine with a 9-bit address  unit, a 9-bit character would be most convenient. Since, by definition, you can’t address anything smaller  than an address unit, a character must be at least as big as an address unit. This will result in big characters  on machines with large address units. An example is a 16-bit cell addressed machine where a 16-bit  character makes the most sense.
 
+同様に、文字の定義は、実装で定義されたアドレス単位数(ただし、少なくとも8ビット)に一般化されました。これにより、Forthの実装者は、不適切なプロセッサ上で8ビット文字を提供する必要がなくなりました。例えば、9ビットのアドレス単位を持つ18ビット・マシンでは、9ビット文字が最も便利です。定義上、アドレス単位より小さいものをアドレスにすることはできないので、文字は少なくともアドレス単位と同じ大きさでなければなりません。このため、アドレス単位が大きいマシンでは大きな文字になります。例えば、16 ビット・セル・アドレスのマシンでは、16 ビット・キャラクタが最も理にかなっています。
+
 ### E.2.3 Addressing memory  
 
 ANS Forth eliminates many portability problems by using the above definitions. One of the most common  portability problems is addressing successive cells in memory. Given the memory address of a cell, how do  you find the address of the next cell? In Forth 83 this is easy: 2 + . This code assumes that memory is  addressed in 8-bit units (bytes) and a cell is 16-bits wide. On a byte-addressed machine with 32-bit cells the  code to find the next cell would be 4 + . The code would be 1+ on a cell-addressed processor and 16 + on a bit-addressed processor with 16-bit cells. ANS Forth provides a next-cell operator named CELL+ that  can be used in all of these cases. Given an address, CELL+ adjusts the address by the size of a cell  (measured in address units). A related problem is that of addressing an array of cells in an arbitrary order.  A defining word to create an array of cells using Forth 83 would be:  
-
-同様に、文字の定義は、実装で定義されたアドレス単位数(ただし、少なくとも8ビット)に一般化されました。これにより、Forthの実装者は、不適切なプロセッサ上で8ビット文字を提供する必要がなくなりました。例えば、9ビットのアドレス単位を持つ18ビット・マシンでは、9ビット文字が最も便利です。定義上、アドレス単位より小さいものをアドレスにすることはできないので、文字は少なくともアドレス単位と同じ大きさでなければなりません。このため、アドレス単位が大きいマシンでは大きな文字になります。例えば、16 ビット・セル・アドレスのマシンでは、16 ビット・キャラクタが最も理にかなっています。
-
-### E.2.3 メモリのアドレス指定  
 
 ANS Forth では、上記の定義を使用することで、多くの移植性の問題を解消しています。最も一般的な移植性の問題の 1 つは、メモリ内の連続するセルのアドレス指定です。あるセルのメモリ・アドレスが与えられたとき、次のセルのアドレスはどの ように見つけるのでしょうか? Forth 83では、これは簡単です。 2 + . このコードは、メモリが8ビット単位(バイト)でアドレス指定され、セルが16ビット幅であると仮定しています。32ビット・セルを持つバイト・アドレス・マシンでは、次のセルを見つけるコードは 4 + . セルアドレスのプロセッサでは 1+、16 ビットセルを持つビットアドレスのプロセッサでは 16 + となります。ANS Forthには、これらのすべてのケースで使用できるCELL+というネクストセル演算子が用意されています。アドレスが与えられると、CELL+はセルのサイズ(アドレス単位で測定)でアドレスを調整します。関連する問題として、セルの配列を任意の順序でアドレス指定することがあります。 Forth83を使ってセルの配列を作成するための定義ワードは次のようになります。
 
@@ -3591,9 +3405,9 @@ Use of 2* to scale the array index assumes byte addressing and 16-bit cells agai
 
 There are also portability problems with addressing arrays of characters. In Forth 83 (and in the most  common ANS Forth implementations), the size of a character will equal the size of an address unit.  Consequently addresses of successive characters in memory can be found using 1+ and scaling indices into  a character array is a no-op (i.e., 1 *). However, there are cases where a character is larger than an address  unit. Examples include (1) systems with small address units (e.g., bit- and nibble-addressed systems), and  (2) systems with large character sets (e.g., 16-bit characters on a byte-addressed machine). CHAR+ and CHARS operators, analogous to CELL+ and CELLS are available to allow maximum portability.
 
-ANS Forth generalizes the definition of some Forth words that operate on chunks of memory to use address  units. One example is ALLOT. By prefixing ALLOT with the appropriate scaling operator (CELLS,  CHARS, etc.), space for any desired data structure can be allocated (see definition of array above). For  example:  
-
 文字の配列のアドレス指定にも移植性の問題があります。Forth 83(および最も一般的な ANS Forth 実装)では、文字のサイズはアドレス単位のサイズに等しくなります。 その結果、メモリ内の連続する文字のアドレスは1+を使用して求めることができ、文字配列へのインデックスのスケーリングは不要です(つまり、1 *)。しかし、1文字がアドレス単位より大きい場合もあります。例えば、(1)アドレス単位が小さいシステム(例えば、ビットアドレスやニブルアドレスシステム)、(2)文字セットが大きいシステム(例えば、バイトアドレスマシンの16ビット文字)。CHAR+およびCHARS演算子(CELL+およびCELLSに類似)は、最大限の移植性を可能にするために利用可能です。
+
+ANS Forth generalizes the definition of some Forth words that operate on chunks of memory to use address  units. One example is ALLOT. By prefixing ALLOT with the appropriate scaling operator (CELLS,  CHARS, etc.), space for any desired data structure can be allocated (see definition of array above). For  example:  
 
 ANS Forthは、アドレス単位を使用するために、メモリのチャンクを操作するいくつかのForthワードの定義を一般化しています。その一例がALLOTです。ALLOTの前に適切なスケーリング演算子(CELLS、CHARSなど)を付けることで、任意のデータ構造用のスペースを割り当てることができます(上記の配列の定義を参照)。例えば
 
@@ -3607,9 +3421,9 @@ The memory-block-move word also uses address units:
 
 Not all addresses are created equal. Many processors have restrictions on the addresses that can be used by  memory access instructions. This Standard does not require an implementor of an ANS Forth to make  alignment transparent; on the contrary, it requires (in Section **3.3.3.1  Address alignment**) that an ANS  Forth program assume that character and cell alignment may be required.
 
-One of the most common problems caused by alignment restrictions is in creating tables containing both  characters and cells. When , (comma) or C, is used to initialize a table, data is stored at the data-space  pointer. Consequently, it must be suitably aligned. For example, a non-portable table definition would be:  
-
 すべてのアドレスが同じというわけではありません。多くのプロセッサでは、メモリアクセス命令で使用できるアドレスに制限があります。この規格は、ANS Forth の実装者がアライメントを透過的に行うことを要求しているわけではありません。それどころか、ANS Forth プログラムが文字とセルのアライメントが必要になる可能性があることを想定することを(セクション **3.3.3.1 アドレスのアライメント** で)要求しています。
+
+One of the most common problems caused by alignment restrictions is in creating tables containing both  characters and cells. When , (comma) or C, is used to initialize a table, data is stored at the data-space  pointer. Consequently, it must be suitably aligned. For example, a non-portable table definition would be:  
 
 アライメント制限によって引き起こされる最も一般的な問題の1つは、文字とセルの両方を含む表を作成することです。(カンマ)またはCを使用して表を初期化すると、データはデータ空間ポインタに格納されます。したがって、適切にアライメントされなければなりません。例えば、ポータブルでないテーブル定義は次のようになります。
 
@@ -3695,9 +3509,9 @@ Traditionally, Forth definitions have consisted of the name of the Forth word, a
 
 Only words defined with CREATE or with other defining words that call CREATE have data fields. The  other defining words in the Standard (VARIABLE, CONSTANT, :, etc.) might not be implemented with  CREATE. Consequently, a Standard Program must assume that words defined by VARIABLE, CONSTANT, : , etc., may have no data fields. There is no way for a Standard Program to modify the value of a constant or to change the meaning of a colon definition. The DOES> part of a defining word operates on a data field.  Since only CREATEd words have data fields, DOES> can only be paired with CREATE or words that call  CREATE.
 
-In ANS Forth, FIND, ['] and ' (tick) return an unspecified entity called an "execution token". There are  only a few things that may be done with an execution token. The token may be passed to EXECUTE to  execute the word ticked or compiled into the current definition with COMPILE,. The token can also be  stored in a variable and used later. Finally, if the word ticked was defined via CREATE, >BODY converts  the execution token into the word’s data-field address.
-
 CREATEまたはCREATEを呼び出す他の定義ワードで定義されたワードのみがデータフィールドを持ちます。規格の他の定義ワード(VARIABLE、CONSTANT、:など)はCREATEで実装されていないかもしれません。そのため、標準プログラムでは、VARIABLE、CONSTANT、 : などで定義されたワードはデータフィールドを持たない可能性があると仮定しなければなりません。標準プログラムには、定数の値を変更したり、コロン定義の意味を変更したりする方法はありません。定義ワードのDOES>の部分はデータフィールドを操作します。 CREATEされたワードのみがデータフィールドを持つので、DOES>はCREATEまたはCREATEを呼び出すワードとしか組み合わせることができません。
+
+In ANS Forth, FIND, ['] and ' (tick) return an unspecified entity called an "execution token". There are  only a few things that may be done with an execution token. The token may be passed to EXECUTE to  execute the word ticked or compiled into the current definition with COMPILE,. The token can also be  stored in a variable and used later. Finally, if the word ticked was defined via CREATE, >BODY converts  the execution token into the word’s data-field address.
 
 ANS Forthでは、FIND、[']、および'(tick)は「実行トークン」と呼ばれる不特定の実体を返します。実行トークンで実行できることは限られています。トークンをEXECUTEに渡してtickされたワードを実行したり、COMPILE,で現在の定義にコンパイルしたりすることができます。トークンは変数に格納し、後で使用することもできます。最後に、ワードtickedがCREATEで定義された場合、>BODYは実行トークンをワードのデータフィールドアドレスに変換します。
 
