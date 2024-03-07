@@ -15,7 +15,7 @@
 
 これらの目的をすべて満たすための努力の結果、必要なワード数が少なくなるように調整された規格が完成しました。このため、リソースに制約のある組込みシステムにもANS Forthを提供することができます。必要なワードセット以外のワードは、いくつかのオプションのワードセットとその拡張に整理され、標準に準拠しながらカスタマイズされたシステムの実装を可能にしています。
 
-X3J14技術委員会のメンバーは、相対的な優劣を判断する際、以下の目標(アルファベット順)を指針としました。
+X3J14技術委員会のメンバは、相対的な優劣を判断する際、以下の目標(アルファベット順)を指針としました。
 
 <description>
 ||一貫性(Consistency)||標準規格は、機能的重複を最小限に抑えた、機能的に完全なワードの集合を提供します。
@@ -562,7 +562,7 @@ Typical use: `... ' name `.
 
 ステートスマートなティック(tick)を使うForthシステムは多いが、そうでないものも多いです。ANS ForthはForth 83の用法を踏襲しました。
 
-**See: A.3.4.3..2 Interpretation semantics, A.6.1.1550 FIND**.
+See: **A.3.4.3..2 Interpretation semantics**, **A.6.1.1550 FIND**.
 
 #### A.6.1.0080 `(` 
 
@@ -979,7 +979,7 @@ Typical use: : X ... [ 1234 ] LITERAL ... ;
 
 #### A.6.2.0060 #TIB 
 
-`#TIB` の機能は `SOURCE` により肩代わりされました。
+`#TIB` の機能は `SOURCE` に引き継がれました。
 
 #### A.6.2.0200 .( 
 
@@ -1099,9 +1099,7 @@ Typical use:
 
 #### A.6.2.0945 COMPILE, 
 
-COMPILE, is the compilation equivalent of EXECUTE. In many cases, it is possible to compile a word by  using POSTPONE without resorting to the use of COMPILE,. However, the use of POSTPONE requires  that the name of the word must be known at compile time, whereas COMPILE, allows the word to be  located at any time. It is sometime possible to use EVALUATE to compile a word whose name is not known  until run time. This has two possible problems:  
-
-`COMPILE,`は`EXECUTE`に相当するコンパイルです。多くの場合、`COMPILE,`を使用しなくても、`POSTPONE`を使用してワードをコンパイルすることが可能です。しかし、`POSTPONE`を使うには、コンパイル時にワードの名前がわかっていなければなりません。一方で、`COMPILE,` はワードがいつでもどこにあっても構いません。`EVALUATE`を使用して、実行時まで名前がわからないワードをコンパイルすることができますが、これには2つの問題があります。  
+`COMPILE,`は`EXECUTE`に相当するコンパイル処理です。多くの場合、`COMPILE,`を使用しなくても、`POSTPONE`を使用してワードをコンパイルすることが可能です。しかし、`POSTPONE`を使うには、コンパイル時にワードの名前がわかっていなければなりません。一方で、`COMPILE,` はワードがいつでもどこにあっても構いません。`EVALUATE`を使用して、実行時まで名前がわからないワードをコンパイルすることができますが、これには2つの問題があります。  
 
 - 辞書検索が必要なため、`EVALUATE`は`COMPILE,`よりも遅い。
 - 現在の検索順序が`EVALUATE`の結果に影響する。
@@ -1142,7 +1140,7 @@ Typical use:
 
 #### A.6.2.1390 EXPECT 
 
-EXPECTに正の整数カウント(+n)を指定するという規定により、一部の実装者は特別な動作を引き起こすフラグとして0または負の値を使用する習慣を継続することができます。そのような動作が標準規格の外にある限り、標準プログラムはそれに依存することはできませんが、技術委員会は不必要にそれを排除することは望みません。実際の値はほとんど常に小さな整数であるため、この制限によって機能が損なわれることはありません。
+`EXPECT`に正の整数カウント(+n)を指定するという規定により、一部の実装者は特別な動作を引き起こすフラグとして0または負の値を使用する習慣を継続することができます。そのような動作が標準規格の外にある限り、標準プログラムはそれに依存することはできませんが、技術委員会は不必要にそれを排除することは望みません。実際の値はほとんど常に小さな整数であるため、この制限によって機能が損なわれることはありません。
 
 #### A.6.2.1850 MARKER 
 
@@ -1277,12 +1275,16 @@ In principle, `RESTORE-INPUT` could be implemented to "always fail", e.g.:
 
 セーブ/リストア機能を達成するために、実装が`SAVE-INPUT`からの戻り値をどのように使用するかの例: 
 
+<table>
+
  |Input Source|possible stack values  
  |--|--|
  |block|>IN @ BLK @ 2 
  |EVALUATE|>IN @ 1 
  |keyboard|>IN @ 1 
  |text file|>IN @ lo-pos hi-pos 3
+
+</table>
 
 これは例にすぎません。標準プログラムは、`SAVE-INPUT`によって返される個々のスタック項目の特定の意味を想定してはなりません。
 
@@ -1365,13 +1367,7 @@ Typical use:  5 CONSTANT THAT  \  THIS IS A COMMENT ABOUT THAT
 
 ## A.7 The optional Block word set 
 
-Early Forth systems ran stand-alone, with no host OS. Blocks of 1024 bytes were designed as a convenient  unit of disk, and most native Forth systems still use them. It is relatively easy to write a native disk driver  that maps head/track/sector addresses to block numbers. Such disk drivers are extremely fast in comparison  with conventional file-oriented operating systems, and security is high because there is no reliance on a disk  map.
-
-Today many Forth implementations run under host operating systems, because the compatibility they offer  the user outweighs the performance overhead. Many people who use such systems prefer using host OS  files only; however, people who use both native and non-native Forths need a compatible way of accessing  disk. The Block Word set includes the most common words for accessing program source and data on disk.
-
-In order to guarantee that Standard Programs that need access to mass storage have a mechanism  appropriate for both native and non-native implementations, ANS Forth requires that the Block word set be  available if any mass storage facilities are provided. On non-native implementations, blocks normally  reside in host OS files.
-
-初期のForthシステムは、ホストOSなしでスタンドアロンで動作していました。1024バイトのブロックは、ディスクの便利な単位として設計され、ほとんどのネイティブForthシステムは今でもこれを使用しています。ヘッド/トラック/セクター・アドレスをブロック番号にマッピングするネイティブ・ディスク・ドライバを書くのは比較的簡単です。このようなディスク・ドライバは、従来のファイル指向オペレーティング・システムと比較して非常に高速であり、ディスク・マップに依存しないためセキュリティも高い。
+初期のForthシステムは、ホストOSなしでスタンドアロンで動作していました。1024バイトのブロックは、ディスクの便利な単位として設計され、ほとんどのネイティブForthシステムは今でもこれを使用しています。ヘッド/トラック/セクタのアドレスをブロック番号にマッピングするネイティブディスクドライバを書くのは比較的簡単です。このようなディスクドライバは、従来のファイル指向オペレーティングシステムと比較して非常に高速であり、ディスクマップに依存しないためセキュリティも高い。
 
 今日、多くのForth実装はホストOSの下で実行されているが、これは、それらがユーザに提供する互換性が性能のオーバーヘッドを上回るからです。このようなシステムを使用する多くの人々は、ホストOSのファイルのみを使用することを好みますが、ネイティブと非ネイティブの両方のForthを使用する人々は、互換性のあるディスクアクセス方法を必要とします。ブロックワードセットには、プログラムソースやディスク上のデータにアクセスするための最も一般的なワードが含まれています。
 
@@ -1382,9 +1378,7 @@ In order to guarantee that Standard Programs that need access to mass storage ha
 <miniterm>
 
 ||block||
-Many Forth systems use blocks to contain program source. Conventionally such blocks are formatted for  editing as 16 lines of 64 characters. Source blocks are often referred to as "screens".
-
-多くのForthシステムでは、プログラム・ソースを格納するためにブロックを使用します。通常、このようなブロックは64文字の16行として編集できるようにフォーマットされています。ソース・ブロックはしばしば「スクリーン」と呼ばれます。
+多くのForthシステムでは、プログラムソースを格納するためにブロックを使用します。通常、このようなブロックは64文字の16行として編集できるようにフォーマットされています。ソース・ブロックはしばしば「スクリーン」と呼ばれます。
 
 </miniterm>
 
@@ -1392,27 +1386,20 @@ Many Forth systems use blocks to contain program source. Conventionally such blo
 
 ##### A.7.6.2.2190 SCR 
 
-SCR is short for screen.
+SCRはスクリーン(screen)の短縮形です。
 
 ## A.8 The optional Double-Number word set 
 
-Forth systems on 8-bit and 16-bit processors often find it necessary to deal with double-length numbers.  But many Forths on small embedded systems do not, and many users of Forth on systems with a cell size of  32-bits or more find that the necessity for double-length numbers is much diminished. Therefore, we have factored the words that manipulate double-length entities into this optional word set.
-
-Please note that the naming convention used in this word set conveys some important information:  
-
-1. Words whose names are of the form 2xxx deal with cell pairs, where the relationship between the cells is unspecified. They may be two-vectors, double-length numbers, or any pair of cells that it is  convenient to manipulate together.
-2. Words with names of the form Dxxx deal specifically with double-length integers.
-3. Words with names of the form Mxxx deal with some combination of single and double integers. The order in which these appear on the stack is determined by long-standing common practice.
-
-8ビットや16ビットのプロセッサ上のForthシステムは、しばしば倍長数を扱う必要性を見出します。 しかし、小さな組み込みシステム上の多くのForthはそうではありませんし、32ビット以上のセルサイズを持つシステム上のForthの多くのユーザは、倍長数の必要性がかなり減少していることに気づきます。そのため、倍長エンティティを操作するワードをこのオプションのワードセットに組み込みました。
+8ビットや16ビットのプロセッサ上のForthシステムは、しばしば倍長数(double-length numbers)を扱う必要性を見出します。 しかし、小さな組み込みシステム上の多くのForthはそうではありませんし、32ビット以上のセルサイズを持つシステム上のForthの多くのユーザは、倍長数の必要性がかなり減少していることに気づきます。そのため、倍長エンティティを操作するワードをこのワードセットに組み込み、オプション扱いとしました。
 
 このワードセットで使われている命名規則が、いくつかの重要な情報を伝えていることに注意してください。  
 
-1. 2xxx という形の名前を持つワードは、セル間の関係が特定されていないセル対を扱 う。これらは2つのベクトルであってもよいし、2つの長さの数であってもよいし、一緒に操作するのに便利なセルのペアであれば何でもよいです。
+1. 2xxx という形の名前を持つワードは、セル間の関係が特定されていないセル対を扱う。これらは2つのベクトルであってもよいし、2つの長さの数であってもよいし、一緒に操作するのに便利なセルのペアであれば何でもよいです。
 2. Dxxxという形の名前を持つワードは、特に倍長整数を扱います。
 3. Mxxxという形の名前を持つワードは、単整数と倍長整数の組み合わせを扱います。これらがスタック上に現れる順番は、長年の慣習によって決定されます。
 
-Refer to A.3.1 for a discussion of data types in Forth.
+Refer to **A.3.1** for a discussion of data types in Forth.
+Forthのデータ型に関する議論については、 **A.3.1** を参照してください。
 
 ### A.8.6 Glossary 
 
@@ -1442,65 +1429,43 @@ See: **A.6.1.0330 2/ for applicable discussion**.
 
 ##### A.8.6.1.1140 D>S 
 
-There exist number representations, e.g., the sign-magnitude representation, where reduction from double to single-precision cannot simply be done with `DROP`. This word, equivalent to `DROP` on two’s complement  systems, desensitizes application code to number representation and facilitates portability.
-
-倍精度から単精度への変換が単純に `DROP` で行えないような数値表現、例えば符号-倍精度表現が存在します。このワードは、2の補数システムの `DROP` と等価であり、アプリケーションコードを数値表現に鈍感にし、移植性を容易にします。
+例えば符号-倍精度表現(sign-magnitude representation)のように、倍精度から単精度への変換が単純に `DROP` で行えないような数値表現が存在します。このワードは、2の補数システムの `DROP` と等価であり、アプリケーションコードに数値表現の違いに対する耐性を付け、、移植性を容易にします。
 
 ##### A.8.6.1.1820 M*/ 
 
-`M*/` was once described by Chuck Moore as the most useful arithmetic operator in Forth. It is the main  workhorse in most computations involving double-cell numbers. Note that some systems allow signed  divisors. This can cost a lot in performance on some CPUs. The requirement for a positive divisor has not  proven to be a problem.
-
-`M*/` は、かつて Chuck Moore 氏によって Forth で最も有用な算術演算子であると評されました。`M*/` は、Chuck Moore によって Forth で最も有用な算術演算子であると評 価されたことがあります。システムによっては符号付き除数を許容しているものがあることに注意してください。これは、CPUによっては多くのパフォーマンスを犠牲にする可能性があります。正の約数の要件は、問題であることが証明されていません。
+`M*/` は、かつて Chuck Moore 氏によって Forth で最も有用な算術演算子であると評されました。倍セル数を扱う計算のほとんどで仕事をメインで担うワードです。システムによっては符号付き除数を許容しているものがあることに注意してください。これは、CPUによっては多くのパフォーマンスを犠牲にする可能性があります。除数を正に限るという要求が問題であるとはいまだ証明されていません。
 
 ##### A.8.6.1.1830 M+ 
 
-M+ is the classical method for integrating.
-
-`M+` は積分の古典的な方法です。
+`M+` は積分(integrating)の古典的な方法です。
 
 ## A.9 The optional Exception word set 
 
-`CATCH` and `THROW` provide a reliable mechanism for handling exceptions, without having to propagate  exception flags through multiple levels of word nesting. It is similar in spirit to the "non-local return"  mechanisms of many other languages, such as C’s setjmp() and longjmp(), and LISP’s `CATCH` and  `THROW`. In the Forth context, `THROW` may be described as a "multi-level `EXIT`", with `CATCH` marking a  location to which a `THROW` may return.
+`CATCH` と `THROW` は、例外フラグを複数レベルのワードの入れ子に順に伝搬させることなく、例外を処理するための信頼性の高いメカニズムを提供します。これは、C 言語の `setjmp()` や `longjmp()` や LISP の `CATCH`、`THROW` など、他の多くの言語の「非ローカルリターン」メカニズムと精神的には似ています。Forth のコンテキストでは、`THROW` は「マルチレベルの `EXIT`」と表現され、`CATCH` は `THROW` が戻る場所を示します。
 
-`CATCH` と `THROW` は、例外フラグを複数のレベルのワードの入れ子に伝搬させることなく、例外を処理するための信頼性の高いメカニズムを提供します。これは、C 言語の `setjmp()` や `longjmp()` や LISP の `CATCH` や `THROW` など、他の多くの言語の「非ローカルリターン」メカニズムと精神的に似ています。Forth のコンテキストでは、`THROW` は「マルチレベルの `EXIT`」と表現され、`CATCH` は `THROW` が戻る場所を示します。
+似たような Forth の「マルチレベル `EXIT`」例外処理スキームが過去にいくつか記述され、使用されてきました。このようなスキームを(`CATCH`と`THROW`以外の)標準的なワードだけで実装することは不可能です。これは、リターンスタック上で事前に戻る場所を決定しておき、そこに「巻き戻す(unwind)」移植性のある方法が存在しないためです。
 
-Several similar Forth "multi-level `EXIT`" exception-handling schemes have been described and used in past  years. It is not possible to implement such a scheme using only standard words (other than `CATCH` and  `THROW`), because there is no portable way to "unwind" the return stack to a predetermined place.
+`THROW`はまた、標準ワードの`ABORT`と`ABORT"`の便利な実装手法を提供します。アプリケーションがシステム`ABORT`を発生させた場合の動作を、アプリケーション自身が`CATCH`を使用して定義することを可能にします。
 
-似たような Forth の「マルチレベル `EXIT`」例外処理スキームが過去にいくつか記述され、使用されてきた。このようなスキームを(`CATCH`と`THROW`以外の)標準的なワードだけで実装することは不可能です。
-
-THROW also provides a convenient implementation technique for the standard words `ABORT` and `ABORT"`,  allowing an application to define, through the use of CATCH, the behavior in the event of a system `ABORT`.
-
-THROWはまた、標準ワードの`ABORT`と`ABORT"`の便利な実装手法を提供し、アプリケーションがシステムの`ABORT`が発生した場合の動作をCATCHを使用して定義することを可能にします。
-
-This sample implementation of `CATCH` and `THROW` uses the non-standard words described below. They or  their equivalents are available in many systems. Other implementation strategies, including directly saving  the value of `DEPTH`, are possible if such words are not available.
-
-この `CATCH` と `THROW` のサンプル実装では、以下に説明する非標準ワードを使用しています。これらまたは同等のものは多くのシステムで利用可能です。`DEPTH` の値を直接保存するなど、他の実装方法も可能です。
+この `CATCH` と `THROW` のサンプル実装では、以下に説明する非標準ワードを使用しています。これらまたは同等のものは多くのシステムで利用可能です。これらのワードが利用できない場合、`DEPTH` の値を直接保存するなど、他の実装方法も可能です。
 
 <miniterm>
 
 ||SP@||
 ( -- addr )
-returns the address corresponding to the top of data stack.
-
 はデータスタックの先頭に対応するアドレスを返します。
 
 ||SP!||
 ( addr -- )
-sets the stack pointer to addr, thus restoring the stack depth to the same depth that  existed just before addr was acquired by executing `SP@`.
-
-はスタックポインタを addr に設定するため、スタックの深さを `SP@` を実行して addr を取得する直前の深さに戻します。
+はスタックポインタを addr に設定します。これらを用いて、スタックの深さを `SP@` を実行して addr を取得する直前の深さに戻します。
 
 ||RP@||
 ( -- addr )
-returns the address corresponding to the top of return stack.
-
 は、リターンスタックの先頭に対応するアドレスを返します。
 
 ||RP!||
 ( addr -- )
-sets the return stack pointer to addr, thus restoring the return stack depth to the same  depth that existed just before addr was acquired by executing `RP@`.
-
-戻りスタックポインタを addr に設定し、戻りスタックの深さを `RP@` を実行して addr が取得される直前の深さに戻します。
+リターンスタックポインタを addr に設定し、リターンスタックの深さを `RP@` を実行して addr が取得される直前の深さに戻します。
 
 </miniterm>
 
@@ -1526,19 +1491,13 @@ sets the return stack pointer to addr, thus restoring the return stack depth to 
         THEN 
     ;
 
-In a multi-tasking system, the `HANDLER` variable should be in the per-task variable area (i.e., a user  variable).
+マルチタスクシステムでは、 `HANDLER` 変数はタスクごとの変数領域(つまり、ユーザ変数)に置かねばなりません。
 
-マルチタスクシステムでは、 `HANDLER` 変数はタスク単位の変数領域(つまり、ユーザ変数)にあるべきです。
-
-This sample implementation does not explicitly handle the case in which `CATCH` has never been called (i.e.,  the `ABORT` behavior). One solution is to add the following code after the `IF` in `THROW`:  
-
-このサンプルの実装では、 `CATCH` が一度も呼ばれなかった場合(つまり `ABORT` の動作)を明示的に処理していません。一つの解決策は、`THROW`の`IF`の後に以下のコードを追加することです。  
+このサンプル実装では、 `CATCH` が一度も呼ばれなかった場合(つまり `ABORT` の動作)を明示的に処理していません。一つの解決策は、`THROW`の`IF`の後に以下のコードを追加することです。  
 
     HANDLER @ 0= IF ( empty the stack ) QUIT THEN  
 
-Another solution is to execute `CATCH` within `QUIT`, so that there is always an "exception handler of last  resort" present. For example:   
-
-もう一つの解決策は、`QUIT` の中で `CATCH` を実行し、常に「最後の手段の例外ハンドラ」が存在するようにすることです。例えば
+もう一つの解決策は、`QUIT` の中で `CATCH` を実行し、常に「最終手段としての例外ハンドラ」が存在するようにすることです。例えば
 
     : QUIT 
         ( empty the return stack and ) 
@@ -1557,46 +1516,32 @@ Another solution is to execute `CATCH` within `QUIT`, so that there is always an
         REPEAT BYE 
     ;
  
-This example assumes the existance of a system-implementation word `INTERPRET` that embodies the text  interpreter semantics described in 3.4 The Forth text interpreter. Note that this implementation of `QUIT` automatically handles the emptying of the stack and return stack, due to `THROW`’s inherent restoration of the  data and return stacks. Given this definition of `QUIT`, it’s easy to define:  
-
-この例では、3.4 The Forth text interpreter で説明したテキストインタプリタのセマンティクスを具現化するシステム実装ワード `INTERPRET` が存在することを想定しています。この `QUIT` の実装では、 `THROW` 固有のデータスタックとリターンスタックの復元により、スタックとリターンスタックが空になることを自動的に処理することに注意してください。この `QUIT` の定義があれば、簡単に定義できます。  
+この例では、**3.4 The Forth text interpreter** で説明したテキストインタプリタのセマンティクスを具現化するシステム実装ワード `INTERPRET` が存在することを想定しています。この `QUIT` の実装では、 `THROW` 固有のデータスタックとリターンスタックの復元により、スタックとリターンスタックが空になることを自動的に処理することに注意してください。この `QUIT` の定義があれば、簡単に定義できます。  
 
     : ABORT -1 THROW ; 
-
-In systems with other stacks in addition to the data and return stacks, the implementation of `CATCH` and  `THROW` must save and restore those stack pointers as well. Such an "extended version" can be built on top  of this basic implementation. For example, with another stack pointer accessed with `FP@` and `FP!` only  `CATCH` needs to be redefined:  
 
 データスタックとリターンスタックに加えて他のスタックを持つシステムでは、 `CATCH` と `THROW` の実装はそれらのスタックポインタを保存してリストアする必要があります。このような「拡張バージョン」は、この基本的な実装の上に構築することができます。例えば、`FP@` と `FP!`でアクセスする別のスタックポインタでは、 `CATCH` のみを再定義する必要があります。
 
     : CATCH ( xt -- exception# | 0 ) 
         FP@ >R CATCH R> OVER IF FP! ELSE DROP THEN ; 
 
-No change to `THROW` is necessary in this case. Note that, as with all redefinitions, the redefined version of  `CATCH` will only be available to definitions compiled after the redefinition of `CATCH`.
-
 この場合、 `THROW` を変更する必要はありません。すべての再定義と同様に、再定義されたバージョンの `CATCH` は `CATCH` の再定義後にコンパイルされた定義でのみ使用できることに注意してください。
 
-`CATCH` and `THROW` provide a convenient way for an implementation to "clean up" the state of open files if  an exception occurs during the text interpretation of a file with `INCLUDE-FILE`. The implementation of  `INCLUDE-FILE` may guard (with `CATCH`) the word that performs the text interpretation, and if `CATCH` returns an exception code, the file may be closed and the exception re`THROW`n so that the files being  included at an outer nesting level may be closed also. Note that the Standard allows, but does not require,  `INCLUDE-FILE` to close its open files if an exception occurs. However, it does require `INCLUDE-FILE` to unnest the input source specification if an exception is THROWn.
-
-`CATCH` と `THROW` は、`INCLUDE-FILE` を使用したファイルのテキスト解釈中に例外が発生した場合に、オープンしているファイルの状態を「クリーンアップ」する便利な方法を提供します。`INCLUDE-FILE`の実装は、テキスト解釈を行うワードを(`CATCH`で)ガードすることができ、`CATCH`が例外コードを返した場合、ファイルをクローズして例外をre`THROW`nすることができます。スタンダードでは、例外が発生した場合に `INCLUDE-FILE` が開いているファイルをクローズすることを許可しているが、要求していないことに注意してください。しかし、例外がスローされた場合、`INCLUDE-FILE`が入力ソース仕様をアンネストすることを要求しています。
+`CATCH` と `THROW` は、`INCLUDE-FILE` を使用したファイルのテキスト解釈中に例外が発生した場合に、オープンしているファイルの状態を「クリーンアップ」する便利な方法を提供します。`INCLUDE-FILE`の実装は、テキスト解釈を行うワードを(`CATCH`で)ガードすることができ、`CATCH`が例外コードを返した場合、ファイルをクローズして例外を再`THROW`することができます。本標準規格では、例外が発生した場合に `INCLUDE-FILE` が開いているファイルをクローズすることを許可していますが、要求はしていないことに注意してください。しかし、例外が`THROW`された場合、`INCLUDE-FILE`が入力ソース仕様をアンネストすることを要求しています。
 
 ### A.9.3 Additional usage requirements 
 
-One important use of an exception handler is to maintain program control under many conditions which  `ABORT`. This is practicable only if a range of codes is reserved. Note that an application may overload  many standard words in such a way as to `THROW` ambiguous conditions not normally `THROW`n by a  particular system.
-
-例外ハンドラの重要な使用法の1つは、`ABORT`が発生する多くの条件下でプログラ ムの制御を維持することです。これは、コードの範囲が予約されている場合にのみ実行可能です。アプリケーションは、特定のシステムでは通常 `THROW`n されない曖昧な状態を `THROW` するように、多くの標準ワードをオーバーロードする可能性があることに注意してください。
+例外ハンドラの重要な使用法の1つは、`ABORT`が発生する多くの条件下でプログラムの制御を維持することです。これは、コードの範囲が予約されている場合にのみ実行可能です。アプリケーションは、システムによっては通常 `THROW` されない曖昧な状態を `THROW` するように、多くの標準ワードを上書き定義(overload)する可能性があることに注意してください。
 
 #### A.9.3.6 Exception handling 
 
-The method of accomplishing this coupling is implementation dependent. For example, LOAD could "know" about `CATCH` and `THROW` (by using `CATCH` itself, for example), or `CATCH` and `THROW` could "know" about `LOAD` (by maintaining input source nesting information in a data structure known to `THROW`, for example). Under these circumstances it is not possible for a Standard Program to define words such as  `LOAD` in a completely portable way.
-
-この結合を実現する方法は実装に依存します。例えば、LOAD は `CATCH` と `THROW` を(例えば `CATCH` 自身を使うことで)「知っている」かもしれないし、`CATCH` と `THROW` は `LOAD` を(例えば `THROW` が知っているデータ構造で入力ソースのネスティング情報を保持することで)「知っている」かもしれません。このような状況では、標準プログラムでは`LOAD`のようなワードを完全に移植可能な方法で 定義することは不可能です。
+この結合を実現する方法は実装に依存します。例えば、`LOAD` は `CATCH` と `THROW` を(例えば `CATCH` 自身を使うことで)「知っている状態にある」かもしれないし、`CATCH` と `THROW` は `LOAD` を(例えば `THROW` が知っているデータ構造で入力ソースのネスティング情報を保持することで)「知っている」かもしれません。このような状況では、標準プログラムが`LOAD`のようなワードを完全に移植可能な方法で定義することは不可能です。
 
 ### A.9.6 Glossary 
 
 ##### A.9.6.1.2275 THROW 
 
-If THROW is executed with a non zero argument, the effect is as if the corresponding `CATCH` had returned it.  In that case, the stack depth is the same as it was just before `CATCH` began execution. The values of the *i\*x* stack arguments could have been modified arbitrarily during the execution of xt. In general, nothing useful  may be done with those stack items, but since their number is known (because the stack depth is  deterministic), the application may `DROP` them to return to a predictable stack state.
-
-`THROW` がゼロ以外の引数で実行された場合、対応する `CATCH` がそれを返したかのような効果があります。 この場合、スタックの深さは `CATCH` が実行を開始する直前と同じです。i*x*スタック引数の値は、xtの実行中に任意に変更される可能性があります。一般的に、これらのスタック項目は何の役にも立たないかもしれないが、(スタッ クの深さが決定論的であるため)それらの数はわかっているので、アプリケーションは予 測可能なスタック状態に戻るためにそれらを `DROP` するかもしれません。
+`THROW` がゼロ以外の引数で実行された場合、対応する `CATCH` がそれを返したかのような効果があります。 この場合、スタックの深さは `CATCH` が実行を開始する直前と同じです。*i\*x*個のスタック引数の値は、*xt*の実行中に任意に変更される可能性があります。一般的に、これらのスタック項目は何の役にも立たないかもしれないが、(スタックの深さが決定論的であるため)それらの数はわかっているので、アプリケーションは予測可能なスタック状態に戻るためにそれらを `DROP` するかもしれません。
 
 Typical use: 
 
@@ -1622,57 +1567,35 @@ Typical use:
 
 ##### A.10.6.1.0742 AT-XY 
 
-Most implementors supply a method of positioning a cursor on a CRT screen, but there is great variance in  names and stack arguments. This version is supported by at least one major vendor.
-
-ほとんどの実装者は、CRT画面上でカーソルを位置決めする方法を提供しているが、名前やスタック引数には大きなばらつきがあります。このバージョンは、少なくとも1つの主要ベンダーがサポートしています。
+ほとんどの実装者は、CRT画面上でカーソルを位置決めする方法を提供していますが、名前やスタック引数には大きなばらつきがあります。このバージョンは、少なくとも1つの主要ベンダーがサポートしています。
 
 ##### A.10.6.1.1755 KEY? 
 
-The Technical Committee has gone around several times on the stack effects. Whatever is decided will  violate somebody’s practice and penalize some machine. This way doesn’t interfere with type-ahead on  some systems, while requiring the implementation of a single-character buffer on machines where polling  the keyboard inevitably results in the destruction of the character.
+技術委員会は、スタック効果について何度も議論してきました。決定されたものが何であれ、誰かの慣習に違反し、いくつかのマシンにペナルティを与えることになります。この方法は、いくつかのシステムではキーの先打ちと干渉しませんが、キーボードをポーリングすると必然的に文字が破壊されるようなマシンでは、1文字バッファの実装を要求することになっています。
 
-技術委員会は、スタック効果について何度も議論してきました。決定されたものが何であれ、誰かの慣習に違反し、いくつかのマシンにペナルティを与えることになります。この方法は、キーボードをポーリングすると必然的に文字が破壊されるようなマシンでは1文字バッファの実装を要求する一方で、いくつかのシステムではタイプ・アヘッドに干渉しません。
-
-Use of `KEY` or `KEY?` indicates that the application does not wish to bother with non-character events, so  they are discarded, in anticipation of eventually receiving a valid character. Applications wishing to handle  non-character events must use EKEY and EKEY?. It is possible to mix uses of `KEY?` / `KEY` and `EKEY?` /  `EKEY` within a single application, but the application must use `KEY?` and `KEY` only when it wishes to  discard non-character events until a valid character is received.
-
-`KEY`または`KEY?`の使用は、アプリケーションが文字以外のイベントに煩わされることを望んでいないことを示し、最終的に有効な文字を受信することを見越して、それらは破棄されます。文字以外のイベントを処理したいアプリケーションは、EKEYとEKEY? 一つのアプリケーション内で `KEY?` / `KEY` と `EKEY?` / `EKEY` を混在して使用することは可能ですが、アプリケーションは有効な文字を受信するまで非文字イベントを破棄したい場合にのみ `KEY?` と `KEY` を使用しなければなりません。
+`KEY`または`KEY?`を使用するということは、アプリケーションが、最終的に有効な文字を受信することを見越して、文字以外のイベントに煩わされることを望んでいないことを示しています。よって、それらは破棄されます。文字以外のイベントを処理したいアプリケーションは、`EKEY`と`EKEY?`を使用しなければなりません。 一つのアプリケーション内で `KEY?` / `KEY` と `EKEY?` / `EKEY` を混在して使用することは可能ですが、アプリケーションが有効な文字を受信するまで非文字イベントを破棄したい場合にのみ `KEY?` と `KEY` を使用しなければなりません。
 
 ##### A.10.6.2.1305 EKEY 
 
-`EKEY` provides a standard word to access a system-dependent set of "raw" keyboard events, including  events corresponding to members of the standard character set, events corresponding to other members of  the implementation-defined character set, and keystrokes that do not correspond to members of the  character set.
-
-`EKEY` assumes no particular numerical correspondence between particular event code values and the values  representing standard characters. On some systems, this may allow two separate keys that correspond to the  same standard character to be distinguished from one another.
-
-In systems that combine both keyboard and mouse events into a single "event stream", the single number  returned by `EKEY` may be inadequate to represent the full range of input possibilities. In such systems, a  single "event record" may include a time stamp, the x,y coordinates of the mouse position, the keyboard  state, and the state of the mouse buttons. In such systems, it might be appropriate for `EKEY` to return the  address of an "event record" from which the other information could be extracted.
-
-`EKEY`は、システム依存の "生の "キーボードイベントのセットにアクセスするための 標準的なワードを提供します。これには、標準文字セットのメンバーに対応するイベント、 実装で定義された文字セットの他のメンバーに対応するイベント、文字セットのメンバーに 対応しないキーストロークが含まれます。
+`EKEY`は、システム依存の "生(raw)" のキーボードイベントのセットにアクセスするための標準的なワードを提供します。これには、標準文字セットのメンバに対応するイベント、実装で定義された文字セットの他のメンバに対応するイベント、文字セットのメンバに対応しないキーストロークが含まれます。
 
 `EKEY`は、特定のイベントコード値と標準文字を表す値の間に特定の数値的な対応関係を仮定していません。システムによっては、これによって同じ標準文字に対応する2つの異なるキーを区別することができるかもしれません。
 
-キーボードとマウスの両方のイベントを1つの「イベントストリーム」にまとめるシス テムでは、`EKEY`が返す1つの数値は、入力の可能性の全範囲を表すには不十分かもしれません。そのようなシステムでは、1つの "イベントレコード "は、タイムスタンプ、マウ ス位置のx,y座標、キーボードの状態、マウスボタンの状態を含むかもしれません。そのようなシステムでは、`EKEY`が他の情報を抽出できる「イベントレコード」のアドレスを返すことが適切かもしれません。
+キーボードとマウスの両方のイベントを1つの「イベントストリーム」にまとめるシステムでは、`EKEY`が返す1つの数値は、入力の可能性の全範囲を表すには不十分かもしれません。そのようなシステムでは、1つの "イベントレコード" が、タイムスタンプ、マウス位置のx,y座標、キーボードの状態、マウスボタンの状態を含むかもしれません。そのようなシステムでは、`EKEY`が他の情報を抽出できる「イベントレコード」のアドレスを返すことが適切かもしれません。
 
-Also, consider a hypothetical Forth system running under MS-DOS on a PC-compatible computer. Assume  that the implementation-defined character set is the "normal" 8-bit PC character set. In that character set,  the codes from 0 to 127 correspond to ASCII characters. The codes from 128 to 255 represent characters  from various non-English languages, mathematical symbols, and some graphical symbols used for line  drawing. In addition to those characters, the keyboard can generate various other "scan codes", representing  such non-character events as arrow keys and function keys.
+また、PC互換機上のMS-DOSで動作する仮想のForthシステムを考えてみましょう。実装で定義されている文字セットは、「通常の」8ビットPC文字セットであると仮定します。この文字セットでは、0から127までのコードがASCII文字に対応します。128から255までのコードは、英語以外のさまざまな言語の文字、数学記号、線画に使われるいくつかの図形記号を表しています。これらの文字に加え、キーボードは、矢印キーやファンクションキーなどの非文字イベントを表す様々な「スキャンコード」を生成することができます。
 
-There may be multiple keys, with different scan codes, corresponding to the same standard character. For  example, the character representing the number "1" often appears both in the row of number keys above the  alphabetic keys, and also in the separate numeric keypad.
+同じ標準文字に対応する、異なるスキャンコードを持つ複数のキーがあってもよいです。例えば、数字の「1」を表す文字は、アルファベットキーの上にある数字キーの列と、独立したテンキーパッドの両方に存在することが多いです。
 
-When a program asks the MS-DOS operating system for a keyboard event, it receives either a single non-zero byte, representing a character, or a zero byte followed by a "scan code" byte, representing a non character keyboard event (e.g., a function key).
+プログラムがMS-DOSオペレーティングシステムにキーボードイベントを要求すると、文字を表すゼロ以外の1バイトか、ゼロバイトの後に、文字以外のキーボードイベント(ファンクションキーなど)を表す「スキャンコード」バイトが続くデータを受け取ります。
 
-また、PC互換コンピュータ上のMS-DOSで動作する仮想のForthシステムを考えてみましょう。実装で定義されている文字セットは、「通常の」8ビットPC文字セットであると仮定します。この文字セットでは、0から127までのコードがASCII文字に対応します。128から255までのコードは、英語以外のさまざまな言語の文字、数学記号、線画に使われるいくつかの図形記号を表しています。これらの文字に加え、キーボードは、矢印キーやファンクションキーなどの非文字イベントを表す様々な「スキャンコード」を生成することができます。
+`EKEY`は各キーボードイベントを一連の数値としてではなく、一つの数値として表します。上記のシステムでは、`EKEY`とそれに関連するワードの妥当な実装は以下のようになります。  
 
-同じ標準文字に対応する、異なるスキャンコードを持つ複数のキーがあってもよいです。例えば、数字の「1」を表す文字は、アルファベットキーの上にある数字キーの列と、独立したテンキーパッドの両方に表示されることが多いです。
+<div style="margin-left: 3em;">
 
-プログラムがMS-DOSオペレーティングシステムにキーボードイベントを要求すると、文字を表すゼロ以外の1バイトか、ゼロバイトの後に「スキャンコード」バイトが続き、文字以外のキーボードイベント(ファンクションキーなど)を表すバイトを受け取ります。
+環境クエリ`MAX-CHAR`は255を返します。
 
-`EKEY` represents each keyboard event as a single number, rather than as a sequence of numbers. For the  system described above, the following would be a reasonable implementation of `EKEY` and related words:  
-
-The MAX-CHAR environmental query would return 255.
-
-Assume the existence of a word DOS-KEY ( -- char ) which executes the MS-DOS "Direct STDIN  Input" system call (Interrupt 21h, Function 07h) and a word `DOS-KEY?` ( -- flag) which executes the  MS-DOS "Check STDIN Status" system call (Interrupt 21h, Function 0Bh).
-
-`EKEY`は各キーボードイベントを一連の数値としてではなく、一つの数値として表します。上記のシステムでは、`EKEY`とそれに関連するワードの実装は以下のようになります。  
-
-MAX-CHAR環境クエリは255を返します。
-
-MS-DOSの "Direct STDIN Input"システムコール(Interrupt 21h, Function 07h)を実行するワードDOS-KEY ( -- char )と、MS-DOSの "Check STDIN Status "システムコール(Interrupt 21h, Function 0Bh)を実行するワード`DOS-KEY?` ( -- flag)が存在すると仮定します。
+MS-DOSの "Direct STDIN Input" システムコール(Interrupt 21h, Function 07h)を実行するワード`DOS-KEY` ( -- char )と、MS-DOSの "Check STDIN Status" システムコール(Interrupt 21h, Function 0Bh)を実行するワード`DOS-KEY?` ( -- flag)が存在すると仮定します。
 
     : EKEY? ( -- flag ) DOS-KEY? 0<> ; 
     : EKEY ( -- u ) DOS-KEY ?DUP 0= IF DOS-KEY 256 + THEN ; 
@@ -1700,22 +1623,16 @@ MS-DOSの "Direct STDIN Input"システムコール(Interrupt 21h, Function 07h)
             REPEAT EXIT 
         THEN PENDING-CHAR @ -1 PENDING-CHAR ! 
     ;
- 
-This is a full-featured implementation, providing the application program with an easy way to either handle  non-character events (with `EKEY`), or to ignore them and to only consider "real" characters (with `KEY`).
 
-Note that `EKEY` maps scan codes from 0 to 255 into numbers from 256 to 511. `EKEY` maps the number 259, representing the keyboard combination Ctrl-Shift-@, to the character whose numerical value is 0 (ASCII NUL). Many ASCII keyboards generate ASCII NUL for Ctrl-Shift-@, so we use that key combination for ASCII NUL (which is otherwise unavailable from MS-DOS, because the zero byte signifies  that another scan-code byte follows).
+</div>
 
-One consequence of using the "Direct STDIN Input" system call (function 7) instead of the "STDIN Input"  system call (function 8) is that the normal DOS "Ctrl-C interrupt" behavior is disabled when the system is  waiting for input (Ctrl-C would still cause an interrupt while characters are being output). On the other  hand, if the "STDIN Input" system call (function 8) were used to implement `EKEY`, Ctrl-C interrupts would  be enabled, but Ctrl-Shift-@ would also cause an interrupt, because the operating system would treat the  second byte of the 0,3 sequence as a Ctrl-C, even though the 3 is really a scan code and not a character.
+これはフル機能の実装であり、非文字イベントを(`EKEY`で)処理するか、(`KEY`で)無視して "本当の" 文字だけを考慮する簡単な方法をアプリケーションプログラムに提供します。
 
-これはフル機能の実装であり、非文字イベントを(`EKEY`で)処理するか、(`KEY`で)無視して "本当の "文字だけを考慮する簡単な方法をアプリケーションプログラムに提供します。
+`EKEY`は0から255までのスキャンコードを256から511までの数字にマップすることに注意してください。`EKEY` はキーボードの組み合わせである Ctrl-Shift-@ を表す数字 259 を、数値が 0 (ASCII NUL) である文字にマッピングします。多くのASCIIキーボードはCtrl-Shift-@に対してASCII NULを生成するので、このキーの組み合わせをASCII NULに使用する(0バイトは別のスキャンコードバイトが続くことを意味するため、MS-DOSからは使用できません)。
 
-`EKEY`は0から255までのスキャンコードを256から511までの数字にマップすることに注意してください。EKEY` はキーボードの組み合わせである Ctrl-Shift-@ を表す数字 259 を、数値が 0 (ASCII NUL) である文字にマッピングします。多くのASCIIキーボードはCtrl-Shift-@に対してASCII NULを生成するので、このキーの組み合わせをASCII NULに使用する(0バイトは別のスキャンコードバイトが続くことを意味するため、MS-DOSからは使用できない)。
+"STDIN Input"システムコール(関数8)の代わりに "Direct STDIN Input" システムコール(関数7)を使用することの結果の1つは、システムが入力を待っているとき、通常のDOSの "Ctrl-C割り込み" 動作が無効になることです(文字が出力されている間、Ctrl-Cはまだ割り込みを引き起こします)。一方、"STDIN Input" システムコール(関数8)を使って`EKEY` を実装した場合、Ctrl-C割り込みは有効になりますが、Ctrl-Shift-@も割り込みを引き起こします。これは、オペレーティングシステムが0,3シーケンスの2バイト目を(この3はスキャンコードであり、文字でないのですが) Ctrl-Cとして扱うからです。
 
-STDIN入力 "システムコール(関数8)の代わりに "直接STDIN入力 "システムコール(関数7)を使用することの結果の1つは、システムが入力を待っているとき、通常のDOSの "Ctrl-C割り込み "動作が無効になることである(文字が出力されている間、Ctrl-Cはまだ割り込みを引き起こす)。一方、"STDIN Input "システムコール(関数8)を使って`EKEY`を実装した場合、Ctrl-C割り込みは有効になりますが、Ctrl-Shift-@も割り込みを引き起こします。これは、オペレーティングシステムが0,3シーケンスの2バイト目をCtrl-Cとして扱うからです。
-
-One "best of both worlds" solution is to use function 8 for the first byte received by `EKEY`, and function 7  for the scan code byte. For example:  
-
-`EKEY`が受信した最初のバイトに関数8を使用し、スキャンコードバイトに関数7を使用することで、「両方の良いとこ取り」をすることができます。例えば
+「両方の良いとこ取り」は、`EKEY`が受信した最初のバイトにファンクション8を使用し、スキャンコードバイトにファンクション7を使用することです。例えば
 
     : EKEY ( -- u ) 
         DOS-KEY-FUNCTION-8 ?DUP 0= IF 
@@ -1725,10 +1642,6 @@ One "best of both worlds" solution is to use function 8 for the first byte recei
         THEN 
     ;
  
-Of course, if the Forth implementor chooses to pass Ctrl-C through to the program, without using it for its  usual interrupt function, then DOS function 7 is appropriate in both cases (and some additional care must be  taken to prevent a typed-ahead Ctrl-C from interrupting the Forth system during output operations).
-
-A Forth system might also choose a simpler implementation of KEY, without implementing `EKEY`, as  follows:  
-
 もちろん、Forthの実装者がCtrl-Cを通常の割り込み機能に使用せずにプログラムに渡すことを選択した場合、DOS関数7はどちらの場合にも適切です(そして、タイプされたCtrl-Cが出力操作中にForthシステムに割り込むのを防ぐために、さらにいくつかの注意を払う必要があります)。
 
 Forthシステムは、`EKEY`を実装することなく、以下のようにKEYをよりシンプルに実装することもできます。
@@ -1736,47 +1649,29 @@ Forthシステムは、`EKEY`を実装することなく、以下のようにKEY
     : KEY ( -- char ) DOS-KEY ; 
     : KEY? ( -- flag ) DOS-KEY? 0<> ; 
 
-The disadvantages of the simpler version are:  
+この単純版の欠点は以下の通りです。
 
-a) An application program that uses `KEY`, expecting to receive only valid characters, might receive a  sequence of bytes (e.g., a zero byte followed by a byte with the same numerical value as the letter "A")  that appears to contain a valid character, even though the user pressed a key (e.g., function key 4) that  does not correspond to any valid character.
+a) 有効な文字だけを受け取ることを期待して`KEY`を使用するアプリケーションプログラムは、ユーザが有効な文字に対応しないキー(例えばファンクションキー 4)を押したにもかかわらず、有効な文字を含んでいるように見える一連のバイト(例えば、ゼロバイトの後に文字 "A" と同じ数値のバイトが続く)を受け取るかもしれません。
 
-b) An application program that wishes to handle non-character events will have to execute `KEY` twice  if it returns zero the first time. This might appear to be a reasonable and easy thing to do. However,  such code is not portable to other systems that do not use a zero byte as an "escape" code. Using the  `EKEY` approach, the algorithm for handling keyboard events can be the same for all systems; the system  dependencies can be reduced to a table or set of constants listing the system-dependent key codes used  to access particular application functions. Without `EKEY`, the algorithm, not just the table, is likely to  be system dependent.
+b) 文字以外のイベントを処理したいアプリケーション・プログラムは、 `KEY`を2回実行しなければなりません。これは合理的で簡単に見えるかもしれません。しかし、このようなコードは、ゼロバイトを "エスケープ" コードとして使用しない他のシステムには移植できません。`EKEY` アプローチを使うと、キーボードイベントを処理するアルゴリズムはすべてのシステムで同じにすることができます。システムの依存性を減らし、特定のアプリケーション機能にアクセスするために使われるシステム依存のキーコードを列挙したテーブルや定数のセットに依存性をまとめることでことができます。`EKEY`がなければ、テーブルだけでなくアルゴリズムもシステム依存になる可能性が高いです。
 
-より単純なバージョンの欠点は以下の通りです。  
-
-a) 有効な文字だけを受け取ることを期待して`KEY`を使用するアプリケーションプ ログラムは、ユーザが有効な文字に対応しないキー(例えばファンクションキー 4)を押したにもかかわらず、有効な文字を含んでいるように見える一連のバイト(例えば、ゼロバイトの後に文字 "A "と同じ数値のバイトが続く)を受け取るかもしれません。
-
-b) 文字以外のイベントを処理したいアプリケーション・プログラムは、 `KEY`を2回実行しなければなりません。これは合理的で簡単に見えるかもしれません。しかし、このようなコードは、ゼロバイトを "エスケープ"コードとして使用しない他のシステムには移植できません。`EKEY` アプローチを使うと、キーボードイベントを処理するアルゴリズムはすべてのシス テムで同じにすることができます。システムの依存関係は、特定のアプリケーション機能にアクセスするために使われるシステム依存のキーコードを列挙したテーブルや定数セットに減らすことができます。`EKEY`がなければ、テーブルだけでなくアルゴリズムもシステム依存になる可能性が高いです。
-
-Another approach to `EKEY` on MS-DOS is to use the BIOS "Read Keyboard Status" function (Interrupt 16h, Function 01h) or the related "Check Keyboard" function (Interrupt 16h, Function 11h). The advantage of this function is that it allows the program to distinguish between different keys that correspond to the  same character (e.g. the two "1" keys). The disadvantage is that the BIOS keyboard functions read only the  keyboard. They cannot be "redirected" to another "standard input" source, as can the DOS STDIN Input  functions.
-
-MS-DOSで`EKEY`を使用するもう1つの方法は、BIOSの "Read Keyboard Status "機能(割り込み16h、ファンクション01h)または関連する "Check Keyboard "機能(割り込み16h、ファンクション11h)を使用することです。この機能の利点は、同じ文字に対応する異なるキー(例えば2つの「1」キー)をプログラムで区別できることです。欠点は、BIOSキーボード機能がキーボードのみを読み取ることです。DOSのSTDIN入力関数のように、別の「標準入力」ソースに「リダイレクト」することはできません。
+MS-DOSで`EKEY`を使用するもう1つの方法は、BIOSの "Read Keyboard Status" 機能(割り込み16h、ファンクション01h)または関連する "Check Keyboard" 機能(割り込み16h、ファンクション11h)を使用することです。この機能の利点は、同じ文字に対応する異なるキー(例えば2つの「1」キー)をプログラムで区別できることです。欠点は、BIOSキーボード機能がキーボードのみを読み取ることです。DOSのSTDIN入力関数のように、別の「標準入力」ソースに「リダイレクト」することはできません。
 
 ##### A.10.6.2.1306 EKEY>CHAR 
 
-`EKEY>CHAR` translates a keyboard event into the corresponding member of the character set, if such a  correspondence exists for that event.
-
 `EKEY>CHAR`は、キーボードイベントを文字セットの対応するメンバに変換します。
 
-It is possible that several different keyboard events may correspond to the same character, and other  keyboard events may correspond to no character.
-
-複数の異なるキーボードイベントが同じ文字に対応する可能性があり、他のキーボードイベ ントは文字に対応しない可能性があります。
+複数の異なるキーボードイベントが同じ文字に対応する可能性があり、他のキーボードイベントは文字に対応しない可能性があります。
 
 ##### A.10.6.2.1325 EMIT? 
 
-An indefinite delay is a device related condition, such as printer off-line, that requires operator intervention  before the device will accept new data.
-
-不定遅延とは、プリンタがオフラインになっているなど、デバイスに関連する状態であり、 デバイスが新しいデータを受け入れる前にオペレータの操作が必要になることです。
+不定遅延(indefinite delay)とは、プリンタがオフラインになっているなど、デバイスに関連する状態であり、 デバイスが新しいデータを受け入れる前にオペレータの操作が必要になることです。
 
 ##### A.10.6.2.1905 MS 
 
-Although their frequencies vary, every system has a clock. Since many programs need to time intervals, this  word is offered. Use of milliseconds as an internal unit of time is a practical "least common denominator"  external unit. It is assumed implementors will use "clock ticks" (whatever size they are) as an internal unit  and convert as appropriate.
-
-周波数はさまざまですが、どのシステムにも時計があります。多くのプログラムでは時間間隔を指定する必要があるため、このワードが使用されています。内部時間単位としてのミリ秒の使用は、実用的な "最小公倍数 "の外部単位です。実装者は、内部単位として「時計の目盛り」(その大きさが何であれ)を使用し、適切な変換を行うことを想定しています。
+周波数はさまざまですが、どのシステムにもクロックがあります。多くのプログラムでは時間間隔を指定する必要があるため、このワードが使用されています。内部時間単位としてのミリ秒の使用は、実用的な "最小公倍数" の外部単位です。実装者は、「クロックの1刻み」(その大きさが何であれ)を内部単位として使用し、適切な変換を行うことを想定しています。
 
 ##### A.10.6.2.2292 TIME&DATE 
-
-Most systems have a real-time clock/calendar. This word gives portable access to it.
 
 ほとんどのシステムにはリアルタイム時計/カレンダーがあります。このワードは、このワードへのポータブルなアクセスを提供します。
 
@@ -1784,23 +1679,23 @@ Most systems have a real-time clock/calendar. This word gives portable access to
 
 Many Forth systems support access to a host file system, and many of these support interpretation of Forth  from source text files. The Forth-83 Standard did not address host OS files. Nevertheless, a degree of  similarity exists among modern implementations.
 
+多くのForthシステムはホストファイルシステムへのアクセスをサポートしており、これらの多くはソーステキストファイルからのForthの解釈をサポートしています。Forth-83スタンダードでは、ホストOSファイルには対応していませんでした。とはいえ、現代の実装にはある程度の類似性があります。
+
 For example, files must be opened and closed, created and deleted. Forth file-system implementations  differ mostly in the treatment and disposition of the exception codes, and in the format of the file identification strings. The underlying mechanism for creating file-control blocks might or might not be  visible. We have chosen to keep it invisible.
-
-Files must also be read and written. Text files, if supported, must be read and written one line at a time.  Interpretation of text files implies that they are somehow integrated into the text interpreter input  mechanism. These and other requirements have shaped the file-access extensions word set.
-
-Most of the existing implementations studied use simple English words for common host file functions:  OPEN, CLOSE, READ, etc. Although we would have preferred to do likewise, there were so many minor  variations in implementation of these words that adopting any particular meaning would have broken much  existing code. We have used names with a suffix -FILE for most of these words. We encourage  implementors to conform their single-word primitives to the ANS behaviors, and hope that if this is done on  a widespread basis we can adopt better definition names in a future standard.
-
-多くのForthシステムはホスト・ファイル・システムへのアクセスをサポートしており、これらの多くはソース・テキスト・ファイルからのForthの解釈をサポートしています。Forth-83スタンダードでは、ホストOSファイルには対応していませんでした。とはいえ、現代の実装にはある程度の類似性があります。
 
 例えば、ファイルのオープンとクローズ、作成と削除が必要です。Forthファイルシステムの実装は、例外コードの扱いと処理、およびファイル識別文字列の形式において、主に異なっています。ファイル制御ブロックを作成する基本的なメカニズムは、見えるかもしれないし、見えないかもしれません。われわれは見えないようにすることにした。
 
+Files must also be read and written. Text files, if supported, must be read and written one line at a time.  Interpretation of text files implies that they are somehow integrated into the text interpreter input  mechanism. These and other requirements have shaped the file-access extensions word set.
+
 ファイルは読み書きもできなければなりません。テキスト・ファイルをサポートする場合は、1行ずつ読み書きしなければなりません。 テキスト・ファイルの解釈は、テキストインタプリタの入力メカニズムに何らかの形で組み込まれることを意味します。これらの要件やその他の要件が、ファイルアクセス拡張のワードセットを形成してきました。
+
+Most of the existing implementations studied use simple English words for common host file functions:  OPEN, CLOSE, READ, etc. Although we would have preferred to do likewise, there were so many minor  variations in implementation of these words that adopting any particular meaning would have broken much  existing code. We have used names with a suffix -FILE for most of these words. We encourage  implementors to conform their single-word primitives to the ANS behaviors, and hope that if this is done on  a widespread basis we can adopt better definition names in a future standard.
 
 研究された既存の実装のほとんどは、一般的なホストファイル機能に単純な英ワードを使用しています。  OPEN、CLOSE、READなどです。我々もそうしたかったが、これらのワードの実装には非常に多くのマイナーなバリエーションがあり、特定の意味を採用することは多くの既存のコードを壊してしまうことになります。我々は、これらのワードのほとんどに接尾辞-FILEを付けた名前を使用しました。私たちは、実装者が自分たちの単一ワードプリミティブをANSの動作に適合させることを奨励し、これが広く行われれば、将来のスタンドでより良い定義名を採用できることを望んでいる。
 
 Specific rationales for members of this word set follow.
 
-このワードセットのメンバーに関する具体的な根拠は以下の通りです。
+このワードセットのメンバに関する具体的な根拠は以下の通りです。
 
 ### A.11.3 Additional usage requirements 
 
@@ -1933,7 +1828,7 @@ Several issues concerning the Floating-Point word set were resolved by consensus
 ||Floating-point stack:||
 By default the floating-point stack is separate from the data and return stacks;  however, an implementation may keep floating-point numbers on the data stack. A program can  determine whether floating-point numbers are kept on the data stack by passing the string `FLOATING-STACK` to `ENVIRONMENT?` It is the experience of several members of the Technical Committee that  with proper coding practices it is possible to write floating-point code that will run identically on  systems with a separate floating-point stack and with floating-point numbers kept on the data stack.
 
-デフォルトでは、浮動小数点スタックはデータスタックとリターンスタックから分離されています。浮動小数点数がデータスタックに保持されるかどうかは、`ENVIRONMENT?` に `FLOATING-STACK` という文字列を渡すことでプログラムが判断できます。技術委員会の何人かのメンバーの経験では、適切なコーディングを行えば、浮動小数点数がデータスタックに保持されている場合と、浮動小数点スタックが分離されているシステムで同じように動作する浮動小数点コードを書くことが可能です。
+デフォルトでは、浮動小数点スタックはデータスタックとリターンスタックから分離されています。浮動小数点数がデータスタックに保持されるかどうかは、`ENVIRONMENT?` に `FLOATING-STACK` という文字列を渡すことでプログラムが判断できます。技術委員会の何人かのメンバの経験では、適切なコーディングを行えば、浮動小数点数がデータスタックに保持されている場合と、浮動小数点スタックが分離されているシステムで同じように動作する浮動小数点コードを書くことが可能です。
 
 ||Floating-point input:||
 The current base must be `DECIMAL`. Floating-point input is not allowed in an  arbitrary base. All floating-point numbers to be interpreted by an ANS Forth system must contain the  exponent indicator "E" (see **12.3.7  Text interpreter input number conversion**). Consensus in the  Technical Committee deemed this form of floating-point input to be in more common use than the  alternative that would have a floating-point input mode that would allow numbers with embedded  decimal points to be treated as floating-point numbers.
@@ -2064,7 +1959,7 @@ This function allows accurate compilation when its arguments are close to zero, 
 
     : FLN 1.0E0 F- FLNP1 ; 
 
-**See: A.12.6.2.1516 FEXPM1**.
+See: **A.12.6.2.1516 FEXPM1**.
 
 ##### A.12.6.2.1616 FSINCOS 
 
@@ -2250,15 +2145,15 @@ See: **A.6.2.2295 TO**.
 
 ##### A.13.6.2.1795 LOCALS| 
 
-A possible implementation of this word and an example of usage is given in A.13, above. It is intended as  an example only; any implementation yielding the described semantics is acceptable.
+A possible implementation of this word and an example of usage is given in **A.13**, above. It is intended as  an example only; any implementation yielding the described semantics is acceptable.
 
-このワードの可能な実装と使用例は、上記のA.13に示されています。これはあくまで例であり、記述されたセマンティクスを実現する実装であれば、どのようなものでも構いません。
+このワードの可能な実装と使用例は、上記の**A.13**に示されています。これはあくまで例であり、記述されたセマンティクスを実現する実装であれば、どのようなものでも構いません。
 
 ## A.14 The optional Memory-Allocation word set 
 
 The Memory-Allocation word set provides a means for acquiring memory other than the contiguous data  space that is allocated by ALLOT. In many operating system environments it is inappropriate for a process  to pre-allocate large amounts of contiguous memory (as would be necessary for the use of ALLOT). The  Memory-Allocation word set can acquire memory from the system at any time, without knowing in advance  the address of the memory that will be acquired.
 
-A.14.オプションのメモリ確保ワードセットは、`ALLOT`で確保される連続データ空間以外のメモリを確保する手段を提供します。多くのオペレーティング・システム環境では、(`ALLOT`を使用するために必要な)大容量の連続メモリをプロセスが事前に割り当てることは不適切です。メモリアロケーション・ワードセットは、獲得されるメモリのアドレスを事前に知らなくても、いつでもシステムからメモリを獲得することができます。
+メモリ割り当て(Memory-Allocation)ワードセットは、`ALLOT`で確保される連続データ空間以外のメモリを確保する手段を提供します。多くのオペレーティング・システム環境では、(`ALLOT`を使用するために必要な)大容量の連続メモリをプロセスが事前に割り当てることは不適切です。メモリアロケーション・ワードセットは、獲得されるメモリのアドレスを事前に知らなくても、いつでもシステムからメモリを獲得することができます。
 
 ## A.15 The optional Programming-Tools word set 
 
@@ -2616,7 +2511,7 @@ Forth-83 Standard and Appendices, Forth Standards Team.
 
 The standards referenced in this section were developed by the Forth Standards Team, a volunteer group  which included both implementors and users. This was a volunteer organization operating under its own  charter and without any formal ties to ANSI, IEEE or any similar standards body. Several members of the  Forth Standards Team have also been members of the X3J14 Technical Committee.
 
-このセクションで言及されている標準は、実装者とユーザの両方を含むボランティアグループであるForth Standards Teamによって開発されました。これは、ANSI、IEEE、または類似の標準化団体と正式な関係を持たず、独自の憲章の下で運営されるボランティア団体でした。Forth標準化チームのメンバーの何人かは、X3J14技術委員会のメンバーでもありました。
+このセクションで言及されている標準は、実装者とユーザの両方を含むボランティアグループであるForth Standards Teamによって開発されました。これは、ANSI、IEEE、または類似の標準化団体と正式な関係を持たず、独自の憲章の下で運営されるボランティア団体でした。Forth標準化チームのメンバの何人かは、X3J14技術委員会のメンバでもありました。
 
 ## Books  
 
@@ -2765,7 +2660,7 @@ In 1981, Moore undertook to design a chip-level implementation of the Forth virt
 
 The first major effort to standardize Forth was a meeting in Utrecht in 1977. The attendees produced a  preliminary standard, and agreed to meet the following year. The 1978 meeting was also attended by  members of the newly formed Forth Interest Group. In 1979 and 1980 a series of meetings attended by both  users and vendors produced a more comprehensive standard called Forth 79.
 
-Forthを標準化するための最初の大きな取り組みは、1977年にユトレヒトで開かれた会議でした。出席者は予備的な標準を作成し、翌年に会合を開くことに合意しました。1978年の会議には、新しく結成されたForth Interest Groupのメンバーも参加した。1979年と1980年には、ユーザとベンダーの両方が参加する一連の会議が開かれ、より包括的な標準規格「Forth 79」が策定されました。
+Forthを標準化するための最初の大きな取り組みは、1977年にユトレヒトで開かれた会議でした。出席者は予備的な標準を作成し、翌年に会合を開くことに合意しました。1978年の会議には、新しく結成されたForth Interest Groupのメンバも参加した。1979年と1980年には、ユーザとベンダーの両方が参加する一連の会議が開かれ、より包括的な標準規格「Forth 79」が策定されました。
 
 Although Forth 79 was very influential, many Forth users and vendors found serious flaws in it, and in 1983  a new standard called Forth 83 was released.
 
@@ -2928,7 +2823,7 @@ Source blocks have historically been an important element in Forth style. Just a
 
 Blocks are also used to store data. Small records can be combined into a block, or large records spread over  several blocks. The programmer may allocate blocks in whatever way suits the application, and on native  systems can increase performance by organizing data to minimize disk head motion. Several Forth vendors  have developed sophisticated file and data base systems based on Forth blocks.
 
-ブロックはデータの保存にも使用されます。小さなレコードを1つのブロックにまとめたり、大きなレコードを複数のブロックにまたがったりすることができます。プログラマは、アプリケーションに適した方法でブロックを割り当てることができ、ネイティブ・システムでは、ディスク・ヘッドの動きを最小限にするようにデータを整理することで、パフォーマンスを向上させることができます。いくつかのForthベンダーは、Forthブロックをベースとした洗練されたファイル・システムおよびデータベース・システムを開発しています。
+ブロックはデータの保存にも使用されます。小さなレコードを1つのブロックにまとめたり、大きなレコードを複数のブロックにまたがったりすることができます。プログラマは、アプリケーションに適した方法でブロックを割り当てることができ、ネイティブ・システムでは、ディスク・ヘッドの動きを最小限にするようにデータを整理することで、パフォーマンスを向上させることができます。いくつかのForthベンダーは、Forthブロックをベースとした洗練されたファイルシステムおよびデータベース・システムを開発しています。
 
 Versions of Forth that run co-resident with a host OS often implement blocks in host OS files. Others use  the host files exclusively. The Standard requires that blocks be available on systems providing any disk  access method, as they are the only means of referencing disk that can be transportable across both native  and co-resident implementations.
 
@@ -3315,7 +3210,7 @@ Existing programs wishing to take advantage of the possibility of ANS Forth  Sta
 すべての算術演算子および論理演算子、LOOP、+LOOP
 
 ||理由:||
-コンピュータの中には、1補数や符号付き桁数を使用するものがあります。委員会は、そのようなマシン用のForth実装に2補数の算術演算をエミュレートすることを強制し、深刻な性能上のペナルティを負わせることを望んでいませんでした。このようなマシンを使用している委員会メンバーの経験から、これらの数値表現をサポートするために必要な使用制限は、過度に負担になるものではないことが示されています。
+コンピュータの中には、1補数や符号付き桁数を使用するものがあります。委員会は、そのようなマシン用のForth実装に2補数の算術演算をエミュレートすることを強制し、深刻な性能上のペナルティを負わせることを望んでいませんでした。このようなマシンを使用している委員会メンバの経験から、これらの数値表現をサポートするために必要な使用制限は、過度に負担になるものではないことが示されています。
 
 ||影響:||
 ANS Forth標準プログラムは、「2の補数演算への環境依存」を宣言することができます。これは、標準プログラムが2の補数マシン上でのみ動作することを保証することを意味します。事実上、現在のコンピュータの圧倒的多数は2の補数を使用しているので、これは厳しい制限ではありません。委員会は、現在のところ、2 の補数でないマシン用の Forth-83 準拠の実装を知らないため、既存の Forth-83 プログラムは、現在動作しているマシンと同じクラスで動作します。
