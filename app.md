@@ -1972,11 +1972,7 @@ a) のワード `{` は、ローカルのリストを中括弧で囲むローカ
     3 (ANS), 610 (2B+C), 10 (C), 600 (2B), 100 (A), and 
     3 (ANS left on the stack by JOE).
 
-The names of the locals vanish after JOE has been compiled. The storage and meaning of locals appear  when JOE’s locals are declared and vanish as JOE returns to its caller at ; (semicolon).
-
 ローカルの名前は、JOEがコンパイルされた後に消えます。JOEのローカルが宣言されたときに、ローカルの格納場所と意味が現れ、JOEが ; (セミコロン)で呼び出し元に戻るときに消えます。
-
-A second set of examples illustrates various things that break the rules. We assume that the definitions of  LOCAL and END-LOCALS above are present, along with \{ from the preceding example.
 
 2つ目の例では、ルールを破るさまざまなことを説明します。ここでは、上記の`LOCAL`と`END-LOCALS`の定義と、前の例の`{`が存在すると仮定します。
 
@@ -1993,9 +1989,7 @@ f. <pre>: BOB ( a b c d ) \{ D C } \{ B A } ;  </pre>
 
 </itemize>
 
-Here are two definitions with various violations of rule 13.3.3.2a. In e) the declaration of TEMP is legal and  creates a local whose initial value is zero. It’s OK because the executable code that ZERO generates  precedes the first use of (LOCAL) in the definition. However, the 1+ preceding the declaration of A+ is  illegal. Likewise the use of ZERO to define ANSWER is illegal because it generates executable code  between uses of (LOCAL). Finally, MOE terminates illegally (no END-LOCALS). BOB inf) violates the  rule against declaring two sets of locals.
-
-以下は、規則13.3.3.2aに違反する2つの定義です。e)の`TEMP`の宣言は合法で、初期値がゼロのローカルを作成します。定義中の`(LOCAL)`の最初の使用の前に`ZERO`が生成する実行可能コードがあるので問題ありません。しかし、A+の宣言に先立つ1+は違法です。同様に、`ANSWER` を定義するための `ZERO` の使用も、`(LOCAL)` の使用と使用の間に実行可能コードを生成しているので違法です。最後に、`MOE` は不正に終了する(`END-LOCALS` がない)。BOB inf) は、2 組のローカルを宣言してはならないという規則に違反します。
+以下は、規則**13.3.3.2a**に違反する2つの定義です。e)の`TEMP`の宣言は合法で、初期値がゼロのローカルを作成します。定義中の`(LOCAL)`の最初の使用の前に`ZERO`が生成する実行可能コードがあるので問題ありません。しかし、A+の宣言に先立つ1+は違法です。同様に、`ANSWER` を定義するための `ZERO` の使用も、`(LOCAL)` の使用と使用の間に実行可能コードを生成しているので違法です。最後に、`MOE` は不正に終了します(`no END-LOCALS`)。f) の`BOB`は、2 組のローカルを宣言してはならないという規則に違反します。
 
 <itemize>
 
@@ -2003,9 +1997,9 @@ g. <pre>: ANN ( a b -- b ) DUP >R DUP IF \{ B A } THEN R> ;  </pre>
 
 h. <pre>: JANE ( a b -- n ) \{ B A } A B + >R A B - R> / ;  </pre>
 
-ANN in g) violates two rules. The IF ... THEN around the declaration of its locals violates 13.3.3.2b, and  the copy of B left on the return stack before declaring locals violates 13.3.3.2c. JANE in h) violates  13.3.3.2d by accessing locals after placing the sum of A and B on the return stack without first removing that sum.
+</itemize>
 
-g)の`ANN`は2つのルールに違反しています。`IF` ... `THEN`は13.3.3.2bに違反し、ローカルを宣言する前にBのコピーをリターンスタックに残すことは13.3.3.2cに違反します。h)の`JANE`は、AとBの和を最初に取り除かずにリターンスタックに置いた後にローカルにアクセスすることで、13.3.3.2dに違反します。
+g)の`ANN`は2つのルールに違反しています。ローカル宣言を囲っている `IF` ... `THEN`は**13.3.3.2b**に違反し、ローカルを宣言する前にBのコピーをリターンスタックに残すことは**13.3.3.2c**に違反します。h)の`JANE`は、AとBの和を最初に取り除かずにリターンスタックに置いた後にローカルにアクセスすることで、**13.3.3.2d**に違反します。
 
 <itemize>
 
@@ -2014,39 +2008,23 @@ i. <pre>: CHRIS ( a b)
 
 </itemize>
 
-`CHRIS` in i) illustrates three violations of 13.3.3.2e. The attempt to `EXECUTE` the local called A is  inconsistent with some implementations. The store into B via >BODY is likely to cause tragic results with  many implementations; moreover, if locals are in registers they can’t be addressed as memory no matter  what is written.
+i)の`CHRIS`は**13.3.3.2e**の3つの違反を示しています。Aというローカルを`EXECUTE`しようとする試みは、いくつかの実装と矛盾しています。`BODY`を経由してBに格納することは、多くの実装で悲劇的な結果を引き起こす可能性があります。それに加えて、ローカルがレジスタに存在する場合、何を書こうとしてもメモリの場合のようにアドレスを指定しての書き込みはできません。
 
-i)の`CHRIS`は13.3.3.2eの3つの違反を示しています。Aというローカルを`EXECUTE`しようとする試みは、いくつかの実装と矛盾しています。`BODY`を経由してBに格納することは、多くの実装で悲劇的な結果を引き起こす可能性があります。
-
-The third violation, in which an execution token for a definition’s local is passed as an argument to the word  LEE, would, if allowed, have the unpleasant implication that LEE could EXECUTE the token and obtain a  value for A from the particular execution of CHRIS that called LEE this time.
-
-3つ目の違反は、定義のローカルに対する実行トークンが`LEE`の引数として渡されるというもので、これが許可されると、`LEE`がトークンを実行し、今回`LEE`を呼び出した`CHRIS`の特定の実行からAの値を取得できるという不愉快な意味になります。
+3つ目の違反は、定義のローカルに対する実行トークンが`LEE`の引数として渡されるというもので、これが許可されると、`LEE`がトークンを`EXECUTE`し、今回`LEE`を呼び出した`CHRIS`の特定の実行からAの値を取得できるという不愉快な意味になります。
 
 ### A.13.3 Additional usage requirements 
 
-Rule 13.3.3.2d could be relaxed without affecting the integrity of the rest of this structure. 13.3.3.2c could  not be.
+規則**13.3.3.2d**は、この構造の残りの部分の完全性に影響を与えることなく緩和できます。**13.3.3.2c**は緩和できません。
 
-規則13.3.3.2dは、この構造の残りの部分の完全性に影響を与えることなく緩和できます。13.3.3.2cは緩和できません。
+**13.3.3.2b**は、データスタックをローカルストレージに使用することを禁止します。もちろん、データスタックが何らかの方法で使用ルールが存在しないように使用される場合、ローカルはプログラマには見えず、論理的にはスタック上になく、実装は適合します。
 
-13.3.3.2b forbids the use of the data stack for local storage because no usage rules have been articulated for programmer users in such a case. Of course, if the data stack is somehow employed in such a way that there  are no usage rules, then the locals are invisible to the programmer, are logically not on the stack, and the  implementation conforms.
+最低限必要なローカルの数は、既存のローカル使用者のコンプライアンスコストを最小化するように調整することができる(そして、そうすべきである)。
 
-13.3.3.2bは、データスタックをローカルストレージに使用することを禁止します。もちろん、データスタックが何らかの方法で使用ルールがないように使用される場合、ローカルはプログラマには見えず、論理的にはスタック上になく、ddddddddf実装は適合します。
-
-The minimum required number of locals can (and should) be adjusted to minimize the cost of compliance  for existing users of locals.
-
-最低限必要なローカルの数は、既存のローカル使用者のコンプライアンス・コストを最小化するように調整することができる(そして、そうすべきである)。
-
-Access to previously declared local variables is prohibited by Section 13.3.3.2d until any data placed onto  the return stack by the application has been removed, due to the possible use of the return stack for storage  of locals.
-
-アプリケーションによってリターンスタックに置かれたデータが削除されるまで、以前に宣言されたローカル変数へのアクセスは、セクション 13.3.3.2d によって禁止されています。
-
-Authorization for a Standard Program to manipulate the return stack (e.g., via >R R>) while local variables  are active overly constrains implementation possibilities. The consensus of users of locals was that Local  facilities represent an effective functional replacement for return stack manipulation, and restriction of  standard usage to only one method was reasonable.
+ローカルの保持領域としてリターンスタックを使う可能性があるため、アプリケーションによってリターンスタックに置かれたデータが削除されるまで、以前に宣言されたローカル変数へのアクセスは、セクション **13.3.3.2d** によって禁止されています。
 
 ローカル変数がアクティブである間、標準プログラムが(例えば `>R` `R>` を介して)リターンスタックを操作することを許可することは、実装の可能性を過度に制限することになります。ローカル変数の使用者のコンセンサスは、ローカル機能はリターンスタック操作の効果的な機能的代替であり、標準的な使用方法を1つの方法のみに制限することは合理的であるというものでした。
 
-Access to Locals within DO..LOOPs is expressly permitted as an additional requirement of conforming  systems by Section 13.3.3.2g. Although words, such as (LOCALS), written by a System Implementor, may  require inside knowledge of the internal structure of the return stack, such knowledge is not required of a  user of compliant Forth systems.
-
-`DO`...`LOOP`内でのローカルへのアクセスは、セクション13.3.3.2gにより、適合システムの追加要件として明示的に許可されています。システム実装者によって記述された`(LOCALS)`のようなワードは、リターンスタックの内部構造の内部知識を必要とするかもしれませんが、そのような知識は準拠Forthシステムのユーザには要求されません。
+`DO`...`LOOP`内でのローカルへのアクセスは、セクション**13.3.3.2g**により、適合システムの追加要件として明示的に許可されています。システム実装者によって記述された`(LOCALS)`のようなワードは、リターンスタックの内部構造の内部知識を必要とするかもしれませんが、そのような知識は準拠Forthシステムのユーザには要求されません。
 
 ### A.13.6 Glossary 
 
@@ -2058,31 +2036,19 @@ See: **A.6.2.2295 TO**.
 
 ##### A.13.6.2.1795 LOCALS| 
 
-A possible implementation of this word and an example of usage is given in **A.13**, above. It is intended as  an example only; any implementation yielding the described semantics is acceptable.
-
 このワードの可能な実装と使用例は、上記の**A.13**に示されています。これはあくまで例であり、記述されたセマンティクスを実現する実装であれば、どのようなものでも構いません。
 
 ## A.14 The optional Memory-Allocation word set 
-
-The Memory-Allocation word set provides a means for acquiring memory other than the contiguous data  space that is allocated by ALLOT. In many operating system environments it is inappropriate for a process  to pre-allocate large amounts of contiguous memory (as would be necessary for the use of ALLOT). The  Memory-Allocation word set can acquire memory from the system at any time, without knowing in advance  the address of the memory that will be acquired.
 
 メモリ割り当て(Memory-Allocation)ワードセットは、`ALLOT`で確保される連続データ空間以外のメモリを確保する手段を提供します。多くのオペレーティングシステム環境では、(`ALLOT`を使用するために必要な)大容量の連続メモリをプロセスが事前に割り当てることは不適切です。メモリアロケーション・ワードセットは、獲得されるメモリのアドレスを事前に知らなくても、いつでもシステムからメモリを獲得することができます。
 
 ## A.15 The optional Programming-Tools word set 
 
-These words have been in widespread common use since the earliest Forth systems.
-
 これらのワードは、初期のForthシステムから広く一般的に使用されています。
 
-Although there are environmental dependencies intrinsic to programs using an assembler, virtually all Forth  systems provide such a capability. Insofar as many Forth programs are intended for real-time applications  and are intrinsically non-portable for this reason, the Technical Committee believes that providing a  standard window into assemblers is a useful contribution to Forth programmers.
-
-アセンブラを使用するプログラムには本質的に環境依存性がありますが、事実上すべての Forth システムはこのような機能を提供しています。多くの Forth プログラムがリアルタイム・アプリケーションを目的としており、そのために本質的に移植不可能である限り、技術委員会は、アセンブラへの標準的なウィンドウを提供することは、Forth プログラマにとって有用な貢献であると考えています。
-
-Similarly, the programming aids DUMP, etc., are valuable tools even though their specific formats will differ  between CPUs and Forth implementations. These words are primarily intended for use by the programmer,  and are rarely invoked in programs.
+アセンブラを使用するプログラムには本質的に環境依存性がありますが、事実上すべての Forth システムはこのような機能を提供しています。多くの Forth プログラムがリアルタイム・アプリケーションを目的としており、そのために本質的に移植不可能である限り、技術委員会は、アセンブラへの標準的な口を提供することは、Forth プログラマに対する有用な貢献であると考えています。
 
 同様に、プログラミング補助ツールである `DUMP` などは、CPU や Forth 実装によって具体的な形式が異なるとはいえ、貴重なツールです。これらのワードは、主にプログラマが使用することを目的としており、プログラムで呼び出されることはほとんどありません。
-
-One of the original aims of Forth was to erase the boundary between "user" and "programmer" - to give all  possible power to anyone who had occasion to use a computer. Nothing in the above labeling or remarks  should be construed to mean that this goal has been abandoned.
 
 Forthの当初の目的のひとつは、「ユーザ」と「プログラマ」の境界をなくすこと、つまり、コンピュータを使う機会のあるすべての人に可能な限りの力を与えることでした。上記の表示や発言は、この目標が放棄されたと解釈されるべきではありません。
 
@@ -2090,19 +2056,13 @@ Forthの当初の目的のひとつは、「ユーザ」と「プログラマ」
 
 ##### A.15.6.1.0220 .S 
 
-`.S` is a debugging convenience found on almost all Forth systems. It is universally mentioned in Forth texts.
-
-`.S` は、ほとんどすべての Forth システムで見られるデバッグの利便性です。これは、Forth のテキストで普遍的に言及されています。
+`.S` は、ほとんどすべての Forth システムで見られるデバッグ用便利ワードです。これは、Forth のテキストで普遍的に言及されています。
 
 ##### A.15.6.1.2194 SEE 
-
-`SEE` acts as an on-line form of documentation of words, allowing modification of words by decompiling  and regenerating with appropriate changes.
 
 `SEE`はワードのオンラインドキュメントとして機能し、デコンパイルして適切な変更を加えて再生成することで、ワードを修正することができます。
 
 ##### A.15.6.1.2465 WORDS 
-
-`WORDS` is a debugging convenience found on almost all Forth systems. It is universally referred to in Forth  texts.
 
 `WORDS` は、ほとんどすべての Forth システムで見られるデバッグ用の便利な機能です。これは、Forth のテキストで普遍的に参照されています。
 
@@ -2112,19 +2072,13 @@ Typical use: : namex ... &lt;create> ... ;CODE ...
 
 典型的な使用法: : namex ... <create> ... ;CODE ...
 
-where namex is a defining word, and &lt;create> is CREATE or any user defined word that calls `CREATE`.
-
 ここで、namex は定義ワードで、&lt;create> は `CREATE` または `CREATE` を呼び出すユーザ定義ワードです。
 
 ##### A.15.6.2.0930 CODE 
 
-Some Forth systems implement the assembly function by adding an ASSEMBLER word list to the search  order, using the text interpreter to parse a postfix assembly language with lexical characteristics similar to  Forth source code. Typically, in such systems, assembly ends when a word END-CODE is interpreted.
-
-一部の Forth システムでは、`ASSEMBLER` ワードリストを検索順序に追加してアセンブリ機能を実装し、テキストインタプリタを使用して、Forth ソース・コードに似た字句特性を持つポストフィックス・アセンブリ言語を解析します。通常、このようなシステムでは、ワード`END-CODE`が解釈されるとアセンブリが終了します。
+一部の Forth システムでは、`ASSEMBLER` ワードリストを検索順序に追加してアセンブリ機能を実装し、テキストインタプリタを使用して、Forth ソースコードに似た字句特性を持つ後置(postfix)アセンブリ言語を解析します。通常、このようなシステムでは、ワード`END-CODE`が解釈されるとアセンブリが終了します。
 
 ##### A.15.6.2.1015 CS-PICK 
-
-The intent is to reiterate a dest on the control-flow stack so that it can be resolved more than once. For  example:  
 
 その意図は、制御フロー・スタック上のデスティネーションを繰り返し、複数回解決できるようにすることです。例えば
 
@@ -2147,8 +2101,6 @@ The intent is to reiterate a dest on the control-flow stack so that it can be re
 
 ##### A.15.6.2.1020 CS-ROLL 
 
-The intent is to modify the order in which the origs and dests on the control-flow stack are to be resolved by  subsequent control-flow words. For example, WHILE could be implemented in terms of IF and CS-ROLL,  as follows:  
-
 その意図は、制御フロー・スタック上の起点と終点が、後続の制御フロー・ワードによって解決される順序を変更することです。例えば、`WHILE`を`IF`と`CS-ROLL`で実装すると次のようになります。
 
     : WHILE ( dest -- orig dest ) 
@@ -2159,9 +2111,7 @@ The intent is to modify the order in which the origs and dests on the control-fl
 
 Typical use: ... FORGET name ...
 
-FORGET assumes that all the information needed to restore the dictionary to its previous state is inferable  somehow from the forgotten word. While this may be true in simple linear dictionary models, it is difficult  to implement in other Forth systems; e.g., those with multiple address spaces. For example, if Forth is  embedded in ROM, how does FORGET know how much RAM to recover when an array is forgotten? A  general and preferred solution is provided by MARKER.
-
-FORGETは、辞書を以前の状態に復元するために必要なすべての情報が、忘れたワードから何らかの方法で推論可能であると仮定しています。これは単純な線形辞書モデルにおいては正しいかもしれませんが、他の Forth システム、たとえば複数のアドレス空間を持つシステムでは実装が困難です。例えば、ForthがROMに組み込まれている場合、配列が忘れられたときに回復すべきRAMの量を、FORGETはどうやって知るのでしょうか？一般的で好ましい解決策は、`MARKER`によって提供されます。
+`FORGET`は、辞書を以前の状態に復元するために必要なすべての情報が、忘れたワードから何らかの方法で推論可能であると仮定しています。これは単純な線形辞書モデルにおいては正しいかもしれませんが、他の Forth システム、たとえば複数のアドレス空間を持つシステムでは実装が困難です。例えば、ForthがROMに組み込まれている場合、配列が忘れられたときに回復すべきRAMの量を、`FORGET`はどうやって知るのでしょうか？一般的で好ましい解決策は、`MARKER`によって提供されます。
 
 ##### A.15.6.2.2531 [ELSE] 
 
