@@ -1832,66 +1832,50 @@ Typical use: `FVARIABLE name`
 
 ##### A.12.6.1.2143 REPRESENT 
 
-This word provides a primitive for floating-point display. Some floating-point formats, including those  specified by IEEE-754, allow representations of numbers outside of an implementation-defined range.  These include plus and minus infinities, denormalized numbers, and others. In these cases we expect that  REPRESENT will usually be implemented to return appropriate character strings, such as "+infinity" or  "nan", possibly truncated.
-
 このワードは浮動小数点数表示用のプリミティブを提供します。IEEE-754を含むいくつかの浮動小数点数フォーマットでは、実装で定義された範囲外の数値を表現することができます。 これにはプラスマイナス無限大、非正規化数などが含まれます。このような場合、`REPRESENT`は通常、"+infinity "や "nan" などの適切な文字列を返すように実装されることが期待されます。
 
 ##### A.12.6.2.1489 FATAN2 
 
-`FSINCOS` and `FATAN2` are a complementary pair of operators which convert angles to 2-vectors and vice-versa. They are essential to most geometric and physical applications since they correctly and  unambiguously handle this conversion in all cases except null vectors, even when the tangent of the angle  would be infinite.
-
 `FSINCOS` と `FATAN2` は、角度を 2 ベクトルに、またはその逆に変換する相補的な演算子のペアです。角度の正接が無限大になる場合でも、ヌルベクトルを除くすべてのケースでこの変換を正しく明確に処理するため、ほとんどの幾何学的および物理的なアプリケーションに不可欠です。
 
-FSINCOS returns a Cartesian unit vector in the direction of the given angle, measured counter-clockwise  from the positive X-axis. The order of results on the stack, namely y underneath x, permits the 2-vector  data type to be additionally viewed and used as a ratio approximating the tangent of the angle. Thus the  phrase `FSINCOS` `F/` is functionally equivalent to `FTAN`, but is useful over only a limited and  discontinuous range of angles, whereas `FSINCOS` and `FATAN2` are useful for all angles. This ordering has  been found convenient for nearly two decades, and has the added benefit of being easy to remember. A  corollary to this observation is that vectors in general should appear on the stack in this order.
+`FSINCOS`は、正のX軸から反時計回りに測った、与えられた角度の方向のデカルト単位ベクトルを返します。スタック上の結果の順序、すなわちxの下にyがあることで、2ベクトルデータ型を角度の正接を近似する比率としてもみなしたり使ったりすることができます。`FSINCOS F/` というフレーズは、機能的には `FTAN` と等価ですが、限られた不連続な角度の範囲にのみ有効であり、一方、`FSINCOS` と `FATAN2` はすべての角度に有効です。この順序は20年近く便利であるとして使用され、覚えやすいという利点もあります。この観察の帰結として、一般的にベクトルはこの順序でスタックに置かれるべきであるということです。
 
-`FSINCOS`は、正のX軸から反時計回りに測った、与えられた角度の方向のデカルト単位ベクトルを返します。スタック上の結果の順序、すなわちxの下にyがあることで、2ベクトルデータ型を角度の正接を近似する比率として追加的に見たり使ったりすることができます。したがって、`FSINCOS` `F/` というフレーズは、機能的には `FTAN` と等価ですが、限られた不連続な角度の範囲にのみ有効であり、`FSINCOS` と `FATAN2` はすべての角度に有効です。この順序は20年近く便利であるとして使用され、覚えやすいという利点もあります。この観察の帰結として、一般的にベクトルはこの順序でスタックに現れるはずです。
-
-The argument order for `FATAN2` is the same, converting a vector in the conventional representation to a  scalar angle. Thus, for all angles, `FSINCOS` `FATAN2` is an identity within the accuracy of the arithmetic  and the argument range of `FSINCOS`. Note that while `FSINCOS` always returns a valid unit vector,  `FATAN2` will accept any non-null vector. An ambiguous condition exists if the vector argument to `FATAN2` has zero magnitude.
-
-`FATAN2`の引数の順序は同じで、従来の表現におけるベクトルをスカラー角に変換します。したがって、すべての角度に対して、`FSINCOS` `FATAN2` は `FSINCOS` の算術精度と引数の範囲内で同一です。また、`FSINCOS` は常に有効な単位ベクトルを返すが、`FATAN2` は NULL 以外のベクトルでも受け付けることに注意しましょう。`FATAN2` へのベクトル引数の大きさがゼロの場合、あいまいな状態が存在します。
+`FATAN2`の引数の順序は同じで、従来の表現におけるベクトルをスカラー角に変換します。したがって、すべての角度に対して、`FSINCOS FATAN2` は、`FSINCOS` の算術精度と引数の範囲内で恒等演算です。また、`FSINCOS` は常に有効な単位ベクトルを返すが、`FATAN2` は NULL 以外ならどのようなベクトルでも受け付けることに注意しましょう。`FATAN2` へのベクトル引数の大きさがゼロの場合、あいまいな状態が存在します。
 
 ##### A.12.6.2.1516 FEXPM1 
 
-This function allows accurate computation when its arguments are close to zero, and provides a useful base  for the standard exponential functions. Hyperbolic functions such as cosh(x) can be efficiently and  accurately implemented by using `FEXPM1`; accuracy is lost in this function for small values of x if the word  `FEXP` is used.
+この関数は、引数がゼロに近い場合に正確な計算を可能にし、標準的な指数関数の便利な基数を提供します。$cosh(x)$ のような双曲線関数は `FEXPM1` を使用することで効率的かつ正確に実装することができます。`FEXP`を使った場合、この関数は$x$の値が小さい場合精度が失われます。
 
-この関数は、引数がゼロに近い場合に正確な計算を可能にし、標準的な指数関数の便利な基数を提供します。cosh(x) のような双曲線関数は `FEXPM1` を使用することで効率的かつ正確に実装することができます。
+このワードの重要な応用は金融です。あるローンが年率15%で返済されるとします。日利はいくらでしょうか? 単精度(小数点以下6桁)の精度を持つコンピュータで計算してみましょう。
 
-An important application of this word is in finance; say a loan is repaid at 15% per year; what is the daily  rate? On a computer with single precision (six decimal digit) accuracy:  
+<itemize>
 
-このワードの重要な応用は金融です。あるローンが年率15%で返済されるとします。単精度(小数点以下6桁)の精度を持つコンピュータで、
-
-1. Using `FLN` and `FEXP`: 
+1. `FLN` と `FEXP`を使った場合、 
 
     FLN of 1.15 = 0.139762,  
     divide by 365 = 3.82910E-4,  
     form the exponent using FEXP = 1.00038, and  
     subtract one (1) and convert to percentage = 0.038%.
 
-Thus we only have two digit accuracy.
-
 精度は2桁しか確保できません。
 
-2. Using `FLNP1` and `FEXPM1`: 
+2. `FLNP1` と `FEXPM1` を使った場合は、
 
     FLNP1 of 0.15 = 0.139762, (this is the same value as in the first example, although with the argument  closer to zero it may not be so)  
     divide by 365 = 3.82910E-4,  
     form the exponent and subtract one (1) using FEXPM1 = 3.82983E-4, and  
     convert to percentage = 0.0382983%.
 
-This is full six digit accuracy.
+これは精度6桁いっぱい確保しています。
 
-これは制度フルの6桁です。
+</itemize>
 
-The presence of this word allows the hyperbolic functions to be computed with usable accuracy. For  example, the hyperbolic sine can be defined as:  
-
-このワードがあることで、双曲線関数を使用可能な精度で計算することができます。例えば、ハイパーボリック・サインは次のように定義できます。
+このワードがあることで、双曲線関数を使用可能な精度で計算することができます。例えば、双曲線正弦関数は次のように定義できます。
 
     : FSINH ( r1 -- r2 ) 
         FEXPM1 FDUP FDUP 1.0E0 F+ F/ F+ 2.0E0 F/ ; 
 
 ##### A.12.6.2.1554 FLNP1 
-
-This function allows accurate compilation when its arguments are close to zero, and provides a useful base  for the standard logarithmic functions. For example, FLN can be implemented as:  
 
 この関数は、引数がゼロに近い場合に正確なコンパイルを可能にし、標準対数関数の便利なベースを提供します。例えば、FLNは次のように実装できます。
 
@@ -1905,56 +1889,33 @@ See: **A.12.6.2.1489 FATAN2**.
 
 ##### A.12.6.2.1640 F~ 
 
-This provides the three types of "floating point equality" in common use -- "close" in absolute terms, exact  equality as represented, and "relatively close".
-
 これは、一般的に使用される3種類の「浮動小数点数の等値性」を提供するものです。絶対的な意味での「近い」、表現上の完全な等値性、そして「比較的近い」です。
 
 ## A.13 The optional Locals word set 
 
-The Technical Committee has had a problem with locals. It has been argued forcefully that ANS Forth  should say nothing about locals since:  
+技術委員会では、ローカル(locals)に問題がありました。ANS Forthはローカルについて何も言うべきではない、と強く主張されてきました。 
 
-技術委員会では、ロカールに問題がありました。ANS Forthはロカールに ついて何も言うべきではない、と強く主張されてきました。  
-
-- there is no clear accepted practice in this area; 
-- not all Forth programmers use them or even know what they are; and 
-- few implementations use the same syntax, let alone the same broad usage rules and general approaches.
-
-- この分野で受け入れられている明確な慣習がない； 
-- すべてのForthプログラマがロカールを使用しているわけではなく、またロカールが何であるかすら知りません。
+- この分野で受け入れられている明確な慣習がない。
+- すべてのForthプログラマがローカルを使用しているわけではなく、またローカルが何であるかすら知りません。
 - 同じ構文を使用する実装はほとんどなく、ましてや同じ広範な使用規則や一般的なアプローチを使用する実装はほとんどありません。
 
-It has also been argued, it would seem equally forcefully, that the lack of any standard approach to locals is  precisely the reason for this lack of accepted practice since locals are at best non-trivial to implement in a  portable and useful way. It has been further argued that users who have elected to become dependent on  locals tend to be locked into a single vendor and have little motivation to join the group that it is hoped will  "broadly accept" ANS Forth unless the Standard addresses their problems.
+また、ローカルは移植可能で有用な方法で実装することがせいぜい「自明でない」ため、ローカルに対する標準的なアプローチが存在しないことこそが、このような慣行が受け入れられていない原因であるとも、同様に力強く主張されてきた。さらに、ローカルに依存することを選択したユーザは、単一のベンダーに固定される傾向があり、標準規格が彼らの問題を解決しない限り、現在ローカルを使用するユーザがANS Forthを「広く受け入れる」ことが期待されるグループに参加する動機はほとんどないとも主張されてきた。
 
-また、ローカルは移植可能で有用な方法で実装するのがせいぜい非自明であるため、ローカルに対する標準的なアプローチが存在しないことこそが、このような慣行が受け入れら れていない原因であるとも、同様に力強く主張されてきた。さらに、ローカルに依存することを選択したユーザは、単一のベンダーに固定される傾向があり、標準が彼らの問題を解決しない限り、ANS Forthを「広く受け入れる」ことが期待されるグループに参加する動機がほとんどないと主張されてきた。
+技術委員会は、ローカルを除外することも、特定のベンダーの構文を採用することも、どちらも強力なコンセンサスを得ることができないまま、単純に却下することのできないこの問題に対処する方法を模索してきました。単一のメカニズムやシンタックスでは、これまでに寄せられたすべてのローカルの提案に示された要望を同時に満たすことはできないことを理解したうえで、以下のようなローカルのメカニズムを定義することという問題提起の形に単純化した。  
 
-Since the Technical Committee has been unable to reach a strong consensus on either leaving locals out or  on adopting any particular vendor’s syntax, it has sought some way to deal with an issue that it has been  unable to simply dismiss. Realizing that no single mechanism or syntax can simultaneously meet the desires  expressed in all the locals proposals that have been received, it has simplified the problem statement to be to  define a locals mechanism that:  
-
-技術委員会は、ロカールを除外することでも、特定のベンダーの構文を採用する ことでも、強力なコンセンサスを得ることができなかったため、単純に却下することのできない問題に対処する方法を模索してきました。単一のメカニズムやシンタックスでは、これまでに寄せられたすべてのロカールの提案に示された要望を同時に満たすことはできないと考え、以下のようなロカールのメカニズムを定義することを問題提起として単純化した。  
-
-- is independent of any particular syntax; 
-- is user extensible; 
-- enables use of arbitrary identifiers, local in scope to a single definition; 
-- supports the fundamental cell size data types of Forth; and 
-- works consistently, especially with respect to re-entrancy and recursion.
-
-- 特定の構文に依存しません。
-- ユーザが拡張可能です。 
-- 単一の定義に対してローカルな範囲で、任意の識別子を使用できます。
-- Forthの基本的なセル・サイズのデータ型をサポートします。
-- 特に再入可能性と再帰に関して一貫して動作します。
-
-This appears to the Technical Committee to be what most of those who actively use locals are trying to  achieve with them, and it is at present the consensus of the Technical Committee that if ANS Forth has  anything to say on the subject this is an acceptable thing for it to say.
+- 特定の構文に依存しない。
+- ユーザが拡張可能であること。
+- 局所スコープにおいて、単一の定義に対して任意の識別子を使用できます。
+- Forthの基本的なセルサイズのデータ型をサポートする。
+- 特に再入可能性と再帰性に関して一貫した動作を示す。
 
 技術委員会では、ローカルを積極的に使用するほとんどの人が、ローカルを使用して達成しようとしているのはこのようなことだと考えており、ANS Forthがこのテーマについて何か言うのであれば、このようなことを言ってもよいというのが、現時点での技術委員会の総意です。
 
-This approach, defining `(LOCAL)`, is proposed as one that can be used with a small amount of user coding  to implement some, but not all, of the locals schemes in use. The following coding examples illustrate how  it can be used to implement two syntaxes.
-
-`(LOCAL)`を定義するこのアプローチは、使用されているロカールスキーマのすべてではないが、一部を実装するために少量のユーザコーディングで使用できるものとして提案されています。以下のコーディング例では、2つの構文を実装するためにどのように使用できるかを説明します。
-
-- The syntax defined by this Standard and used in the systems of Creative Solutions, Inc.: 
+`(LOCAL)`を定義するこのアプローチは、現在使用されているローカルスキーマのすべてではな、一部について、それを実装するために少数のユーザコーディングで使用できるものとして提案されています。以下のコーディング例では、2つの構文を実装するためにどのように使用できるかを説明します。
 
 - 本標準で定義され、Creative Solutions, Inc.のシステムで使用されている構文。
 
+<pre>
     : LOCALS| ( "name...name |" -- ) 
         BEGIN 
             BL WORD COUNT OVER C@ 
@@ -1964,45 +1925,47 @@ This approach, defining `(LOCAL)`, is proposed as one that can be used with a sm
     ; IMMEDIATE 
     : EXAMPLE ( n -- n**2 n**3 ) 
         LOCALS| N | N DUP N * DUP N * ; 
+</pre>
 
-- A proposed syntax: ( LOCAL name ) with additional usage rules: 
+- 本標準が提案する構文: ( LOCAL name ) に使用上の規則を追加したもの
 
+<pre>
     : LOCAL ( "name" -- ) BL WORD COUNT (LOCAL) ; IMMEDIATE 
     : END-LOCALS ( -- ) 0 0 (LOCAL) ; IMMEDIATE 
     : EXAMPLE ( n -- n n**2 n**3 ) 
         LOCAL N END-LOCALS N DUP N * DUP N * ; 
+</pre>
 
-Other syntaxes can be implemented, although some will admittedly require considerably greater effort or in  some cases program conversion. Yet other approaches to locals are completely incompatible due to gross  differences in usage rules and in some cases even scope identifiers. For example, the complete local scheme  in use at Johns Hopkins had elaborate semantics that cannot be duplicated in terms of this model.
 
 他の構文を実装することも可能だが、かなり大きな労力や、場合によってはプログラムの変換が必要になるものもあります。しかし、ローカルに対する他のアプローチは、使用ルールや場合によってはスコープ識別子さえも大きく異なるため、完全に互換性がありません。例えば、ジョンズ・ホプキンスで使用されていた完全なローカル・スキームは、このモデルでは再現できない精巧なセマンティクスを持っていました。
 
-To reinforce the intent of section 13, here are two examples of actual use of locals. The first illustrates  correct usage:  
-
 第13節の意図を補強するために、ローカルの実際の使用例を2つ紹介しましょう。最初の例は、正しい使い方を示しています。
 
-a) : { ( "name ... }" - )  
+<itemize>
+
+a. <pre>: { ( "name ... }" - )  
         BEGIN BL WORD COUNT 
             OVER C@ [CHAR] } - OVER 1 - OR WHILE 
             (LOCAL) 
         REPEAT 2DROP 0 0 (LOCAL) 
     ; IMMEDIATE 
+  </pre>
 
-b) : JOE ( a b c -- n )  
+b. <pre>: JOE ( a b c -- n )  
         >R 2* R> 2DUP + 0 
         { ANS 2B+C C 2B A } 
         2 0 DO 1 ANS + I + TO ANS ANS . CR LOOP 
         ANS . 2B+C . C . 2B . A . CR ANS 
     ; 
+  </pre>
 
-c) 100 300 10 JOE .
+c) <pre>100 300 10 JOE</pre> .
 
-The word \{ at a) defines a local declaration syntax that surrounds the list of locals with braces. It doesn’t  do anything fancy, such as reordering locals or providing initial values for some of them, so locals are  initialized from the stack in the default order. The definition of JOE at b) illustrates a use of this syntax.  Note that work is performed at execution time in that definition before locals are declared. It’s OK to use  the return stack as long as whatever is placed there is removed before the declarations begin.
+</itemize>
 
-a) のワード `{` は、ローカルのリストを中括弧で囲むローカル宣言構文を定義します。この構文では、ロカールの順番を入れ替えたり、ロカールのいくつかに初期値を与えたりといった派手なことは何もしないので、ロカールはスタックからデフォルトの順番で初期化されます。b)のJOEの定義は、この構文の使い方を示しています。 この定義では、ロカールが宣言される前に実行時に作業が行われることに注意してください。宣言が始まる前にスタックに置かれたものが取り除かれる限り、リターンスタックを使っても構いません。
+a) のワード `{` は、ローカルのリストを中括弧で囲むローカル宣言構文を定義します。この構文では、ローカルの順番を入れ替えたり、ローカルのいくつかに初期値を与えたりといった派手なことは何もしないので、ローカルはスタックからデフォルトの順番で初期化されます。b)のJOEの定義は、この構文の使い方を示しています。 この定義では、ローカルが宣言される前に実行時に作業が行われることに注意してください。宣言が始まる前にスタックに置かれたものが取り除かれる限り、リターンスタックを使っても構いません。
 
-Note that before declaring locals, B is doubled, a subexpression (2B+C) is computed, and an initial value (zero) for ANS is provided. After locals have been declared, JOE proceeds to use them. Note that locals may be accessed and updated within do-loops. The effect of interpreting line c) is to display the following  values:  
-
-ローカルを宣言する前に、Bが2倍され、部分式(2B+C)が計算され、ANSの初期値(ゼロ)が提供されることに注意してください。ローカルが宣言された後、JOEはそれらを使用します。ロカールは、doループの中でアクセスされ、更新される可能性があることに注意してください。c)行の解釈の効果は、以下の値を表示することです。
+ローカルを宣言する前に、Bが2倍され、部分式(2B+C)が計算され、ANSの初期値(ゼロ)が提供されることに注意してください。ローカルが宣言された後、JOEはそれらを使用します。ローカルは、doループの中でアクセスされ、更新される可能性があることに注意してください。c)行の解釈の効果は、以下の値を表示することです。
 
     1 (ANS the first time through the loop), 
     3 (ANS the second time), 
@@ -2011,33 +1974,45 @@ Note that before declaring locals, B is doubled, a subexpression (2B+C) is compu
 
 The names of the locals vanish after JOE has been compiled. The storage and meaning of locals appear  when JOE’s locals are declared and vanish as JOE returns to its caller at ; (semicolon).
 
-A second set of examples illustrates various things that break the rules. We assume that the definitions of  LOCAL and END-LOCALS above are present, along with \{ from the preceding example.
+ローカルの名前は、JOEがコンパイルされた後に消えます。JOEのローカルが宣言されたときに、ローカルの格納場所と意味が現れ、JOEが ; (セミコロン)で呼び出し元に戻るときに消えます。
 
-ロカールの名前は、JOEがコンパイルされた後に消えます。JOEのローカルが宣言されたときに、ローカルの格納場所と意味が現れ、JOEが ; (セミコロン)で呼び出し元に戻るときに消えます。
+A second set of examples illustrates various things that break the rules. We assume that the definitions of  LOCAL and END-LOCALS above are present, along with \{ from the preceding example.
 
 2つ目の例では、ルールを破るさまざまなことを説明します。ここでは、上記の`LOCAL`と`END-LOCALS`の定義と、前の例の`{`が存在すると仮定します。
 
-d) : ZERO 0 POSTPONE LITERAL POSTPONE LOCAL ; IMMEDIATE  
+<itemize>
 
-e) : MOE ( a b )  
-        ZERO TEMP LOCAL B 1+ LOCAL A+ ZERO ANSWER ; 
+d. <pre>: ZERO 0 POSTPONE LITERAL POSTPONE LOCAL ; IMMEDIATE  
+   </pre>
 
-f) : BOB ( a b c d ) \{ D C } \{ B A } ;  
+e. <pre>: MOE ( a b )  
+          ZERO TEMP LOCAL B 1+ LOCAL A+ ZERO ANSWER ; 
+   </pre>
+
+f. <pre>: BOB ( a b c d ) \{ D C } \{ B A } ;  </pre>
+
+</itemize>
 
 Here are two definitions with various violations of rule 13.3.3.2a. In e) the declaration of TEMP is legal and  creates a local whose initial value is zero. It’s OK because the executable code that ZERO generates  precedes the first use of (LOCAL) in the definition. However, the 1+ preceding the declaration of A+ is  illegal. Likewise the use of ZERO to define ANSWER is illegal because it generates executable code  between uses of (LOCAL). Finally, MOE terminates illegally (no END-LOCALS). BOB inf) violates the  rule against declaring two sets of locals.
 
 以下は、規則13.3.3.2aに違反する2つの定義です。e)の`TEMP`の宣言は合法で、初期値がゼロのローカルを作成します。定義中の`(LOCAL)`の最初の使用の前に`ZERO`が生成する実行可能コードがあるので問題ありません。しかし、A+の宣言に先立つ1+は違法です。同様に、`ANSWER` を定義するための `ZERO` の使用も、`(LOCAL)` の使用と使用の間に実行可能コードを生成しているので違法です。最後に、`MOE` は不正に終了する(`END-LOCALS` がない)。BOB inf) は、2 組のローカルを宣言してはならないという規則に違反します。
 
-g) : ANN ( a b -- b ) DUP >R DUP IF \{ B A } THEN R> ;  
+<itemize>
 
-h) : JANE ( a b -- n ) \{ B A } A B + >R A B - R> / ;  
+g. <pre>: ANN ( a b -- b ) DUP >R DUP IF \{ B A } THEN R> ;  </pre>
+
+h. <pre>: JANE ( a b -- n ) \{ B A } A B + >R A B - R> / ;  </pre>
 
 ANN in g) violates two rules. The IF ... THEN around the declaration of its locals violates 13.3.3.2b, and  the copy of B left on the return stack before declaring locals violates 13.3.3.2c. JANE in h) violates  13.3.3.2d by accessing locals after placing the sum of A and B on the return stack without first removing that sum.
 
-g)の`ANN`は2つのルールに違反しています。`IF` ... `THEN`は13.3.3.2bに違反し、ロカールを宣言する前にBのコピーをリターンスタックに残すことは13.3.3.2cに違反します。h)の`JANE`は、AとBの和を最初に取り除かずにリターンスタックに置いた後にロカールにアクセスすることで、13.3.3.2dに違反します。
+g)の`ANN`は2つのルールに違反しています。`IF` ... `THEN`は13.3.3.2bに違反し、ローカルを宣言する前にBのコピーをリターンスタックに残すことは13.3.3.2cに違反します。h)の`JANE`は、AとBの和を最初に取り除かずにリターンスタックに置いた後にローカルにアクセスすることで、13.3.3.2dに違反します。
 
-i) : CHRIS ( a b)  
-        { B A } ['] A EXECUTE 5 ['] B >BODY ! [ ' A ] LITERAL LEE ; 
+<itemize>
+
+i. <pre>: CHRIS ( a b)  
+        { B A } ['] A EXECUTE 5 ['] B >BODY ! [ ' A ] LITERAL LEE ; </pre>
+
+</itemize>
 
 `CHRIS` in i) illustrates three violations of 13.3.3.2e. The attempt to `EXECUTE` the local called A is  inconsistent with some implementations. The store into B via >BODY is likely to cause tragic results with  many implementations; moreover, if locals are in registers they can’t be addressed as memory no matter  what is written.
 
@@ -2045,7 +2020,7 @@ i)の`CHRIS`は13.3.3.2eの3つの違反を示しています。Aというロー
 
 The third violation, in which an execution token for a definition’s local is passed as an argument to the word  LEE, would, if allowed, have the unpleasant implication that LEE could EXECUTE the token and obtain a  value for A from the particular execution of CHRIS that called LEE this time.
 
-3つ目の違反は、定義のローカルに対する実行トークンがLEEの引数として渡されるというもので、これが許可されると、`LEE`がトークンを実行し、今回`LEE`を呼び出した`CHRIS`の特定の実行からAの値を取得できるという不愉快な意味になります。
+3つ目の違反は、定義のローカルに対する実行トークンが`LEE`の引数として渡されるというもので、これが許可されると、`LEE`がトークンを実行し、今回`LEE`を呼び出した`CHRIS`の特定の実行からAの値を取得できるという不愉快な意味になります。
 
 ### A.13.3 Additional usage requirements 
 
@@ -2055,11 +2030,11 @@ Rule 13.3.3.2d could be relaxed without affecting the integrity of the rest of t
 
 13.3.3.2b forbids the use of the data stack for local storage because no usage rules have been articulated for programmer users in such a case. Of course, if the data stack is somehow employed in such a way that there  are no usage rules, then the locals are invisible to the programmer, are logically not on the stack, and the  implementation conforms.
 
-13.3.3.2bは、データスタックをローカルストレージに使用することを禁止します。もちろん、データスタックが何らかの方法で使用ルールがないように使用される場合、ローカルはプログラマには見えず、論理的にはスタック上になく、実装は適合します。
+13.3.3.2bは、データスタックをローカルストレージに使用することを禁止します。もちろん、データスタックが何らかの方法で使用ルールがないように使用される場合、ローカルはプログラマには見えず、論理的にはスタック上になく、ddddddddf実装は適合します。
 
 The minimum required number of locals can (and should) be adjusted to minimize the cost of compliance  for existing users of locals.
 
-最低限必要なロカールの数は、既存のロカール使用者のコンプライアンス・コストを最小化するように調整することができる(そして、そうすべきである)。
+最低限必要なローカルの数は、既存のローカル使用者のコンプライアンス・コストを最小化するように調整することができる(そして、そうすべきである)。
 
 Access to previously declared local variables is prohibited by Section 13.3.3.2d until any data placed onto  the return stack by the application has been removed, due to the possible use of the return stack for storage  of locals.
 
