@@ -2578,17 +2578,11 @@ Forthの珍しい特徴の1つは、プログラマがアプリケーション�
 
 ### C.5.8 A programming example 
 
-Figure C.1 contains a typical block of Forth source. It represents a portion of an application that controls a  bank of eight LEDs used as indicator lamps on an instrument, and indicates some of the ways in which Forth  definitions of various kinds combine in an application environment. This example was coded for a STD-bus  system with an 8088 processor and a millisecond clock, which is also used in the example.
+図 C.1 に、Forth ソースの典型的なブロックを示します。これは、計器のインジケータランプとして使用される 8 個の LED のバンクを制御するアプリケーションの一部を表しており、アプリケーション環境でさまざまな種類の Forth 定義を組み合わせる方法のいくつかを示しています。この例は、8088プロセッサとミリ秒クロックを備えたSTDバスシステム用にコード化されたもので、この例でもミリ秒クロックが使用されています。
 
-図 C.1 に、Forth ソースの典型的なブロックを示します。これは、計器のインジケータ・ランプとして使用される 8 個の LED のバンクを制御するアプリケーションの一部を表しており、アプリケーション環境でさまざまな種類の Forth 定義を組み合わせる方法のいくつかを示しています。この例は、8088プロセッサとミリ秒クロックを備えたSTDバス・システム用にコード化されたもので、この例でもミリ秒クロックが使用されています。
+LEDは、アドレス40Hの8ビットポート経由でインターフェースされます。このアドレスは1行目の定数で定義され、名前で参照できるようにしています。アドレスが変更された場合は、1行目の定数の値を書き換えればよいです。`LIGHTS`は、このアドレスをスタックに戻します。定義`LIGHT`は、スタック上の値を受け取り、それをデバイスに送ります。この値の性質はビットマスクであり、そのビットは各ライトに直接対応します。
 
-The LEDs are interfaced through a single 8-bit port whose address is 40H. This location is defined as a  CONSTANT on Line 1, so that it may be referred to by name; should the address change, one need only  adjust the value of this constant. The word LIGHTS returns this address on the stack. The definition  LIGHT takes a value on the stack and sends it to the device. The nature of this value is a bit mask, whose  bits correspond directly to the individual lights.
-
-LEDは、アドレスが40Hの8ビット・ポート1つを通してインターフェースされます。アドレスが変更された場合は、この定数の値を調整すればよいです。LIGHTSは、このアドレスをスタックに戻します。LIGHTの定義は、スタック上の値を受け取り、それをデバイスに送る。この値の性質はビットマスクであり、そのビットは各ライトに直接対応します。
-
-Thus, the command 255 LIGHT will turn on all lights, while 0 LIGHT will turn them all off.
-
-したがって、255 LIGHT というコマンドはすべてのライトを点灯させ、0 LIGHT はすべてのライトを消灯させる。
+したがって、255 LIGHT というコマンドはすべてのライトを点灯し、0 LIGHT はすべてのライトを消灯します。
 
 ```
     Block 180 
@@ -2596,7 +2590,7 @@ Thus, the command 255 LIGHT will turn on all lights, while 0 LIGHT will turn the
     1.  HEX 40 CONSTANT LIGHTS DECIMAL 
     2.  : LIGHT ( n -- ) LIGHTS OUTPUT ; 
     3.  
-    4. VARIABLE DELAY 5.
+    4. VARIABLE DELAY
     5. : SLOW 500 DELAY ! ;
     6. : FAST 100 DELAY ! ; 
     7. : COUNTS 256 0 DO I LIGHT DELAY @ MS LOOP ; 
@@ -2612,211 +2606,120 @@ Thus, the command 255 LIGHT will turn on all lights, while 0 LIGHT will turn the
 ```
 Figure C.1 - Forth source block containing words that control a set of LEDs.
 
-Lines 4 - 7 contain a simple diagnostic of the sort one might type in from the terminal to confirm that  everything is working. The variable DELAY contains a delay time in milliseconds - execution of the word  DELAY returns the address of this variable. Two values of DELAY are set by the definitions SLOW and  FAST, using the Forth operator ! (pronounced "store") which takes a value and an address, and stores the  value in the address. The definition COUNTS runs a loop from 0 through 255 (Forth loops of this type are  exclusive at the upper end of the range), sending each value to the lights and then waiting for the period  specified by DELAY. The word @ (pronounced "fetch") fetches a value from an address, in this case the  address supplied by DELAY. This value is passed to MS, which waits the specified number of milliseconds.
-
-4行目から7行目までは、ターミナルから入力するような簡単な診断で、すべてが機能していることを確認しています。`DELAY`という変数にはミリ秒単位の遅延時間が格納されており、`DELAY`というワードを実行するとこの変数のアドレスが返されます。`DELAY`の2つの値は、Forth演算子`!`(「ストア」と発音する)演算子を使って設定されます。定義`COUNTS`は、0から255までのループを実行し(このタイプのForthループは、範囲の上限で排他的である)、各値をライトに送信し、`DELAY`で指定された期間待機します。ワード`@`(「フェッチ」と発音)は、アドレスから値をフェッチします。この値は`MS`に渡され、`MS`は指定されたミリ秒数待つ。
-
-The result of executing COUNTS is that the lights will count from 0 to 255 at the desired rate. To run this,  one would type:  
+4行目から7行目までは、ターミナルから入力するような簡単な診断で、すべてが機能していることを確認しています。変数`DELAY`にはミリ秒単位の遅延時間が格納されており、`DELAY`というワードを実行するとこの変数のアドレスを返します。`DELAY`の2つの値は、定義`SLOW`と`FAST`により、Forth演算子`!`(「ストア」と発音する)演算子を使って設定されます。定義`COUNTS`は、0から255までのループを実行し(このタイプのForthループは、範囲の上限を含みません)、各値をライトに送信し、`DELAY`で指定された期間待機します。ワード`@`(「フェッチ」と発音)は、アドレスから値をフェッチします。この値は`MS`に渡され、`MS`は指定されたミリ秒数待つ。
 
 `COUNTS`を実行した結果、ライトは0から255まで希望のレートでカウントされます。これを実行するには、端末から次のようにタイプします。
 
     SLOW COUNTS or FAST COUNTS
 
-at the terminal.
+9行目には、個々のランプに名前を付ける機能があります。このアプリケーションでは、ランプは表示灯として使用されます。ワード`LAMP`は、特定のランプを表すマスクを引数として取り、それを名前付きエンティティとしてコンパイルする定義ワードです。10行目と11行目には、特定のインジケータに名前を付けるため、`LAMP`が5つ使われています。`POWER` のようなワードが実行されると、そのマスクがスタックに戻されます。実際、ワードが呼び出されたときに値が返されるように値を定義する動作は、Forthの`CONSTANT`の動作と同じです。しかし、どのように定義するのかを説明するために、ここでは新しい定義ワードを作成しました。
 
-Line 9 provides the capability of naming individual lamps. In this application they are being used as  indicator lights. The word LAMP is a defining word which takes as an argument a mask which represents a  particular lamp, and compiles it as a named entity. Lines 10 and 11 contain five uses of LAMP to name  particular indicators. When one of these words such as POWER is executed, the mask is returned on the  stack. In fact, the behavior of defining a value such that when the word is invoked the value is returned, is  identical to the behavior of a Forth CONSTANT. We created a new defining word here, however, to  illustrate how this would be done.
-
-9行目には、個々のランプに名前を付ける機能があります。このアプリケーションでは、ランプは表示灯として使用されます。LAMPというワードは、特定のランプを表すマスクを引数として取り、それを名前付きエンティティとしてコンパイルする定義ワードです。10行目と11行目には、特定のインジケーターに名前を付けるためのLAMPが5つ使われています。POWER のようなワードが実行されると、そのマスクがスタックに戻されます。実際、ワードが呼び出されたときに値が返されるように値を定義する動作は、ForthのCONSTANTの動作と同じです。しかし、どのように定義するのかを説明するために、ここでは新しい定義ワードを作成しました。
-
-Finally, on lines 13 and 14, we have the words that will control the light panel. LAMPS is a variable that  contains the current state of the lamps. The word TOGGLE takes a mask (which might be supplied by one of  the LAMP words) and changes the state of that particular lamp, saving the result in LAMPS.
-
-最後に、13行目と14行目に、ライト・パネルを制御するワードがあります。LAMPSはランプの現在の状態を格納する変数です。TOGGLEは、マスク(LAMPから供給されるかもしれません)を受け取り、特定のランプの状態を変更し、その結果をLAMPSに保存します。
+最後に、13行目と14行目に、ライトパネルを制御するワードがあります。`LAMPS`はランプの現在の状態を格納する変数です。`TOGGLE`は、マスク(`LAMP`で定義したワードから供給されるかもしれません)を受け取り、特定のランプの状態を変更し、その結果を`LAMPS`に保存します。
 
 In the remainder of the application, the lamp names and TOGGLE are probably the only words that will be  executed directly. The usage there will be, for example:  
 
-アプリケーションの残りの部分では、直接実行されるのはランプ名とTOGGLEだけでしょう。そこでの使い方は、例えば次のようになります。
+アプリケーションの残りの部分では、直接実行されるのはランプ名と`TOGGLE`だけでしょう。そこでの使い方は、例えば次のようになります。
 
     POWER TOGGLE or SAMPLING TOGGLE
 
-as appropriate, whenever the system indicators need to be changed.
-
 システム・インジケータを変更する必要があるときはいつでも、適宜に。
 
-The time to compile this block of code on that system was about half a second, including the time to fetch it  from disk. So it is quite practical (and normal practice) for a programmer to simply type in a definition and  try it immediately.
+そのシステムでこのコードブロックをコンパイルする時間は、ディスクからフェッチする時間も含めて約0.5秒です。そのため、プログラマが単純に定義を入力し、すぐにそれを試すことは全く現実的といえます(そして通常の習慣でもあります)。
 
-そのシステムでこのコード・ブロックをコンパイルする時間は、ディスクからフェッチする時間も含めて約0.5秒です。そのため、プログラマが単純に定義を入力し、すぐにそれを試すことは非常に現実的である(そして通常の習慣である)。
-
-In addition, one always has the capability of communicating with external devices directly. The first thing  one would do when told about the lamps would be to type:  
-
-さらに、外部デバイスと直接通信する機能も常に持っています。ランプのことを聞かされたら、まず最初にすることは、こうタイプすることでしょう。  
+さらに、外部デバイスと直接通信する機能も常に持っています。ランプのことを聞かされたら、まず最初にすることは、キーボードを叩いてこう入力し、
 
     HEX FF 40 OUTPUT
 
-and see if all the lamps come on. If not, the presumption is that something is amiss with the hardware, since  this phrase directly transmits the "all ones" mask to the device. This type of direct interaction is useful in  applications involving custom hardware, as it reduces hardware debugging time.
-
-と入力し、すべてのランプが点灯するかどうかを確認することです。もしそうでなければ、ハードウェアに何か問題があると推測されます。このフレーズは「all ones」マスクを直接デバイスに送信するからです。このような直接対話は、ハードウェアのデバッグ時間を短縮するため、カスタムハードウェアを含むアプリケーションで有用です。
+すべてのランプが点灯するかどうかを確認することです。すべて点灯しなければ、ハードウェアに何か問題があると推測されます。このフレーズは「all １」のマスクを直接デバイスに送信するからです。このような直接対話は、ハードウェアのデバッグ時間を短縮するため、カスタムハードウェアを含むアプリケーションで有用です。
 
 ## C.6 Multiprogrammed systems 
 
-Multiprogrammed Forth systems have existed since about 1970. The earliest public Forth systems  propagated the "hooks" for this capability despite the fact that many did not use them. Nevertheless the  underlying assumptions have been common knowledge in the community, and there exists considerable  common ground among these multiprogrammed systems. These systems are not just language processors,  but contain operating system characteristics as well. Many of these integrated systems run entirely stand-alone, performing all necessary operating system functions.
+マルチプログラムForthシステムは1970年頃から存在しています。初期の公開Forthシステムは、多くの人が使用しなかったにもかかわらず、この機能の「フック」を広めました。とはいえ、この機能が存在するという前提はコミュニティの共通認識であり、これらのマルチプログラムシステムにはかなりの共通項が存在します。これらのシステムは単なる言語プロセッサではなく、オペレーティングシステムの特性も含みます。これらの統合システムの多くは、完全にスタンドアロンで動作し、必要なオペレーティングシステム機能をすべて実行します。
 
-マルチプログラムForthシステムは1970年頃から存在しています。初期の公開Forthシステムは、その多くが使用しなかったにもかかわらず、この機能の「フック」を広めた。とはいえ、根本的な前提はコミュニティーの共通認識であり、これらのマルチプログラム・システムにはかなりの共通項が存在します。これらのシステムは単なる言語プロセッサではなく、オペレーティングシステムの特性も含んでいる。これらの統合システムの多くは、完全にスタンドアロンで動作し、必要なオペレーティングシステム機能をすべて実行します。
+一部のForthシステムは非常に高速で、通常そのような高度な操作ができないと考えられているハードウェアを搭載したコンピュータでも、マルチタスクとマルチユーザ操作の両方をサポートすることができます。たとえば、ある電話交換機メーカーは、Z80で50以上のタスクを実行しています。PC用のマルチプログラム製品もいくつかあり、マルチユーザをサポートするものもあります。マルチユーザオペレーションによく使われるコンピュータでも、サポートできるユーザ数は予想よりずっと多いかもしれません。1個の68000で動作するある大規模なデータベースアプリケーションでは、100台以上の端末がデータベースを更新したり問い合わせたりしているが、大きな性能劣化はありません。
 
-Some Forth systems are very fast, and can support both multi-tasking and multi-user operation even on  computers whose hardware is usually thought incapable of such advanced operation. For example, one  producer of telephone switchboards is running over 50 tasks on a Z80. There are several multiprogrammed  products for PC’s, some of which even support multiple users. Even on computers that are commonly used  in multi-user operations, the number of users that can be supported may be much larger than expected. One  large data-base application running on a single 68000 has over 100 terminals updating and querying its  data-base, with no significant degradation.
-
-一部のForthシステムは非常に高速で、通常そのような高度な操作ができないと考えられているハードウェアを搭載したコンピュータでも、マルチタスクとマルチユーザ操作の両方をサポートすることができます。たとえば、ある電話交換機メーカーは、Z80で50以上のタスクを実行しています。PC用のマルチプログラム製品もいくつかあり、マルチユーザをサポートするものもあります。マルチユーザ・オペレーションによく使われるコンピュータでも、サポートできるユーザ数は予想よりずっと多いかもしれません。台の68000で動作するある大規模なデータベース・アプリケーションでは、100台以上の端末がデータ・ベースを更新したり問い合わせたりしているが、大きな劣化はありません。
-
-Multi-user systems may also support multiple programmers, each of which has a private dictionary, stacks,  and a set of variables controlling that task. The private dictionary is linked to a shared, re-entrant dictionary  containing all the standard Forth functions. The private dictionary can be used to develop application code  which may later be integrated into the shared dictionary. It may also be used to perform functions requiring  text interpretation, including compilation and execution of source code.
-
-マルチユーザシステムは、複数のプログラマをサポートする場合もあり、各プログラマは、プライベート辞書、スタック、およびそのタスクを制御する変数のセットを持ちます。プライベート辞書は、すべての標準Forth関数を含む共有のリエントラント辞書にリンクされています。プライベート・ディクショナリは、後で共有ディクショナリに統合されるアプリケーション・コードを開発す るために使用できます。また、ソースコードのコンパイルや実行など、テキスト解釈を必要とする機能の実行にも使用で きます。
+マルチユーザシステムは、複数のプログラマをサポートする場合もあり、各プログラマは、プライベート辞書、スタック、およびそのタスクを制御する変数のセットを持ちます。プライベート辞書は、すべての標準Forth関数を含む共有のリエントラント辞書にリンクされています。プライベート辞書は、後で共有ディクショナリに統合されることになるアプリケーションコードを開発するために使います。また、ソースコードのコンパイルや実行など、テキスト解釈を必要とする機能の実行にも使用できます。
 
 ## C.7 Design and management considerations 
 
-Just as the choice of building materials has a strong effect on the design and construction of a building, the  choice of language and operating system will affect both application design and project management  decisions.
-
 建築資材の選択が建物の設計と建設に強い影響を与えるように、言語とオペレーティングシステムの選択は、 アプリケーションの設計とプロジェクト管理の決定の両方に影響を与えます。
 
-Conventionally, software projects progress through four stages: analysis, design, coding, and testing. A  Forth project necessarily incorporates these activities as well. Forth is optimized for a project-management  methodology featuring small teams of skilled professionals. Forth encourages an iterative process of "successive prototyping" wherein high-level Forth is used as an executable design tool, with "stubs" replacing lower-level routines as necessary (e.g., for hardware that isn’t built yet).
+伝統的に、ソフトウェアプロジェクトは、分析、設計、コーディング、テストの4つの段階を経て進行します。Forthプロジェクトでは、必然的にこれらの活動も組み込まれます。Forthは、熟練した専門家による小規模なチームを特徴とするプロジェクト管理手法に最適化されています。Forthは、高レベルのForthを実行可能な設計ツールとして使用し、必要に応じて(例えば、まだ構築されていないハードウェアのために)「スタブ」で低レベルのルーチンを置き換えつつ、「継続的にプロトタイプ作成を繰り返す(successibe prototyping)」反復プロセスを推奨しています。
 
-従来、ソフトウェア・プロジェクトは、分析、設計、コーディング、テストの4つの段階を経て進行します。Forthプロジェクトでは、必然的にこれらの活動も組み込まれます。Forthは、熟練した専門家による小規模なチームを特徴とするプロジェクト管理手法に最適化されています。Forthは、高レベルのForthを実行可能な設計ツールとして使用し、必要に応じて(例えば、まだ構築されていないハードウェアのために)「スタブ」で低レベルのルーチンを置き換える「逐次プロトタイピング」の反復プロセスを推奨しています。
+多くの場合、プロトタイプ作成を繰り返すことで、より健全で有用な製品を生み出すことができます。プロジェクトが進むにつれて、実装者はより良い設計につながるようなことを学んでいきます。本当の相対的なコストがわかれば、より賢明な決定を下すことができますが、多くの場合、プロトタイプのコードを書いて試してみるまでは、これは不可能です。
 
-In many cases successive prototyping can produce a sounder, more useful product. As the project  progresses, implementors learn things that could lead to a better design. Wiser decisions can be made if  true relative costs are known, and often this isn’t possible until prototype code can be written and tried.
-
-多くの場合、プロトタイピングを繰り返すことで、より健全で有用な製品を生み出すことができます。プロジェクトが進むにつれて、実装者はより良い設計につながるようなことを学んでいきます。本当の相対的なコストがわかれば、より賢明な決定を下すことができますが、多くの場合、プロトタイプのコードを書いて試してみるまでは、これは不可能です。
-
-Using Forth can shorten the time required for software development, and reduce the level of effort required  for maintenance and modifications during the life of the product as well.
-
-Forthを使用することで、ソフトウェア開発に必要な時間を短縮し、製品寿命の間 のメンテナンスや修正に必要な労力を削減することができます。
+Forthを使用することで、ソフトウェア開発に必要な時間を短縮し、製品寿命の間のメンテナンスや修正に必要な労力を削減することができます。
 
 ## C.8 Conclusion 
 
-Forth has produced some remarkable achievements in a variety of application areas. In the last few years its  acceptance has grown rapidly, particularly among programmers looking for ways to improve their  productivity and managers looking for ways to simplify new software-development projects.
-
-Forthは、さまざまな応用分野で目覚ましい成果を上げてきた。特に、生産性を向上させる方法を探しているプログラマや、新しいソフ トウェア開発プロジェクトを簡略化する方法を探している管理者の間で、ここ数年、 Forthの受け入れは急速に拡大しています。
+Forthは、さまざまな応用分野で目覚ましい成果を上げてきました。特に、生産性を向上させる方法を探しているプログラマや、新しいソフトウェア開発プロジェクトを簡略化する方法を探している管理者の間で、ここ数年、 Forthの受け入れは急速に拡大しています。
 
 # D. Compatibility analysis of ANS Forth (informative annex)
-
-Prior to ANS Forth, there were several industry standards for Forth.  The most influential are listed here in chronological order, along with the major differences between ANS Forth and the most recent, Forth 83.
 
 ANS Forth以前にも、Forthの業界標準はいくつかありました。 ここでは、ANS Forthと最新のForth 83の主な相違点とともに、最も影響力のあるものを年代順に示します。
 
 ## D.1 FIG Forth (circa 1978) 
 
-FIG Forth was a "model" implementation of the Forth language developed by the Forth Interest Group(FIG). In FIG Forth, a relatively small number of words were implemented in processor-dependent machine language and the rest of the words were implemented in Forth. The FIG model was placed in the public  domain, and was ported to a wide variety of computer systems. Because the bulk of the FIG Forth  implementation was the same across all machines, programs written in FIG Forth enjoyed a substantial  degree of portability, even for "system-level" programs that directly manipulate the internals of the Forth  system implementation.
-
 FIG Forthは、Forth Interest Group(FIG)によって開発されたForth言語の「モデル」実装でした。FIG Forthでは、比較的少数のワードがプロセッサ依存の機械語で実装され、残りのワードはForthで実装されました。FIGモデルはパブリックドメインに置かれ、さまざまなコンピュータシステムに移植されました。FIG Forthの実装の大部分はすべてのマシンで同じであったため、FIG Forthで書かれたプログラムは、Forthシステム実装の内部を直接操作する「システムレベル」プログラムであっても、かなりの移植性を享受することができました。
 
-FIG Forth implementations were influential in increasing the number of people interested in using Forth.  Many people associate the implementation techniques embodied in the FIG Forth model with "the nature of Forth".
+FIG Forthの実装は、Forthの使用に興味を持つ人の数を増やすことに影響を与えました。多くの人が、FIG Forthモデルに具現化された実装技術を「Forthの本質」と結び付けています。
 
-FIG Forthの実装は、Forthの使用に興味を持つ人の数を増やすことに影響力を持ちました。 多くの人が、FIG Forthモデルに具現化された実装技術を「Forthの本質」と結び付けています。
-
-However, FIG Forth was not necessarily representative of commercial Forth implementations of the same  era. Some of the most successful commercial Forth systems used implementation techniques different from  the FIG Forth "model".
-
-しかし、FIG Forthは必ずしも同時代の商用Forth実装を代表するものではありませんでした。最も成功を収めた商用Forthシステムの中には、FIG Forthの「モデル」とは異なる実装技術を使用したものもあります。
+しかし、FIG Forthは必ずしも同時代の商用Forth実装を代表するものではありませんでした。最も成功を収めた商用Forthシステムの中には、FIG Forth「モデル」とは異なる実装技術を使用したものもあります。
 
 ## D.2 Forth 79 
 
-The Forth-79 Standard resulted from a series of meetings from 1978 to 1980, by the Forth Standards Team, an international group of Forth users and vendors (interim versions known as Forth 77 and Forth 78 were also released by the group).
+Forth-79 標準規格は、Forthユーザとベンダーの国際的なグループであるForth標準化チームによる、1978年から1980年にかけての一連の会議から生まれたものです(Forth 77およびForth 78として知られる暫定バージョンも、このグループによってリリースされました)。
 
-Forth-79 Standardは、Forthユーザとベンダーの国際的なグループであるForth Standards Teamによる、1978年から1980年にかけての一連の会議から生まれたものです(Forth 77およびForth 78として知られる暫定バージョンも、このグループによってリリースされました)。
+Forth 79は、16ビット、2の補数、アライメントなし、リニアバイトアドレッシングの仮想マシン上で定義されたワードのセットについて記述しました。「間接スレッドコード」として知られる実装技術を規定し、ASCII文字セットを使用しました。
 
-Forth 79 described a set of words defined on a 16-bit, twos-complement, unaligned, linear byte-addressing  virtual machine. It prescribed an implementation technique known as "indirect threaded code", and used the  ASCII character set.
-
-Forth 79は、16ビット、2進補数、アライメントなし、リニアバイトアドレッシングの仮想マシン上で定義されたワードのセットについて説明したものです。「間接スレッドコード」として知られる実装技術を規定し、ASCII文字セットを使用しました。
-
-The Forth-79 Standard served as the basis for several public domain and commercial implementations,  some of which are still available and supported today.
-
-Forth-79 Standardは、いくつかのパブリックドメインや商用実装の基礎となり、そのいくつかは現在でも利用可能でサポートされています。
+Forth-79 標準規格は、いくつかのパブリックドメインや商用実装の基礎となり、そのいくつかは現在でも利用可能でサポートされています。
 
 ## D.3 Forth 83 
 
-The Forth-83 Standard, also by the Forth Standards Team, was released in 1983. Forth 83 attempted to fix  some of the deficiencies of Forth 79.
+同じくForth標準化チームにより、Forth-83 Standardは1983年にリリースされました。Forth 83は、Forth 79の欠陥のいくつかを修正しようとしたものです。
 
-同じくForth標準化チームによるForth-83 Standardは1983年にリリースされました。Forth 83は、Forth 79の欠陥のいくつかを修正しようとしたものです。
+Forth 83は、ほとんどの点でForth 79に似ていました。しかし、Forth 83は、Forth 79で明確に定義されていた機能の定義のいくつかを変更しました。例えば、整数除算の丸め動作、`PICK`と`ROLL`のオペランドの基底値、`'`が返すアドレスの意味、`'`のコンパイル動作、"true"フラグの値、`NOT`の意味、`VOCABULARY`で定義されたワードの「連鎖」動作がすべて変更されました。Forth 83では、Forth 79の実装制限が緩和され、あらゆる種類のスレッドコードが許可されましたが、ネイティブのマシンコードへのコンパイルは完全には許可されませんでした(これは特に禁止されたわけではなく、別の規定の間接的な結果であった)。
 
-Forth 83 was similar to Forth 79 in most respects. However, Forth 83 changed the definition of several  well-defined features of Forth 79. For example, the rounding behavior of integer division, the base value of  the operands of PICK and ROLL, the meaning of the address returned by ', the compilation behavior of ',  the value of a "true" flag, the meaning of NOT, and the "chaining" behavior of words defined by  VOCABULARY were all changed. Forth 83 relaxed the implementation restrictions of Forth 79 to allow any  kind of threaded code, but it did not fully allow compilation to native machine code (this was not  specifically prohibited, but rather was an indirect consequence of another provision).
-
-Forth 83は、ほとんどの点でForth 79に似ていました。しかし、Forth 83は、Forth 79のいくつかの明確に定義された機能の定義を変更した。例えば、整数除算の丸め動作、PICKとROLLのオペランドのベース値、'が返すアドレスの意味、'のコンパイル動作、「真」フラグの値、NOTの意味、VOCABULARYで定義されたワードの「連鎖」動作がすべて変更されました。Forth 83では、Forth 79の実装制限が緩和され、あらゆる種類のスレッドコードが許可されたが、ネイティブのマシンコードへのコンパイルは完全には許可されなかった(これは特に禁止されたわけではなく、別の規定の間接的な結果であった)。
-
-Many new Forth implementations were based on the Forth-83 Standard, but few "strictly compliant"  Forth-83 implementations exist.
-
-多くの新しいForth実装はForth-83 Standardに基づいていましたが、「厳密に準拠した」Forth-83実装はほとんど存在しません。
-
-Although the incompatibilities resulting from the changes between Forth 79 and Forth 83 were usually  relatively easy to fix, a number of successful Forth vendors did not convert their implementations to be  Forth 83 compliant. For example, the most successful commercial Forth for Apple Macintosh computers is  based on Forth 79.
+多くの新しいForth実装はForth-83標準規格に基づいていましたが、「厳密に準拠した」Forth-83実装はほとんど存在しません。
 
 Forth 79とForth 83の間の変更に起因する非互換性は、通常、比較的簡単に修正することができましたが、成功を収めたForthベンダーの多くは、Forth 83に準拠するように実装を変換しませんでした。例えば、最も成功しているApple Macintoshコンピュータ用の商用Forthは、Forth 79に基づいています。
 
 ## D.4 Recent developments 
 
-Since the Forth-83 Standard was published, the computer industry has undergone rapid and profound  changes. The speed, memory capacity, and disk capacity of affordable personal computers have increased  by factors of more than 100. 8-bit processors have given way to 16-bit processors, and now 32-bit  processors are commonplace.
-
-Forth-83スタンダードが発表されて以来、コンピュータ業界は急速かつ大きな変化を遂げてきた。手頃な価格のパーソナル・コンピュータのスピード、メモリ容量、ディスク容量は100倍以上になりました。8ビット・プロセッサは16ビット・プロセッサに取って代わられ、今では32ビット・プロセッサが当たり前になっています。
-
-The operating systems and programming-language environments of small systems are much more powerful  than they were in the early 80’s.
+Forth-83標準規格が発表されて以来、コンピュータ業界は急速かつ大きな変化を遂げてきました。手頃な価格のパーソナルコンピュータのスピード、メモリ容量、ディスク容量は100倍以上になりました。8ビットプロセッサは16ビットプロセッサに取って代わられ、今では32ビットプロセッサが当たり前になっています。
 
 小型システムのオペレーティングシステムやプログラミング言語環境は、80年代前半に比べはるかに強力になっています。
 
-The personal-computer marketplace has changed from a predominantly "hobbyist" market to a mature  business and commercial market.
-
-パーソナル・コンピュータ市場は、主に「趣味」の市場から、成熟したビジネスおよび商業市場へと変化した。
-
-Improved technology for designing custom microprocessors has resulted in the design of numerous "Forth  chips", computers optimized for the execution of the Forth language.
+パーソナル・コンピュータ市場は、主に少数派の「趣味」の市場から、成熟したビジネスおよび商業市場へと変化した。
 
 カスタム・マイクロプロセッサの設計技術の向上により、Forth言語の実行に最適化されたコンピュータである「Forthチップ」が数多く設計されるようになりました。
 
-The market for ROM-based embedded control computers has grown substantially.
-
 ROMベースの組み込み制御コンピュータの市場は大きく成長した。
 
-In order to take full advantage of this evolving technology, and to better compete with other programming  languages, many recent Forth implementations have ignored some of the "rules" of previous Forth  standards. In particular:  
-
-この進化する技術を最大限に活用し、他のプログラミング言語との競争を有利に進めるため、最近のForth実装の多くは、以前のForth標準の「ルール」のいくつかを無視しています。特に
-
-- 32-bit Forth implementations are now common.  
-- Some Forth systems adopt the address-alignment restrictions of the hardware on which they run.  
-- Some Forth systems use native-code generation, microcode generation, and optimization techniques, rather than the traditional "threaded code".  
-- Some Forth systems exploit segmented addressing architectures, placing portions of the Forth "dictionary" in different segments.  
-- More and more Forth systems now run in the environment of another "standard" operating system, using OS text files for source code, rather than the traditional Forth "blocks".  
-- Some Forth systems allow external operating system software, windowing software, terminal concentrators, or communications channels to handle or preprocess user input, resulting in deviations  from the input editing, character set availability, and screen management behavior prescribed by  Forth 83.  
+この進化する技術を最大限に活用し、他のプログラミング言語との競争を有利に進めるため、最近のForth実装の多くは、以前のForth標準規格の「ルール」のいくつかを無視しています。特に
 
 - 32ビットのForth実装は、現在では一般的です。 
-- 一部のForthシステムは、実行するハードウェアのアドレス・アライメント制限を採用しています。 
+- 一部のForthシステムは、実行するハードウェアのアドレスアライメント制限を採用しています。 
 - 一部のForthシステムは、従来の「スレッドコード」ではなく、ネイティブコード生成、マイクロコード生成、最適化技術を使用しています。 
 - 一部のForthシステムは、セグメント化されたアドレス指定アーキテクチャを利用し、Forthの「辞書」の一部を異なるセグメントに配置しています。 
 - 現在では、より多くのForthシステムが、従来のForth「ブロック」ではなく、OSのテキストファイルをソースコードに使用し、別の「標準」オペレーティングシステムの環境で動作しています。 
 - 一部のForthシステムでは、外部のオペレーティングシステム・ソフトウェア、ウィンドウ・ソフトウェア、ターミナル・コンセントレータ、または通信チャネルがユーザ入力を処理または前処理することを許可しており、その結果、Forth 83で規定された入力編集、文字セットの可用性、および画面管理の動作から逸脱しています。
 
-Competitive pressure from other programming languages (predominantly "C") and from other Forth  vendors have led Forth vendors to optimizations that do not fit in well with the "virtual machine model"  implied by existing Forth standards.
-
-他のプログラミング言語(主に「C」)や他のForthベンダーからの競争圧力により、Forthベンダーは、既存のForth標準が暗示する「仮想マシン・モデル」にうまく適合しない最適化を行うようになりました。
+他のプログラミング言語(主に「C言語」)や他のForthベンダーからの競争圧力により、Forthベンダーは、既存のForth標準が暗示する「仮想マシン・モデル」にうまく適合しない最適化を行うようになりました。
 
 ## D.5 ANS Forth approach 
 
-The ANS Forth committee addressed the serious fragmentation of the Forth community caused by the  differences between Forth 79 and Forth 83, and the divergence from either of these two industry standards  caused by marketplace pressures.
-
 ANS Forth委員会は、Forth 79とForth 83の違いによって引き起こされるForthコミュニティの深刻な分断、および市場の圧力によって引き起こされるこれら2つの業界標準のいずれかからの分岐に対処しました。
 
-Consequently, the committee has chosen to base its compatibility decisions not upon a strict comparison  with the Forth-83 Standard, but instead upon consideration of the variety of existing implementations,  especially those with substantial user bases and/or considerable success in the marketplace.
-
-その結果、委員会は、Forth-83 Standardとの厳密な比較ではなく、既存のさまざまな実装、特にかなりのユーザベースおよび/または市場でかなりの成功を収めている実装を考慮して互換性を決定することにしました。
-
-The committee feels that, if ANS Forth prescribes stringent requirements upon the virtual machine model,  as did the previous standards, then many implementors will chose not to comply with ANS Forth. The  committee hopes that ANS Forth will serve to unify rather than to further divide the Forth community, and  thus has chosen to encompass rather than invalidate popular implementation techniques.
+Consequently, the committee has chosen to base its compatibility decisions not upon a strict その結果、委員会は、互換性判断の基準として、Forth-83 Standardとの厳密な比較ではなく、既存のさまざまな実装、特にかなりのユーザベースおよび/または市場でかなりの成功を収めている実装を考慮することにしました。
 
 委員会は、ANS Forthが以前の規格のように仮想マシンモデルに対して厳しい要件を規定した場合、多くの実装者がANS Forthに準拠しないことを選択するだろうと感じています。委員会は、ANS ForthがForthコミュニティの分断を深めるのではなく、むしろ統一に役立つことを望んでおり、そのため、一般的な実装技術を無効にするのではなく、包含することを選択しました。
 
-Many of the changes from Forth 83 are justified by this rationale. Most fall into the category that "an ANS  Forth Standard Program may not assume x", where "x" is an entitlement resulting from the virtual machine  model prescribed by the Forth-83 Standard. The committee feels that these restrictions are reasonable,  especially considering that a substantial number of existing Forth implementations do not correctly  implement the Forth-83 virtual model, thus the Forth-83 entitlements exist "in theory" but not "in practice".
-
-Forth 83からの変更の多くは、この理論的根拠によって正当化されます。そのほとんどは、「ANS Forth Standard Programはxを仮定してはならない」という範疇に入るもので、ここで「x」とは、Forth-83 Standardが規定する仮想マシンモデルから生じる権利のことです。委員会は、特に、既存のForth実装の相当数がForth-83仮想モデルを正しく実装していないことを考慮すると、これらの制限は妥当であると感じています。
-
-Another way of looking at this is that while ANS Forth acknowledges the diversity of current Forth practice,  it attempts to document the similarity therein. In some sense, ANS Forth is thus a "description of reality"  rather than a "prescription for a particular virtual machine".
+Forth 83からの変更の多くは、この理論的根拠によって正当化されます。そのほとんどは、「ANS Forth Standard Programはxを仮定してはならない」という範疇に入るもので、ここで「x」とは、Forth-83 Standardが規定する仮想マシンモデルから生じる権利のことです。委員会は、特に、既存のForth実装の相当数がForth-83仮想モデルを正しく実装していないことを考慮すると、これらの制限は妥当であると感じています。Forth-83の権威は「理論上は」存在しますが、「現実的ではない」ということです。
 
 別の見方をすれば、ANS Forthは現在のForthの実践の多様性を認めながらも、そこにある類似性を文書化しようと試みているということです。ある意味で、ANS Forthは「特定の仮想マシンの処方箋」ではなく、「現実の記述」なのです。
 
-Since there is no previous American National Standard for Forth, the action requirements prescribed by  section 3.4 of X3/SD-9, "Policy and Guidelines", regarding previous standards do not apply.
-
 Forthには以前の米国国家規格が存在しないため、以前の規格に関するX3/SD-9「ポリシーとガイドライン」の3.4項で規定される動作要件は適用されません。
-
-The following discussion describes differences between ANS Forth and Forth 83. In most cases, Forth 83 is  representative of Forth 79 and FIG Forth for the purposes of this discussion. In many of these cases,  however, ANS Forth is more representative of the existing state of the Forth industry than the previously-published standards.
 
 以下の説明では、ANS Forth と Forth 83 の違いについて説明します。ほとんどの場合、Forth 83は、この議論の目的上、Forth 79およびFIG Forthを代表するものです。しかし、これらの多くの場合において、ANS Forth は、以前に公表された標準よりも、Forth 業界の既存の状態を代表するものです。
 
@@ -2824,116 +2727,90 @@ The following discussion describes differences between ANS Forth and Forth 83. I
 
 ### D.6.1 Stack width 
 
-Forth 83 specifies that stack items occupy 16 bits. This includes addresses, flags, and numbers. ANS Forth  specifies that stack items are at least 16 bits; the actual size must be documented by the implementation.
-
-Forth 83は、スタック・アイテムが16ビットを占有することを規定しています。これにはアドレス、フラグ、数値が含まれます。ANS Forthは、スタック項目が少なくとも16ビットであることを規定しています。実際のサイズは実装によって文書化されなければなりません。
+Forth 83は、スタックの項目が16ビットを占有することを規定しています。これにはアドレス、フラグ、数値が含まれます。ANS Forthは、スタック項目が少なくとも16ビットであることを規定しています。実装は実際のサイズを文書化しなければなりません。
 
 <description>
 
-||Words affected:||
-all arithmetic, logical and addressing operators  
 ||影響を受けるワード||
 すべての算術演算子、論理演算子、アドレス演算子  
-||Reason:||
-32-bit machines are becoming commonplace. A 16-bit Forth system on a 32-bit  machine is not competitive.
 ||理由:||
-32ビットマシンは一般的になりつつあります。32ビット・マシン上の16ビットForthシステムは競争力がありません。
-||Impact:||
-Programs that assume 16-bit stack width will continue to run on 16-bit machines;  ANS Forth does not require a different stack width, but simply allows it. Many programs will be unaffected  (but see "address unit").
+32ビットマシンは一般的になりつつあります。32ビットマシン上の16ビットForthシステムは競争力がありません。
 ||影響:||
-ANS Forthは異なるスタック幅を要求しているわけではなく、単に許容しているだけです。多くのプログラムは影響を受けません(ただし、「アドレス単位」を参照してください)。
-||Transition/Conversion:||
-Programs which use bit masks with the high bits set may have to be changed,  substituting either an implementation-defined bit-mask constant, or a procedure to calculate a bit mask in a  stack-width-independent way. Here are some procedures for constructing width-independent bit masks:  
-||移行/変換:||
-上位ビットが設定されたビットマスクを使用するプログラムは、実装で定義されたビットマスク定数、またはスタック幅に依存しない方法でビットマスクを計算する手順のいずれかに置き換えて、変更しなければならないかもしれません。以下に、スタック幅に依存しないビットマスクの計算手順をいくつか示します。
+16ビットスタックを仮定するプログラムは16ビットマシン上で動作し続けます。ANS Forthは異なるスタック幅を要求しているわけではなく、単に許容しているだけです。多くのプログラムは影響を受けません(ただし、「アドレス単位」を参照してください)。
+
 </description>
+
+<hr class="page-wrap" />
+
+<description>
+
+||移行/変換:||
+上位ビットが設定されたビットマスクを使用するプログラムは変更しなければならないかもしれません。実装で定義されたビットマスク定数、またはスタック幅に依存しない方法でビットマスクを計算する手順のいずれかに置き換えます。以下に、スタック幅に依存しないビットマスクの計算手順をいくつか示します。
 
     1 CONSTANT LO-BIT 
     TRUE 1 RSHIFT INVERT CONSTANT HI-BIT  
     : LO-BITS ( n -- mask ) 0 SWAP 0 ?DO 1 LSHIFT LO-BIT OR LOOP ; 
     : HI-BITS ( n -- mask ) 0 SWAP 0 ?DO 1 RSHIFT HI-BIT OR LOOP ; 
 
-Programs that depend upon the "modulo 65536" behavior implicit in 16-bit arithmetic operations will need  to be rewritten to explicitly perform the modulus operation in the appropriate places. The committee  believes that such assumptions occur infrequently. Examples: some checksum or CRC calculations, some  random number generators and most fixed-point fractional math.
-
 16ビット算術演算の暗黙の「モジュロ65536」動作に依存するプログラムは、適切な場所で明示的にモジュロ演算を実行するように書き直す必要があります。委員会は、このような仮定は滅多に発生しないと考えています。例: 一部のチェックサムまたは CRC 計算、一部の乱数生成器、ほとんどの固定小数点分数計算。
+
+</description>
 
 ### D.6.2 Number representation 
 
-Forth 83 specifies two’s-complement number representation and arithmetic. ANS Forth also allows one’s-complement and signed-magnitude.
-
-Forth 83 は、2 の補数による数値表現と算術演算を規定しています。ANS Forth では、1 補数と符号付き倍数も使用できます。
+Forth 83 は、2 の補数による数値表現と算術演算を規定しています。ANS Forth では、1の補数と符号+絶対値も使用できます。
 
 <description>
 
-||Words affected:||
-all arithmetic and logical operators, LOOP, +LOOP
 ||影響を受けるワード:||
 すべての算術演算子および論理演算子、LOOP、+LOOP
-||Reason:||
-Some computers use one’s-complement or signed-magnitude. The committee  did not wish to force Forth implementations for those machines to emulate two’s-complement arithmetic,  and thus incur severe performance penalties. The experience of some committee members with such  machines indicates that the usage restrictions necessary to support their number representations are not  overly burdensome.
 ||理由:||
-コンピュータの中には、1補数や符号付き桁数を使用するものがあります。委員会は、そのようなマシン用のForth実装に2補数の算術演算をエミュレートすることを強制し、深刻な性能上のペナルティを負わせることを望んでいませんでした。このようなマシンを使用している委員会メンバの経験から、これらの数値表現をサポートするために必要な使用制限は、過度に負担になるものではないことが示されています。
-||Impact:||
-An ANS Forth Standard Program may declare an "environmental dependency on  two’s-complement arithmetic". This means that the otherwise-Standard Program is only guaranteed to work  on two’s-complement machines. Effectively, this is not a severe restriction, because the overwhelming  majority of current computers use two’s-complement. The committee knows of no Forth-83 compliant  implementations for non-two’s-complement machines at present, so existing Forth-83 programs will still  work on the same class of machines on which they currently work.
+コンピュータの中には、1の補数や符号+絶対値表現を使用するものがあります。委員会は、そのようなマシン用のForth実装に2の補数の算術演算をエミュレートすることを強制し、深刻な性能上のペナルティを負わせることを望んでいませんでした。このようなマシンを使用している委員会メンバの経験から、これらの数値表現をサポートするために必要な使用制限は、過度に負担になるものではないことが示されています。
 ||影響:||
-ANS Forth標準プログラムは、「2の補数演算への環境依存」を宣言することができます。これは、標準プログラムが2の補数マシン上でのみ動作することを保証することを意味します。事実上、現在のコンピュータの圧倒的多数は2の補数を使用しているので、これは厳しい制限ではありません。委員会は、現在のところ、2 の補数でないマシン用の Forth-83 準拠の実装を知らないため、既存の Forth-83 プログラムは、現在動作しているマシンと同じクラスで動作します。
-||Transition/Conversion:||
-Existing programs wishing to take advantage of the possibility of ANS Forth  Standard Systems on non-two’s-complement machines may do so by eliminating the use of arithmetic  operators to perform logical functions, by deriving bit-mask constants from bit operations as described in  the section about stack width, by restricting the usage range of unsigned numbers to the range of positive  numbers, and by using the provided operators for conversion from single numbers to double numbers.
+ANS Forth標準プログラムは、「2の補数演算環境への依存」を宣言することができます。これは、標準プログラムが2の補数マシン上でのみ動作することを保証することを意味します。事実上、現在のコンピュータの圧倒的多数は2の補数を使用しているので、これは厳しい制限ではありません。委員会は、現在のところ、2の補数でないマシン用の Forth-83 準拠の実装を知らないため、既存の Forth-83 プログラムは、現在動作しているマシンと同じクラスで動作します。
 ||移行/変換:||
-ANSフォース標準システムを非2補数マシン上で利用したい既存のプログラムでは、論理関数を実行するための算術演算子の使用を排除したり、スタック幅のセクションで説明したようにビット演算からビットマスク定数を導出したり、符号なし数値の使用範囲を正数の範囲に制限したり、1進数から2進数への変換に提供されている演算子を使用したりすることができます。
+ANS Forth 標準システムを2の補数でないマシン上で利用したい既存のプログラムでは、論理関数を実行するための算術演算子の使用を排除したり、スタック幅のセクションで説明したようにビット演算からビットマスク定数を導出したり、符号なし数値の使用範囲を正数の範囲に制限したり、単長数から倍長数への変換のために提供されている演算子を使用したりすることができます。
 </description>
 
 
 ### D.6.3 Address units 
 
-Forth 83 specifies that each unique address refers to an 8-bit byte in memory. ANS Forth specifies that the  size of the item referred to by each unique address is implementation-defined, but, by default, is the size of  one character. Forth 83 describes many memory operations in terms of a number of bytes. ANS Forth  describes those operations in terms of a number of either characters or address units.
-
-Forth 83は、各一意アドレスがメモリ内の8ビットバイトを参照することを規定しています。ANS Forthでは、各一意アドレスによって参照されるアイテムのサイズは実装によって決まりますが、デフォルトでは1文字のサイズになります。Forth 83では、多くのメモリ操作をバイト数で説明しています。ANS Forthでは、これらの操作を文字数またはアドレス単位で記述します。
+Forth 83は、一意なアドレスのそれぞれがメモリ内の8ビットバイトを参照することを規定しています。ANS Forthでは、一意なアドレスのそれぞれによって参照されるアイテムのサイズは実装によって決まりますが、デフォルトでは1文字のサイズになります。Forth 83では、多くのメモリ操作をバイト数で説明しています。ANS Forthでは、これらの操作を文字数またはアドレス単位で記述します。
 
 <description>
 
 
-||Words affected:||
-those with "address unit" arguments  
 ||影響されるワード||
 "アドレス単位" の引数を持つもの  
-||Reason:||
-Some machines, including the most popular Forth chip, address 16-bit memory  locations instead of 8-bit bytes.
 ||理由:||
 最も人気のあるForthチップを含むいくつかのマシンは、8ビットバイトの代わりに16ビットメモリ位置をアドレスします。
-||Impact:||
-Programs may choose to declare an environmental dependency on byte  addressing, and will continue to work on the class of machines for which they now work. In order for a  Forth implementation on a word-addressed machine to be Forth 83 compliant, it would have to simulate  byte addressing at considerable cost in speed and memory efficiency. The committee knows of no such  Forth-83 implementations for such machines, thus an environmental dependency on byte addressing does  not restrict a Standard Program beyond its current de facto restrictions.
 ||影響:||
-プログラムは、バイトアドレッシングへの環境依存を宣言することを選択することができ、現在動作しているマシンのクラスで動作し続けます。ワードアドレス指定マシン上のForth実装がForth 83に準拠するためには、速度とメモリ効率においてかなりのコストをかけてバイトアドレッシングをシミュレートする必要があります。委員会は、そのようなマシンのためのそのようなForth-83実装を知らないので、バイトアドレッシングへの環境依存は、現在の事実上の制限を超えて標準プログラムを制限しません。
-||Transition/Conversion:||
-The new CHARS and CHAR+ address arithmetic operators should be used for  programs that require portability to non-byte-addressed machines. The places where such conversion is  necessary may be identified by searching for occurrences of words that accept a number of address units as  an argument (e.g., MOVE , ALLOT).
+プログラムは、バイトアドレッシング環境への依存を宣言することを選択することができ、現在動作しているマシンのクラスで動作し続けます。ワードアドレス指定マシン上のForth実装がForth 83に準拠するためには、速度とメモリ効率においてかなりのコストをかけてバイトアドレッシングをシミュレートする必要があります。委員会は、そのようなマシンのためのそのようなForth-83実装を知らないので、バイトアドレッシング環境への依存は、現在存在する事実上の制限を超えて標準プログラムを制限しません。
 ||移行/変換:||
-新しいCHARSとCHAR+アドレス算術演算子は、非バイトアドレスのマシンへの移植性を必要とするプログラムに使用されるべきです。そのような変換が必要な場所は、引数としてアドレス単位の数を受け付けるワード(例えば、MOVE、ALLOT)の出現を検索することによって特定することができます。
+新しい`CHARS`と`CHAR+`アドレス算術演算子を、非バイトアドレスのマシンへの移植性を必要とするプログラムで使用するべきです。そのような変換が必要な場所は、引数としてアドレス単位の数を受け付けるワード(例えば、`MOVE`、`ALLOT`)の出現を検索することによって特定することができます。
 </description>
 
 ### D.6.4 Address increment for a cell is no longer two 
-
-As a consequence of Forth-83’s simultaneous specification of 16-bit stack width and byte addressing, the  number two could reliably be used in address calculations involving memory arrays containing items from  the stack. Since ANS Forth requires neither 16-bit stack width nor byte addressing, the number two is no  longer necessarily appropriate for such calculations.
 
 Forth-83が16ビットのスタック幅とバイトアドレッシングを同時に規定した結果、スタックからのアイテムを含むメモリ配列を含むアドレス計算では、数字の2を確実に使用することができました。ANS Forthは16ビットスタック幅もバイトアドレッシングも必要としないため、このような計算にはもはや2という数字は必ずしも適切ではありません。
 
 <description>
 
-||Words affected:||
+||影響されるワード:||
 @ ! +! 2+ 2* 2- +LOOP 
-||Reason:||
-See reasons for "Address Units" and "Stack Width"  
 ||理由:||
 "アドレス単位" と "スタック幅" の理由を参照。 
-||Impact:||
-In this respect, existing programs will continue to work on machines where a  stack cell occupies two address units when stored in memory. This includes most machines for which  Forth 83 compliant implementations currently exist. In principle, it would also include 16-bit-word-addressed machines with 32-bit stack width, but the committee knows of no examples of such machines.
 ||影響:||
 この点で、既存のプログラムは、メモリに格納されたときにスタックセルが2つのアドレスユニットを占有するマシンでも引き続き動作します。これには、現在 Forth 83 準拠の実装が存在するほとんどのマシンが含まれます。原理的には、32ビットのスタック幅を持つ16ビットワードアドレスのマシンも含まれるが、委員会はそのようなマシンの例を知りません。
-||Transition/Conversion:||
-The new CELLS and CELL+ address arithmetic operators should be used for  portable programs. The places where such conversion is necessary may be identified by searching for the  character "2" and determining whether or not it is used as part of an address calculation. The following  substitutions are appropriate within address calculations:  
-||移行/変換:||
-新しいCELLSとCELL+アドレス算術演算子は移植可能なプログラムに使用されるべきです。このような変換が必要な場所は、文字 "2" を検索し、それがアドレス計算の一部として使用されているかどうかを判断することによって特定することができます。アドレス計算の中では、以下の置換が適切です。
+
 </description>
+
+<hr class="page-wrap" />
+
+<description>
+
+||移行/変換:||
+新しいアドレス算術演算子`CELLS`と`CELL+`を移植可能なプログラムで使用するべきです。このような変換が必要な場所は、文字 "2" を検索し、それがアドレス計算の一部として使用されているかどうかを判断することによって特定することができます。アドレス計算の中では、以下の置換が適切です。
 
 <table>
 
@@ -2947,86 +2824,71 @@ The new CELLS and CELL+ address arithmetic operators should be used for  portabl
 
 </table>
 
-The number "2" by itself is sometimes used for address calculations as an argument to +LOOP, when the  loop index is an address. When converting the word 2/ which operates on negative dividends, one should  be cognizant of the rounding method used.
+ループ・インデックスがアドレスである場合、`+LOOP`の引数としてアドレス計算に数値「2」単体が使われることがあります。負の被除数で動作するワード`2/`を変換する場合、使用される丸め方法に注意する必要があります。
 
-ループ・インデックスがアドレスである場合、+LOOPの引数としてアドレス計算に数値「2」単体が使われることがあります。負の配当で動作するワード2/を変換する場合、使用される丸め方法に注意する必要があります。
+</description>
 
 ### D.6.5 Address alignment 
 
-Forth 83 imposes no restriction upon the alignment of addresses to any boundary. ANS Forth specifies that  a Standard System may require alignment of addresses for use with various "@" and "!" operators.
-
-Forth 83 では、アドレスのアライメントに制限はありません。ANS Forthは、標準システムがさまざまな「@」演算子や「!」演算子を使う際にアドレスアライメントを要求してくるかもしれません。
+Forth 83 では、アドレスのアライメントに制限はありません。ANS Forthは、標準システムがさまざまな`@`演算子や`!`演算子を使う際にアドレスアライメントを要求してくるかもしれません。
 
 <description>
-||Words Affected:||
+||影響を受けるワード:||
 ! +! 2! 2@ @ ? ,
-||Reason:||
-Many computers have hardware restrictions that favor the use of aligned  addresses. On some machines, the native memory-access instructions will cause an exception trap if used  with an unaligned address. Even on machines where unaligned accesses do not cause exception traps,  aligned accesses are usually faster.
 ||理由||
-多くのコンピュータでは、アライメントされたアドレスの使用を推奨するハードウェア制限があります。一部のマシンでは、アラインされていないアドレスで使用すると、ネイティブのメモリアクセス命令が例外トラップを引き起こす。アンアラインド・アクセスが例外トラップを引き起こさないマシンであっても、アラインド・アクセスの方が通常は高速です。
-||Impact:||
-All of the ANS Forth words that return addresses suitable for use with aligned "@" and "!" words must return aligned addresses. In most cases, there will be no problem. Problems can arise from the use of user-defined data structures containing a mixture of character data and cell-sized data.
-
-Many existing Forth systems, especially those currently in use on computers with strong alignment  requirements, already require alignment. Much existing Forth code that is currently in use on such  machines has already been converted for use in an aligned environment.
+多くのコンピュータでは、アライメントされたアドレスの使用を推奨するハードウェア制限があります。一部のマシンでは、アラインされていないアドレスで使用すると、ネイティブのメモリアクセス命令が例外トラップを引き起こすものがります。アラインされていないアクセスが例外トラップを引き起こさないマシンであっても、アラインされているアクセスの方が通常は高速です。
 ||影響||
-アラインされた"@"および"!"ワードの使用に適したアドレスを返すANS Forthワードは、すべてアラインされたアドレスを返さなければなりません。ほとんどの場合、問題はありません。文字データとセル・サイズ・データが混在したユーザ定義のデータ構造を使用すると、問題が発生することがあります。
+アラインされた"`@`"および"`!`"ワードの使用に適したアドレスを返すANS Forthワードは、すべてアラインされたアドレスを返さなければなりません。ほとんどの場合、問題はありません。文字データとセルサイズデータが混在したユーザ定義のデータ構造を使用すると、問題が発生することがあります。
 
-既存のForthシステムの多く、特に強いアライメント要求を持つコンピュータで現在使用されているものは、すでにアライメントを要求しています。そのようなマシンで現在使用されている既存のForthコードの多くは、アライメント環境で使用するためにすでに変換されています。
-||Transition/Conversion:||
-There are two possible approaches to conversion of programs for use on a system  requiring address alignment.
+既存のForthシステムの多く、特に強いアライメント要求を持つコンピュータで現在使用されているものは、すでにアライメントを要求しています。そのようなマシンで現在使用されている既存のForthコードの多くは、アライメント環境で使用するための変換をすでに完了しています。
+
+</description>
+
+<hr class="page-wrap" />
+
+<description>
+
 ||移行/変換:||
-アドレス・アライメントを必要とするシステムで使用するためのプログラムの変換には、2つのアプローチが考えられます。
+アドレスアライメントを必要とするシステムで使用するためのプログラムの変換には、2つのアプローチが考えられます。
 
-The easiest approach is to redefine the system’s aligned "@" and "!" operators so that they do not require  alignment. For example, on a 16-bit little-endian byte-addressed machine, unaligned "@" and "!" could be  defined:  
-
-最も簡単な方法は、システムの整列演算子"@"と"!"を再定義し、整列を必要としないようにすることです。例えば、16ビットのリトルエンディアン・バイトアドレス・マシンでは、アライメントなしの"@"と"!"を定義することができます。
+最も簡単な方法は、アラインされたアドレスを対象としたシステム演算子"`@`"と"`!`"を再定義し、アライメントを必要としないようにすることです。例えば、16ビットのリトルエンディアンバイトアドレスマシンでは、以下のようにアライメントなしの"`@`"と"`!`"を定義することができます。
 
     : @ ( addr -- x ) DUP C@ SWAP CHAR+ C@ 8 LSHIFT OR ; 
     : ! ( x addr -- ) OVER 8 RSHIFT OVER CHAR+ C! C! ; 
 
-These definitions, and similar ones for "+!", "2@", "2!", ",", and "?" as needed, can be compiled before  an unaligned application, which will then work as expected.
+これらの定義、および必要に応じて "`+!`"、"`2@`"、"`2!`"、"`,`"、"`?`"に対応する同様の定義を、アラインされていないアプリケーションの前にコンパイルすることができます。
 
-これらの定義、および必要に応じて "+!"、"2@"、"2!"、","、"? "に対応する同様の定義を、アラインされていないアプリケーションの前にコンパイルすることができます。
+アプリケーションがアラインされていないフィールドを含むデータ構造を大量に使用する場合、この方法によりメモリを節約することができます。
 
-This approach may conserve memory if the application uses substantial numbers of data structures  containing unaligned fields.
+もう1つの方法は、アプリケーションのソースコードを変更して、アラインされていないデータフィールドをなくすことです。ANS Forth のワード `ALIGN` と `ALIGNED` を使用して、データフィールドを強制的に整列させることができます。このような整列が必要な場所は、アプリケーションのデータ構造(単純な変数以外)が定義されている部分を検査するか、「スマートコンパイラ」技術(後述の「スマートコンパイラ」の説明を参照)によって決定することができます。
 
-この方法は、アプリケーションがアラインされていないフィールドを含むデータ構造を大量に使用する場合、メモリを節約することができます。
+この方法は、データ構造のメモリ使用量を増加させる可能性はありますが、アプリケーションの実行速度はおそらく速くなります。
 
-Another approach is to modify the application’s source code to eliminate unaligned data fields. The ANS  Forth words ALIGN and ALIGNED may be used to force alignment of data fields. The places where such  alignment is needed may be determined by inspecting the parts of the application where data structures  (other than simple variables) are defined, or by "smart compiler" techniques (see the "Smart Compiler" discussion below).
+最後に、前述のテクニックを組み合わせるやり方です。アライメントされていないデータフィールドを正確に特定し、そのフィールドだけに「アライメントされていない」バージョンのメモリ・アクセス演算子を使用することで対応することが可能です。この "ハイブリッド" アプローチは、実行速度とメモリ使用率の妥協点に影響を与えます。
 
-もう1つの方法は、アプリケーションのソースコードを変更して、アラインされていないデータフィールドをなくすことです。ANS Forth のワード ALIGN と ALIGNED を使用して、データ・フィールドを強制的に整列させることができます。このような整列が必要な場所は、アプリケーションのデータ構造(単純な変数以外)が定義されている部分を検査するか、「スマートコンパイラ」技術(後述の「スマートコンパイラ」の説明を参照)によって決定することができます。
-
-This approach will probably result in faster application execution speed, at the possible expense of  increased memory utilization for data structures.
-
-この方法は、データ構造のメモリ使用量を増加させる可能性はありますが、アプリケー ションの実行速度はおそらく速くなります。
 </description>
-
-Finally, it is possible to combine the preceding techniques by identifying exactly those data fields that are  unaligned, and using "unaligned" versions of the memory access operators for only those fields. This  "hybrid" approach affects a compromise between execution speed and memory utilization.
-
-最後に、アライメントされていないデータ・フィールドを正確に特定し、そのフィールドだけに「アライメントされていない」バージョンのメモリ・アクセス演算子を使用することで、前述のテクニックを組み合わせることが可能です。この "ハイブリッド" アプローチは、実行速度とメモリ使用率の妥協点に影響を与えます。
 
 ### D.6.6 Division/modulus rounding direction 
 
-Forth 79 specifies that division rounds toward 0 and the remainder carries the sign of the dividend. Forth 83  specifies that division rounds toward negative infinity and the remainder carries the sign of the divisor.  ANS Forth allows either behavior for the division operators listed below, at the discretion of the  implementor, and provides a pair of division primitives to allow the user to synthesize either explicit  behavior.
-
-Forth 79は、除算が0に向かって丸められ、余りが配当の符号を持つことを指定します。Forth 83は、除算が負の無限大に丸められ、余りが除数の符号を持つことを指定します。 ANS Forthでは、実装者の判断により、以下に示す除算演算子のどちらの動作も許可しており、ユーザがどちらの明示的な動作も合成できるように、除算プリミティブのペアを提供しています。
+Forth 79は、除算が0に向かって丸められ、余りが被除数の符号を持つことを規定しました。Forth 83は、除算が負の無限大に丸められ、余りが除数の符号を持つことを規定しました。 ANS Forthでは、実装者の判断により、以下に示す除算演算子のどちらの動作も許可しており、ユーザがどちらの明示的な動作も合成できるように、１組(2個)の除算プリミティブを提供しています。
 
 <description>
 
-||Words Affected:||
+||影響されるワード:||
 `/ MOD /MOD */MOD */`
-||Reason:||
-The difference between the division behaviors in Forth 79 and Forth 83 was a  point of much contention, and many Forth implementations did not switch to the Forth 83 behavior. Both  variants have vocal proponents, citing both application requirements and execution efficiency arguments on  both sides. After extensive debate spanning many meetings, the committee was unable to reach a consensus  for choosing one behavior over the other, and chose to allow either behavior as the default, while providing  a means for the user to explicitly use both behaviors as needed. Since implementors are allowed to choose  either behavior, they are not required to change the behavior exhibited by their current systems, thus  preserving correct functioning of existing programs that run on those systems and depend on a particular  behavior. New implementations could choose to supply the behavior that is supported by the native CPU  instruction set, thus maximizing execution speed, or could choose the behavior that is most appropriate for  the intended application domain of the system.
 
-Forth 79とForth 83の分割動作の違いは多くの論争の的となり、多くのForth実装はForth 83の動作に切り替えなかった。両者とも、アプリケーション要件と実行効率の両論を引用して、声高な支持者がいる。委員会は、何度も開催された広範な議論の末、どちらか一方の動作を選択することでコンセンサスを得ることはできず、デフォルトとしてどちらかの動作を許可する一方、必要に応じてユーザが明示的に両方の動作を使用できる手段を提供することを選択しました。実装者はどちらの動作も選択できるため、現在のシステムが示す動作を変更する必要はなく、そのシステム上で動作し、特定の動作に依存している既存のプログラムの正しい機能を維持することができます。新しい実装では、ネイティブのCPU命令セットでサポートされている動作を提供することで、実行速度を最大化することもできるし、システムの意図するアプリケーション領域に最も適した動作を選択することもできます。
-||Impact:||
-The issue only affects programs that use a negative dividend with a positive  divisor, or a positive dividend with a negative divisor. The vast majority of uses of division occur with both  a positive dividend and a positive divisor; in that case, the results are the same for both allowed division  behaviors.
+</description>
 
-この問題は、正の除数を持つ負の配当、または負の除数を持つ正の配当を使用するプログラムにのみ影響します。除算の大半は正の配当と正の除数の両方で行われます。その場合、許容される除算の動作はどちらも結果は同じです。
-||Transition/Conversion:||
-For programs that require a specific rounding behavior with division operands of  mixed sign, the division operators used by the program may be redefined in terms of one of the new ANS  Forth division primitives SM/REM (symmetrical division, i.e., round toward zero) or FM/MOD (floored  division, i.e., round toward negative infinity). Then the program may be recompiled without change. For  example, the Forth 83 style division operators may be defined by:  
-||トランジション/変換:||
-符号が混在する除算オペランドで特定の丸め動作を必要とするプログラムでは、プログラムで使用する除算演算子を、新しい ANS Forth の除算プリミティブ SM/REM(対称除算、つまりゼロに向かって丸める)または FM/MOD(フロアード除算、つまり負の無限大に向かって丸める)のいずれかで再定義することができます。その後、プログラムを変更せずに再コンパイルすることができます。例えば、Forth83スタイルの除算演算子は次のように定義することができます。
+<hr class="page-wrap" />
+
+<description>
+
+||理由:||
+Forth 79とForth 83の除算の挙動の違いは多くの論争の的となり、多くのForth実装はForth 83の動作に切り替えませんでした。両者とも、アプリケーション要件と実行効率の両論を引用して、声高な支持者がいます。委員会は、広範な議論を何度も開催した結果、どちらか一方の動作を選択することではコンセンサスを得ることはできず、デフォルトとしてどちらかの動作を許可する一方、必要に応じてユーザが明示的に両方の動作を使用できるようにする手段を提供することを選択しました。実装者はどちらの動作も選択できるため、現在のシステムが示す動作を変更する必要はなく、そのシステム上で動作し、特定の動作に依存している既存のプログラムの正しい機能を維持することができます。新しい実装では、ネイティブのCPU命令セットでサポートされている動作を提供することで、実行速度を最大化することもできるし、システムの意図するアプリケーション領域に最も適した動作を選択することもできます。
+||影響:||
+この問題は、正の除数と負の被除数、または負の除数と正の被除数を使用するプログラムにのみ影響します。除算の大半は正の配当と正の除数の両方で行われます。その場合、許容される除算の動作はどちらも結果は同じです。
+||移行/変換:||
+符号が混在する除算オペランドで特定の丸め動作を必要とするプログラムでは、プログラムで使用する除算演算子を、新しい ANS Forth の除算プリミティブ `SM/REM`(対称除算、つまりゼロに向かって丸める)または `FM/MOD`(フロアード除算、つまり負の無限大に向かって丸める)のいずれかで再定義することができます。その後、プログラムを変更せずに再コンパイルすることができます。例えば、Forth83スタイルの除算演算子は次のように定義することができます。
 
     : /MOD ( n1 n2 -- n3 n4 ) >R S>D R> FM/MOD ; 
     : MOD ( n1 n2 -- n3 ) /MOD DROP ; 
@@ -3038,84 +2900,73 @@ For programs that require a specific rounding behavior with division operands of
 
 ### D.6.7 Immediacy 
 
-Forth 83 specified that a number of "compiling words" are "immediate", meaning that they are executed  instead of compiled during compilation. ANS Forth is less specific about most of these words, stating that  their behavior is only defined during compilation, and specifying their results rather than their specific  compile-time actions.
-
 Forth 83は、多くの「コンパイルワード」が「即時」であり、コンパイル時にコンパイルされる代わりに実行されることを意味すると規定しています。ANS Forthは、これらのワードのほとんどについてあまり具体的ではなく、その動作はコンパイル時にのみ定義されるとし、特定のコンパイル時の動作ではなくその結果を指定しています。
 
-To force the compilation of a word that would normally be executed, Forth 83 provided the words  COMPILE , used with non-immediate words, and [COMPILE] , used with immediate words. ANS Forth  provides the single word POSTPONE , which is used with both immediate and non-immediate words,  automatically selecting the appropriate behavior.
-
-通常実行されるワードのコンパイルを強制するために、Forth 83は、非即時ワードで使用されるCOMPILEというワードと、即時ワードで使用される[COMPILE]というワードを提供しています。ANS ForthはPOSTPONEという単一のワードを提供しており、これは即時ワードと非即時ワードの両方で使用され、自動的に適切な動作が選択されます。
+通常実行されるワードのコンパイルを強制するために、Forth 83は、非即時ワードで使用される`COMPILE`というワードと、即時ワードで使用される`[COMPILE]`というワードを提供しています。ANS Forthは`POSTPONE`という単一のワードを提供しており、これは即時ワードと非即時ワードの両方で使用され、自動的に適切な動作が選択されます。
 
 <description>
 
-||Words Affected:||
+||影響を受けるワード:||
 `COMPILE [COMPILE] ['] '`
-||Reason:||
-The designation of particular words as either immediate or not depends upon the  implementation technique chosen for the Forth system. With traditional "threaded code" implementations,  the choice was generally quite clear (with the single exception of the word LEAVE), and the standard could  specify which words should be immediate. However, some of the currently popular implementation  techniques, such as native-code generation with optimization, require the immediacy attribute on a different  set of words than the set of immediate words of a threaded code implementation. ANS Forth,  acknowledging the validity of these other implementation techniques, specifies the immediacy attribute in as  few cases as possible.
 
-特定のワードを即時かそうでないかの指定は、Forthシステムに選択された実装技法に依存します。従来の "スレッドコード(threaded code)"実装では、(`LEAVE`というワードを唯一の例外として)その選択は一般的に非常に明確であり、規格はどのワードを即時性とすべきかを指定することができました。しかし、最適化を伴うネイティブコード生成など、現在普及している実装技術の中には、スレッドコード実装の即時ワードセットとは異なるワードセットに即時属性を要求するものもあります。ANS Forthは、このような他の実装技術の有効性を認め、即時性属性を指定するケースをできるだけ少なくしています。
+</description>
 
-When the membership of the set of immediate words is unclear, the decision about whether to use  COMPILE or [COMPILE] becomes unclear. Consequently, ANS Forth provides a "general purpose"  replacement word POSTPONE that serves the purpose of the vast majority of uses of both COMPILE and  [COMPILE], without requiring that the user know whether or not the "postponed" word is immediate.
+<hr class="page-wrap" />
 
-即値ワードの集合のメンバシップが不明確な場合、COMPILEと[COMPILE]のどちらを使用するかの判断が不明確になります。その結果、ANS Forthは「汎用」置換ワード`POSTPONE`を提供し、`COMPILE`と`[COMPILE]`の両方の大多数の使用目的を果たす。
+<description>
+||理由:||
+あるワードが即時かそうでないかの区別は、Forthシステムに選択された実装技法に依存します。従来の "スレッドコード(threaded code)" 実装では、(`LEAVE`というワードを唯一の例外として)その選択は一般的に非常に明確であり、規格はどのワードを即時性とすべきかを規定することができました。しかし、最適化を伴うネイティブコード生成など、現在普及している実装技術の中には、スレッドコード実装で即時とされたワードセットとは異なるワードセットに即時属性を要求するものもあります。ANS Forthは、このような他の実装技術の有効性を認め、即時性属性を指定するケースをできるだけ少なくしています。
 
-Similarly, the use of ' and ['] with compiling words is unclear if the precise compilation behavior of those  words is not specified, so ANS Forth does not permit a Standard Program to use ' or ['] with compiling  words.
+即値ワードの集合の要素が明確でない場合、`COMPILE`と`[COMPILE]`のどちらを使用するかの判断を明確に行うことができません。その結果、ANS Forthは「汎用」置換ワード`POSTPONE`を提供し、`COMPILE`と`[COMPILE]`の両方の大多数の使用目的を果たさせることにしました。
 
-同様に、コンパイルワードの正確なコンパイル動作が指定されていない場合、コンパイルワードと共に'や[']を使用することは不明確であるため、ANS Forthは標準プログラムでコンパイルワードと共に'や[']を使用することを許可していません。
+同様に、コンパイルワードの正確なコンパイル動作が指定されていない場合、コンパイルワードと共に`'`や`[']`を使用することは不明確であるため、ANS Forthは標準プログラムがコンパイルワードと共に'や[']を使用することを許可していません。
 
-The traditional (non-immediate) definition of the word COMPILE has an additional problem. Its traditional  definition assumes a threaded code implementation technique, and its behavior can only be properly  described in that context. In the context of ANS Forth, which permits other implementation techniques in  addition to threaded code, it is very difficult, if not impossible, to describe the behavior of the traditional  COMPILE. Rather than changing its behavior, and thus breaking existing code, ANS Forth does not include  the word COMPILE. This allows existing implementations to continue to supply the word COMPILE with  its traditional behavior, if that is appropriate for the implementation.
-
-COMPILEというワードの伝統的な(非即物的な)定義には、さらに問題があります。その伝統的な定義は、スレッドコード実装技術を前提としており、その動作はそのコンテキストでのみ適切に記述できます。ANS Forthのコンテキストでは、スレッドコードに加えて他の実装技法も許可されているため、従来のCOMPILEの動作を記述することは、不可能ではないにしても、非常に困難です。ANS Forthでは、COMPILEの動作を変更し、既存のコードを破壊するのではなく、COMPILEというワードを使用しません。これにより、既存の実装では、その実装が適切であれば、従来の動作でCOMPILEというワードを供給し続けることができます。
-||Impact:||
-[COMPILE] remains in ANS Forth, since its proper use does not depend on  knowledge of whether or not a word is immediate (Use of [COMPILE] with a non-immediate word is and  has always been a no-op). Whether or not you need to use [COMPILE] requires knowledge of whether or  not its target word is immediate, but it is always safe to use [COMPILE]. [COMPILE] is no longer in the  (required) core word set, having been moved to the Core Extensions word set, but the committee anticipates that most vendors will supply it anyway.
-
+`COMPILE`というワードの伝統的な(非即物的な)定義には、さらに問題があります。その伝統的な定義は、スレッドコード実装技術を前提としており、その動作はそのコンテキストでのみ適切に記述できます。ANS Forthのコンテキストでは、スレッドコードに加えて他の実装技法も許可されているため、従来の`COMPILE`の動作を記述することは、不可能ではないにしても、非常に困難です。ANS Forthでは、`COMPILE`の動作を変更し既存のコードを破壊するのではなく、標準規格に`COMPILE`というワードを含めないこととしました。これにより、既存の実装では、その実装が適切であれば、従来の動作で`COMPILE`というワードを供給し続けることができます。
+||影響:||
 `[COMPILE]`の適切な使用は、ワードが即時かどうかの知識に依存しないため、`[COMPILE]`はANS Forthに残っています(`[COMPILE]`を非即時のワードと一緒に使用することは、これまでもずっと禁止されています)。`[COMPILE]`を使う必要があるかどうかは、その対象となるワードが即時的かどうかの知識を必要としますが、`[COMPILE]`を使うことは常に安全です。`[COMPILE]`はコア拡張ワードセットに移されたため、(必須)コアワードセットではなくなりましたが、委員会は、ほとんどのベンダーがいずれにせよ`[COMPILE]`を提供すると予想しています。
-
-In nearly all cases, it is correct to replace both [COMPILE] and COMPILE with POSTPONE. Uses of  [COMPILE] and COMPILE that are not suitable for "mindless" replacement by POSTPONE are quite infrequent, and fall into the following two categories:  
 
 ほとんどの場合、`[COMPILE]`と`COMPILE`の両方を`POSTPONE`に置き換えるのが正しい。`[COMPILE]`と`COMPILE`を`POSTPONE`に「無頓着に」置き換えるのに適さない用法は非常にまれであり、次の2つのカテゴリーに分類されます。
 
-a) Use of [COMPILE] with non-immediate words. This is sometimes done with the words ' (tick, which  was immediate in Forth 79 but not in Forth 83) and LEAVE (which was immediate in Forth 83 but not  in Forth 79), in order to force the compilation of those words without regard to whether you are using a  Forth 79 or Forth 83 system.
+</description>
 
-a) `[COMPILE]`の非即時ワードでの使用。これは、Forth 79システムとForth 83システムのどちらを使用しているかに関係なく、これらのワードのコンパイルを強制するために、'(Forth 79では即時だったがForth 83では即時でなかったtick)やLEAVE(Forth 83では即時だったがForth 79では即時でなかった)というワードで行われることがあります。
+<hr class="page-wrap" />
 
-b) Use of the phrase COMPILE [COMPILE] &lt;immediate word> to "doubly postpone" an  immediate word.
+<description>
+||...||
+a) `[COMPILE]`の非即時ワードでの使用。これは、Forth 79システムとForth 83システムのどちらを使用しているかに関係なく、これらのワードのコンパイルを強制するために、`'`(tick: Forth 79では即時だったがForth 83では即時でなくなった)や`LEAVE`(Forth 83では即時になったがForth 79では即時でなかった)というワードで行われることがあります。
 
-b) `COMPILE` `[COMPILE]` &lt;即時ワード> というフレーズを使用して、即時ワードを「二重に延期」します。
-||Transition/Conversion:||
-Many ANS Forth implementations will continue to implement both [COMPILE] and COMPILE in forms compatible with existing usage. In those environments, no conversion is necessary.
-
-多くの ANS Forth 実装は、既存の使用法と互換性のある形で [COMPILE] と COMPILE の両方を実装し続けるでしょう。そのような環境では、変換は必要ありません。
+b) `COMPILE` `[COMPILE]` &lt;即時ワード> というフレーズを使用して、即時ワードを「二重に延期」する場合。
+||移行/変換:||
+多くの ANS Forth 実装は、既存の使用法と互換性のある形で `[COMPILE]` と `COMPILE` の両方を実装し続けるでしょう。そのような環境では、変換は必要ありません。
 
 For complete portability, uses of COMPILE and [COMPILE] should be changed to POSTPONE , except in  the rare cases indicated above. Uses of [COMPILE] with non-immediate words may be left as-is, and the  program may declare a requirement for the word [COMPILE] from the Core Extensions word set, or the  [COMPILE] before the non-immediate word may be simply deleted if the target word is known to be non-immediate.
 
-完全な移植性のために、COMPILEと[COMPILE]の使用は、上に示したまれな場合を除き、POSTPONEに変更されるべきです。COMPILE]の非即時ワードでの使用は、そのままにしておいてもよいし、プログラムは、コア拡張ワードセットから[COMPILE]のワードに対する要求を宣言してもよいし、対象のワードが非即時であることが分かっている場合は、非即時ワードの前の[COMPILE]を単に削除してもよいです。
+完全な移植性のために、`COMPILE`と`[COMPILE]`の使用は、上に示したまれな場合を除き、`POSTPONE`に変更するべきです。`[COMPILE]`の非即時ワードでの使用は、そのままにしておいてもよいし、プログラムは、コア拡張ワードセットから`[COMPILE]`のワードに対する要求を宣言してもよいし、対象のワードが非即時であることが分かっている場合は、非即時ワードの前の`[COMPILE]`を単に削除してもよいです。
 
-Uses of the phrase COMPILE [COMPILE] &lt;immediate-word> may be handled by introducing an "intermediate word" (XX in the example below) and then postponing that word. For example: 
-
-COMPILE[COMPILE]<immediate-word>というフレーズの使用は、「中間ワード」(以下の例ではXX)を導入し、そのワードを後置することによって処理することができます。例えば
+`COMPILE [COMPILE] <immediate-word>`というフレーズの使用は、「中間ワード」(以下の例ではXX)を導入し、そのワードを後置することによって処理することができます。例えば
 
     : ABC COMPILE [COMPILE] IF ; 
 
-changes to:  
+は、
 
     : XX POSTPONE IF ; 
     : ABC POSTPONE XX ; 
 
-A non-standard case can occur with programs that "switch out of compilation state" to explicitly compile a  thread in the dictionary following a COMPILE . For example:  
+と変換します。
 
+</description>
+
+<hr class="page-wrap" />
+
+<description>
+||...||
 `COMPILE`に続いて、辞書内のスレッドを明示的にコンパイルするために「コンパイル状態から切り替わる」プログラムでは、非標準的なケースが発生する可能性があります。例えば
 
     : XYZ COMPILE [ ' ABC , ] ; 
 
-This depends heavily on knowledge of exactly how COMPILE and the threaded-code implementation  works. Cases like this cannot be handled mechanically; they must be translated by understanding exactly  what the code is doing, and rewriting that section according to ANS Forth restrictions.
-
-Use the phrase POSTPONE [COMPILE] to replace [COMPILE] [COMPILE].
-
 これは、`COMPILE`とスレッドコードの実装がどのように動作するかについての正確な知識に大きく依存します。このようなケースは機械的に処理することはできません。コードが何をしているかを正確に理解し、ANS Forthの制限に従ってそのセクションを書き換えることによって翻訳する必要があります。
 
-`[COMPILE][COMPILE]`の代わりに`POSTPONE [COMPILE]`というフレーズを使用してください。
-
+`[COMPILE] [COMPILE]`の代わりに`POSTPONE [COMPILE]`というフレーズを使用してください。
 </description>
 
 ### D.6.8 Input character set 
@@ -3310,7 +3161,7 @@ The remainder of this Annex provides guidelines for writing portable ANS Forth p
 
 Data and memory are the stones and mortar of program construction. Unfortunately, each computer treats  data and memory differently. The ANS Forth Systems Standard gives definitions of data and memory that  apply to a wide variety of computers. These definitions give us a way to talk about the common elements of  data and memory while ignoring the details of specific hardware. Similarly, ANS Forth programs that use  data and memory in ways that conform to these definitions can also ignore hardware details. The following  sections discuss the definitions and describe how to write programs that are independent of the data/memory  peculiarities of different computers.
 
-データとメモリはプログラム構築の石とモルタルです。残念ながら、データとメモリの扱いはコンピュータによって異なります。ANS Forth Systems Standard では、さまざまなコンピュータに適用されるデータとメモリの定義を示 しています。これらの定義は、特定のハードウェアの詳細を無視して、データとメモリの共通要素について話す方法を与えてくれます。同様に、これらの定義に従った方法でデータとメモリを使用する ANS Forth プログラムも、ハードウェアの詳細を無視することができます。以下のセクションでは、定義について説明し、異なるコンピュータのデータ/メモリの特殊性に依存しないプログラムの記述方法について説明します。
+データとメモリはプログラム構築の石とモルタルです。残念ながら、データとメモリの扱いはコンピュータによって異なります。ANS Forth Systems Standard では、さまざまなコンピュータに適用されるデータとメモリの定義を示しています。これらの定義は、特定のハードウェアの詳細を無視して、データとメモリの共通要素について話す方法を与えてくれます。同様に、これらの定義に従った方法でデータとメモリを使用する ANS Forth プログラムも、ハードウェアの詳細を無視することができます。以下のセクションでは、定義について説明し、異なるコンピュータのデータ/メモリの特殊性に依存しないプログラムの記述方法について説明します。
 
 ### E.2.2 Definitions  
 
