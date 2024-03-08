@@ -715,7 +715,7 @@ Typical use: : `X ... test IF ... ELSE ... THEN ;`
 
 #### A.6.1.1345 `ENVIRONMENT?` 
 
-Coreワード集合のみを含む標準システムでは、`ENVIRONMENT?`を効果的に使用するには、定義内で使用するか、ユーザが提供する補助的な定義を使用する必要があります。Coreワード集合には、解釈状態で文字列を収集する直接的な方法(**11.6.1.2165 `S"`**はオプションのワード集合にある)と、解釈状態で返されたフラグをテストする手段(オプションの15.6.2.2532 `[IF]`など)の両方が欠けています。
+Coreワードセットのみを含む標準システムでは、`ENVIRONMENT?`を効果的に使用するには、定義内で使用するか、ユーザが提供する補助的な定義を使用する必要があります。Coreワードセットには、解釈状態で文字列を収集する直接的な方法(**11.6.1.2165 `S"`**はオプションのワードセットにある)と、解釈状態で返されたフラグをテストする手段(オプションの15.6.2.2532 `[IF]`など)の両方が欠けています。
 
 **6.1.1345 `ENVIRONMENT?`**, **11.6.1.2165 `S"`**, **15.6.2.2532 `[IF]`**, **15.6.2.2531 `[ELSE]`**, **15.6.2.2533 `[THEN]`** の組み合わせは、解釈状態において機能する条件付きコンパイルのための効果的なワード群を構成します。
 
@@ -2731,7 +2731,7 @@ Forth 83は、スタックの項目が16ビットを占有することを規定�
 
 <description>
 
-||影響を受けるワード||
+||影響されるワード:||
 すべての算術演算子、論理演算子、アドレス演算子  
 ||理由:||
 32ビットマシンは一般的になりつつあります。32ビットマシン上の16ビットForthシステムは競争力がありません。
@@ -2762,7 +2762,7 @@ Forth 83 は、2 の補数による数値表現と算術演算を規定してい
 
 <description>
 
-||影響を受けるワード:||
+||影響されるワード:||
 すべての算術演算子および論理演算子、LOOP、+LOOP
 ||理由:||
 コンピュータの中には、1の補数や符号+絶対値表現を使用するものがあります。委員会は、そのようなマシン用のForth実装に2の補数の算術演算をエミュレートすることを強制し、深刻な性能上のペナルティを負わせることを望んでいませんでした。このようなマシンを使用している委員会メンバの経験から、これらの数値表現をサポートするために必要な使用制限は、過度に負担になるものではないことが示されています。
@@ -2833,7 +2833,7 @@ Forth-83が16ビットのスタック幅とバイトアドレッシングを同�
 Forth 83 では、アドレスのアライメントに制限はありません。ANS Forthは、標準システムがさまざまな`@`演算子や`!`演算子を使う際にアドレスアライメントを要求してくるかもしれません。
 
 <description>
-||影響を受けるワード:||
+||影響されるワード:||
 ! +! 2! 2@ @ ? ,
 ||理由||
 多くのコンピュータでは、アライメントされたアドレスの使用を推奨するハードウェア制限があります。一部のマシンでは、アラインされていないアドレスで使用すると、ネイティブのメモリアクセス命令が例外トラップを引き起こすものがります。アラインされていないアクセスが例外トラップを引き起こさないマシンであっても、アラインされているアクセスの方が通常は高速です。
@@ -2906,7 +2906,7 @@ Forth 83は、多くの「コンパイルワード」が「即時」であり、
 
 <description>
 
-||影響を受けるワード:||
+||影響されるワード:||
 `COMPILE [COMPILE] ['] '`
 
 </description>
@@ -2939,9 +2939,7 @@ b) `COMPILE` `[COMPILE]` &lt;即時ワード> というフレーズを使用し�
 ||移行/変換:||
 多くの ANS Forth 実装は、既存の使用法と互換性のある形で `[COMPILE]` と `COMPILE` の両方を実装し続けるでしょう。そのような環境では、変換は必要ありません。
 
-For complete portability, uses of COMPILE and [COMPILE] should be changed to POSTPONE , except in  the rare cases indicated above. Uses of [COMPILE] with non-immediate words may be left as-is, and the  program may declare a requirement for the word [COMPILE] from the Core Extensions word set, or the  [COMPILE] before the non-immediate word may be simply deleted if the target word is known to be non-immediate.
-
-完全な移植性のために、`COMPILE`と`[COMPILE]`の使用は、上に示したまれな場合を除き、`POSTPONE`に変更するべきです。`[COMPILE]`の非即時ワードでの使用は、そのままにしておいてもよいし、プログラムは、コア拡張ワードセットから`[COMPILE]`のワードに対する要求を宣言してもよいし、対象のワードが非即時であることが分かっている場合は、非即時ワードの前の`[COMPILE]`を単に削除してもよいです。
+完全な移植性を目指すなら、`COMPILE`と`[COMPILE]`の使用は、上に示したまれな場合を除き、`POSTPONE`に変更するべきです。`[COMPILE]`の非即時ワードでの使用は、そのままにしておいてもよいし、プログラムは、コア拡張ワードセットから`[COMPILE]`のワードに対する要求を宣言してもよいし、対象のワードが非即時であることが分かっている場合は、非即時ワードの前の`[COMPILE]`を単に削除してもよいです。
 
 `COMPILE [COMPILE] <immediate-word>`というフレーズの使用は、「中間ワード」(以下の例ではXX)を導入し、そのワードを後置することによって処理することができます。例えば
 
@@ -2954,16 +2952,16 @@ For complete portability, uses of COMPILE and [COMPILE] should be changed to POS
 
 と変換します。
 
+`COMPILE`に続いて、辞書内のスレッドを明示的にコンパイルするために「コンパイル状態から切り替わる」プログラムでは、非標準的なケースが発生する可能性があります。例えば
+
+    : XYZ COMPILE [ ' ABC , ] ; 
+
 </description>
 
 <hr class="page-wrap" />
 
 <description>
 ||...||
-`COMPILE`に続いて、辞書内のスレッドを明示的にコンパイルするために「コンパイル状態から切り替わる」プログラムでは、非標準的なケースが発生する可能性があります。例えば
-
-    : XYZ COMPILE [ ' ABC , ] ; 
-
 これは、`COMPILE`とスレッドコードの実装がどのように動作するかについての正確な知識に大きく依存します。このようなケースは機械的に処理することはできません。コードが何をしているかを正確に理解し、ANS Forthの制限に従ってそのセクションを書き換えることによって翻訳する必要があります。
 
 `[COMPILE] [COMPILE]`の代わりに`POSTPONE [COMPILE]`というフレーズを使用してください。
@@ -2971,166 +2969,119 @@ For complete portability, uses of COMPILE and [COMPILE] should be changed to POS
 
 ### D.6.8 Input character set 
 
-Forth 83 specifies that the full 7-bit ASCII character set is available through KEY . ANS Forth restricts it to  the graphic characters of the ASCII set, with codes from hex 20 to hex 7E inclusive.
-
-Forth 83は、7ビットASCII文字セットが `KEY` を通じて利用可能であることを指定しています。ANS Forthでは、16進数20から16進数7Eまでのコードを持つASCIIセットのグラフィック文字に制限されています。
+Forth 83は、7ビットASCII文字セットが `KEY` を通じて利用可能であると規定しています。ANS Forthでは、16進数20から16進数7Eまでのコードを持つASCII文字セットの図形文字(graphic character)に制限されています。
 
 <description>
 
-||Words Affected:||
+||影響されるワード:||
 KEY
-||Reason:||
-Many system environments "consume" certain control characters for such  purposes as input editing, job control, or flow control. A Forth implementation cannot always control this  system behavior.
-多くのシステム環境は、入力編集、ジョブ制御、フロー制御などの目的で特定の制御文字を「消費」します。Forthの実装では、このようなシステムの動作を常に制御することはできません。
-||Impact:||
-Standard Programs which require the ability to receive particular control  characters through KEY must declare an environmental dependency on the input character set.
+||理由:||
+多くのシステム環境は、入力編集、ジョブ制御、フロー制御などの目的で特定の制御文字を「消費」します。Forthの実装では、このようなシステムの動作を必ずしも制御できるとは限りません。
+||影響:||
+`KEY`を通して特定の制御文字を受け取る能力を必要とする標準プログラムは、入力文字セットについて環境依存であることを宣言しなければなりません。
+||移行/変換:||
+移植性を最大にするために、プログラムは必要な入力文字セットを図形文字だけに制限すべきです。利用可能であれば制御文字も扱うことができますが、完全なプログラム機能には図形文字だけを用いてアクセスできるようにすべきです。
 
-KEYを通して特定の制御文字を受け取る能力を必要とする標準プログラムは、入力文字セットへの環境依存を宣言しなければなりません。
-||Transition/Conversion:||
-For maximum portability, programs should restrict their required input character  set to only the graphic characters. Control characters may be handled if available, but complete program  functionality should be accessible using only graphic characters.
-
-移植性を最大にするために、プログラムは必要な入力文字セットをグラフィック文字だけに制限すべきです。利用可能であれば制御文字も扱うことができますが、完全なプログラム機能には図形文字だけでアクセスできるようにすべきです。
-
-As stated above, an environmental dependency on the input character set may be declared. Even so, it is  recommended that the program should avoid the requirement for particularly-troublesome control  characters, such as control-S and control-Q (often used for flow control, sometimes by communication  hardware whose presence may be difficult to detect), ASCII NUL (difficult to type on many keyboards), and  the distinction between carriage return and line feed (some systems translate carriage returns into line feeds,  or vice versa).
-
-上述したように、入力文字セットに対する環境依存を宣言してもよいです。たとえそうであっても、control-Sやcontrol-Q(フロー制御のためによく使用され、その存在を検出するのが困難な通信ハードウェアによって使用されることもある)、ASCII NUL(多くのキーボードで入力するのが困難)、キャリッジリターンとラインフィードの区別(システムによっては、キャリッジリターンをラインフィードに変換したり、その逆に変換したりするものもある)など、特にやっかいな制御文字の要求をプログラムが避けることが推奨されます。
+上述したように、入力文字セットに対する環境依存を宣言してもよいです。たとえそうであっても、control-Sやcontrol-Q(フロー制御のためによく使用され、その存在を検出するのが困難な通信ハードウェアによって使用されることもある)、ASCII NUL(多くのキーボードで入力することが困難)、キャリッジリターンとラインフィードの区別(システムによっては、キャリッジリターンをラインフィードに変換したり、その逆に変換したりするものもある)など、特にやっかいな制御文字の要求をプログラムが避けることが推奨されます。
 </description>
 
 ### D.6.9 Shifting with UM/MOD 
 
-Given Forth-83’s two’s-complement nature, and its requirement for floored (round toward minus infinity)  division, shifting is equivalent to division. Also, two’s-complement representation implies that unsigned  division by a power of two is equivalent to logical right-shifting, so UM/MOD could be used to perform a  logical right-shift.
+Forth-83の2の補数という性質と、切り捨て除算(マイナス無限大に向かって丸める)の要件を考えると、シフトは除算と等価です。また、2の補数表現は、符号なし2のべき乗除算が論理右シフトと等価であることを意味するので、論理右シフトを実行するために`UM/MOD`を使用することができたのですが……
 
-Forth-83の2の補数という性質と、フロアード(マイナス無限大に向かって丸める)除算の要件を考えると、シフトは除算と等価です。また、2の補数表現は、符号なし2のべき乗除算が論理右シフトと等価であることを意味するので、UM/MODは論理右シフトを実行するために使用することができます。
+<hr class="page-wrap" />
 
 <description>
 
-||Words Affected:||
+||影響されるワード:||
 UM/MOD
-||Reason:||
-The problem with UM/MOD is a result of allowing non-two’s-complement  number representations, as already described.
+||理由:||
+`UM/MOD`の問題は、すでに説明したように、非「2の補数表現」を許容した結果です。
 
-UM/MODの問題は、すでに説明したように、非2補数表現を許可した結果です。
+ANS Forthには、論理シフトを実行するための`LSHIFT`と`RSHIFT`というワードが用意されています。これは通常、論理シフトに`UM/MOD`を使用するよりも効率的で、より記述的です。
+||影響:||
+2の補数演算を持つANS Forthシステム(大半のマシン)で実行されるプログラムは、論理シフトと`UM/MOD`との非互換性を経験することはありません。非「2の補数」マシン上で実行することを意図した既存のForth-83 Standardプログラムは、非「2の補数」のANS Forthシステム上でシフトするために`UM/MOD`を使用することはできません。委員会は、非「2の補数」マシン上の既存のForth-83実装の存在を知りません。よって、かなりの数の既存プログラムにはこれは影響しないはずです(おそらくまったく影響しないでしょう)。
+||移行/変換:||
+`UM/MOD`がシフト演算として動作することを必要とするプログラムは、2の補数演算への環境依存を宣言することができます。
 
-ANS Forth provides the words LSHIFT and RSHIFT to perform logical shifts. This is usually more  efficient, and certainly more descriptive, than the use of UM/MOD for logical shifting.
-
-ANS Forthには、論理シフトを実行するためのLSHIFTとRSHIFTというワードが用意されています。これは通常、論理シフトにUM/MODを使用するよりも効率的で、より記述的です。
-||Impact:||
-Programs running on ANS Forth systems with two’s-complement arithmetic (the  majority of machines), will not experience any incompatibility with UM/MOD . Existing Forth-83 Standard  programs intended to run on non-two’s-complement machines will not be able to use UM/MOD for shifting  on a non-two’s-complement ANS Forth system. This should not affect a significant number of existing  programs (perhaps none at all), since the committee knows of no existing Forth-83 implementations on non-two’s-complement machines.
-
-2の補数演算を持つANS Forthシステム(大半のマシン)で実行されるプログラムは、UM/MODとの非互換性を経験することはありません。非2補数マシン上で実行することを意図した既存のForth-83 Standardプログラムは、非2補数のANS Forthシステム上でシフトするためにUM/MODを使用することはできません。委員会は、非2の補数マシン上の既存のForth-83実装を知らないため、これはかなりの数の既存プログラムに影響しないはずです(おそらくまったく影響しないでしょう)。
-||Transition/Conversion:||
-A program that requires UM/MOD to behave as a shift operation may declare an  environmental dependency on two’s-complement arithmetic.
-
-UM/MODがシフト演算として動作することを必要とするプログラムは、2の補数演算への環境依存を宣言することができます。
-
-A program that cannot declare an environmental dependency on two’s-complement arithmetic may require  editing to replace incompatible uses of UM/MOD with other operators defined within the application.
-
-2の補数演算への環境依存を宣言できないプログラムは、互換性のないUM/MODの使用をアプリケーション内で定義された他の演算子で置き換えるための編集を必要とするかもしれません。
+2の補数演算への環境依存を宣言できないプログラムは、互換性のない`UM/MOD`の使用箇所を編集して、アプリケーション内で定義された他の演算子で置き換えることが必要になるかもしれません。
 </description>
 
 ### D.6.10 Vocabularies / wordlists 
 
-ANS Forth does not define the words VOCABULARY, CONTEXT, and CURRENT , which were present in  Forth 83. Instead, ANS Forth defines a primitive word set for search order specification and control,  including words which have not existed in any previous standard.
+ANS Forthは、Forth 83に存在した`VOCABULARY`、`CONTEXT`、および`CURRENT`というワードを定義していません。その代わりに、ANS Forthは検索順序の指定と制御のための基本的なワードセットを定義しており、これには以前のどの標準にも存在しなかったワードも含まれています。
 
-ANS Forthは、Forth 83に存在した`VOCABULARY`、`CONTEXT`、および`CURRENT`というワードを定義していません。その代わりに、ANS Forthは検索順序の指定と制御のための原始的なワードセットを定義しており、これには以前のどの標準にも存在しなかったワードも含まれています。
-
-Forth-83’s "ALSO/ONLY" experimental search order word set is specified for the most part as the extension  portion of the ANS Forth Search Order word set.
-
-Forth-83の "ALSO/ONLY" 実験的検索ワードセットは、ほとんどの部分でANS Forth検索ワードセットの拡張部分として指定されています。
+Forth-83の "`ALSO`/`ONLY`" 実験的検索ワードセットは、ほとんどの部分でANS Forth検索ワードセットの拡張部分として指定されています。
 
 <description>
 
-||Words Affected:||
+||影響されるワード:||
 VOCABULARY CONTEXT CURRENT
-||Reason:||
-Vocabularies are an area of much divergence among existing systems.  Considering major vendors’ systems and previous standards, there are at least 5 different and mutually  incompatible behaviors of words defined by VOCABULARY. Forth 83 took a step in the direction of "run-time search-order specification" by declining to specify a specific relationship between the hierarchy of  compiled vocabularies and the run-time search order. Forth 83 also specified an experimental mechanism  for run-time search-order specification, the ALSO/ONLY scheme. ALSO/ONLY was implemented in  numerous systems, and has achieved some measure of popularity in the Forth community.
+||理由:||
+語彙は、既存のシステム間で多くの乖離がある分野です。 主要なベンダーのシステムや以前の標準を考慮すると、`VOCABULARY`によって定義されたワードには、少なくとも5つの異なる、相互に互換性のない動作が存在します。Forth 83は、コンパイルされた語彙の階層と実行時の検索順序の間の特定の関係を規定しないことによって、「実行時の検索順序の指定」の方向に一歩を踏み出しました。Forth 83はまた、ランタイム検索順序指定のための実験的メカニズムである`ALSO`/`ONLY`スキームを規定しました。`ALSO`/`ONLY`は多くのシステムで実装され、Forthコミュニティではある程度の人気を獲得した。
+</description>
 
-ボキャブラリは、既存のシステム間で多くの乖離がある分野です。 主要なベンダーのシステムや以前の標準を考慮すると、VOCABULARYによって定義されたワードには、少なくとも5つの異なる、相互に互換性のない動作が存在します。Forth 83は、コンパイルされた語彙の階層と実行時の検索順序の間の特定の関係を指定しないことによって、「実行時の検索順序の指定」の方向に一歩を踏み出した。Forth 83はまた、ランタイム検索順序指定のための実験的メカニズムであるALSO/ONLYスキームを規定した。ALSO/ONLYは多くのシステムで実装され、Forthコミュニティではある程度の人気を獲得した。
+<hr class="page-wrap" />
 
-However, several vendors refuse to implement it, citing technical limitations. In an effort to address those  limitations and thus hopefully make ALSO/ONLY more palatable to its critics, the committee specified a  simple "primitive word set" that not only fixes some of the objections to ALSO/ONLY, but also provides  sufficient power to implement ALSO/ONLY and all of the other search-order word sets that are currently  popular.
+<description>
+||...||
+しかし、いくつかのベンダーは技術的な制限を理由に実装を拒否しています。これらの制限を解決し、`ALSO`/`ONLY` を批判的な人たちにも受け入れられるようにするために、委員会は `ALSO`/`ONLY` に対するいくつかの異論に対応する修正を加えるだけでなく、`ALSO`/`ONLY` や現在流行している他の全ての検索ワードセットを実装するのに十分なパワーを提供する単純な "基本的な(primitive)ワードセット" を規定しました。
 
-しかし、いくつかのベンダーは技術的な制限を理由に実装を拒否しています。これらの制限を解決し、ALSO/ONLY を批判的な人たちにも受け入れられるようにするために、委員会は ALSO/ONLY に対するいくつかの異論を修正するだけでなく、ALSO/ONLY や現在流行している他の全ての検索ワードセットを実装するのに十分なパワーを提供する単純な "プリミティブワードセット" を指定しました。
-
-The Forth 83 ALSO/ONLY word set is provided as an optional extension to the search-order word set. This  allows implementors that are so inclined to provide this word set, with well-defined standard behavior, but  does not compel implementors to do so. Some vendors have publicly stated that they will not implement  ALSO/ONLY, no matter what, and one major vendor stated an unwillingness to implement ANS Forth at all  if ALSO/ONLY is mandated. The committee feels that its actions are prudent, specifying ALSO/ONLY to the  extent possible without mandating its inclusion in all systems, and also providing a primitive search-order  word set that vendors may be more likely to implement, and which can be used to synthesize ALSO/ONLY.
-
-Forth 83のALSO/ONLYワードセットは、検索順ワードセットのオプション拡張として提供されます。これは、実装者がこのワードセットを提供することを許可するもので、標準的な動作が明確に定義されていますが、実装者にそれを強制するものではありません。一部のベンダは ALSO/ONLY を実装しないと公言しており、ある大手ベンダは ALSO/ONLY が強制されるのであれば ANS Forth を一切実装しないと表明しています。委員会は、すべてのシステムに ALSO/ONLY を組み込むことを義務付けることなく、可能な限り ALSO/ONLY を規定し、また、ベンダが実装しやすく、ALSO/ONLY を合成するために使用できる原始的な検索順序のワード集合を提供することで、委員会の行動は慎重であると感じています。
-||Transition/Conversion:||
-Since Forth 83 did not mandate precise semantics for VOCABULARY, existing  Forth-83 Standard programs cannot use it except in a trivial way. Programs can declare a dependency on  the existence of the Search Order word set, and can implement whatever semantics are required using that  word set’s primitives. Forth 83 programs that need ALSO/ONLY can declare a dependency on the Search  Order Extensions word set, or can implement the extensions in terms of the Search Order word set itself.
-
-Forth 83はVOCABULARYに対して正確なセマンティクスを義務付けていないため、既存のForth-83 Standardプログラムでは、些細な方法を除いてVOCABULARYを使用することはできません。プログラムは、Search Orderワードセットの存在への依存を宣言することができ、そのワードセットのプリミティブを使用して必要なセマンティクスを実装することができます。ALSO/ONLY を必要とする Forth 83 プログラムは、Search Order Extensions ワードセットへの依存を宣言するか、Search Order ワードセット自体の観点から拡張を実装することができます。
+Forth 83の`ALSO`/`ONLY`ワードセットは、検索順序(search-order)ワードセットのオプション拡張として提供されます。これは、実装者がこのワードセットを提供することを許可するもので、標準的な動作が明確に定義されていますが、実装者に実装を強制するものではありません。一部のベンダは `ALSO`/`ONLY` を実装しないと公言しており、ある大手ベンダは `ALSO`/`ONLY` が強制されるのであれば ANS Forth を一切実装しないと表明しています。委員会は、すべてのシステムに `ALSO`/`ONLY` を組み込むことを義務付けることなく、可能な限り `ALSO`/`ONLY` を規定し、また、ベンダが実装しやすく、`ALSO`/`ONLY` を合成するために使用できる基本的な検索順序ワードセットセットを提供することで、慎重に対処すると感じています。
+||移行/変換:||
+Forth 83は`VOCABULARY`に対して正確なセマンティクスを義務付けていないため、既存のForth-83 Standardプログラムでは、自明な方法を除いて`VOCABULARY`を使用することはできません。プログラムは、検索順序ワードセットの存在に依存していると宣言することができ、そのワードセットのプリミティブを使用して必要なセマンティクスを実装することができます。`ALSO`/`ONLY` を必要とする Forth 83 プログラムは、検索順序拡張ワードセットへの依存を宣言するか、検索順序ワードセットを用いて拡張を実装することができます。
 </description>
 
 
 ### D.6.11 Multiprogramming impact 
 
-Forth 83 marked words with "multiprogramming impact" by the letter "M" in the first lines of their  descriptions. ANS Forth has removed the "M" designation from the word descriptions, moving the  discussion of multiprogramming impact to this non-normative annex.
-
-Forth 83は、「マルチプログラミングの影響」を持つワードに、その説明の最初の行に文字「M」で印を付けています。ANS Forthは、ワードの説明から「M」の指定を削除し、マルチプログラミングの影響に関する議論をこの非規範的な附属書に移しました。
+Forth 83は、「マルチプログラミングの影響」を持つワードに、その説明の最初の行に文字「M」で印を付けています。ANS Forthは、ワードの説明から「M」の指定を削除し、マルチプログラミングの影響に関する議論をこの非規格の附属書に移しました。
 
 <description>
 
-||Words affected:||
-none
-||Reason:||
-The meaning of "multiprogramming impact" is precise only in the context of a  specific model for multiprogramming. Although many Forth systems do provide multiprogramming  capabilities using a particular round-robin, cooperative, block-buffer sharing model, that model is not  universal. Even assuming the classical model, the "M" designations did not contain enough information to  enable writing of applications that interacted in a multiprogrammed system.
+||影響されるワード:||
+なし
+||理由:||
+「マルチプログラミングの影響」の意味は、マルチプログラミングの特定のモデルにおいてのみ正確です。多くのForthシステムは、特定のラウンドロビン・協調・ブロックバッファ共有モデルを使用してマルチプログラミング機能を提供していますが、そのモデルは普遍的なものではありません。古典的なモデルを仮定しても、"M" という名称には、マルチプログラミングシステム上で相互作用するアプリケーションを記述するために十分な情報が含まれていませんでした。
+</description>
 
-「マルチプログラミングの影響」の意味は、マルチプログラミングの特定のモデルにおいてのみ正確です。多くのForthシステムは、特定のラウンドロビン、協調、ブロックバッファ共有モデルを使用してマルチプログラミング機能を提供していますが、そのモデルは普遍的なものではありません。古典的なモデルを仮定しても、"M" という名称には、マルチプログラミング・システムで相互作用するアプリケーションを記述するのに十分な情報が含まれていませんでした。
+<hr class="page-wrap" />
 
-Practically speaking, the "M" designations in Forth 83 served to document usage rules for block buffer  addresses in multiprogrammed systems. These addresses often become meaningless after a task has  relinquished the CPU for any reason, most often for the purposes of performing I/O, awaiting an event, or  voluntarily sharing CPU resources using the word PAUSE. It was essential that portable applications  respect those usage rules to make it practical to run them on multiprogrammed systems; failure to adhere to  the rules could easily compromise the integrity of other applications running on those systems as well as the  applications actually in error. Thus, "M" appeared on all words that by design gave up the CPU, with the  understanding that other words NEVER gave it up.
-
-現実的に言えば、Forth83の "M" 指定は、マルチプログラム・システムにおけるブロック・バッファ・アドレスの使用規則を文書化する役割を果たした。これらのアドレスは、タスクが何らかの理由でCPUを手放した後、多くの場合、I/Oを実行したり、イベントを待ったり、PAUSEというワードを使って自発的にCPUリソースを共有したりする目的で無意味になります。ポータブル・アプリケーションをマルチプログラミング・システム上で実用的に動作させるためには、このような使用規則を尊重することが不可欠でした。この規則を守らないと、実際にエラーが発生したアプリケーションだけでなく、システム上で動作している他のアプリケーションの整合性も簡単に損なわれてしまいます。したがって、"M" は、設計上CPUを放棄するすべてのワードに表示され、他のワードは決してCPUを放棄しないことを理解した。
-
-These usage rules have been explicitly documented in the Block word set where they are relevant. The "M"  designations have been removed entirely.
+<description>
+||...||
+現実的に言えば、Forth83の "M" 指定は、マルチプログラムシステムにおけるブロックバッファアドレスの使用規則を文書化する役割を果たしました。これらのアドレスは、タスクが何らかの理由でCPUを手放した後、多くの場合、I/Oを実行したり、イベントを待ったり、`PAUSE`というワードを使って自発的にCPUリソースを共有したりする目的には無意味になります。移植性を持つアプリケーションをマルチプログラミングシステム上で実用的に動作させるためには、このような使用規則を尊重することが不可欠でした。この規則を守らないと、実際にエラーが発生したアプリケーションだけでなく、システム上で動作している他のアプリケーションの整合性も簡単に損なわれてしまいます。したがって、"M" は、設計上CPUを放棄するすべてのワードに表示され、他のワードは決してCPUを放棄しないことの理解を与えました。
 
 これらの使用ルールは、関連するブロックワード集に明示的に文書化されています。「M」指定は完全に削除されました。
-||Impact:||
-In practice, none.
+||影響:||
+実際のところ、ありません。
 
-実際には、ありません。
+マルチプログラミングに依存するアプリケーションは、何らかのリソースを共有し、タスク間で通信を行う少なくとも2つのタスクから構成されなければならないという意味で、Forth83にはマルチプログラミングに**依存する(DEPENDED)**標準的なプログラムを書くのに十分な情報が含まれていませんでした。これは、ANS Forthにも当てはまります。
 
-In the sense that any application that depends on multiprogramming must consist of at least two tasks that  share some resource(s) and communicate between themselves, Forth 83 did not contain enough information  to enable writing of a standard program that DEPENDED on multiprogramming. This is also true of ANS  Forth.
+Forth 83の非マルチプログラミングアプリケーションは、マルチプログラミングシステム上で適切に実行できるように、`BLOCK`の使用規則を尊重する必要がありました。ANS Forthも同様です。
 
-マルチプログラミングに依存するアプリケーションは、何らかのリソースを共有し、タスク間で通信を行う少なくとも2つのタスクから構成されなければならないという意味で、Forth83にはマルチプログラミングに依存する標準的なプログラムを書くのに十分な情報が含まれていませんでした。これは、ANS Forthにも当てはまります。
-
-Non-multiprogrammed applications in Forth 83 were required to respect usage rules for BLOCK so that they  could be run properly on multiprogrammed systems. The same is true of ANS Forth.
-
-Forth 83の非マルチプログラミング・アプリケーションは、マルチプログラミング・システム上で適切に実行できるように、BLOCKの使用規則を尊重する必要がありました。ANS Forthも同様です。
-
-The only difference is the documentation method used to define the BLOCK usage rules. The Technical  Committee believes that the current method is clearer than the concept of "multiprogramming impact".
-
-唯一の違いは、BLOCKの使用規則を定義するための文書化方法です。技術委員会は、「マルチプログラミングの影響」という概念よりも現在の方法の方が明確であると考えています。
-||Transition/Conversion:||
-none needed.
+唯一の違いは、`BLOCK`の使用規則を定義を文書化する方法です。技術委員会は、「マルチプログラミングの影響」という概念よりも現在の方法の方が明確であると考えています。
+||移行/変換:||
+必要ありません。
 </description>
 
 ### D.6.12 Words not provided in executable form 
-
-ANS Forth allows an implementation to supply some words in source code or "load as needed" form, rather  than requiring all supplied words to be available with no additional programmer action.
 
 ANS Forthでは、プログラマが追加操作をしなくても、提供されたすべてのワードが利用可能であることを要求するのではなく、いくつかのワードをソースコードまたは「必要に応じてロード」形式で提供する実装が可能です。
 
 <description>
 
-||Words affected:||
-all
+||影響されるワード:||
+すべてのワード。
 
-||Reason:||
-Forth systems are often used in environments where memory space is at a  premium. Every word included in the system in executable form consumes memory space. The committee  believes that allowing standard words to be provided in source form will increase the probability that  implementors will provide complete ANS Forth implementations even in systems designed for use in  constrained environments.
+||理由:||
+Forthシステムは、メモリ容量が限られている環境で使用されることが多いです。実行形式でシステムに含まれるワードそれぞれが、メモリ空間を消費します。委員会は、標準的なワードをソース形式で提供できるようにすることで、制約のある環境で使用するために設計されたシステムであっても、実装者が完全なANS Forth実装を提供する確率を高めることができると考えています。
 
-Forthシステムは、メモリ容量が限られている環境で使用されることが多いです。実行形式でシステムに含まれるすべてのワードは、メモリ空間を消費します。委員会は、標準的なワードをソース形式で提供できるようにすることで、制約のある環境で使用するために設計されたシステムであっても、実装者が完全なANS Forth実装を提供する確率を高めることができると考えています。
-
-||Impact:||
-In order to use a Standard Program with a given ANS Forth implementation, it  may be necessary to precede the program with an implementation-dependent "preface" to make "source form" words executable. This is similar to the methods that other computer languages require for selecting  the library routines needed by a particular application.
-
-あるANS Forth実装で標準プログラムを使用するには、「ソース形式」のワードを実行可能にするために、実装に依存した「序文」をプログラムの前に置く必要がある場合があります。これは、他のコンピュータ言語が特定のアプリケーションに必要なライブラリルーチンを選択するために必要とする方法に似ています。
-
-In languages like C, the goal of eliminating unnecessary routines from the memory image of an application  is usually accomplished by providing libraries of routines, using a "linker" program to incorporate only the  necessary routines into an executable application. The method of invoking and controlling the linker is  outside the scope of the language definition.
+||影響:||
+あるANS Forth実装で標準プログラムを使用するには、「ソース形式」のワードを実行可能にするために、実装に依存した「序文(preface)」をプログラムの前に置く必要がある場合があります。これは、他のコンピュータ言語が特定のアプリケーションに必要なライブラリルーチンを選択するために必要とする方法に似ています。
 
 C言語のような言語では、アプリケーションのメモリイメージから不要なルーチンを排除するという目標は、通常、ルーチンのライブラリを提供し、「リンカ」プログラムを使って必要なルーチンのみを実行可能なアプリケーションに組み込むことで達成されます。リンカを呼び出して制御する方法は、言語定義の範囲外です。
 
-||Transition/Conversion:||
-Before compiling a program, the programmer may need to perform some action  to make the words required by that program available for execution.
-
+||移行/変換:||
 プログラムをコンパイルする前に、プログラマはそのプログラムが必要とするワードを実行できるようにするために、何らかのアクションを実行する必要があるかもしれません。
 
 </description>
