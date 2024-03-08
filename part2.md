@@ -1,11 +1,11 @@
 
-# 7. The optional Block word set 
+# 7. The optional Block word set{id=Z7_}
 
 
-## 7.1 Introduction 
+## 7.1 Introduction{id=Z7_1}
 
 
-## 7.2 Additional terms 
+## 7.2 Additional terms{id=Z7_2}
 
 <miniterm>
 
@@ -17,9 +17,9 @@ A block-sized region of data space where a block is made temporarily available f
 
 </miniterm>
 
-## 7.3 Additional usage requirements 
+## 7.3 Additional usage requirements{id=Z7_3}
 
-### 7.3.1 Environmental queries 
+### 7.3.1 Environmental queries{id=Z7_3_1}
 
 Append table 7.1 to table 3.5. 
 
@@ -38,13 +38,13 @@ Table 7.1 - Environmental Query Strings
 </table>
 
 
-### 7.3.2 Data space 
+### 7.3.2 Data space{id=Z7_3_2}
 
 A program may access memory within a valid block buffer. 
 
 See: **3.3.3 Data Space**. 
 
-### 7.3.3 Block buffer regions 
+### 7.3.3 Block buffer regions{id=Z7_3_3}
 
 The address of a block buffer returned by `BLOCK` or `BUFFER` is transient. A call to `BLOCK` or `BUFFER` may render a previously-obtained block-buffer address invalid, as may a call to any word that:
 
@@ -62,7 +62,7 @@ If the input source is a block, these restrictions also apply to the address ret
 Block buffers are uniquely assigned to blocks. 
 
 
-### 7.3.4 Parsing 
+### 7.3.4 Parsing{id=Z7_3_4}
 
 The Block word set implements an alternative input source for the text interpreter. When the input source is  a block, `BLK` shall contain the non-zero block number and the input buffer is the 1024-character buffer  containing that block. 
 
@@ -74,16 +74,16 @@ A program may reposition the parse area within a block by manipulating `>IN`. Mo
 
 See: **3.4.1 Parsing**. 
 
-### 7.3.5 Possible action on an ambiguous condition 
+### 7.3.5 Possible action on an ambiguous condition{id=Z7_3_5}
 
 See: **3.4.4 Possible action on an ambiguous condition**. 
 
 - A system with the Block word set may set interpretation state and interpret a block. 
 
-## 7.4 Additional documentation requirements 
+## 7.4 Additional documentation requirements{id=Z7_4}
 
 
-### 7.4.1 System documentation 
+### 7.4.1 System documentation{id=Z7_4_1}
 
 
 #### 7.4.1.1 Implementation-defined options 
@@ -104,14 +104,14 @@ See: **3.4.4 Possible action on an ambiguous condition**.
 - any restrictions a multiprogramming system places on the use of buffer addresses; 
 - the number of blocks available for source text and data. 
 
-### 7.4.2 Program documentation 
+### 7.4.2 Program documentation{id=Z7_4_2}
 
 - the number of blocks required by the program. 
 
-## 7.5 Compliance and labeling 
+## 7.5 Compliance and labeling{id=Z7_5}
 
 
-### 7.5.1 ANS Forth systems 
+### 7.5.1 ANS Forth systems{id=Z7_5_1}
 
 The phrase "Providing the Block word set" shall be appended to the label of any Standard System that  provides all of the Block word set. 
 
@@ -119,7 +119,7 @@ The phrase "Providing name(s) from the Block Extensions word set" shall be appen
 
 The phrase "Providing the Block Extensions word set" shall be appended to the label of any Standard  System that provides all of the Block and Block Extensions word sets. 
 
-### 7.5.2 ANS Forth programs 
+### 7.5.2 ANS Forth programs{id=Z7_5_2}
 
 The phrase "Requiring the Block word set" shall be appended to the label of Standard Programs that require  the system to provide the Block word set. 
 
@@ -129,9 +129,9 @@ The phrase "Requiring the Block Extensions word set" shall be appended to the la
 
 <hr class="page-wrap" />
 
-## 7.6 Glossary 
+## 7.6 Glossary{id=Z7_6}
 
-### 7.6.1 Block words 
+### 7.6.1 Block words{id=Z7_6_1}
 
 <std-glossary>
 
@@ -205,7 +205,7 @@ UPDATE does not immediately cause I/O.
 
 See: **7.6.1.0800 BLOCK**, **7.6.1.0820 BUFFER**, **7.6.1.1559 FLUSH**, **7.6.1.2180 SAVE-BUFFERS**. 
 
-### 7.6.2 Block extension words 
+### 7.6.2 Block extension words{id=Z7_6_2}
 
 
 ||7.6.2.1330||EMPTY-BUFFERS||"xxxxx"||BLOCK EXT||
@@ -249,20 +249,20 @@ Execution: ( "ccc<eol>"-- )  If `BLK` contains zero, parse and discard the remai
 
 </std-glossary>
 
-# 8. The optional Double-Number word set 
+# 8. The optional Double-Number word set{id=Z8_}
 
-## 8.1 Introduction 
+## 8.1 Introduction{id=Z8_1}
 
 Sixteen-bit Forth systems often use double-length numbers. However, many Forths on small embedded  systems do not, and many users of Forth on systems with a cell size of 32 bits or more find that the use of  double-length numbers is much diminished. Therefore, the words that manipulate double-length entities  have been placed in this optional word set. 
 
-## 8.2 Additional terms and notation 
+## 8.2 Additional terms and notation{id=Z8_2}
 
 None. 
 
-## 8.3 Additional usage requirements 
+## 8.3 Additional usage requirements{id=Z8_3}
 
 
-### 8.3.1 Environmental queries 
+### 8.3.1 Environmental queries{id=Z8_3_1}
 
 Append table 8.1 to table 3.5. 
 
@@ -281,7 +281,7 @@ Table 8.1 - Environmental Query Strings
 </table>
 
 
-### 8.3.2 Text interpreter input number conversion 
+### 8.3.2 Text interpreter input number conversion{id=Z8_3_2}
 
 When the text interpreter processes a number that is immediately followed by a decimal point and is not  found as a definition name, the text interpreter shall convert it to a double-cell number. 
 
@@ -289,10 +289,10 @@ For example, entering `DECIMAL 1234` leaves the single-cell number 1234 on the s
 
 See: **3.4.1.3 Text interpreter input number conversion**. 
 
-## 8.4 Additional documentation requirements 
+## 8.4 Additional documentation requirements{id=Z8_4}
 
 
-### 8.4.1 System documentation 
+### 8.4.1 System documentation{id=Z8_4_1}
 
 
 #### 8.4.1.1 Implementation-defined options 
@@ -307,14 +307,14 @@ See: **3.4.1.3 Text interpreter input number conversion**.
 
 - no additional requirements. 
 
-### 8.4.2 Program documentation 
+### 8.4.2 Program documentation{id=Z8_4_2}
 
 - no additional requirements. 
 
 
-## 8.5 Compliance and labeling 
+## 8.5 Compliance and labeling{id=Z8_5}
 
-### 8.5.1 ANS Forth systems 
+### 8.5.1 ANS Forth systems{id=Z8_5_1}
 
 The phrase "Providing the Double-Number word set" shall be appended to the label of any Standard System  that provides all of the Double-Number word set. 
 
@@ -322,7 +322,7 @@ The phrase "Providing name(s) from the Double-Number Extensions word set" shall 
 
 The phrase "Providing the Double-Number Extensions word set" shall be appended to the label of any  Standard System that provides all of the Double-Number and Double-Number Extensions word sets. 
 
-### 8.5.2 ANS Forth programs 
+### 8.5.2 ANS Forth programs{id=Z8_5_2}
 
 The phrase "Requiring the Double-Number word set" shall be appended to the label of Standard Programs  that require the system to provide the Double-Number word set. 
 
@@ -330,9 +330,9 @@ The phrase "Requiring name(s) from the Double-Number Extensions word set" shall 
 
 The phrase "Requiring the Double-Number Extensions word set" shall be appended to the label of Standard  Programs that require the system to provide all of the Double-Number and Double-Number Extensions  word sets. 
 
-## 8.6 Glossary 
+## 8.6 Glossary{id=Z8_6}
 
-### 8.6.1 Double-Number words 
+### 8.6.1 Double-Number words{id=Z8_6_1}
 
 <std-glossary>
 
@@ -450,7 +450,7 @@ Multiply d1 by n1 producing the triple-cell intermediate result t. Divide t by +
 
 Add n to d1|ud1, giving the sum d2|ud2. 
 
-### 8.6.2 Double-Number extension words 
+### 8.6.2 Double-Number extension words{id=Z8_6_2}
 
 ||8.6.2.0420||2ROT||"two-rote"||DOUBLE EXT||
 ( x1 x2 x3 x4 x5 x6 -- x3 x4 x5 x6 x1 x2 )
@@ -464,17 +464,17 @@ flag is true if and only if ud1 is less than ud2.
 
 </std-glossary>
 
-# 9. The optional Exception word set 
+# 9. The optional Exception word set{id=Z9_}
 
-## 9.1 Introduction 
+## 9.1 Introduction{id=Z9_1}
 
-## 9.2 Additional terms and notation 
+## 9.2 Additional terms and notation{id=Z9_2}
 
 None. 
 
-## 9.3 Additional usage requirements 
+## 9.3 Additional usage requirements{id=Z9_3}
 
-### 9.3.1 THROW values 
+### 9.3.1 THROW values{id=Z9_3_1}
 
 The THROW values {-255...-1} shall be used only as assigned by this Standard. The values {-4095...-256}  shall be used only as assigned by a system. 
 
@@ -482,15 +482,15 @@ If the File-Access or Memory-Allocation word sets are implemented, it is recomme
 
 Programs shall not define values for use with `THROW` in the range {-4095...-1}. 
 
-### 9.3.2 Exception frame 
+### 9.3.2 Exception frame{id=Z9_3_2}
 
 An exception frame is the implementation-dependent set of information recording the current execution  state necessary for the proper functioning of `CATCH` and `THROW`. It often includes the depths of the data  stack and return stack. 
 
-### 9.3.3 Exception stack 
+### 9.3.3 Exception stack{id=Z9_3_3}
 
 A stack used for the nesting of exception frames by `CATCH` and `THROW`. It may be, but need not be,  implemented using the return stack. 
 
-### 9.3.4 Environmental queries 
+### 9.3.4 Environmental queries{id=Z9_3_4}
 
 Append table 9.1 to table 3.5. 
 
@@ -509,7 +509,7 @@ Table 9.1 - Environmental query strings
 </table>
 
 
-### 9.3.5 Possible actions on an ambiguous condition 
+### 9.3.5 Possible actions on an ambiguous condition{id=Z9_3_5}
 
 A system choosing to execute THROW when detecting one of the ambiguous conditions listed in table 9.3.6  shall use the throw code listed there. 
 
@@ -554,15 +554,15 @@ Table 9.2 - THROW code assignments
 </table>
 
 
-### 9.3.6 Exception handling 
+### 9.3.6 Exception handling{id=Z9_3_6}
 
 There are several methods of coupling `CATCH` and `THROW` to other procedural nestings. The usual nestings  are the execution of definitions, use of the return stack, use of loops, instantiation of locals and nesting of  input sources (i.e., with `LOAD`, `EVALUATE`, or `INCLUDE-FILE`).
 
 When a `THROW` returns control to a `CATCH`, the system shall un-nest not only definitions, but also, if  present, locals and input source specifications, to return the system to its proper state for continued  execution past the `CATCH`. 
 
-## 9.4 Additional documentation requirements 
+## 9.4 Additional documentation requirements{id=Z9_4}
 
-### 9.4.1 System documentation 
+### 9.4.1 System documentation{id=Z9_4_1}
 
 #### 9.4.1.1 Implementation-defined options 
 
@@ -576,13 +576,13 @@ When a `THROW` returns control to a `CATCH`, the system shall un-nest not only d
 
 - no additional requirements. 
 
-### 9.4.2 Program documentation 
+### 9.4.2 Program documentation{id=Z9_4_2}
 
 - no additional requirements. 
 
-## 9.5 Compliance and labeling 
+## 9.5 Compliance and labeling{id=Z9_5}
 
-### 9.5.1 ANS Forth systems 
+### 9.5.1 ANS Forth systems{id=Z9_5_1}
 
 The phrase "Providing the Exception word set" shall be appended to the label of any Standard System that  provides all of the Exception word set. 
 
@@ -590,7 +590,7 @@ The phrase "Providing name(s) from the Exception Extensions word set" shall be a
 
 The phrase "Providing the Exception Extensions word set" shall be appended to the label of any Standard  System that provides all of the Exception and Exception Extensions word sets. 
 
-### 9.5.2 ANS Forth programs 
+### 9.5.2 ANS Forth programs{id=Z9_5_2}
 
 The phrase "Requiring the Exception word set" shall be appended to the label of Standard Programs that  require the system to provide the Exception word set. 
 
@@ -598,9 +598,9 @@ The phrase "Requiring name(s) from the Exception Extensions word set" shall be a
 
 The phrase "Requiring the Exception Extensions word set" shall be appended to the label of Standard  Programs that require the system to provide all of the Exception and Exception Extensions word sets. 
 
-## 9.6 Glossary 
+## 9.6 Glossary{id=Z9_6}
 
-### 9.6.1 Exception words 
+### 9.6.1 Exception words{id=Z9_6_1}
 
 <std-glossary>
 
@@ -624,7 +624,7 @@ If n is minus-two, perform the function of **6.1.0680 ABORT"** (the version of `
 
 Otherwise, the system may display an implementation-dependent message giving  information about the condition associated with the `THROW` code n. Subsequently, the  system shall perform the function of **6.1.0670 ABORT** (the version of `ABORT` in the Core  word set). 
 
-### 9.6.2 Exception extension words 
+### 9.6.2 Exception extension words{id=Z9_6_2}
 
 ||9.6.2.0670||ABORT||"xxxxx"||EXCEPTION EXT||
 Extend the semantics of **6.1.0670 ABORT** to be: 
@@ -647,23 +647,23 @@ See: **3.4.1 Parsing**, **6.1.0680 ABORT"**.
 
 </std-glossary>
 
-# 10. The optional Facility word set 
+# 10. The optional Facility word set{id=Z10_}
 
-## 10.1 Introduction 
+## 10.1 Introduction{id=Z10_1}
 
-## 10.2 Additional terms and notation 
+## 10.2 Additional terms and notation{id=Z10_2}
 
 None. 
 
-## 10.3 Additional usage requirements 
+## 10.3 Additional usage requirements{id=Z10_3}
 
-### 10.3.1 Character types 
+### 10.3.1 Character types{id=Z10_3_1}
 
 Programs that use more than seven bits of a character by **10.6.2.1305 EKEY** have an environmental  dependency. 
 
 See: **3.1.2 Character types**. 
 
-### 10.3.2 Environmental queries 
+### 10.3.2 Environmental queries{id=Z10_3_2}
 
 Append table 10.1 to table 3.5. 
 
@@ -681,9 +681,9 @@ Table 10.1 - Environmental query strings
 
 </table>
 
-## 10.4 Additional documentation requirements 
+## 10.4 Additional documentation requirements{id=Z10_4}
 
-### 10.4.1 System documentation 
+### 10.4.1 System documentation{id=Z10_4_1}
 
 #### 10.4.1.1 Implementation-defined options 
 
@@ -699,7 +699,7 @@ Table 10.1 - Environmental query strings
 
 - no additional requirements. 
 
-### 10.4.2 Program documentation 
+### 10.4.2 Program documentation{id=Z10_4_2}
 
 #### 10.4.2.1 Environmental dependencies 
 
@@ -709,9 +709,9 @@ Table 10.1 - Environmental query strings
 
 - no additional requirements. 
 
-## 10.5 Compliance and labeling 
+## 10.5 Compliance and labeling{id=Z10_5}
 
-### 10.5.1 ANS Forth systems 
+### 10.5.1 ANS Forth systems{id=Z10_5_1}
 
 The phrase "Providing the Facility word set" shall be appended to the label of any Standard System that  provides all of the Facility word set. 
 
@@ -719,7 +719,7 @@ The phrase "Providing name(s) from the Facility Extensions word set" shall be ap
 
 The phrase "Providing the Facility Extensions word set" shall be appended to the label of any Standard  System that provides all of the Facility and Facility Extensions word sets. 
 
-### 10.5.2 ANS Forth programs 
+### 10.5.2 ANS Forth programs{id=Z10_5_2}
 
 The phrase "Requiring the Facility word set" shall be appended to the label of Standard Programs that  require the system to provide the Facility word set. 
 
@@ -727,9 +727,9 @@ The phrase "Requiring name(s) from the Facility Extensions word set" shall be ap
 
 The phrase "Requiring the Facility Extensions word set" shall be appended to the label of Standard  Programs that require the system to provide all of the Facility and Facility Extensions word sets. 
 
-## 10.6 Glossary 
+## 10.6 Glossary{id=Z10_6}
 
-### 10.6.1 Facility words 
+### 10.6.1 Facility words{id=Z10_6_1}
 
 <std-glossary>
 
@@ -750,7 +750,7 @@ After `KEY?` returns with a value of true, subsequent executions of `KEY?` prior
 
 Move to another page for output. Actual function depends on the output device. On a terminal,  `PAGE` clears the screen and resets the cursor position to the upper left corner. On a printer,  `PAGE` performs a form feed. 
 
-### 10.6.2 Facility extension words 
+### 10.6.2 Facility extension words{id=Z10_6_2}
 
 
 ||10.6.2.1305||EKEY||"e-key"||FACILITY EXT||
@@ -790,9 +790,9 @@ Return the current time and date. +n1 is the second {0...59}, +n2 is the minute 
 
 </std-glossary>
 
-# 11. The optional File-Access word set 
+# 11. The optional File-Access word set{id=Z11_}
 
-## 11.1 Introduction 
+## 11.1 Introduction{id=Z11_1}
 
 These words provide access to mass storage in the form of "files" under the following assumptions: 
 
@@ -804,7 +804,7 @@ These words provide access to mass storage in the form of "files" under the foll
 - file contents are accessed as a sequence of characters; 
 - file read operations return an actual transfer count, which can differ from the requested transfer count. 
 
-## 11.2 Additional terms 
+## 11.2 Additional terms{id=Z11_2}
 
 <miniterm>
 
@@ -819,9 +819,9 @@ The file, containing a sequence of lines, that is the input source.
 
 </miniterm>
 
-## 11.3 Additional usage requirements 
+## 11.3 Additional usage requirements{id=Z11_3}
 
-### 11.3.1 Data types 
+### 11.3.1 Data types{id=Z11_3_1}
 
 Append table 11.1 to table 3.1.
 
@@ -857,7 +857,7 @@ File access methods are implementation-defined single-cell values.
 
 A character string containing the name of the file. The file name may include an implementation-dependent  path name. The format of file names is implementation defined. 
 
-### 11.3.2 Blocks in files 
+### 11.3.2 Blocks in files{id=Z11_3_2}
 
 If the File-Access word set is implemented, the Block word set shall be implemented. 
 Blocks may, but need not, reside in files. When they do: 
@@ -865,7 +865,7 @@ Blocks may, but need not, reside in files. When they do:
 - Block numbers may be mapped to one or more files by implementation-defined means. An ambiguous  condition exists if a requested block number is not currently mapped; 
 - An `UPDATE`d block that came from a file shall be transferred back to the same file. 
 
-### 11.3.3 Environmental queries 
+### 11.3.3 Environmental queries{id=Z11_3_3}
 
 Append table 11.2 to table 3.5. 
 
@@ -882,7 +882,7 @@ Table 11.2 - Environmental query strings
 
 </table>
 
-### 11.3.4 Input source 
+### 11.3.4 Input source{id=Z11_3_4}
 
 The File-Access word set creates another input source for the text interpreter. When the input source is a  text file, BLK shall contain zero, `SOURCE-ID` shall contain the fileid of that text file, and the input buffer  shall contain one line of the text file. 
 
@@ -892,13 +892,13 @@ A program that uses more than eight levels of input-file nesting has an environm
 
 See: **3.3.3.5 Input buffers**, 9. Optional Exception word set. 
 
-### 11.3.5 Other transient regions 
+### 11.3.5 Other transient regions{id=Z11_3_5}
 
 The list of words using memory in transient regions is extended to include **11.6.1.2165 S"**. 
 
 See: **3.3.3.6 Other transient regions**. 
 
-### 11.3.6 Parsing 
+### 11.3.6 Parsing{id=Z11_3_6}
 
 When parsing from a text file using a space delimiter, control characters shall be treated the same as the  space character. 
 
@@ -908,9 +908,9 @@ A program may reposition the parse area within the input buffer by manipulating 
 
 See: **3.4.1 Parsing**. 
 
-## 11.4 Additional documentation requirements 
+## 11.4 Additional documentation requirements{id=Z11_4}
 
-### 11.4.1 System documentation 
+### 11.4.1 System documentation{id=Z11_4_1}
 
 #### 11.4.1.1 Implementation-defined options 
 
@@ -941,7 +941,7 @@ See: **3.4.1 Parsing**.
 
 - no additional requirements. 
 
-### 11.4.2 Program documentation 
+### 11.4.2 Program documentation{id=Z11_4_2}
 
 
 #### 11.4.2.1 Environmental dependencies 
@@ -953,9 +953,9 @@ See: **3.4.1 Parsing**.
 
 - no additional requirements. 
 
-## 11.5 Compliance and labeling 
+## 11.5 Compliance and labeling{id=Z11_5}
 
-### 11.5.1 ANS Forth systems 
+### 11.5.1 ANS Forth systems{id=Z11_5_1}
 
 The phrase "Providing the File Access word set" shall be appended to the label of any Standard System that  provides all of the File Access word set. 
 
@@ -963,7 +963,7 @@ The phrase "Providing name(s) from the File Access Extensions word set" shall be
 
 The phrase "Providing the File Access Extensions word set" shall be appended to the label of any Standard  System that provides all of the File Access and File Access Extensions word sets. 
 
-### 11.5.2 ANS Forth programs 
+### 11.5.2 ANS Forth programs{id=Z11_5_2}
 
 The phrase "Requiring the File Access word set" shall be appended to the label of Standard Programs that  require the system to provide the File Access word set. 
 
@@ -971,9 +971,9 @@ The phrase "Requiring name(s) from the File Access Extensions word set" shall be
 
 The phrase "Requiring the File Access Extensions word set" shall be appended to the label of Standard  Programs that require the system to provide all of the File Access and File Access Extensions word sets. 
 
-## 11.6 Glossary 
+## 11.6 Glossary{id=Z11_6}
 
-### 11.6.1 File Access words 
+### 11.6.1 File Access words{id=Z11_6_1}
 
 
 <std-glossary>
@@ -1164,7 +1164,7 @@ At the conclusion of the operation, `FILE-POSITION` returns the next file positi
 
 See: **11.6.1.2080 READ-FILE**, **11.6.1.2090 READ-LINE**. 
 
-### 11.6.2 File-Access extension words 
+### 11.6.2 File-Access extension words{id=Z11_6_2}
 
 
 ||11.6.2.1524||FILE-STATUS||"xxxxx"||FILE EXT||
@@ -1193,13 +1193,13 @@ Rename the file named by the character string c-addr1 u1 to the name in the char
 
 </std-glossary>
 
-# 12. The optional Floating-Point word set 
+# 12. The optional Floating-Point word set{id=Z12_}
 
-## 12.1 Introduction 
+## 12.1 Introduction{id=Z12_1}
 
-## 12.2 Additional terms and notation 
+## 12.2 Additional terms and notation{id=Z12_2}
 
-### 12.2.1 Definition of terms 
+### 12.2.1 Definition of terms{id=Z12_2_1}
 
 <miniterm>
 
@@ -1217,7 +1217,7 @@ A single- or double-precision floating-point number as defined in  ANSI/IEEE 754
 
 </miniterm>
 
-### 12.2.2 Notation 
+### 12.2.2 Notation{id=Z12_2_2}
 
 
 #### 12.2.2.1 Numeric notation 
@@ -1235,10 +1235,10 @@ The following notation is used to define the syntax of the external representati
 Floating-point stack notation when the floating-point stack is separate from the data stack is: 
 ( F: before -- after )
 
-## 12.3 Additional usage requirements 
+## 12.3 Additional usage requirements{id=Z12_3}
 
 
-### 12.3.1 Data types 
+### 12.3.1 Data types{id=Z12_3_1}
 
 Append table 12.1 to table 3.1. 
 
@@ -1275,13 +1275,13 @@ The internal representation of a floating-point number, including the format and
 
 Any rounding or truncation of floating-point numbers is implementation defined. 
 
-### 12.3.2 Floating-point operations 
+### 12.3.2 Floating-point operations{id=Z12_3_2}
 
 "Round to nearest" means round the result of a floating-point operation to the representable value nearest  the result. If the two nearest representable values are equally near the result, the one having zero as its least  significant bit shall be delivered. 
 
 "Round toward negative infinity" means round the result of a floating-point operation to the representable  value nearest to and no greater than the result. 
 
-### 12.3.3 Floating-point stack 
+### 12.3.3 Floating-point stack{id=Z12_3_3}
 
 A last in, first out list that shall be used by all floating-point operators. 
 
@@ -1291,7 +1291,7 @@ The size of a floating-point stack shall be at least 6 items.
 
 A program that depends on the floating-point stack being larger than six items has an environmental  dependency. 
 
-### 12.3.4 Environmental queries 
+### 12.3.4 Environmental queries{id=Z12_3_4}
 
 Append table 12.2 to table 3.5. 
 
@@ -1311,19 +1311,19 @@ Table 12.2 - Environmental query strings
 
 </table>
 
-### 12.3.5 Address alignment 
+### 12.3.5 Address alignment{id=Z12_3_5}
 
 Since the address returned by a `CREATE`d word is not necessarily aligned for any particular class of  floating-point data, a program shall align the address (to be float aligned, single-float aligned, or double-float aligned) before accessing floating-point data at the address. 
 
 See: **3.3.3.1 Address Alignment**, **12.3.1.1 Addresses**. 
 
-### 12.3.6 Variables 
+### 12.3.6 Variables{id=Z12_3_6}
 
 A program may address memory in data space regions made available by `FVARIABLE`. These regions may  be non-contiguous with regions subsequently allocated with , (comma) or `ALLOT`. 
 
 See: **3.3.3.3 Variables**. 
 
-### 12.3.7 Text interpreter input number conversion 
+### 12.3.7 Text interpreter input number conversion{id=Z12_3_7}
 
 If the Floating-Point word set is present in the dictionary and the current base is `DECIMAL`, the input  number-conversion algorithm shall be extended to recognize floating-point numbers in this form: 
 
@@ -1332,9 +1332,9 @@ Convertible string := &lt;significand>&lt;exponent>  &lt;significand> := [<sign>
 
 See: **3.4.1.3 Text interpreter input number conversion**, **12.6.1.0558 >FLOAT**. 
 
-## 12.4 Additional documentation requirements 
+## 12.4 Additional documentation requirements{id=Z12_4}
 
-### 12.4.1 System documentation 
+### 12.4.1 System documentation{id=Z12_4_1}
 
 #### 12.4.1.1 Implementation-defined options 
 
@@ -1368,7 +1368,7 @@ See: **3.4.1.3 Text interpreter input number conversion**, **12.6.1.0558 >FLOAT*
 
 - no additional requirements. 
 
-### 12.4.2 Program documentation 
+### 12.4.2 Program documentation{id=Z12_4_2}
 
 #### 12.4.2.1 Environmental dependencies 
 
@@ -1378,10 +1378,10 @@ See: **3.4.1.3 Text interpreter input number conversion**, **12.6.1.0558 >FLOAT*
 
 - no additional requirements. 
 
-## 12.5 Compliance and labeling 
+## 12.5 Compliance and labeling{id=Z12_5}
 
 
-### 12.5.1 ANS Forth systems 
+### 12.5.1 ANS Forth systems{id=Z12_5_1}
 
 The phrase "Providing the Floating-Point word set" shall be appended to the label of any Standard System  that provides all of the Floating-Point word set. 
 
@@ -1389,7 +1389,7 @@ The phrase "Providing name(s) from the Floating-Point Extensions word set" shall
 
 The phrase "Providing the Floating-Point Extensions word set" shall be appended to the label of any  Standard System that provides all of the Floating-Point and Floating-Point Extensions word sets. 
 
-### 12.5.2 ANS Forth programs 
+### 12.5.2 ANS Forth programs{id=Z12_5_2}
 
 The phrase "Requiring the Floating-Point word set" shall be appended to the label of Standard Programs  that require the system to provide the Floating-Point word set. 
 
@@ -1397,9 +1397,9 @@ The phrase "Requiring name(s) from the Floating-Point Extensions word set" shall
 
 The phrase "Requiring the Floating-Point Extensions word set" shall be appended to the label of Standard  Programs that require the system to provide all of the Floating-Point and Floating-Point Extensions word  sets. 
 
-## 12.6 Glossary 
+## 12.6 Glossary{id=Z12_6}
 
-### 12.6.1 Floating-Point words 
+### 12.6.1 Floating-Point words{id=Z12_6_1}
 
 <std-glossary>
 
@@ -1592,7 +1592,7 @@ See: **3.2.1.2 Digit conversion**, **6.1.0750 BASE**, **12.3.2 Floating-point op
 
 </std-glossary>
 
-### 12.6.2 Floating-Point extension words 
+### 12.6.2 Floating-Point extension words{id=Z12_6_2}
 
 <std-glossary>
 
@@ -1864,25 +1864,25 @@ See: **12.3.1.1 Addresses**.
 
 </std-glossary>
 
-# 13. The optional Locals word set 
+# 13. The optional Locals word set{id=Z13_}
 
 
-## 13.1 Introduction 
+## 13.1 Introduction{id=Z13_1}
 
 See: **Annex A.13 The Locals Word Set**. 
 
-## 13.2 Additional terms and notation 
+## 13.2 Additional terms and notation{id=Z13_2}
 
 None. 
 
-## 13.3 Additional usage requirements 
+## 13.3 Additional usage requirements{id=Z13_3}
 
 
-### 13.3.1 Locals 
+### 13.3.1 Locals{id=Z13_3_1}
 
 A local is a data object whose execution semantics shall return its value, whose scope shall be limited to the  definition in which it is declared, and whose use in a definition shall not preclude reentrancy or recursion. 
 
-### 13.3.2 Environmental queries 
+### 13.3.2 Environmental queries{id=Z13_3_2}
 
 Append table 13.1 to table 3.5. 
 
@@ -1902,7 +1902,7 @@ Table 13.1 - Environmental query strings
 </table>
 
 
-### 13.3.3 Processing locals 
+### 13.3.3 Processing locals{id=Z13_3_3}
 
 To support the locals word set, a system shall provide a mechanism to receive the messages defined by  (LOCAL) and respond as described here. 
 During the compilation of a definition after : (colon), :NONAME, or DOES>, a program may begin sending  local identifier messages to the system. The process shall begin when the first message is sent. The process  shall end when the "last local" message is sent. The system shall keep track of the names, order, and  number of identifiers contained in the complete sequence. 
@@ -1952,10 +1952,10 @@ Immediate words in a program may use (LOCAL) to implement syntaxes for local dec
 
 See: **3.4 The Forth text interpreter**. 
 
-## 13.4 Additional documentation requirements 
+## 13.4 Additional documentation requirements{id=Z13_4}
 
 
-### 13.4.1 System documentation 
+### 13.4.1 System documentation{id=Z13_4_1}
 
 
 #### 13.4.1.1 Implementation-defined options 
@@ -1972,7 +1972,7 @@ See: **3.4 The Forth text interpreter**.
 - no additional requirements. 
 
 
-### 13.4.2 Program documentation 
+### 13.4.2 Program documentation{id=Z13_4_2}
 
 
 #### 13.4.2.1 Environmental dependencies 
@@ -1983,10 +1983,10 @@ See: **3.4 The Forth text interpreter**.
 
 - no additional requirements. 
 
-## 13.5 Compliance and labeling 
+## 13.5 Compliance and labeling{id=Z13_5}
 
 
-### 13.5.1 ANS Forth systems 
+### 13.5.1 ANS Forth systems{id=Z13_5_1}
 
 The phrase "Providing the Locals word set" shall be appended to the label of any Standard System that  provides all of the Locals word set. 
 
@@ -1994,7 +1994,7 @@ The phrase "Providing name(s) from the Locals Extensions word set" shall be appe
 
 The phrase "Providing the Locals Extensions word set" shall be appended to the label of any Standard  System that provides all of the Locals and Locals Extensions word sets. 
 
-### 13.5.2 ANS Forth programs 
+### 13.5.2 ANS Forth programs{id=Z13_5_2}
 
 The phrase "Requiring the Locals word set" shall be appended to the label of Standard Programs that  require the system to provide the Locals word set. 
 
@@ -2002,10 +2002,10 @@ The phrase "Requiring name(s) from the Locals Extensions word set" shall be appe
 
 The phrase "Requiring the Locals Extensions word set" shall be appended to the label of Standard Programs  that require the system to provide all of the Locals and Locals Extensions word sets. 
 
-## 13.6 Glossary 
+## 13.6 Glossary{id=Z13_6}
 
 
-### 13.6.1 Locals words
+### 13.6.1 Locals words{id=Z13_6_1}
 
 <std-glossary>
 
@@ -2036,7 +2036,7 @@ Extend the semantics of **6.2.2295 TO** to be:
 
 See: **3.4.1 Parsing**, **6.2.2295 TO**, **6.2.2405 VALUE**, **13.6.1.0086 (LOCAL)**.
 
-### 13.6.2 Locals extension words 
+### 13.6.2 Locals extension words{id=Z13_6_2}
 
 
 ||13.6.2.1795||LOCALS&#124; ||"locals-bar"||LOCAL EXT||
@@ -2051,20 +2051,20 @@ The value of a local may be changed using **13.6.1.2295 TO**.
 
 </std-glossary>
 
-# 14. The optional Memory-Allocation word set 
+# 14. The optional Memory-Allocation word set{id=Z14_}
 
 
-## 14.1 Introduction 
+## 14.1 Introduction{id=Z14_1}
 
 
-## 14.2 Additional terms and notation 
+## 14.2 Additional terms and notation{id=Z14_2}
 
 None. 
 
-## 14.3 Additional usage requirements 
+## 14.3 Additional usage requirements{id=Z14_3}
 
 
-### 14.3.1 I/O Results data type 
+### 14.3.1 I/O Results data type{id=Z14_3_1}
 
 I/O results are single-cell numbers indicating the result of I/O operations. A value of zero indicates that the  I/O operation completed successfully; other values and their meanings are implementation-defined. 
 Append table 14.1 to table 3.1. 
@@ -2081,7 +2081,7 @@ Table 14.1 - Data types
 </table>
 
 
-### 14.3.2 Environmental queries 
+### 14.3.2 Environmental queries{id=Z14_3_2}
 
 Append table 14.2 to table 3.5. 
 
@@ -2100,16 +2100,16 @@ Table 14.2 - Environmental query strings
 </table>
 
 
-### 14.3.3 Allocated regions 
+### 14.3.3 Allocated regions{id=Z14_3_3}
 
 A program may address memory in data space regions made available by `ALLOCATE` or `RESIZE` and not  yet released by `FREE`. 
 
 See: **3.3.3 Data space**. 
 
-## 14.4 Additional documentation requirements 
+## 14.4 Additional documentation requirements{id=Z14_4}
 
 
-### 14.4.1 System documentation 
+### 14.4.1 System documentation{id=Z14_4_1}
 
 
 #### 14.4.1.1 Implementation-defined options 
@@ -2125,14 +2125,14 @@ See: **3.3.3 Data space**.
 
 - no additional requirements. 
 
-### 14.4.2 Program documentation 
+### 14.4.2 Program documentation{id=Z14_4_2}
 
 - no additional requirements. 
 
-## 14.5 Compliance and labeling 
+## 14.5 Compliance and labeling{id=Z14_5}
 
 
-### 14.5.1 ANS Forth systems 
+### 14.5.1 ANS Forth systems{id=Z14_5_1}
 
 The phrase "Providing the Memory-Allocation word set" shall be appended to the label of any Standard  System that provides all of the Memory-Allocation word set. 
 
@@ -2140,7 +2140,7 @@ The phrase "Providing name(s) from the Memory-Allocation Extensions word set" sh
 
 The phrase "Providing the Memory-Allocation Extensions word set" shall be appended to the label of any  Standard System that provides all of the Memory-Allocation and Memory-Allocation Extensions word sets. 
 
-### 14.5.2 ANS Forth programs 
+### 14.5.2 ANS Forth programs{id=Z14_5_2}
 
 The phrase "Requiring the Memory-Allocation word set" shall be appended to the label of Standard  Programs that require the system to provide the Memory-Allocation word set. 
 
@@ -2148,10 +2148,10 @@ The phrase "Requiring name(s) from the Memory-Allocation Extensions word set" sh
 
 The phrase "Requiring the Memory-Allocation Extensions word set" shall be appended to the label of  Standard Programs that require the system to provide all of the Memory-Allocation and Memory-Allocation  Extensions word sets. 
 
-## 14.6 Glossary 
+## 14.6 Glossary{id=Z14_6}
 
 
-### 14.6.1 Memory-Allocation words 
+### 14.6.1 Memory-Allocation words{id=Z14_6_1}
 
 <std-glossary>
 
@@ -2188,23 +2188,23 @@ See: **6.1.1650 HERE**, **14.6.1.0707 ALLOCATE**, **14.6.1.1605 FREE**.
 
 </std-glossary>
 
-### 14.6.2 Memory-Allocation extension words 
+### 14.6.2 Memory-Allocation extension words{id=Z14_6_2}
 
 None
 
-# 15. The optional Programming-Tools word set 
+# 15. The optional Programming-Tools word set{id=Z15_}
 
-## 15.1 Introduction 
+## 15.1 Introduction{id=Z15_1}
 
 This optional word set contains words most often used during the development of applications. 
 
-## 15.2 Additional terms and notation 
+## 15.2 Additional terms and notation{id=Z15_2}
 
 None. 
 
-## 15.3 Additional usage requirements 
+## 15.3 Additional usage requirements{id=Z15_3}
 
-### 15.3.1 Environmental queries 
+### 15.3.1 Environmental queries{id=Z15_3_1}
 
 Append table 15.1 to table 3.5. 
 
@@ -2223,7 +2223,7 @@ Table 15.1 - Environmental query strings
 </table>
 
 
-### 15.3.2 The Forth dictionary 
+### 15.3.2 The Forth dictionary{id=Z15_3_2}
 
 A program using the words `CODE` or `;CODE` associated with assembler code has an environmental  dependency on that particular instruction set and assembler notation. 
 
@@ -2231,9 +2231,9 @@ Programs using the words `EDITOR` or `ASSEMBLER` require the Search Order word s
 
 See: **3.3 The Forth dictionary**. 
 
-## 15.4 Additional documentation requirements 
+## 15.4 Additional documentation requirements{id=Z15_4}
 
-### 15.4.1 System documentation 
+### 15.4.1 System documentation{id=Z15_4_1}
 
 #### 15.4.1.1 Implementation-defined options 
 
@@ -2256,7 +2256,7 @@ See: **3.3 The Forth dictionary**.
 
 - no additional requirements. 
 
-### 15.4.2 Program documentation 
+### 15.4.2 Program documentation{id=Z15_4_2}
 
 
 #### 15.4.2.1 Environmental dependencies 
@@ -2267,10 +2267,10 @@ See: **3.3 The Forth dictionary**.
 
 - no additional requirements. 
 
-## 15.5 Compliance and labeling 
+## 15.5 Compliance and labeling{id=Z15_5}
 
 
-### 15.5.1 ANS Forth systems 
+### 15.5.1 ANS Forth systems{id=Z15_5_1}
 
 The phrase "Providing the Programming-Tools word set" shall be appended to the label of any Standard  System that provides all of the Programming-Tools word set. 
 
@@ -2278,7 +2278,7 @@ The phrase "Providing name(s) from the Programming-Tools Extensions word set" sh
 
 The phrase "Providing the Programming-Tools Extensions word set" shall be appended to the label of any  Standard System that provides all of the Programming-Tools and Programming-Tools Extensions word sets. 
 
-### 15.5.2 ANS Forth programs 
+### 15.5.2 ANS Forth programs{id=Z15_5_2}
 
 The phrase "Requiring the Programming-Tools word set" shall be appended to the label of Standard  Programs that require the system to provide the Programming-Tools word set. 
 
@@ -2286,9 +2286,9 @@ The phrase "Requiring name(s) from the Programming-Tools Extensions word set" sh
 
 The phrase "Requiring the Programming-Tools Extensions word set" shall be appended to the label of  Standard Programs that require the system to provide all of the Programming-Tools and Programming-Tools Extensions word sets. 
 
-## 15.6 Glossary 
+## 15.6 Glossary{id=Z15_6}
 
-### 15.6.1 Programming-Tools words 
+### 15.6.1 Programming-Tools words{id=Z15_6_1}
 
 <std-glossary>
 
@@ -2338,7 +2338,7 @@ See: **3.3.3.6 Other Transient Regions**.
 
 </std-glossary>
 
-### 15.6.2 Programming-Tools extension words 
+### 15.6.2 Programming-Tools extension words{id=Z15_6_2}
 
 <std-glossary>
 
@@ -2452,11 +2452,11 @@ Execution: ( -- )  Does nothing. `[THEN]` is an immediate word.
 
 </std-glossary>
 
-# 16. The optional Search-Order word set 
+# 16. The optional Search-Order word set{id=Z16_}
 
-## 16.1 Introduction 
+## 16.1 Introduction{id=Z16_1}
 
-## 16.2 Additional terms and notation 
+## 16.2 Additional terms and notation{id=Z16_2}
 
 <miniterm>
 
@@ -2467,10 +2467,10 @@ The word list into which new definition names are placed.
 
 </miniterm>
 
-## 16.3 Additional usage requirements 
+## 16.3 Additional usage requirements{id=Z16_3}
 
 
-### 16.3.1 Data types 
+### 16.3.1 Data types{id=Z16_3_1}
 
 Word list identifiers are implementation-dependent single-cell values that identify word lists. 
 Append table 16.1 to table 3.1. 
@@ -2488,7 +2488,7 @@ Append table 16.1 to table 3.1.
 
 See: **3.1 Data types**, **3.4.2 Finding definition names**, **3.4 The Forth text interpreter**. 
 
-### 16.3.2 Environmental queries 
+### 16.3.2 Environmental queries{id=Z16_3_2}
 
 Append table 16.2 to table 3.5. 
 
@@ -2508,7 +2508,7 @@ Table 16.2 - Environmental query strings
 </table>
 
 
-### 16.3.3 Finding definition names 
+### 16.3.3 Finding definition names{id=Z16_3_3}
 
 When searching a word list for a definition name, the system shall search each word list from its last  definition to its first. The search may encompass only a single word list, as with `SEARCH-WORDLIST`, or  all the word lists in the search order, as with the text interpreter and `FIND`. 
 
@@ -2522,13 +2522,13 @@ A program that requires more than eight word lists in the search order has an en
 
 See: **3.4.2 Finding definition names**
 
-### 16.3.4 Contiguous regions 
+### 16.3.4 Contiguous regions{id=Z16_3_4}
 
 The regions of data space produced by the operations described in **3.3.3.2 Contiguous regions** may be non-contiguous if `WORDLIST` is executed between allocations. 
 
-## 16.4 Additional documentation requirements 
+## 16.4 Additional documentation requirements{id=Z16_4}
 
-### 16.4.1 System documentation 
+### 16.4.1 System documentation{id=Z16_4_1}
 
 #### 16.4.1.1 Implementation-defined options 
 
@@ -2546,7 +2546,7 @@ The regions of data space produced by the operations described in **3.3.3.2 Cont
 
 - no additional requirements. 
 
-### 16.4.2 Program documentation 
+### 16.4.2 Program documentation{id=Z16_4_2}
 
 
 #### 16.4.2.1 Environmental dependencies 
@@ -2557,10 +2557,10 @@ The regions of data space produced by the operations described in **3.3.3.2 Cont
 
 - no additional requirements. 
 
-## 16.5 Compliance and labeling 
+## 16.5 Compliance and labeling{id=Z16_5}
 
 
-### 16.5.1 ANS Forth systems 
+### 16.5.1 ANS Forth systems{id=Z16_5_1}
 
 The phrase "Providing the Search-Order word set" shall be appended to the label of any Standard System  that provides all of the Search-Order word set. 
 
@@ -2568,7 +2568,7 @@ The phrase "Providing name(s) from the Search-Order Extensions word set" shall b
 
 The phrase "Providing the Search-Order Extensions word set" shall be appended to the label of any  Standard System that provides all of the Search-Order and Search-Order Extensions word sets. 
 
-### 16.5.2 ANS Forth programs 
+### 16.5.2 ANS Forth programs{id=Z16_5_2}
 
 The phrase "Requiring the Search-Order word set" shall be appended to the label of Standard Programs that  require the system to provide the Search-Order word set. 
 
@@ -2576,10 +2576,10 @@ The phrase "Requiring name(s) from the Search-Order Extensions word set" shall b
 
 The phrase "Requiring the Search-Order Extensions word set" shall be appended to the label of Standard  Programs that require the system to provide all of the Search-Order and Search-Order Extensions word sets. 
 
-## 16.6 Glossary 
+## 16.6 Glossary{id=Z16_6}
 
 
-### 16.6.1 Search-Order words 
+### 16.6.1 Search-Order words{id=Z16_6_1}
 
 <std-glossary>
 
@@ -2636,7 +2636,7 @@ Create a new empty word list, returning its word list identifier wid. The new wo
 
 A system shall allow the creation of at least 8 new word lists in addition to any provided as part  of the system. 
 
-### 16.6.2 Search-Order extension words 
+### 16.6.2 Search-Order extension words{id=Z16_6_2}
 
 ||16.6.2.0715||ALSO||"xxxxx"||SEARCH EXT||
 ( -- )
@@ -2669,16 +2669,16 @@ Transform the search order consisting of widn, ... wid2, wid1 (where wid1 is sea
 
 </std-glossary>
 
-# 17. The optional String word set 
+# 17. The optional String word set{id=Z17_}
 
 
-## 17.1 Introduction 
+## 17.1 Introduction{id=Z17_1}
 
-## 17.2 Additional terms and notation 
+## 17.2 Additional terms and notation{id=Z17_2}
 
 None. 
 
-## 17.3 Additional usage requirements 
+## 17.3 Additional usage requirements{id=Z17_3}
 
 Append table 17.1 to table 3.5. 
 
@@ -2696,13 +2696,13 @@ Table 17.1 - Environmental query strings
 
 </table>
 
-## 17.4 Additional documentation requirements 
+## 17.4 Additional documentation requirements{id=Z17_4}
 
 None. 
 
-## 17.5 Compliance and labeling 
+## 17.5 Compliance and labeling{id=Z17_5}
 
-### 17.5.1 ANS Forth systems 
+### 17.5.1 ANS Forth systems{id=Z17_5_1}
 
 The phrase "Providing the String word set" shall be appended to the label of any Standard System that  provides all of the String word set. 
 
@@ -2710,7 +2710,7 @@ The phrase "Providing name(s) from the String Extensions word set" shall be appe
 
 The phrase "Providing the String Extensions word set" shall be appended to the label of any Standard  System that provides all of the String and String Extensions word sets. 
 
-### 17.5.2 ANS Forth programs 
+### 17.5.2 ANS Forth programs{id=Z17_5_2}
 
 The phrase "Requiring the String word set" shall be appended to the label of Standard Programs that require  the system to provide the String word set. 
 
@@ -2718,9 +2718,9 @@ The phrase "Requiring name(s) from the String Extensions word set" shall be appe
 
 The phrase "Requiring the String Extensions word set" shall be appended to the label of Standard Programs  that require the system to provide all of the String and String Extensions word sets. 
 
-## 17.6 Glossary 
+## 17.6 Glossary{id=Z17_6}
 
-### 17.6.1 String words 
+### 17.6.1 String words{id=Z17_6_1}
 
 <std-glossary>
 
@@ -2772,6 +2772,6 @@ Run-time: ( -- c-addr2 u )  Return c-addr2 u describing a string consisting of t
 
 <std-glossary>
 
-### 17.6.2 String extension words 
+### 17.6.2 String extension words{id=Z17_6_2}
 
 None

@@ -1,53 +1,135 @@
+## D.6 Differences from Forth 83 
 
-The number "2" by itself is sometimes used for address calculations as an argument to +LOOP, when the  loop index is an address. When converting the word 2/ which operates on negative dividends, one should  be cognizant of the rounding method used.
+### D.6.1 Stack width 
 
-ループ・インデックスがアドレスである場合、+LOOPの引数としてアドレス計算に数値「2」単体が使われることがあります。負の配当で動作するワード2/を変換する場合、使用される丸め方法に注意する必要があります。
-
-### D.6.5 Address alignment 
-
-Forth 83 imposes no restriction upon the alignment of addresses to any boundary. ANS Forth specifies that  a Standard System may require alignment of addresses for use with various "@" and "!" operators.
-
-Forth 83 では、アドレスのアライメントに制限はありません。ANS Forthは、標準システムがさまざまな「@」演算子や「!」演算子を使う際にアドレスアライメントを要求してくるかもしれません。
+Forth 83は、スタックの項目が16ビットを占有することを規定しています。これにはアドレス、フラグ、数値が含まれます。ANS Forthは、スタック項目が少なくとも16ビットであることを規定しています。実装は実際のサイズを文書化しなければなりません。
 
 <description>
 
-||Words Affected:||
-! +! 2! 2@ @ ? ,
-
-||Reason:||
-Many computers have hardware restrictions that favor the use of aligned  addresses. On some machines, the native memory-access instructions will cause an exception trap if used  with an unaligned address. Even on machines where unaligned accesses do not cause exception traps,  aligned accesses are usually faster.
-
-||理由||
-多くのコンピュータでは、アライメントされたアドレスの使用を推奨するハードウェア制限があります。一部のマシンでは、アラインされていないアドレスで使用すると、ネイティブのメモリアクセス命令が例外トラップを引き起こす。アンアラインド・アクセスが例外トラップを引き起こさないマシンであっても、アラインド・アクセスの方が通常は高速です。
-
-||Impact:||
-All of the ANS Forth words that return addresses suitable for use with aligned "@" and "!" words must return aligned addresses. In most cases, there will be no problem. Problems can arise from the use of user-defined data structures containing a mixture of character data and cell-sized data.
-
-Many existing Forth systems, especially those currently in use on computers with strong alignment  requirements, already require alignment. Much existing Forth code that is currently in use on such  machines has already been converted for use in an aligned environment.
-
-||影響||
-アラインされた"@"および"!"ワードの使用に適したアドレスを返すANS Forthワードは、すべてアラインされたアドレスを返さなければなりません。ほとんどの場合、問題はありません。文字データとセル・サイズ・データが混在したユーザ定義のデータ構造を使用すると、問題が発生することがあります。
-
-既存のForthシステムの多く、特に強いアライメント要求を持つコンピュータで現在使用されているものは、すでにアライメントを要求しています。そのようなマシンで現在使用されている既存のForthコードの多くは、アライメント環境で使用するためにすでに変換されています。
-
-||Transition/Conversion:||
-There are two possible approaches to conversion of programs for use on a system  requiring address alignment.
-
+||影響されるワード:||
+すべての算術演算子、論理演算子、アドレス演算子  
+||理由:||
+32ビットマシンは一般的になりつつあります。32ビットマシン上の16ビットForthシステムは競争力がありません。
+||影響:||
+16ビットスタックを仮定するプログラムは16ビットマシン上で動作し続けます。ANS Forthは異なるスタック幅を要求しているわけではなく、単に許容しているだけです。多くのプログラムは影響を受けません(ただし、「アドレス単位」を参照してください)。
 ||移行/変換:||
-アドレス・アライメントを必要とするシステムで使用するためのプログラムの変換には、2つのアプローチが考えられます。
+上位ビットが設定されたビットマスクを使用するプログラムは変更しなければならないかもしれません。実装で定義されたビットマスク定数、またはスタック幅に依存しない方法でビットマスクを計算する手順のいずれかに置き換えます。以下に、スタック幅に依存しないビットマスクの計算手順をいくつか示します。
 
-The easiest approach is to redefine the system’s aligned "@" and "!" operators so that they do not require  alignment. For example, on a 16-bit little-endian byte-addressed machine, unaligned "@" and "!" could be  defined:  
+    1 CONSTANT LO-BIT 
+    TRUE 1 RSHIFT INVERT CONSTANT HI-BIT  
+    : LO-BITS ( n -- mask ) 0 SWAP 0 ?DO 1 LSHIFT LO-BIT OR LOOP ; 
+    : HI-BITS ( n -- mask ) 0 SWAP 0 ?DO 1 RSHIFT HI-BIT OR LOOP ; 
 
-最も簡単な方法は、システムの整列演算子"@"と"!"を再定義し、整列を必要としないようにすることです。例えば、16ビットのリトルエンディアン・バイトアドレス・マシンでは、アライメントなしの"@"と"!"を定義することができます。
+16ビット算術演算の暗黙の「モジュロ65536」動作に依存するプログラムは、適切な場所で明示的にモジュロ演算を実行するように書き直す必要があります。委員会は、このような仮定は滅多に発生しないと考えています。例: 一部のチェックサムまたは CRC 計算、一部の乱数生成器、ほとんどの固定小数点分数計算。
+
+</description>
+
+### D.6.2 Number representation 
+
+Forth 83 は、2 の補数による数値表現と算術演算を規定しています。ANS Forth では、1の補数と符号+絶対値も使用できます。
+
+<description>
+
+||影響されるワード:||
+すべての算術演算子および論理演算子、LOOP、+LOOP
+||理由:||
+コンピュータの中には、1の補数や符号+絶対値表現を使用するものがあります。委員会は、そのようなマシン用のForth実装に2の補数の算術演算をエミュレートすることを強制し、深刻な性能上のペナルティを負わせることを望んでいませんでした。このようなマシンを使用している委員会メンバの経験から、これらの数値表現をサポートするために必要な使用制限は、過度に負担になるものではないことが示されています。
+||影響:||
+ANS Forth標準プログラムは、「2の補数演算環境への依存」を宣言することができます。これは、標準プログラムが2の補数マシン上でのみ動作することを保証することを意味します。事実上、現在のコンピュータの圧倒的多数は2の補数を使用しているので、これは厳しい制限ではありません。委員会は、現在のところ、2の補数でないマシン用の Forth-83 準拠の実装を知らないため、既存の Forth-83 プログラムは、現在動作しているマシンと同じクラスで動作します。
+||移行/変換:||
+ANS Forth 標準システムを2の補数でないマシン上で利用したい既存のプログラムでは、論理関数を実行するための算術演算子の使用を排除したり、スタック幅のセクションで説明したようにビット演算からビットマスク定数を導出したり、符号なし数値の使用範囲を正数の範囲に制限したり、単長数から倍長数への変換のために提供されている演算子を使用したりすることができます。
+</description>
+
+
+### D.6.3 Address units 
+
+Forth 83は、一意なアドレスのそれぞれがメモリ内の8ビットバイトを参照することを規定しています。ANS Forthでは、一意なアドレスのそれぞれによって参照されるアイテムのサイズは実装によって決まりますが、デフォルトでは1文字のサイズになります。Forth 83では、多くのメモリ操作をバイト数で説明しています。ANS Forthでは、これらの操作を文字数またはアドレス単位で記述します。
+
+<description>
+
+
+||影響されるワード||
+"アドレス単位" の引数を持つもの  
+||理由:||
+最も人気のあるForthチップを含むいくつかのマシンは、8ビットバイトの代わりに16ビットメモリ位置をアドレスします。
+||影響:||
+プログラムは、バイトアドレッシング環境への依存を宣言することを選択することができ、現在動作しているマシンのクラスで動作し続けます。ワードアドレス指定マシン上のForth実装がForth 83に準拠するためには、速度とメモリ効率においてかなりのコストをかけてバイトアドレッシングをシミュレートする必要があります。委員会は、そのようなマシンのためのそのようなForth-83実装を知らないので、バイトアドレッシング環境への依存は、現在存在する事実上の制限を超えて標準プログラムを制限しません。
+||移行/変換:||
+新しい`CHARS`と`CHAR+`アドレス算術演算子を、非バイトアドレスのマシンへの移植性を必要とするプログラムで使用するべきです。そのような変換が必要な場所は、引数としてアドレス単位の数を受け付けるワード(例えば、`MOVE`、`ALLOT`)の出現を検索することによって特定することができます。
+</description>
+
+### D.6.4 Address increment for a cell is no longer two 
+
+Forth-83が16ビットのスタック幅とバイトアドレッシングを同時に規定した結果、スタックからのアイテムを含むメモリ配列を含むアドレス計算では、数字の2を確実に使用することができました。ANS Forthは16ビットスタック幅もバイトアドレッシングも必要としないため、このような計算にはもはや2という数字は必ずしも適切ではありません。
+
+<description>
+
+||影響されるワード:||
+@ ! +! 2+ 2* 2- +LOOP 
+||理由:||
+"アドレス単位" と "スタック幅" の理由を参照。 
+||影響:||
+この点で、既存のプログラムは、メモリに格納されたときにスタックセルが2つのアドレス単位を占有するマシンでも引き続き動作します。これには、現在 Forth 83 準拠の実装が存在するほとんどのマシンが含まれます。原理的には、32ビットのスタック幅を持つ16ビットワードアドレスのマシンも含まれるが、委員会はそのようなマシンの例を知りません。
+||移行/変換:||
+新しいアドレス算術演算子`CELLS`と`CELL+`を移植可能なプログラムで使用するべきです。このような変換が必要な場所は、文字 "2" を検索し、それがアドレス計算の一部として使用されているかどうかを判断することによって特定することができます。アドレス計算の中では、以下の置換が適切です。
+
+<table>
+
+ |Old<br><div style="width: 10em;"></div>|New<br><div style="width: 10em;"></div>| 
+ |--|--|
+ |2+ or 2 +|CELL+ 
+ |2* or 2 *|CELLS 
+ |2- or 2 -|1 CELLS - 
+ |2/ or 2 /|1 CELLS / 
+ |2|1 CELLS 
+
+</table>
+
+ループ・インデックスがアドレスである場合、`+LOOP`の引数としてアドレス計算に数値「2」単体が使われることがあります。負の被除数で動作するワード`2/`を変換する場合、使用される丸め方法に注意する必要があります。
+
+</description>
+
+### D.6.5 Address alignment 
+
+Forth 83 では、アドレスのアライメントに制限はありません。ANS Forthは、標準システムがさまざまな`@`演算子や`!`演算子を使う際にアドレスアライメントを要求してくるかもしれません。
+
+<description>
+||影響されるワード:||
+! +! 2! 2@ @ ? ,
+||理由||
+多くのコンピュータでは、アライメントされたアドレスの使用を推奨するハードウェア制限があります。一部のマシンでは、アラインされていないアドレスで使用すると、ネイティブのメモリアクセス命令が例外トラップを引き起こすものがります。アラインされていないアクセスが例外トラップを引き起こさないマシンであっても、アラインされているアクセスの方が通常は高速です。
+||影響||
+アラインされた"`@`"および"`!`"ワードの使用に適したアドレスを返すANS Forthワードは、すべてアラインされたアドレスを返さなければなりません。ほとんどの場合、問題はありません。文字データとセルサイズデータが混在したユーザ定義のデータ構造を使用すると、問題が発生することがあります。
+
+既存のForthシステムの多く、特に強いアライメント要求を持つコンピュータで現在使用されているものは、すでにアライメントを要求しています。そのようなマシンで現在使用されている既存のForthコードの多くは、アライメント環境で使用するための変換をすでに完了しています。
+||移行/変換:||
+アドレスアライメントを必要とするシステムで使用するためのプログラムの変換には、2つのアプローチが考えられます。
+
+最も簡単な方法は、アラインされたアドレスを対象としたシステム演算子"`@`"と"`!`"を再定義し、アライメントを必要としないようにすることです。例えば、16ビットのリトルエンディアンバイトアドレスマシンでは、以下のようにアライメントなしの"`@`"と"`!`"を定義することができます。
 
     : @ ( addr -- x ) DUP C@ SWAP CHAR+ C@ 8 LSHIFT OR ; 
     : ! ( x addr -- ) OVER 8 RSHIFT OVER CHAR+ C! C! ; 
 
-These definitions, and similar ones for "+!", "2@", "2!", ",", and "?" as needed, can be compiled before  an unaligned application, which will then work as expected.
+これらの定義、および必要に応じて "`+!`"、"`2@`"、"`2!`"、"`,`"、"`?`"に対応する同様の定義を、アラインされていないアプリケーションの前にコンパイルすることができます。
 
-これらの定義、および必要に応じて "+!"、"2@"、"2!"、","、"? "に対応する同様の定義を、アラインされていないアプリケーションの前にコンパイルすることができます。
+アプリケーションがアラインされていないフィールドを含むデータ構造を大量に使用する場合、この方法によりメモリを節約することができます。
 
-This approach may conserve memory if the application uses substantial numbers of data structures  containing unaligned fields.
+もう1つの方法は、アプリケーションのソースコードを変更して、アラインされていないデータフィールドをなくすことです。ANS Forth のワード `ALIGN` と `ALIGNED` を使用して、データフィールドを強制的に整列させることができます。このような整列が必要な場所は、アプリケーションのデータ構造(単純な変数以外)が定義されている部分を検査するか、「スマートコンパイラ」技術(後述の「スマートコンパイラ」の説明を参照)によって決定することができます。
+
+この方法は、データ構造のメモリ使用量を増加させる可能性はありますが、アプリケーションの実行速度はおそらく速くなります。
+
+最後に、前述のテクニックを組み合わせるやり方です。アライメントされていないデータフィールドを正確に特定し、そのフィールドだけに「アライメントされていない」バージョンのメモリ・アクセス演算子を使用することで対応することが可能です。この "ハイブリッド" アプローチは、実行速度とメモリ使用率の妥協点に影響を与えます。
+
+</description>
+
+### D.6.6 Division/modulus rounding direction 
+
+Forth 79は、除算が0に向かって丸められ、余りが被除数の符号を持つことを規定しました。Forth 83は、除算が負の無限大に丸められ、余りが除数の符号を持つことを規定しました。 ANS Forthでは、実装者の判断により、以下に示す除算演算子のどちらの動作も許可しており、ユーザがどちらの明示的な動作も合成できるように、１組(2個)の除算プリミティブを提供しています。
+
+<description>
+
+||影響されるワード:||
+`/ MOD /MOD */MOD */`
 
 </description>
 
@@ -55,21 +137,86 @@ This approach may conserve memory if the application uses substantial numbers of
 
 <description>
 
-||...||
-この方法は、アプリケーションがアラインされていないフィールドを含むデータ構造を大量に使用する場合、メモリを節約することができます。
+||理由:||
+Forth 79とForth 83の除算の挙動の違いは多くの論争の的となり、多くのForth実装はForth 83の動作に切り替えませんでした。両者とも、アプリケーション要件と実行効率の両論を引用して、声高な支持者がいます。委員会は、広範な議論を何度も開催した結果、どちらか一方の動作を選択することではコンセンサスを得ることはできず、デフォルトとしてどちらかの動作を許可する一方、必要に応じてユーザが明示的に両方の動作を使用できるようにする手段を提供することを選択しました。実装者はどちらの動作も選択できるため、現在のシステムが示す動作を変更する必要はなく、そのシステム上で動作し、特定の動作に依存している既存のプログラムの正しい機能を維持することができます。新しい実装では、ネイティブのCPU命令セットでサポートされている動作を提供することで、実行速度を最大化することもできるし、システムの意図するアプリケーション領域に最も適した動作を選択することもできます。
+||影響:||
+この問題は、正の除数と負の被除数、または負の除数と正の被除数を使用するプログラムにのみ影響します。除算の大半は正の配当と正の除数の両方で行われます。その場合、許容される除算の動作はどちらも結果は同じです。
+||移行/変換:||
+符号が混在する除算オペランドで特定の丸め動作を必要とするプログラムでは、プログラムで使用する除算演算子を、新しい ANS Forth の除算プリミティブ `SM/REM`(対称除算、つまりゼロに向かって丸める)または `FM/MOD`(フロアード除算、つまり負の無限大に向かって丸める)のいずれかで再定義することができます。その後、プログラムを変更せずに再コンパイルすることができます。例えば、Forth83スタイルの除算演算子は次のように定義することができます。
 
-Another approach is to modify the application’s source code to eliminate unaligned data fields. The ANS  Forth words ALIGN and ALIGNED may be used to force alignment of data fields. The places where such  alignment is needed may be determined by inspecting the parts of the application where data structures  (other than simple variables) are defined, or by "smart compiler" techniques (see the "Smart Compiler" discussion below).
-
-もう1つの方法は、アプリケーションのソースコードを変更して、アラインされていないデータフィールドをなくすことです。ANS Forth のワード ALIGN と ALIGNED を使用して、データ・フィールドを強制的に整列させることができます。このような整列が必要な場所は、アプリケーションのデータ構造(単純な変数以外)が定義されている部分を検査するか、「スマートコンパイラ」技術(後述の「スマートコンパイラ」の説明を参照)によって決定することができます。
-
-This approach will probably result in faster application execution speed, at the possible expense of  increased memory utilization for data structures.
-
-この方法は、データ構造のメモリ使用量を増加させる可能性はありますが、アプリケー ションの実行速度はおそらく速くなります。
+    : /MOD ( n1 n2 -- n3 n4 ) >R S>D R> FM/MOD ; 
+    : MOD ( n1 n2 -- n3 ) /MOD DROP ; 
+    : / ( n1 n2 -- n3 ) /MOD SWAP DROP ; 
+    : */MOD ( n1 n2 n3 -- n4 n5 ) >R M* R> FM/MOD ; 
+    : */ ( n1 n2 n3 -- n4 n5 ) */MOD SWAP DROP ; 
 
 </description>
 
-Finally, it is possible to combine the preceding techniques by identifying exactly those data fields that are  unaligned, and using "unaligned" versions of the memory access operators for only those fields. This  "hybrid" approach affects a compromise between execution speed and memory utilization.
+### D.6.7 Immediacy 
 
-最後に、アライメントされていないデータ・フィールドを正確に特定し、そのフィールドだけに「アライメントされていない」バージョンのメモリ・アクセス演算子を使用することで、前述のテクニックを組み合わせることが可能です。この "ハイブリッド" アプローチは、実行速度とメモリ使用率の妥協点に影響を与えます。
+Forth 83は、多くの「コンパイルワード」が「即時」であり、コンパイル時にコンパイルされる代わりに実行されることを意味すると規定しています。ANS Forthは、これらのワードのほとんどについてあまり具体的ではなく、その動作はコンパイル時にのみ定義されるとし、特定のコンパイル時の動作ではなくその結果を指定しています。
 
-### D.6.6 Division/modulus rounding direction 
+通常実行されるワードのコンパイルを強制するために、Forth 83は、非即時ワードで使用される`COMPILE`というワードと、即時ワードで使用される`[COMPILE]`というワードを提供しています。ANS Forthは`POSTPONE`という単一のワードを提供しており、これは即時ワードと非即時ワードの両方で使用され、自動的に適切な動作が選択されます。
+
+<description>
+
+||影響されるワード:||
+`COMPILE [COMPILE] ['] '`
+
+</description>
+
+<hr class="page-wrap" />
+
+<description>
+||理由:||
+あるワードが即時かそうでないかの区別は、Forthシステムに選択された実装技法に依存します。従来の "スレッドコード(threaded code)" 実装では、(`LEAVE`というワードを唯一の例外として)その選択は一般的に非常に明確であり、規格はどのワードを即時性とすべきかを規定することができました。しかし、最適化を伴うネイティブコード生成など、現在普及している実装技術の中には、スレッドコード実装で即時とされたワードセットとは異なるワードセットに即時属性を要求するものもあります。ANS Forthは、このような他の実装技術の有効性を認め、即時性属性を指定するケースをできるだけ少なくしています。
+
+即値ワードの集合の要素が明確でない場合、`COMPILE`と`[COMPILE]`のどちらを使用するかの判断を明確に行うことができません。その結果、ANS Forthは「汎用」置換ワード`POSTPONE`を提供し、`COMPILE`と`[COMPILE]`の両方の大多数の使用目的を果たさせることにしました。
+
+同様に、コンパイルワードの正確なコンパイル動作が指定されていない場合、コンパイルワードと共に`'`や`[']`を使用することは不明確であるため、ANS Forthは標準プログラムがコンパイルワードと共に'や[']を使用することを許可していません。
+
+`COMPILE`というワードの伝統的な(非即物的な)定義には、さらに問題があります。その伝統的な定義は、スレッドコード実装技術を前提としており、その動作はそのコンテキストでのみ適切に記述できます。ANS Forthのコンテキストでは、スレッドコードに加えて他の実装技法も許可されているため、従来の`COMPILE`の動作を記述することは、不可能ではないにしても、非常に困難です。ANS Forthでは、`COMPILE`の動作を変更し既存のコードを破壊するのではなく、標準規格に`COMPILE`というワードを含めないこととしました。これにより、既存の実装では、その実装が適切であれば、従来の動作で`COMPILE`というワードを供給し続けることができます。
+||影響:||
+`[COMPILE]`の適切な使用は、ワードが即時かどうかの知識に依存しないため、`[COMPILE]`はANS Forthに残っています(`[COMPILE]`を非即時のワードと一緒に使用することは、これまでもずっと禁止されています)。`[COMPILE]`を使う必要があるかどうかは、その対象となるワードが即時的かどうかの知識を必要としますが、`[COMPILE]`を使うことは常に安全です。`[COMPILE]`はコア拡張ワードセットに移されたため、(必須)コアワードセットではなくなりましたが、委員会は、ほとんどのベンダーがいずれにせよ`[COMPILE]`を提供すると予想しています。
+
+ほとんどの場合、`[COMPILE]`と`COMPILE`の両方を`POSTPONE`に置き換えるのが正しい。`[COMPILE]`と`COMPILE`を`POSTPONE`に「無頓着に」置き換えるのに適さない用法は非常にまれであり、次の2つのカテゴリーに分類されます。
+
+</description>
+
+<hr class="page-wrap" />
+
+<description>
+||...||
+a) `[COMPILE]`の非即時ワードでの使用。これは、Forth 79システムとForth 83システムのどちらを使用しているかに関係なく、これらのワードのコンパイルを強制するために、`'`(tick: Forth 79では即時だったがForth 83では即時でなくなった)や`LEAVE`(Forth 83では即時になったがForth 79では即時でなかった)というワードで行われることがあります。
+
+b) `COMPILE` `[COMPILE]` &lt;即時ワード> というフレーズを使用して、即時ワードを「二重に延期」する場合。
+||移行/変換:||
+多くの ANS Forth 実装は、既存の使用法と互換性のある形で `[COMPILE]` と `COMPILE` の両方を実装し続けるでしょう。そのような環境では、変換は必要ありません。
+
+完全な移植性を目指すなら、`COMPILE`と`[COMPILE]`の使用は、上に示したまれな場合を除き、`POSTPONE`に変更するべきです。`[COMPILE]`の非即時ワードでの使用は、そのままにしておいてもよいし、プログラムは、コア拡張ワードセットから`[COMPILE]`のワードに対する要求を宣言してもよいし、対象のワードが非即時であることが分かっている場合は、非即時ワードの前の`[COMPILE]`を単に削除してもよいです。
+
+`COMPILE [COMPILE] <immediate-word>`というフレーズの使用は、「中間ワード」(以下の例ではXX)を導入し、そのワードを後置することによって処理することができます。例えば
+
+    : ABC COMPILE [COMPILE] IF ; 
+
+は、
+
+    : XX POSTPONE IF ; 
+    : ABC POSTPONE XX ; 
+
+と変換します。
+
+`COMPILE`に続いて、辞書内のスレッドを明示的にコンパイルするために「コンパイル状態から切り替わる」プログラムでは、非標準的なケースが発生する可能性があります。例えば
+
+    : XYZ COMPILE [ ' ABC , ] ; 
+
+</description>
+
+<hr class="page-wrap" />
+
+<description>
+||...||
+これは、`COMPILE`とスレッドコードの実装がどのように動作するかについての正確な知識に大きく依存します。このようなケースは機械的に処理することはできません。コードが何をしているかを正確に理解し、ANS Forthの制限に従ってそのセクションを書き換えることによって翻訳する必要があります。
+
+`[COMPILE] [COMPILE]`の代わりに`POSTPONE [COMPILE]`というフレーズを使用してください。
+</description>

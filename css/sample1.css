@@ -547,7 +547,16 @@ blockquote > p {
 	margin-bottom: 1em;
 }
 
+.description-desc {
+	grid-column: 2;
+	margin-left: 0;
+}
+
 .description-desc > p {
+	margin-left: 0;
+}
+
+.description-desc > pre {
 	margin-left: 0;
 }
 
@@ -1021,7 +1030,7 @@ nav li {
 	}
 }
 */
-/*
+
 #toc-title::before {
 	content: none;
 }
@@ -1049,9 +1058,9 @@ nav li {
 	}
 
 .toc-chapter {
-	font-size: 24Q;
+	/*font-size: 24Q;
 	line-height: 1.25em;
-	font-weight: 700;
+	font-weight: 700;*/
 	margin-block-end: 2em;
 	display: grid;
 	grid-template-columns: auto 3em;
@@ -1061,13 +1070,13 @@ nav li {
 	content: "Chapter " counters(toc-list-counter, "-");
 	counter-increment: toc-list-counter;
 	grid-column: 1/3;
-	font-size: 15Q;
-	line-height: 1.5em;
+	/*font-size: 15Q;
+	line-height: 1.5em;*/
 	border-bottom: solid 0.5mm #000;
 }
 
 .toc-chapter::after {
-	font-size: 18Q;
+	/*font-size: 18Q;*/
 }
 
 li:has(> .toc-chapter) {
@@ -1075,11 +1084,11 @@ li:has(> .toc-chapter) {
 }
 
 li:has(> .toc-section) {
-	font-size: 18Q;
+	/*font-size: 18Q;
 	line-height: 1.2em;
 	font-weight: 700;
 	margin-inline-start: 15mm;
-	margin-block-end: 2mm;
+	margin-block-end: 2mm;*/
 	break-inside: avoid;
 	position: relative;
 }
@@ -1088,7 +1097,7 @@ li:has(> .toc-section) {
 	content: counters(toc-list-counter, "-");
 	counter-increment: toc-list-counter;
 	position: absolute;
-	inset-inline-start: -15mm;
+	/*inset-inline-start: -15mm;*/
 	display: block;
 	inline-size: 13mm;
 	text-align: end;
@@ -1104,11 +1113,11 @@ li:has(> .toc-section) > ul {
 }
 
 li:has(> .toc-subsection) {
-	font-size: 13Q;
+	/*font-size: 13Q;
 	line-height: 1.25em;
-	font-weight: 400;
+	font-weight: 400;*/
 	margin-inline-start: 3em;
-	text-indent: -3em;
+	/*text-indent: -3em;*/
 	margin-inline-end: 1em;
 	margin-block-end: 0.1em;
 }
@@ -1122,7 +1131,7 @@ li:has(> .toc-subsection) {
 	margin-inline-end: 0.5em;
 	text-align: start;
 }
-*/
+
 
 /* vscode-markdown-style
 body {

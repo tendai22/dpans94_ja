@@ -1,20 +1,20 @@
-# 1. Introduction 
+# 1. Introduction{id=Z1_}
 
-## 1.1 Purpose 
+## 1.1 Purpose{id=Z1_1}
 
 The purpose of this Standard is to promote the portability of Forth programs for use on a wide variety of  computing systems, to facilitate the communication of programs, programming techniques, and ideas among  Forth programmers, and to serve as a basis for the future evolution of the Forth language. 
 
-## 1.2 Scope 
+## 1.2 Scope{id=Z1_2}
 
 This Standard specifies an interface between a Forth System and a Forth Program by defining the words  provided by a Standard System. 
 
-### 1.2.1 Inclusions 
+### 1.2.1 Inclusions{id=Z1_2_1}
 
 This Standard specifies: 
 - the forms that a program written in the Forth language may take; 
 - the rules for interpreting the meaning of a program and its data. 
 
-### 1.2.2 Exclusions 
+### 1.2.2 Exclusions{id=Z1_2_2}
 
 This Standard does not specify:
 - the mechanism by which programs are transformed for use on computing systems; 
@@ -27,10 +27,10 @@ This Standard does not specify:
 
 TRAILER ANSI X3.215-1994 2
 
-## 1.3 Document organization 
+## 1.3 Document organization{id=Z1_3}
 
 
-### 1.3.1 Word sets 
+### 1.3.1 Word sets{id=Z1_3_1}
 
 This Standard groups Forth words and capabilities into word sets under a name indicating some shared  aspect, typically their common functional area. Each word set may have an extension, containing words that  offer additional functionality. These words are not required in an implementation of the word set.
 
@@ -46,7 +46,7 @@ Sections 3 and 4 contain the usage and documentation requirements, respectively,
 
 Section 6 of each word set specifies the required behavior of the definitions in the word set and the  extensions word set. 
 
-### 1.3.2 Annexes 
+### 1.3.2 Annexes{id=Z1_3_2}
 
 The annexes do not contain any required material. 
 
@@ -62,13 +62,13 @@ Annex E presents some techniques for writing portable programs in ANS Forth.
 
 Annex F includes the words from all word sets in a single list, and serves as an index of ANS Forth words. 
 
-## 1.4 Future directions 
+## 1.4 Future directions{id=Z1_4}
 
-### 1.4.1 New technology 
+### 1.4.1 New technology{id=Z1_4_1}
 
 This Standard adopts certain words and practices that are increasingly found in common practice. New  words have also been adopted to ease creation of portable programs. 
 
-### 1.4.2 Obsolescent features 
+### 1.4.2 Obsolescent features{id=Z1_4_2}
 
 This Standard adopts certain words and practices that cause some previously used words to become  obsolescent. Although retained here because of their widespread use, their use in new implementations or  new programs is discouraged, because they may be withdrawn from future revisions of the Standard.
 
@@ -104,7 +104,7 @@ This Standard designates the following words as obsolescent:
 
 TRAILER  ANSI X3.215-1994  3
 
-# 2. Terms, notation, and references 
+# 2. Terms, notation, and references{id=Z2_}
 
 The phrase "See:" is used throughout this Standard to direct the reader to other sections of the Standard that  have a direct bearing on the current section.
 
@@ -116,7 +116,7 @@ Throughout the Standard, typefaces are used in the following manner:
 - A bold proportional sans-serif typeface is used for **headings**; 
 - A bold monospaced serif typeface is used for `Forth-language` text. 
 
-## 2.1 Definitions of terms 
+## 2.1 Definitions of terms{id=Z2_1}
 
 Terms defined in this section are used generally throughout this Standard. Additional terms specific to  individual word sets are defined in those word sets. Other terms are defined at their first appearance,  indicated by italic type. Terms not defined in this Standard are to be construed according to the Dictionary for Information Systems, ANSI X3.172-1990.
 
@@ -270,14 +270,14 @@ A list of associated Forth definition names that may be examined during a dictio
 A set of Forth definitions grouped together in this Standard under a name indicating some shared  aspect, typically their common functional area. 
 </miniterm>
 
-## 2.2 Notation 
+## 2.2 Notation{id=Z2_2}
 
 
-### 2.2.1 Numeric notation 
+### 2.2.1 Numeric notation{id=Z2_2_1}
 
 Unless otherwise stated, all references to numbers apply to signed single-cell integers. The inclusive range  of values is shown as {from...to}. The allowable range for the contents of an address is shown in double  braces, particularly for the contents of variables, e.g., BASE {{2...36}}. 
 
-### 2.2.2 Stack notation 
+### 2.2.2 Stack notation{id=Z2_2_2}
 
 Stack parameters input to and output from a definition are described using the notation: 
 
@@ -289,7 +289,7 @@ The control-flow-stack *stack-id* is "C:", the data-stack *stack-id* is "S:", an
 
 When there are alternate *after* representations, they are described by "*after1* | *after2*". The top of the stack is  to the right. Only those stack items required for or provided by execution of the definition are shown. 
 
-### 2.2.3 Parsed-text notation 
+### 2.2.3 Parsed-text notation{id=Z2_2_3}
 
 If, in addition to using stack parameters, a definition parses text, that text is specified by an abbreviation  from table 2.1, shown surrounded by double-quotes and placed between the *before* parameters and the "--"  separator in the first stack described, e.g.,  
 
@@ -314,7 +314,7 @@ Table 2.1 - Parsed text abbreviations</p>
 
 </div>
 
-### 2.2.4 Glossary notation 
+### 2.2.4 Glossary notation{id=Z2_2_4}
 
 The glossary entries for each word set are listed in the standard ASCII collating sequence. Each glossary  entry specifies an ANS Forth word and consists of two parts: an *index line* and the *semantic description* of  the definition. 
 
@@ -355,7 +355,7 @@ The first paragraph of the semantic description contains a stack notation for ea
 
 TRAILER  ANSI X3.215-1994  7
 
-## 2.3 References 
+## 2.3 References{id=Z2_3}
 
 The following national and international standards are referenced in this Standard: 
 
@@ -371,7 +371,7 @@ ANSI/IEEE 754-1985, *Floating-point standard* (12.2.1 **Definition of terms**).
 ^^X{Available from the American National Standards Institute, 11 West 42nd Street, Newyork, NY 10036
 ^^}
 
-# 3. Usage requirements 
+# 3. Usage requirements{id=Z3_}
 
 A system shall provide all of the words defined in **6.1 Core Words**. It may also provide any words defined  in the optional word sets and extensions word sets. No standard word provided by a system shall alter the  system state in a way that changes the effect of execution of any other standard word except as provided in  this Standard. A system may contain non-standard extensions, provided that they are consistent with the  requirements of this Standard. 
 
@@ -381,7 +381,7 @@ A system need not provide all words in executable form. The implementation may p
 
 A program that requires a system to provide words or techniques not defined in this Standard has an  environmental dependency. 
 
-## 3.1 Data types 
+## 3.1 Data types{id=Z3_1}
 
 A data type identifies the set of permissible values for a data object. It is not a property of a particular  storage location or position on a stack. Moving a data object shall not affect its type. 
 
@@ -389,7 +389,7 @@ No data-type checking is required of a system. An ambiguous condition exists if 
 
 Table 3.1 summarizes the data types used throughout this Standard. Multiple instances of the same type in  the description of a definition are suffixed with a sequence digit subscript to distinguish them. 
 
-### 3.1.1 Data-type relationships 
+### 3.1.1 Data-type relationships{id=Z3_1_1}
 
 Some of the data types are subtypes of other data types. A data type i is a subtype of type j if and only if the  members of i are a subset of the members of j. The following list represents the subtype relationships using  the phrase "i => j" to denote "i is a subtype of j". The subtype relationship is transitive; if i => j and j => k then i => k:
 
@@ -404,7 +404,7 @@ Some of the data types are subtypes of other data types. A data type i is a subt
 
 Any Forth definition that accepts an argument of type *i* shall also accept an argument that is a subtype of *i*. 
 
-### 3.1.2 Character types 
+### 3.1.2 Character types{id=Z3_1_2}
 
 Characters shall be at least one address unit wide, contain at least eight bits, and have a size less than or  equal to cell size. 
 
@@ -494,7 +494,7 @@ Table 3.2 - Standard graphic characters
 </asciitable>
 
 
-### 3.1.3 Single-cell types 
+### 3.1.3 Single-cell types{id=Z3_1_3}
 
 The implementation-defined fixed size of a cell is specified in address units and the corresponding number  of bits. See **E.2 Hardware peculiarities**. 
 
@@ -532,7 +532,7 @@ The length character of a counted string shall contain a binary representation o
 
 Different definitions may have the same execution token if the definitions are equivalent. 
 
-### 3.1.4 Cell-pair types 
+### 3.1.4 Cell-pair types{id=Z3_1_4}
 
 A cell pair in memory consists of a sequence of two contiguous cells. The cell at the lower address is the  first cell, and its address is used to identify the cell pair. Unless otherwise specified, a cell pair on a stack  consists of the first cell immediately above the second cell. 
 
@@ -550,7 +550,7 @@ The implementation-defined range of double-cell unsigned integers shall include 
 
 A string is specified by a cell pair (c-addr u) representing its starting address and length in characters. 
 
-### 3.1.5 System types 
+### 3.1.5 System types{id=Z3_1_5}
 
 The system data types specify permitted word combinations during compilation and execution. 
 
@@ -576,9 +576,9 @@ The implementation-dependent data generated upon beginning to execute a definiti
 
 The implementation-dependent loop-control parameters used to control the execution of do-loops are  represented by the symbol *loop-sys* throughout this Standard. Loop-control parameters shall be available  inside the do-loop for words that use or change these parameters, words such as `I`, `J`, `LEAVE` and `UNLOOP`. 
 
-## 3.2 The implementation environment 
+## 3.2 The implementation environment{id=Z3_2}
 
-### 3.2.1 Numbers 
+### 3.2.1 Numbers{id=Z3_2_1}
 
 #### 3.2.1.1 Internal number representation 
 
@@ -600,7 +600,7 @@ Free-field number display uses the characters described in digit conversion, wit
 
 Number display may use the pictured numeric output string buffer to hold partially converted strings (see  **3.3.3.6 Other transient regions**). 
 
-### 3.2.2 Arithmetic 
+### 3.2.2 Arithmetic{id=Z3_2_2}
 
 
 #### 3.2.2.1 Integer division 
@@ -656,7 +656,7 @@ In cases where the operands differ in sign and the rounding direction matters, a
 
 In all integer arithmetic operations, both overflow and underflow shall be ignored. The value returned when  either overflow or underflow occurs is implementation defined. 
 
-### 3.2.3 Stacks 
+### 3.2.3 Stacks{id=Z3_2_3}
 
 #### 3.2.3.1 Data stack 
 
@@ -681,7 +681,7 @@ A program may use the return stack for temporary storage during the execution of
 - All values placed on the return stack within a do-loop shall be removed before `I`, `J`, `LOOP`, +`LOOP`,  `UNLOOP`, or `LEAVE` is executed; 
 - All values placed on the return stack within a definition shall be removed before the definition is  terminated or before `EXIT` is executed. 
 
-### 3.2.4 Operator terminal 
+### 3.2.4 Operator terminal{id=Z3_2_4}
 
 See **1.2.2 Exclusions**. 
 
@@ -695,11 +695,11 @@ The method of indicating the end of an input line of text is implementation defi
 
 The method of selecting the user output device is implementation defined. 
 
-### 3.2.5 Mass storage 
+### 3.2.5 Mass storage{id=Z3_2_5}
 
 A system need not provide any standard words for accessing mass storage. If a system provides any  standard word for accessing mass storage, it shall also implement the Block word set. 
 
-### 3.2.6 Environmental queries 
+### 3.2.6 Environmental queries{id=Z3_2_6}
 
 The name spaces for `ENVIRONMENT?` and definitions are disjoint. Names of definitions that are the same  as `ENVIRONMENT?` strings shall not impair the operation of `ENVIRONMENT?`. Table 3.5 contains the  valid input strings and corresponding returned value for inquiring about the programming environment with  `ENVIRONMENT?`. 
 
@@ -729,13 +729,13 @@ Table 3.5 - Environmental Query Strings
 
 If an environmental query (using `ENVIRONMENT?`) returns *false* (i.e., unknown) in response to a string,  subsequent queries using the same string may return *true*. If a query returns *true* (i.e., known) in response to  a string, subsequent queries with the same string shall also return *true*. If a query designated as constant in  the above table returns *true* and a value in response to a string, subsequent queries with the same string shall  return *true* and the same value. 
 
-## 3.3 The Forth dictionary 
+## 3.3 The Forth dictionary{id=Z3_3}
 
 Forth words are organized into a structure called the dictionary. While the form of this structure is not  specified by the Standard, it can be described as consisting of three logical parts: a name space, a code  space, and a data space. The logical separation of these parts does not require their physical separation. 
 
 A program shall not fetch from or store into locations outside data space. An ambiguous condition exists if  a program addresses name space or code space. 
 
-### 3.3.1 Name space 
+### 3.3.1 Name space{id=Z3_3_1}
 
 The relationship between name space and data space is implementation dependent. 
 
@@ -751,11 +751,11 @@ Programs that use lower case for standard definition names or depend on the case
 
 A program shall not create definition names containing non-graphic characters. 
 
-### 3.3.2 Code space 
+### 3.3.2 Code space{id=Z3_3_2}
 
 The relationship between code space and data space is implementation dependent. 
 
-### 3.3.3 Data space 
+### 3.3.3 Data space{id=Z3_3_3}
 
 Data space is the only logical area of the dictionary for which standard words are provided to allocate and  access regions of memory. These regions are: contiguous regions, variables, text-literal regions, input  buffers, and other transient regions, each of which is described in the following sections. A program may  read from or write into these regions unless otherwise specified. 
 
@@ -820,7 +820,7 @@ The size of the region identified by `WORD` shall be at least 33 characters.
 
 The size of the pictured numeric output string buffer shall be at least (2*n) + 2 characters, where n is the  number of bits in a cell. Programs that consider it a fixed area with unchanging access parameters have an  environmental dependency. 
 
-## 3.4 The Forth text interpreter 
+## 3.4 The Forth text interpreter{id=Z3_4}
 
 Upon start-up, a system shall be able to interpret, as described by **6.1.2050 QUIT**, Forth source code  received interactively from a user input device. 
 
@@ -840,7 +840,7 @@ c) If a definition name matching the string is not found, attempt to convert the
 
 d) If unsuccessful, an ambiguous condition exists (see **3.4.4**). 
 
-### 3.4.1 Parsing 
+### 3.4.1 Parsing{id=Z3_4_1}
 
 Unless otherwise noted, the number of characters parsed may be from zero to the implementation-defined  maximum length of a counted string. 
 
@@ -868,7 +868,7 @@ This Standard does not require a syntax or program-construct checker.
 
 When converting input numbers, the text interpreter shall recognize both positive and negative numbers,  with a negative number represented by a single minus sign, the character "-", preceding the digits. The  value in `BASE` is the radix for number conversion. 
 
-### 3.4.2 Finding definition names 
+### 3.4.2 Finding definition names{id=Z3_4_2}
 
 A string matches a definition name if each character in the string matches the corresponding character in the  string used as the definition name when the definition was created. The case sensitivity (whether or not the  upper-case letters match the lower-case letters) is implementation defined. A system may be either case  sensitive, treating upper- and lower-case letters as different and not matching, or case insensitive, ignoring  differences in case while searching. 
 
@@ -876,7 +876,7 @@ The matching of upper- and lower-case letters with alphabetic characters in char
 
 A system shall be capable of finding the definition names defined by this Standard when they are spelled  with upper-case letters. 
 
-### 3.4.3 Semantics 
+### 3.4.3 Semantics{id=Z3_4_3}
 
 The semantics of a Forth definition are implemented by machine code or a sequence of execution tokens or  other representations. They are largely specified by the stack notation in the glossary entries, which shows  what values shall be consumed and produced. The prose in each glossary entry further specifies the  definition’s behavior. 
 
@@ -902,7 +902,7 @@ A system shall be capable of executing, in interpretation state, any new definit
 
 Unless otherwise specified in a "Compilation:" section of the glossary entry, the compilation semantics of a  Forth definition shall be to append its execution semantics to the execution semantics of the current  definition. 
 
-### 3.4.4 Possible actions on an ambiguous condition 
+### 3.4.4 Possible actions on an ambiguous condition{id=Z3_4_4}
 
 When an ambiguous condition exists, a system may take one or more of the following actions: 
 
@@ -915,20 +915,20 @@ When an ambiguous condition exists, a system may take one or more of the followi
 
 The response to a particular ambiguous condition need not be the same under all circumstances. 
 
-### 3.4.5 Compilation 
+### 3.4.5 Compilation{id=Z3_4_5}
 
 A program shall not attempt to nest compilation of definitions. 
 
 During the compilation of the current definition, a program shall not execute any defining word, `:NONAME`,  or any definition that allocates dictionary data space. The compilation of the current definition may be  suspended using [ (left-bracket) and resumed using ] (right-bracket). While the compilation of the current  definition is suspended, a program shall not execute any defining word, `:NONAME`, or any definition that  allocates dictionary data space. 
 
-# 4. Documentation requirements 
+# 4. Documentation requirements{id=Z4_}
 
 When it is impossible or infeasible for a system or program to define a particular behavior itself, it is  permissible to state that the behavior is unspecifiable and to explain the circumstances and reasons why this  is so. 
 
-## 4.1 System documentation 
+## 4.1 System documentation{id=Z4_1}
 
 
-### 4.1.1 Implementation-defined options 
+### 4.1.1 Implementation-defined options{id=Z4_1_1}
 
 The implementation-defined items in the following list represent characteristics and choices left to the  discretion of the implementor, provided that the requirements of this Standard are met. A system shall  document the values for, or behaviors of, each item. 
 
@@ -968,7 +968,7 @@ The implementation-defined items in the following list represent characteristics
 - values returned after arithmetic overflow (**3.2.2.2 Other integer operations**); 
 - whether the current definition can be found after **6.1.1250 DOES**> (**6.1.0450 :**). 
 
-### 4.1.2 Ambiguous conditions 
+### 4.1.2 Ambiguous conditions{id=Z4_1_2}
 
 A system shall document the system action taken upon each of the general or specific ambiguous conditions  identified in this Standard. See **3.4.4 Possible actions on an ambiguous condition**. 
 
@@ -1011,7 +1011,7 @@ The following specific ambiguous conditions are noted in the glossary entries of
 - word not defined via **6.1.1000 CREATE** (**6.1.0550 `>BODY`**, **6.1.1250 `DOES>`**); 
 - words improperly used outside **6.1.0490 `<#`** and **6.1.0040 `#>`** (**6.1.0030 #**, **6.1.0050 #S**,  **6.1.1670 `HOLD`**, **6.1.2210 `SIGN`**). 
 
-### 4.1.3 Other system documentation 
+### 4.1.3 Other system documentation{id=Z4_1_3}
 
 A system shall provide the following information: 
 
@@ -1022,9 +1022,9 @@ A system shall provide the following information:
 - stack space available, in cells; 
 - system dictionary space required, in address units. 
 
-## 4.2 Program documentation 
+## 4.2 Program documentation{id=Z4_2}
 
-### 4.2.1 Environmental dependencies 
+### 4.2.1 Environmental dependencies{id=Z4_2_1}
 
 A program shall document the following environmental dependencies, where they apply, and should  document other known environmental dependencies: 
 
@@ -1039,7 +1039,7 @@ A program shall document the following environmental dependencies, where they ap
 - using lower case for standard definition names or depending on the case sensitivity of a system  (**3.3.1.2 Definition names**); 
 - using the graphic character with a value of hex 24 (**3.1.2.1 Graphic characters**). 
 
-### 4.2.2 Other program documentation 
+### 4.2.2 Other program documentation{id=Z4_2_2}
 
 A program shall also document: 
 
@@ -1047,17 +1047,17 @@ A program shall also document:
 - whether a Standard System exists after the program is loaded. 
 
 
-# 5. Compliance and labeling 
+# 5. Compliance and labeling{id=Z5_}
 
 
-## 5.1 ANS Forth systems 
+## 5.1 ANS Forth systems{id=Z5_1}
 
 
-### 5.1.1 System compliance 
+### 5.1.1 System compliance{id=Z5_1_1}
 
 A system that complies with all the system requirements given in sections **3. Usage requirements** and **4.1 System documentation** and their sub-sections is a Standard System. An otherwise Standard System that provides only a portion of the Core words is a Standard System Subset. An otherwise Standard System  (Subset) that fails to comply with one or more of the minimum values or ranges specified in 3. Usage  requirements and its sub-sections has environmental restrictions. 
 
-### 5.1.2 System labeling 
+### 5.1.2 System labeling{id=Z5_1_2}
 
 A Standard System (Subset) shall be labeled an "ANS Forth System (Subset)". That label, by itself, shall  not be applied to Standard Systems or Standard System Subsets that have environmental restrictions. 
 
@@ -1067,14 +1067,14 @@ The phrase "Providing name(s) from the Core Extensions word set" shall be append
 
 The phrase "Providing the Core Extensions word set" shall be appended to the label of any Standard System  that provides all of the Core Extensions word set. 
 
-## 5.2 ANS Forth programs 
+## 5.2 ANS Forth programs{id=Z5_2}
 
 
-### 5.2.1 Program compliance 
+### 5.2.1 Program compliance{id=Z5_2_1}
 
 A program that complies with all the program requirements given in sections 3. Usage requirements and  ## 4.2 Program documentation and their sub-sections is a Standard Program. 
 
-### 5.2.2 Program labeling 
+### 5.2.2 Program labeling{id=Z5_2_2}
 
 A Standard Program shall be labeled an "ANS Forth Program". That label, by itself, shall not be applied to  Standard Programs that require the system to provide standard words outside the Core word set or that have  environmental dependencies. 
 
@@ -1084,10 +1084,10 @@ The phrase "Requiring name(s) from the Core Extensions word set" shall be append
 
 The phrase "Requiring the Core Extensions word set" shall be appended to the label of Standard Programs  that require the system to provide all of the Core Extensions word set. 
 
-# 6. Glossary 
+# 6. Glossary{id=Z6_}
 
 
-## 6.1 Core words 
+## 6.1 Core words{id=Z6_1}
 
 <std-glossary>
 ||6.1.0010||!||"store"||CORE||( x a-addr -- )||
@@ -1821,7 +1821,7 @@ Enter compilation state.
 
 See: 3.4 The Forth text interpreter, **3.4.5 Compilation**, **6.1.2500 [**. 
 
-## 6.2 Core extension words 
+## 6.2 Core extension words{id=Z6_2}
 
 ||6.2.0060||#TIB||"number-t-i-b"||CORE EXT||( -- a-addr )||
 a-addr is the address of a cell containing the number of characters in the terminal input buffer. 
