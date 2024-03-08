@@ -55,7 +55,7 @@ sed '
 # make trailer </DIV_SPAN_classname> first
             h
             x
-            s/^||{{\([^}][^}]*\)}}.*$/  <\/DIV_SPAN_\1>\
+            s/^||{{\([^}][^ }]*\)}}.*$/  <\/DIV_SPAN_\1>\
 <\/div>/
             x
             s/^||{{\([^}]*\)}}||\([^|][^|]*\)||\([^|][^|]*\)||\([^|][^|]*\)||\([^|][^|]*\)||\([^|].*\)|| *$/<div class="\1-grid">\
@@ -64,37 +64,37 @@ sed '
   <span class="\1-option2">\4<\/span>\
   <span class="\1-option3">\5<\/span>\
   <span class="\1-option4">\6<\/span>\
-  <div class="\1-desc">/
+  <DIV_SPAN_\1 class="\1-desc">/
             s/^||{{\([^}]*\)}}||\([^|][^|]*\)||\([^|][^|]*\)||\([^|][^|]*\)||\([^|].*\)|| *$/<div class="\1-grid">\
   <span class="\1-word"><code>\2<\/code><\/span>\
   <span class="\1-option1">\3<\/span>\
   <span class="\1-option2">\4<\/span>\
   <span class="\1-option3">\5<\/span>\
-  <div class="\1-desc">/
+  <DIV_SPAN_\1 class="\1-desc">/
             s/^||{{\([^}]*\)}}||\([^|][^|]*\)||\([^|][^|]*\)||\([^|][^|]*\)|| *\([^ ].*\)$/<div class="\1-grid">\
   <span class="\1-word"><code>\2<\/code><\/span>\
   <span class="\1-option1">\3<\/span>\
   <span class="\1-option2">\4<\/span>\
-  <div class="\1-desc">\
-        \5 /
+  <DIV_SPAN_\1 class="\1-desc">\
+        \5  /
             s/^||{{\([^}]*\)}}||\([^|][^|]*\)||\([^|][^|]*\)||\([^|][^|]*\)|| *$/<div class="\1-grid">\
   <span class="\1-word"><code>\2<\/code><\/span>\
   <span class="\1-option1">\3<\/span>\
   <span class="\1-option2">\4<\/span>\
-  <div class="\1-desc">/
+  <DIV_SPAN_\1 class="\1-desc">/
             s/^||{{\([^}]*\)}}||\([^|][^|]*\)||\([^|][^|]*\)|| *\([^ ].*\)$/<div class="\1-grid">\
   <span class="\1-word"><code>\2<\/code><\/span>\
   <span class="\1-option1">\3<\/span>\
-  <div class="\1-desc">\
-        \4 /
+  <DIV_SPAN_\1 class="\1-desc">\
+        \4  /
             s/^||{{\([^}]*\)}}||\([^|][^|]*\)||\([^|][^|]*\)|| *$/<div class="\1-grid">\
   <span class="\1-word"><code>\2<\/code><\/span>\
   <span class="\1-option1">\3<\/span>\
-  <div class="\1-desc">/
+  <DIV_SPAN_\1 class="\1-desc">/
             s/^||{{\([^}]*\)}}||\([^|][^|]*\)|| *\([^ ].*\)$/<div class="\1-grid">\
   <span class="\1-word"><code>\2<\/code><\/span>\
-  <span class="\1-desc">\
-        \3 /
+  <DIV_SPAN_\1 class="\1-desc">\
+        \3  /
             s/^||{{\([^}]*\)}}||\([^|][^|]*\)|| *$/<div class="\1-grid">\
   <span class="\1-word"><code>\2<\/code><\/span>\
   <DIV_SPAN_\1 class="\1-desc">/

@@ -542,7 +542,7 @@ blockquote > p {
 
 .description-grid {
 	display: grid;
-    grid-template-columns: 10em 1fr;
+    grid-template-columns: 12em 1fr;
 	margin-left: 4em;
 	margin-bottom: 1em;
 }

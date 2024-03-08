@@ -2183,11 +2183,11 @@ ANS Forthは`CONTEXT`というワードを削除しましたが、これは多�
 
 ### A.16.2 Additional terms 
 
-<term>
+<miniterm>
 ||search order||
 「リスト」という用語の使用は、必ずしもリンクリストとしての実装を意味しないことに注意してください。
 
-</term>
+</miniterm>
 
 #### A.16.3.3 Finding definition names 
 
@@ -2828,33 +2828,25 @@ Forth 83 specifies that stack items occupy 16 bits. This includes addresses, fla
 
 Forth 83は、スタック・アイテムが16ビットを占有することを規定しています。これにはアドレス、フラグ、数値が含まれます。ANS Forthは、スタック項目が少なくとも16ビットであることを規定しています。実際のサイズは実装によって文書化されなければなりません。
 
-<desc>
+<description>
 
 ||Words affected:||
 all arithmetic, logical and addressing operators  
-
 ||影響を受けるワード||
 すべての算術演算子、論理演算子、アドレス演算子  
-
 ||Reason:||
 32-bit machines are becoming commonplace. A 16-bit Forth system on a 32-bit  machine is not competitive.
-
 ||理由:||
 32ビットマシンは一般的になりつつあります。32ビット・マシン上の16ビットForthシステムは競争力がありません。
-
 ||Impact:||
 Programs that assume 16-bit stack width will continue to run on 16-bit machines;  ANS Forth does not require a different stack width, but simply allows it. Many programs will be unaffected  (but see "address unit").
-
 ||影響:||
 ANS Forthは異なるスタック幅を要求しているわけではなく、単に許容しているだけです。多くのプログラムは影響を受けません(ただし、「アドレス単位」を参照してください)。
-
 ||Transition/Conversion:||
 Programs which use bit masks with the high bits set may have to be changed,  substituting either an implementation-defined bit-mask constant, or a procedure to calculate a bit mask in a  stack-width-independent way. Here are some procedures for constructing width-independent bit masks:  
-
 ||移行/変換:||
 上位ビットが設定されたビットマスクを使用するプログラムは、実装で定義されたビットマスク定数、またはスタック幅に依存しない方法でビットマスクを計算する手順のいずれかに置き換えて、変更しなければならないかもしれません。以下に、スタック幅に依存しないビットマスクの計算手順をいくつか示します。
-
-</desc>
+</description>
 
     1 CONSTANT LO-BIT 
     TRUE 1 RSHIFT INVERT CONSTANT HI-BIT  
@@ -2871,33 +2863,25 @@ Forth 83 specifies two’s-complement number representation and arithmetic. ANS 
 
 Forth 83 は、2 の補数による数値表現と算術演算を規定しています。ANS Forth では、1 補数と符号付き倍数も使用できます。
 
-<desc>
+<description>
 
 ||Words affected:||
 all arithmetic and logical operators, LOOP, +LOOP
-
 ||影響を受けるワード:||
 すべての算術演算子および論理演算子、LOOP、+LOOP
-
 ||Reason:||
 Some computers use one’s-complement or signed-magnitude. The committee  did not wish to force Forth implementations for those machines to emulate two’s-complement arithmetic,  and thus incur severe performance penalties. The experience of some committee members with such  machines indicates that the usage restrictions necessary to support their number representations are not  overly burdensome.
-
 ||理由:||
 コンピュータの中には、1補数や符号付き桁数を使用するものがあります。委員会は、そのようなマシン用のForth実装に2補数の算術演算をエミュレートすることを強制し、深刻な性能上のペナルティを負わせることを望んでいませんでした。このようなマシンを使用している委員会メンバの経験から、これらの数値表現をサポートするために必要な使用制限は、過度に負担になるものではないことが示されています。
-
 ||Impact:||
 An ANS Forth Standard Program may declare an "environmental dependency on  two’s-complement arithmetic". This means that the otherwise-Standard Program is only guaranteed to work  on two’s-complement machines. Effectively, this is not a severe restriction, because the overwhelming  majority of current computers use two’s-complement. The committee knows of no Forth-83 compliant  implementations for non-two’s-complement machines at present, so existing Forth-83 programs will still  work on the same class of machines on which they currently work.
-
 ||影響:||
 ANS Forth標準プログラムは、「2の補数演算への環境依存」を宣言することができます。これは、標準プログラムが2の補数マシン上でのみ動作することを保証することを意味します。事実上、現在のコンピュータの圧倒的多数は2の補数を使用しているので、これは厳しい制限ではありません。委員会は、現在のところ、2 の補数でないマシン用の Forth-83 準拠の実装を知らないため、既存の Forth-83 プログラムは、現在動作しているマシンと同じクラスで動作します。
-
 ||Transition/Conversion:||
 Existing programs wishing to take advantage of the possibility of ANS Forth  Standard Systems on non-two’s-complement machines may do so by eliminating the use of arithmetic  operators to perform logical functions, by deriving bit-mask constants from bit operations as described in  the section about stack width, by restricting the usage range of unsigned numbers to the range of positive  numbers, and by using the provided operators for conversion from single numbers to double numbers.
-
 ||移行/変換:||
 ANSフォース標準システムを非2補数マシン上で利用したい既存のプログラムでは、論理関数を実行するための算術演算子の使用を排除したり、スタック幅のセクションで説明したようにビット演算からビットマスク定数を導出したり、符号なし数値の使用範囲を正数の範囲に制限したり、1進数から2進数への変換に提供されている演算子を使用したりすることができます。
-
-</desc>
+</description>
 
 
 ### D.6.3 Address units 
@@ -2906,34 +2890,26 @@ Forth 83 specifies that each unique address refers to an 8-bit byte in memory. A
 
 Forth 83は、各一意アドレスがメモリ内の8ビットバイトを参照することを規定しています。ANS Forthでは、各一意アドレスによって参照されるアイテムのサイズは実装によって決まりますが、デフォルトでは1文字のサイズになります。Forth 83では、多くのメモリ操作をバイト数で説明しています。ANS Forthでは、これらの操作を文字数またはアドレス単位で記述します。
 
-<miniterm>
+<description>
 
 
 ||Words affected:||
 those with "address unit" arguments  
-
 ||影響されるワード||
 "アドレス単位" の引数を持つもの  
-
 ||Reason:||
 Some machines, including the most popular Forth chip, address 16-bit memory  locations instead of 8-bit bytes.
-
 ||理由:||
 最も人気のあるForthチップを含むいくつかのマシンは、8ビットバイトの代わりに16ビットメモリ位置をアドレスします。
-
 ||Impact:||
 Programs may choose to declare an environmental dependency on byte  addressing, and will continue to work on the class of machines for which they now work. In order for a  Forth implementation on a word-addressed machine to be Forth 83 compliant, it would have to simulate  byte addressing at considerable cost in speed and memory efficiency. The committee knows of no such  Forth-83 implementations for such machines, thus an environmental dependency on byte addressing does  not restrict a Standard Program beyond its current de facto restrictions.
-
 ||影響:||
 プログラムは、バイトアドレッシングへの環境依存を宣言することを選択することができ、現在動作しているマシンのクラスで動作し続けます。ワードアドレス指定マシン上のForth実装がForth 83に準拠するためには、速度とメモリ効率においてかなりのコストをかけてバイトアドレッシングをシミュレートする必要があります。委員会は、そのようなマシンのためのそのようなForth-83実装を知らないので、バイトアドレッシングへの環境依存は、現在の事実上の制限を超えて標準プログラムを制限しません。
-
 ||Transition/Conversion:||
 The new CHARS and CHAR+ address arithmetic operators should be used for  programs that require portability to non-byte-addressed machines. The places where such conversion is  necessary may be identified by searching for occurrences of words that accept a number of address units as  an argument (e.g., MOVE , ALLOT).
-
 ||移行/変換:||
 新しいCHARSとCHAR+アドレス算術演算子は、非バイトアドレスのマシンへの移植性を必要とするプログラムに使用されるべきです。そのような変換が必要な場所は、引数としてアドレス単位の数を受け付けるワード(例えば、MOVE、ALLOT)の出現を検索することによって特定することができます。
-
-</miniterm>
+</description>
 
 ### D.6.4 Address increment for a cell is no longer two 
 
@@ -2941,30 +2917,23 @@ As a consequence of Forth-83’s simultaneous specification of 16-bit stack widt
 
 Forth-83が16ビットのスタック幅とバイトアドレッシングを同時に規定した結果、スタックからのアイテムを含むメモリ配列を含むアドレス計算では、数字の2を確実に使用することができました。ANS Forthは16ビットスタック幅もバイトアドレッシングも必要としないため、このような計算にはもはや2という数字は必ずしも適切ではありません。
 
-<miniterm>
+<description>
 
 ||Words affected:||
 @ ! +! 2+ 2* 2- +LOOP 
-
 ||Reason:||
 See reasons for "Address Units" and "Stack Width"  
-
 ||理由:||
 "アドレス単位" と "スタック幅" の理由を参照。 
-
 ||Impact:||
 In this respect, existing programs will continue to work on machines where a  stack cell occupies two address units when stored in memory. This includes most machines for which  Forth 83 compliant implementations currently exist. In principle, it would also include 16-bit-word-addressed machines with 32-bit stack width, but the committee knows of no examples of such machines.
-
 ||影響:||
 この点で、既存のプログラムは、メモリに格納されたときにスタックセルが2つのアドレスユニットを占有するマシンでも引き続き動作します。これには、現在 Forth 83 準拠の実装が存在するほとんどのマシンが含まれます。原理的には、32ビットのスタック幅を持つ16ビットワードアドレスのマシンも含まれるが、委員会はそのようなマシンの例を知りません。
-
 ||Transition/Conversion:||
 The new CELLS and CELL+ address arithmetic operators should be used for  portable programs. The places where such conversion is necessary may be identified by searching for the  character "2" and determining whether or not it is used as part of an address calculation. The following  substitutions are appropriate within address calculations:  
-
 ||移行/変換:||
 新しいCELLSとCELL+アドレス算術演算子は移植可能なプログラムに使用されるべきです。このような変換が必要な場所は、文字 "2" を検索し、それがアドレス計算の一部として使用されているかどうかを判断することによって特定することができます。アドレス計算の中では、以下の置換が適切です。
-
-</miniterm>
+</description>
 
 <table>
 
@@ -2988,30 +2957,23 @@ Forth 83 imposes no restriction upon the alignment of addresses to any boundary.
 
 Forth 83 では、アドレスのアライメントに制限はありません。ANS Forthは、標準システムがさまざまな「@」演算子や「!」演算子を使う際にアドレスアライメントを要求してくるかもしれません。
 
-<desc>
-
+<description>
 ||Words Affected:||
-<code>! +! 2! 2@ @ ? ,</code> 
-
+! +! 2! 2@ @ ? ,
 ||Reason:||
 Many computers have hardware restrictions that favor the use of aligned  addresses. On some machines, the native memory-access instructions will cause an exception trap if used  with an unaligned address. Even on machines where unaligned accesses do not cause exception traps,  aligned accesses are usually faster.
-
 ||理由||
 多くのコンピュータでは、アライメントされたアドレスの使用を推奨するハードウェア制限があります。一部のマシンでは、アラインされていないアドレスで使用すると、ネイティブのメモリアクセス命令が例外トラップを引き起こす。アンアラインド・アクセスが例外トラップを引き起こさないマシンであっても、アラインド・アクセスの方が通常は高速です。
-
 ||Impact:||
 All of the ANS Forth words that return addresses suitable for use with aligned "@" and "!" words must return aligned addresses. In most cases, there will be no problem. Problems can arise from the use of user-defined data structures containing a mixture of character data and cell-sized data.
 
 Many existing Forth systems, especially those currently in use on computers with strong alignment  requirements, already require alignment. Much existing Forth code that is currently in use on such  machines has already been converted for use in an aligned environment.
-
 ||影響||
 アラインされた"@"および"!"ワードの使用に適したアドレスを返すANS Forthワードは、すべてアラインされたアドレスを返さなければなりません。ほとんどの場合、問題はありません。文字データとセル・サイズ・データが混在したユーザ定義のデータ構造を使用すると、問題が発生することがあります。
 
 既存のForthシステムの多く、特に強いアライメント要求を持つコンピュータで現在使用されているものは、すでにアライメントを要求しています。そのようなマシンで現在使用されている既存のForthコードの多くは、アライメント環境で使用するためにすでに変換されています。
-
 ||Transition/Conversion:||
 There are two possible approaches to conversion of programs for use on a system  requiring address alignment.
-
 ||移行/変換:||
 アドレス・アライメントを必要とするシステムで使用するためのプログラムの変換には、2つのアプローチが考えられます。
 
@@ -3037,8 +2999,7 @@ Another approach is to modify the application’s source code to eliminate unali
 This approach will probably result in faster application execution speed, at the possible expense of  increased memory utilization for data structures.
 
 この方法は、データ構造のメモリ使用量を増加させる可能性はありますが、アプリケー ションの実行速度はおそらく速くなります。
-
-</desc>
+</description>
 
 Finally, it is possible to combine the preceding techniques by identifying exactly those data fields that are  unaligned, and using "unaligned" versions of the memory access operators for only those fields. This  "hybrid" approach affects a compromise between execution speed and memory utilization.
 
@@ -3050,24 +3011,20 @@ Forth 79 specifies that division rounds toward 0 and the remainder carries the s
 
 Forth 79は、除算が0に向かって丸められ、余りが配当の符号を持つことを指定します。Forth 83は、除算が負の無限大に丸められ、余りが除数の符号を持つことを指定します。 ANS Forthでは、実装者の判断により、以下に示す除算演算子のどちらの動作も許可しており、ユーザがどちらの明示的な動作も合成できるように、除算プリミティブのペアを提供しています。
 
-<desc>
+<description>
 
 ||Words Affected:||
 `/ MOD /MOD */MOD */`
-
 ||Reason:||
 The difference between the division behaviors in Forth 79 and Forth 83 was a  point of much contention, and many Forth implementations did not switch to the Forth 83 behavior. Both  variants have vocal proponents, citing both application requirements and execution efficiency arguments on  both sides. After extensive debate spanning many meetings, the committee was unable to reach a consensus  for choosing one behavior over the other, and chose to allow either behavior as the default, while providing  a means for the user to explicitly use both behaviors as needed. Since implementors are allowed to choose  either behavior, they are not required to change the behavior exhibited by their current systems, thus  preserving correct functioning of existing programs that run on those systems and depend on a particular  behavior. New implementations could choose to supply the behavior that is supported by the native CPU  instruction set, thus maximizing execution speed, or could choose the behavior that is most appropriate for  the intended application domain of the system.
 
 Forth 79とForth 83の分割動作の違いは多くの論争の的となり、多くのForth実装はForth 83の動作に切り替えなかった。両者とも、アプリケーション要件と実行効率の両論を引用して、声高な支持者がいる。委員会は、何度も開催された広範な議論の末、どちらか一方の動作を選択することでコンセンサスを得ることはできず、デフォルトとしてどちらかの動作を許可する一方、必要に応じてユーザが明示的に両方の動作を使用できる手段を提供することを選択しました。実装者はどちらの動作も選択できるため、現在のシステムが示す動作を変更する必要はなく、そのシステム上で動作し、特定の動作に依存している既存のプログラムの正しい機能を維持することができます。新しい実装では、ネイティブのCPU命令セットでサポートされている動作を提供することで、実行速度を最大化することもできるし、システムの意図するアプリケーション領域に最も適した動作を選択することもできます。
-
 ||Impact:||
 The issue only affects programs that use a negative dividend with a positive  divisor, or a positive dividend with a negative divisor. The vast majority of uses of division occur with both  a positive dividend and a positive divisor; in that case, the results are the same for both allowed division  behaviors.
 
 この問題は、正の除数を持つ負の配当、または負の除数を持つ正の配当を使用するプログラムにのみ影響します。除算の大半は正の配当と正の除数の両方で行われます。その場合、許容される除算の動作はどちらも結果は同じです。
-
 ||Transition/Conversion:||
 For programs that require a specific rounding behavior with division operands of  mixed sign, the division operators used by the program may be redefined in terms of one of the new ANS  Forth division primitives SM/REM (symmetrical division, i.e., round toward zero) or FM/MOD (floored  division, i.e., round toward negative infinity). Then the program may be recompiled without change. For  example, the Forth 83 style division operators may be defined by:  
-
 ||トランジション/変換:||
 符号が混在する除算オペランドで特定の丸め動作を必要とするプログラムでは、プログラムで使用する除算演算子を、新しい ANS Forth の除算プリミティブ SM/REM(対称除算、つまりゼロに向かって丸める)または FM/MOD(フロアード除算、つまり負の無限大に向かって丸める)のいずれかで再定義することができます。その後、プログラムを変更せずに再コンパイルすることができます。例えば、Forth83スタイルの除算演算子は次のように定義することができます。
 
@@ -3077,7 +3034,7 @@ For programs that require a specific rounding behavior with division operands of
     : */MOD ( n1 n2 n3 -- n4 n5 ) >R M* R> FM/MOD ; 
     : */ ( n1 n2 n3 -- n4 n5 ) */MOD SWAP DROP ; 
 
-</desc>
+</description>
 
 ### D.6.7 Immediacy 
 
@@ -3089,11 +3046,10 @@ To force the compilation of a word that would normally be executed, Forth 83 pro
 
 通常実行されるワードのコンパイルを強制するために、Forth 83は、非即時ワードで使用されるCOMPILEというワードと、即時ワードで使用される[COMPILE]というワードを提供しています。ANS ForthはPOSTPONEという単一のワードを提供しており、これは即時ワードと非即時ワードの両方で使用され、自動的に適切な動作が選択されます。
 
-<desc>
+<description>
 
 ||Words Affected:||
 `COMPILE [COMPILE] ['] '`
-
 ||Reason:||
 The designation of particular words as either immediate or not depends upon the  implementation technique chosen for the Forth system. With traditional "threaded code" implementations,  the choice was generally quite clear (with the single exception of the word LEAVE), and the standard could  specify which words should be immediate. However, some of the currently popular implementation  techniques, such as native-code generation with optimization, require the immediacy attribute on a different  set of words than the set of immediate words of a threaded code implementation. ANS Forth,  acknowledging the validity of these other implementation techniques, specifies the immediacy attribute in as  few cases as possible.
 
@@ -3110,7 +3066,6 @@ Similarly, the use of ' and ['] with compiling words is unclear if the precise c
 The traditional (non-immediate) definition of the word COMPILE has an additional problem. Its traditional  definition assumes a threaded code implementation technique, and its behavior can only be properly  described in that context. In the context of ANS Forth, which permits other implementation techniques in  addition to threaded code, it is very difficult, if not impossible, to describe the behavior of the traditional  COMPILE. Rather than changing its behavior, and thus breaking existing code, ANS Forth does not include  the word COMPILE. This allows existing implementations to continue to supply the word COMPILE with  its traditional behavior, if that is appropriate for the implementation.
 
 COMPILEというワードの伝統的な(非即物的な)定義には、さらに問題があります。その伝統的な定義は、スレッドコード実装技術を前提としており、その動作はそのコンテキストでのみ適切に記述できます。ANS Forthのコンテキストでは、スレッドコードに加えて他の実装技法も許可されているため、従来のCOMPILEの動作を記述することは、不可能ではないにしても、非常に困難です。ANS Forthでは、COMPILEの動作を変更し、既存のコードを破壊するのではなく、COMPILEというワードを使用しません。これにより、既存の実装では、その実装が適切であれば、従来の動作でCOMPILEというワードを供給し続けることができます。
-
 ||Impact:||
 [COMPILE] remains in ANS Forth, since its proper use does not depend on  knowledge of whether or not a word is immediate (Use of [COMPILE] with a non-immediate word is and  has always been a no-op). Whether or not you need to use [COMPILE] requires knowledge of whether or  not its target word is immediate, but it is always safe to use [COMPILE]. [COMPILE] is no longer in the  (required) core word set, having been moved to the Core Extensions word set, but the committee anticipates that most vendors will supply it anyway.
 
@@ -3127,7 +3082,6 @@ a) `[COMPILE]`の非即時ワードでの使用。これは、Forth 79システ�
 b) Use of the phrase COMPILE [COMPILE] &lt;immediate word> to "doubly postpone" an  immediate word.
 
 b) `COMPILE` `[COMPILE]` &lt;即時ワード> というフレーズを使用して、即時ワードを「二重に延期」します。
-
 ||Transition/Conversion:||
 Many ANS Forth implementations will continue to implement both [COMPILE] and COMPILE in forms compatible with existing usage. In those environments, no conversion is necessary.
 
@@ -3162,7 +3116,7 @@ Use the phrase POSTPONE [COMPILE] to replace [COMPILE] [COMPILE].
 
 `[COMPILE][COMPILE]`の代わりに`POSTPONE [COMPILE]`というフレーズを使用してください。
 
-</desc>
+</description>
 
 ### D.6.8 Input character set 
 
@@ -3170,21 +3124,17 @@ Forth 83 specifies that the full 7-bit ASCII character set is available through 
 
 Forth 83は、7ビットASCII文字セットが `KEY` を通じて利用可能であることを指定しています。ANS Forthでは、16進数20から16進数7Eまでのコードを持つASCIIセットのグラフィック文字に制限されています。
 
-<desc>
+<description>
 
 ||Words Affected:||
 KEY
-
 ||Reason:||
 Many system environments "consume" certain control characters for such  purposes as input editing, job control, or flow control. A Forth implementation cannot always control this  system behavior.
-
 多くのシステム環境は、入力編集、ジョブ制御、フロー制御などの目的で特定の制御文字を「消費」します。Forthの実装では、このようなシステムの動作を常に制御することはできません。
-
 ||Impact:||
 Standard Programs which require the ability to receive particular control  characters through KEY must declare an environmental dependency on the input character set.
 
 KEYを通して特定の制御文字を受け取る能力を必要とする標準プログラムは、入力文字セットへの環境依存を宣言しなければなりません。
-
 ||Transition/Conversion:||
 For maximum portability, programs should restrict their required input character  set to only the graphic characters. Control characters may be handled if available, but complete program  functionality should be accessible using only graphic characters.
 
@@ -3193,8 +3143,7 @@ For maximum portability, programs should restrict their required input character
 As stated above, an environmental dependency on the input character set may be declared. Even so, it is  recommended that the program should avoid the requirement for particularly-troublesome control  characters, such as control-S and control-Q (often used for flow control, sometimes by communication  hardware whose presence may be difficult to detect), ASCII NUL (difficult to type on many keyboards), and  the distinction between carriage return and line feed (some systems translate carriage returns into line feeds,  or vice versa).
 
 上述したように、入力文字セットに対する環境依存を宣言してもよいです。たとえそうであっても、control-Sやcontrol-Q(フロー制御のためによく使用され、その存在を検出するのが困難な通信ハードウェアによって使用されることもある)、ASCII NUL(多くのキーボードで入力するのが困難)、キャリッジリターンとラインフィードの区別(システムによっては、キャリッジリターンをラインフィードに変換したり、その逆に変換したりするものもある)など、特にやっかいな制御文字の要求をプログラムが避けることが推奨されます。
-
-</desc>
+</description>
 
 ### D.6.9 Shifting with UM/MOD 
 
@@ -3202,11 +3151,10 @@ Given Forth-83’s two’s-complement nature, and its requirement for floored (r
 
 Forth-83の2の補数という性質と、フロアード(マイナス無限大に向かって丸める)除算の要件を考えると、シフトは除算と等価です。また、2の補数表現は、符号なし2のべき乗除算が論理右シフトと等価であることを意味するので、UM/MODは論理右シフトを実行するために使用することができます。
 
-<desc>
+<description>
 
 ||Words Affected:||
 UM/MOD
-
 ||Reason:||
 The problem with UM/MOD is a result of allowing non-two’s-complement  number representations, as already described.
 
@@ -3215,12 +3163,10 @@ UM/MODの問題は、すでに説明したように、非2補数表現を許可�
 ANS Forth provides the words LSHIFT and RSHIFT to perform logical shifts. This is usually more  efficient, and certainly more descriptive, than the use of UM/MOD for logical shifting.
 
 ANS Forthには、論理シフトを実行するためのLSHIFTとRSHIFTというワードが用意されています。これは通常、論理シフトにUM/MODを使用するよりも効率的で、より記述的です。
-
 ||Impact:||
 Programs running on ANS Forth systems with two’s-complement arithmetic (the  majority of machines), will not experience any incompatibility with UM/MOD . Existing Forth-83 Standard  programs intended to run on non-two’s-complement machines will not be able to use UM/MOD for shifting  on a non-two’s-complement ANS Forth system. This should not affect a significant number of existing  programs (perhaps none at all), since the committee knows of no existing Forth-83 implementations on non-two’s-complement machines.
 
 2の補数演算を持つANS Forthシステム(大半のマシン)で実行されるプログラムは、UM/MODとの非互換性を経験することはありません。非2補数マシン上で実行することを意図した既存のForth-83 Standardプログラムは、非2補数のANS Forthシステム上でシフトするためにUM/MODを使用することはできません。委員会は、非2の補数マシン上の既存のForth-83実装を知らないため、これはかなりの数の既存プログラムに影響しないはずです(おそらくまったく影響しないでしょう)。
-
 ||Transition/Conversion:||
 A program that requires UM/MOD to behave as a shift operation may declare an  environmental dependency on two’s-complement arithmetic.
 
@@ -3229,8 +3175,7 @@ UM/MODがシフト演算として動作することを必要とするプログ�
 A program that cannot declare an environmental dependency on two’s-complement arithmetic may require  editing to replace incompatible uses of UM/MOD with other operators defined within the application.
 
 2の補数演算への環境依存を宣言できないプログラムは、互換性のないUM/MODの使用をアプリケーション内で定義された他の演算子で置き換えるための編集を必要とするかもしれません。
-
-</desc>
+</description>
 
 ### D.6.10 Vocabularies / wordlists 
 
@@ -3242,11 +3187,10 @@ Forth-83’s "ALSO/ONLY" experimental search order word set is specified for the
 
 Forth-83の "ALSO/ONLY" 実験的検索ワードセットは、ほとんどの部分でANS Forth検索ワードセットの拡張部分として指定されています。
 
-<desc>
+<description>
 
 ||Words Affected:||
 VOCABULARY CONTEXT CURRENT
-
 ||Reason:||
 Vocabularies are an area of much divergence among existing systems.  Considering major vendors’ systems and previous standards, there are at least 5 different and mutually  incompatible behaviors of words defined by VOCABULARY. Forth 83 took a step in the direction of "run-time search-order specification" by declining to specify a specific relationship between the hierarchy of  compiled vocabularies and the run-time search order. Forth 83 also specified an experimental mechanism  for run-time search-order specification, the ALSO/ONLY scheme. ALSO/ONLY was implemented in  numerous systems, and has achieved some measure of popularity in the Forth community.
 
@@ -3259,13 +3203,11 @@ However, several vendors refuse to implement it, citing technical limitations. I
 The Forth 83 ALSO/ONLY word set is provided as an optional extension to the search-order word set. This  allows implementors that are so inclined to provide this word set, with well-defined standard behavior, but  does not compel implementors to do so. Some vendors have publicly stated that they will not implement  ALSO/ONLY, no matter what, and one major vendor stated an unwillingness to implement ANS Forth at all  if ALSO/ONLY is mandated. The committee feels that its actions are prudent, specifying ALSO/ONLY to the  extent possible without mandating its inclusion in all systems, and also providing a primitive search-order  word set that vendors may be more likely to implement, and which can be used to synthesize ALSO/ONLY.
 
 Forth 83のALSO/ONLYワードセットは、検索順ワードセットのオプション拡張として提供されます。これは、実装者がこのワードセットを提供することを許可するもので、標準的な動作が明確に定義されていますが、実装者にそれを強制するものではありません。一部のベンダは ALSO/ONLY を実装しないと公言しており、ある大手ベンダは ALSO/ONLY が強制されるのであれば ANS Forth を一切実装しないと表明しています。委員会は、すべてのシステムに ALSO/ONLY を組み込むことを義務付けることなく、可能な限り ALSO/ONLY を規定し、また、ベンダが実装しやすく、ALSO/ONLY を合成するために使用できる原始的な検索順序のワード集合を提供することで、委員会の行動は慎重であると感じています。
-
 ||Transition/Conversion:||
 Since Forth 83 did not mandate precise semantics for VOCABULARY, existing  Forth-83 Standard programs cannot use it except in a trivial way. Programs can declare a dependency on  the existence of the Search Order word set, and can implement whatever semantics are required using that  word set’s primitives. Forth 83 programs that need ALSO/ONLY can declare a dependency on the Search  Order Extensions word set, or can implement the extensions in terms of the Search Order word set itself.
 
 Forth 83はVOCABULARYに対して正確なセマンティクスを義務付けていないため、既存のForth-83 Standardプログラムでは、些細な方法を除いてVOCABULARYを使用することはできません。プログラムは、Search Orderワードセットの存在への依存を宣言することができ、そのワードセットのプリミティブを使用して必要なセマンティクスを実装することができます。ALSO/ONLY を必要とする Forth 83 プログラムは、Search Order Extensions ワードセットへの依存を宣言するか、Search Order ワードセット自体の観点から拡張を実装することができます。
-
-</desc>
+</description>
 
 
 ### D.6.11 Multiprogramming impact 
@@ -3274,11 +3216,10 @@ Forth 83 marked words with "multiprogramming impact" by the letter "M" in the fi
 
 Forth 83は、「マルチプログラミングの影響」を持つワードに、その説明の最初の行に文字「M」で印を付けています。ANS Forthは、ワードの説明から「M」の指定を削除し、マルチプログラミングの影響に関する議論をこの非規範的な附属書に移しました。
 
-<desc>
+<description>
 
 ||Words affected:||
 none
-
 ||Reason:||
 The meaning of "multiprogramming impact" is precise only in the context of a  specific model for multiprogramming. Although many Forth systems do provide multiprogramming  capabilities using a particular round-robin, cooperative, block-buffer sharing model, that model is not  universal. Even assuming the classical model, the "M" designations did not contain enough information to  enable writing of applications that interacted in a multiprogrammed system.
 
@@ -3291,7 +3232,6 @@ Practically speaking, the "M" designations in Forth 83 served to document usage 
 These usage rules have been explicitly documented in the Block word set where they are relevant. The "M"  designations have been removed entirely.
 
 これらの使用ルールは、関連するブロックワード集に明示的に文書化されています。「M」指定は完全に削除されました。
-
 ||Impact:||
 In practice, none.
 
@@ -3308,11 +3248,9 @@ Forth 83の非マルチプログラミング・アプリケーションは、マ
 The only difference is the documentation method used to define the BLOCK usage rules. The Technical  Committee believes that the current method is clearer than the concept of "multiprogramming impact".
 
 唯一の違いは、BLOCKの使用規則を定義するための文書化方法です。技術委員会は、「マルチプログラミングの影響」という概念よりも現在の方法の方が明確であると考えています。
-
 ||Transition/Conversion:||
 none needed.
-
-</desc>
+</description>
 
 ### D.6.12 Words not provided in executable form 
 
@@ -3320,7 +3258,7 @@ ANS Forth allows an implementation to supply some words in source code or "load 
 
 ANS Forthでは、プログラマが追加操作をしなくても、提供されたすべてのワードが利用可能であることを要求するのではなく、いくつかのワードをソースコードまたは「必要に応じてロード」形式で提供する実装が可能です。
 
-<desc>
+<description>
 
 ||Words affected:||
 all
@@ -3344,7 +3282,7 @@ Before compiling a program, the programmer may need to perform some action  to m
 
 プログラムをコンパイルする前に、プログラマはそのプログラムが必要とするワードを実行できるようにするために、何らかのアクションを実行する必要があるかもしれません。
 
-</desc>
+</description>
 
 # E. ANS Forth portability guide (informative annex)  
 
