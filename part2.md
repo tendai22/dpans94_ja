@@ -134,14 +134,11 @@ The phrase "Requiring the Block Extensions word set" shall be appended to the la
 ### 7.6.1 Block words{id=Z7_6_1}
 
 <std-glossary>
-
 ||7.6.1.0790||BLK||"b-l-k"||BLOCK||
 ( -- a-addr )
 
 a-addr is the address of a cell containing zero or the number of the mass-storage block being  interpreted. If `BLK` contains zero, the input source is not a block and can be identified by  `SOURCE-ID`, if `SOURCE-ID` is available. An ambiguous condition exists if a program directly  alters the contents of BLK. 
-
-See: **7.3.3 Block buffer regions**. 
-
+|See:|**7.3.3 Block buffer regions**. 
 ||7.6.1.0800||BLOCK||"xxxxx"||BLOCK||
 ( u -- a-addr )
 
@@ -156,7 +153,6 @@ If block u is not already in memory and there is an unassigned block buffer, tra
 If block u is not already in memory and there are no unassigned block buffers, unassign a block  buffer. If the block in that buffer has been `UPDATE`d, transfer the block to mass storage and  transfer block u from mass storage into that buffer. a-addr is the address of that block buffer. 
 
 At the conclusion of the operation, the block buffer pointed to by a-addr is the current block  buffer and is assigned to u. 
-
 ||7.6.1.0820||BUFFER||"xxxxx"||BLOCK||
 ( u -- a-addr )
 
@@ -169,19 +165,15 @@ If block u is not already in memory and there is an unassigned buffer, a-addr is
 If block u is not already in memory and there are no unassigned block buffers, unassign a block  buffer. If the block in that buffer has been `UPDATE`d, transfer the block to mass storage. a-addr is the address of that block buffer. 
 
 At the conclusion of the operation, the block buffer pointed to by a-addr is the current block  buffer and is assigned to u. 
-
-See: **7.6.1.0800 BLOCK**.
-
+|See:|**7.6.1.0800 BLOCK**.
 ||7.6.1.1360||EVALUATE||"xxxxx"||BLOCK||
 
 Extend the semantics of **6.1.1360 EVALUATE** to include: 
 Store zero in BLK. 
-
 ||7.6.1.1559||FLUSH||"xxxxx"||BLOCK||
 ( -- )
 
 Perform the function of `SAVE-BUFFERS`, then unassign all block buffers. 
-
 ||7.6.1.1790||LOAD||"xxxxx"||BLOCK||
 ( i*x u -- j*x )
 
@@ -189,63 +181,52 @@ Save the current input-source specification. Store u in `BLK` (thus making block
 
 When the parse area is exhausted, restore the prior input source specification. Other stack  effects are due to the words `LOAD`ed. 
 An ambiguous condition exists if u is zero or is not a valid block number. 
-
-See: **3.4 The Forth text interpreter**. 
-
+|See:|**3.4 The Forth text interpreter**. 
 ||7.6.1.2180||SAVE-BUFFERS||"xxxxx"||BLOCK||
 ( -- )
 
 Transfer the contents of each UPDATEd block buffer to mass storage. Mark all buffers as  unmodified. 
-
 ||7.6.1.2400||UPDATE||"xxxxx"||BLOCK||
 ( -- )
 
 Mark the current block buffer as modified. An ambiguous condition exists if there is no current  block buffer. 
 UPDATE does not immediately cause I/O. 
-
-See: **7.6.1.0800 BLOCK**, **7.6.1.0820 BUFFER**, **7.6.1.1559 FLUSH**, **7.6.1.2180 SAVE-BUFFERS**. 
+|See:|**7.6.1.0800 BLOCK**, **7.6.1.0820 BUFFER**, **7.6.1.1559 FLUSH**, **7.6.1.2180 SAVE-BUFFERS**. 
+</std-glossary>
 
 ### 7.6.2 Block extension words{id=Z7_6_2}
 
-
+<std-glossary>
 ||7.6.2.1330||EMPTY-BUFFERS||"xxxxx"||BLOCK EXT||
 ( -- )
 
 Unassign all block buffers. Do not transfer the contents of any `UPDATE`d block buffer to mass  storage. 
-
-See: **7.6.1.0800 BLOCK**. 
-
+|See:|**7.6.1.0800 BLOCK**. 
 ||7.6.2.1770||LIST||"xxxxx"||BLOCK EXT||
 ( u -- )
 
 Display block u in an implementation-defined format. Store u in `SCR`. 
-
-See: **7.6.1.0800 BLOCK**. 
-
+|See:|**7.6.1.0800 BLOCK**. 
 ||7.6.2.2125||REFILL||"xxxxx"||BLOCK EXT||
 ( -- flag )
 
 Extend the execution semantics of **6.2.2125 REFILL** with the following: 
 When the input source is a block, make the next block the input source and current input buffer  by adding one to the value of `BLK` and setting `>IN` to zero. Return true if the new value of `BLK` is a valid block number, otherwise false. 
-
-See: **6.2.2125 REFILL**, **11.6.2.2125 REFILL**. 
-
+|See:|**6.2.2125 REFILL**, **11.6.2.2125 REFILL**. 
 ||7.6.2.2190||SCR||"s-c-r"||BLOCK EXT||
 ( -- a-addr )
 
 a-addr is the address of a cell containing the block number of the block most recently `LIST`ed. 
-
 ||7.6.2.2280||THRU||"xxxxx"||BLOCK EXT||
 ( i*x u1 u2 -- j*x )
 
 `LOAD` the mass storage blocks numbered u1 through u2 in sequence. Other stack effects are due  to the words `LOAD`ed. 
-
 ||7.6.2.2535||\||"backslash"||BLOCK EXT||
 Extend the semantics of <strong>6.2.2535 \ </strong> to be: 
+|Compilation:|Perform the execution semantics given below. 
+|Execution:|( "ccc<eol>"-- )
 
-Compilation: Perform the execution semantics given below. 
-
-Execution: ( "ccc<eol>"-- )  If `BLK` contains zero, parse and discard the remainder of the parse area; otherwise parse and  discard the portion of the parse area corresponding to the remainder of the current line. `\` is an  immediate word. 
+If `BLK` contains zero, parse and discard the remainder of the parse area; otherwise parse and  discard the portion of the parse area corresponding to the remainder of the current line. `\` is an  immediate word. 
 
 </std-glossary>
 
@@ -335,128 +316,111 @@ The phrase "Requiring the Double-Number Extensions word set" shall be appended t
 ### 8.6.1 Double-Number words{id=Z8_6_1}
 
 <std-glossary>
-
 ||8.6.1.0360||2CONSTANT||"two-constant"||DOUBLE||
 ( x1 x2 "&lt;spaces>name" -- )
 
 Skip leading space delimiters. Parse name delimited by a space. Create a definition for name with the execution semantics defined below. 
 
 name is referred to as a "two-constant". 
+|name Execution:|( -- x1 x2 )
 
-name Execution: ( -- x1 x2 )  Place cell pair x1 x2 on the stack. 
-
-See: **3.4.1 Parsing**. 
-
+Place cell pair x1 x2 on the stack. 
+|See:|**3.4.1 Parsing**. 
 ||8.6.1.0390||2LITERAL||"two-literal"||DOUBLE||
-Interpretation: Interpretation semantics for this word are undefined. 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( x1 x2 -- )
 
-Compilation: ( x1 x2 -- )  Append the run-time semantics below to the current definition. 
+Append the run-time semantics below to the current definition. 
+|Run-time:|( -- x1 x2 )
 
-Run-time: ( -- x1 x2 )  Place cell pair x1 x2 on the stack. 
-
+Place cell pair x1 x2 on the stack. 
 ||8.6.1.0440||2VARIABLE||"two-variable"||DOUBLE||
 ( "&lt;spaces>name" -- )
 
 Skip leading space delimiters. Parse name delimited by a space. Create a definition for name with the execution semantics defined below. Reserve two consecutive cells of data space. 
 
 name is referred to as a "two-variable". 
+|name Execution:|( -- a-addr )
 
-name Execution: ( -- a-addr )  a-addr is the address of the first (lowest address) cell of two consecutive cells in data space  reserved by `2VARIABLE` when it defined name. A program is responsible for initializing the  contents. 
-
-See: **3.4.1 Parsing**, **6.1.2410 VARIABLE**. 
-
+a-addr is the address of the first (lowest address) cell of two consecutive cells in data space  reserved by `2VARIABLE` when it defined name. A program is responsible for initializing the  contents. 
+|See:|**3.4.1 Parsing**, **6.1.2410 VARIABLE**. 
 ||8.6.1.1040||D+||"d-plus"||DOUBLE||
 ( d1|ud1 d2|ud2 -- d3|ud3 )
 
 Add d2|ud2 to d1|ud1, giving the sum d3|ud3. 
-
 ||8.6.1.1050||D-||"d-minus"||DOUBLE||
 ( d1|ud1 d2|ud2 -- d3|ud3 )
 
 Subtract d2|ud2 from d1|ud1, giving the difference d3|ud3. 
-
 ||8.6.1.1060||D.||"d-dot"||DOUBLE||
 ( d -- )
 
 Display d in free field format. 
-
 ||8.6.1.1070||D.R||"d-dot-r"||DOUBLE||
 ( d n -- )
 
 Display d right aligned in a field n characters wide. If the number of characters required to  display d is greater than n, all digits are displayed with no leading spaces in a field as wide as  necessary. 
-
 ||8.6.1.1075||D0<||"d-zero-less"||DOUBLE||
 ( d -- flag )
 
 flag is true if and only if d is less than zero. 
-
 ||8.6.1.1080||D0=||"d-zero-equals"||DOUBLE||
 ( xd -- flag )
 
 flag is true if and only if xd is equal to zero. 
-
 ||8.6.1.1090||D2*||"d-two-star"||DOUBLE||
 ( xd1 -- xd2 )
 
 xd2 is the result of shifting xd1 one bit toward the most-significant bit, filling the vacated least-significant bit with zero. 
-
 ||8.6.1.1100||D2/||"d-two-slash"||DOUBLE||
 ( xd1 -- xd2 )
 
 xd2 is the result of shifting xd1 one bit toward the least-significant bit, leaving the most-significant bit unchanged. 
-
 ||8.6.1.1110||D<||"d-less-than"||DOUBLE||
 ( d1 d2 -- flag )
 
 flag is true if and only if d1 is less than d2. 
-
 ||8.6.1.1120||D=||"d-equals"||DOUBLE||
 ( xd1 xd2 -- flag )
 
 flag is true if and only if xd1 is bit-for-bit the same as xd2. 
-
 ||8.6.1.1140||D>S||"d-to-s"||DOUBLE||
 ( d -- n )
 
 n is the equivalent of d. An ambiguous condition exists if d lies outside the range of a signed  single-cell number. 
-
 ||8.6.1.1160||DABS||"d-abs"||DOUBLE||
 ( d -- ud )
 
 ud is the absolute value of d. 
-
 ||8.6.1.1210||DMAX||"d-max"||DOUBLE||
 ( d1 d2 -- d3 )
 
 d3 is the greater of d1 and d2. 
-
 ||8.6.1.1220||DMIN||"d-min"||DOUBLE||
 ( d1 d2 -- d3 )
 
 d3 is the lesser of d1 and d2. 
-
 ||8.6.1.1230||DNEGATE||"d-negate"||DOUBLE||
 ( d1 -- d2 )
 
 d2 is the negation of d1. 
-
 ||8.6.1.1820||M*/||"m-star-slash"||DOUBLE||
 ( d1 n1 +n2 -- d2 )
 
 Multiply d1 by n1 producing the triple-cell intermediate result t. Divide t by +n2 giving the  double-cell quotient d2. An ambiguous condition exists if +n2 is zero or negative, or the  quotient lies outside of the range of a double-precision signed integer. 
-
 ||8.6.1.1830||M+||"m-plus"||DOUBLE||
 ( d1|ud1 n -- d2|ud2 )
 
 Add n to d1|ud1, giving the sum d2|ud2. 
+</std-glossary>
 
 ### 8.6.2 Double-Number extension words{id=Z8_6_2}
 
+<std-glossary>
 ||8.6.2.0420||2ROT||"two-rote"||DOUBLE EXT||
 ( x1 x2 x3 x4 x5 x6 -- x3 x4 x5 x6 x1 x2 )
 
 Rotate the top three cell pairs on the stack bringing cell pair x1 x2 to the top of the stack. 
-
 ||8.6.2.1270||DU<||"d-u-less"||DOUBLE EXT||
 ( ud1 ud2 -- flag )
 
@@ -550,7 +514,7 @@ Table 9.2 - THROW code assignments
  -27|invalid recursion | -57|exception in sending or receiving a character 
  -28|user interrupt | -58|`[IF]`, `[ELSE]`, or `[THEN]` exception 
  -29|compiler nesting ||
- 
+
 </table>
 
 
@@ -603,14 +567,12 @@ The phrase "Requiring the Exception Extensions word set" shall be appended to th
 ### 9.6.1 Exception words{id=Z9_6_1}
 
 <std-glossary>
-
 ||9.6.1.0875||CATCH||"xxxxx"||EXCEPTION||
 ( i*x xt -- j*x 0 | i*x n )
 
 Push an exception frame on the exception stack and then execute the execution token xt (as with  `EXECUTE`) in such a way that control can be transferred to a point just after `CATCH` if `THROW` is executed during the execution of xt. 
 
 If the execution of xt completes normally (i.e., the exception frame pushed by this `CATCH` is not  popped by an execution of `THROW`) pop the exception frame and return zero on top of the data  stack, above whatever stack items would have been returned by xt `EXECUTE`. Otherwise, the  remainder of the execution semantics are given by `THROW`. 
-
 ||9.6.1.2275||THROW||"xxxxx"||EXCEPTION||
 ( k*x n -- k*x | i*x n )
 
@@ -624,27 +586,27 @@ If n is minus-two, perform the function of **6.1.0680 ABORT"** (the version of `
 
 Otherwise, the system may display an implementation-dependent message giving  information about the condition associated with the `THROW` code n. Subsequently, the  system shall perform the function of **6.1.0670 ABORT** (the version of `ABORT` in the Core  word set). 
 
+</std-glossary>
+
 ### 9.6.2 Exception extension words{id=Z9_6_2}
 
+<std-glossary>
 ||9.6.2.0670||ABORT||"xxxxx"||EXCEPTION EXT||
 Extend the semantics of **6.1.0670 ABORT** to be: 
 ( i*x -- ) ( R: j*x -- )
 
 Perform the function of `-1 THROW` . 
-
-See: **6.1.0670 ABORT**. 
-
+|See:|**6.1.0670 ABORT**. 
 ||9.6.2.0680||ABORT"||"abort-quote"||EXCEPTION EXT||
 Extend the semantics of **6.1.0680 ABORT"** to be: 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( "ccc<quote>" -- )
 
-Interpretation: Interpretation semantics for this word are undefined. 
+Parse ccc delimited by a `"` (double-quote). Append the run-time semantics given below to the  current definition. 
+|Run-time:|( i*x x1 -- | i*x )
 
-Compilation: ( "ccc<quote>" -- )  Parse ccc delimited by a `"` (double-quote). Append the run-time semantics given below to the  current definition. 
-
-Run-time: ( i*x x1 -- | i*x ) ( R: j*x -- | j*x )  Remove x1 from the stack. If any bit of x1 is not zero, perform the function of -2 `THROW`,  displaying ccc if there is no exception frame on the exception stack. 
-
-See: **3.4.1 Parsing**, **6.1.0680 ABORT"**.
-
+( R: j*x -- | j*x )  Remove x1 from the stack. If any bit of x1 is not zero, perform the function of -2 `THROW`,  displaying ccc if there is no exception frame on the exception stack. 
+|See:|**3.4.1 Parsing**, **6.1.0680 ABORT"**.
 </std-glossary>
 
 # 10. The optional Facility word set{id=Z10_}
@@ -732,62 +694,53 @@ The phrase "Requiring the Facility Extensions word set" shall be appended to the
 ### 10.6.1 Facility words{id=Z10_6_1}
 
 <std-glossary>
-
 ||10.6.1.0742||AT-XY||"at-x-y"||FACILITY||
 ( u1 u2 -- )
 
 Perform implementation-dependent steps so that the next character displayed will appear in  column u1, row u2 of the user output device, the upper left corner of which is column zero, row  zero. An ambiguous condition exists if the operation cannot be performed on the user output  device with the specified parameters. 
-
 ||10.6.1.1755||KEY?||"key-question"||FACILITY||
 ( -- flag )
 
 If a character is available, return true. Otherwise, return false. If non-character keyboard  events are available before the first valid character, they are discarded and are subsequently  unavailable. The character shall be returned by the next execution of `KEY`. 
 
 After `KEY?` returns with a value of true, subsequent executions of `KEY?` prior to the execution  of `KEY` or `EKEY` also return true, without discarding keyboard events. 
-
 ||10.6.1.2005||PAGE||"xxxxx"||FACILITY||
 ( -- )
 
 Move to another page for output. Actual function depends on the output device. On a terminal,  `PAGE` clears the screen and resets the cursor position to the upper left corner. On a printer,  `PAGE` performs a form feed. 
+</std-glossary>
 
 ### 10.6.2 Facility extension words{id=Z10_6_2}
 
-
+<std-glossary>
 ||10.6.2.1305||EKEY||"e-key"||FACILITY EXT||
 ( -- u )
 
 Receive one keyboard event u. The encoding of keyboard events is implementation defined. 
-
-See: **10.6.1.1755 KEY?**, **6.1.1750 KEY**. 
-
+|See:|**10.6.1.1755 KEY?**, **6.1.1750 KEY**. 
 ||10.6.2.1306||EKEY>CHAR||"e-key-to-char"||FACILITY EXT||
 ( u -- u false | char true )
 
 If the keyboard event u corresponds to a character in the implementation-defined character set,  return that character and true. Otherwise return u and false. 
-
 ||10.6.2.1307||EKEY?||"e-key-question"||FACILITY EXT||
 ( -- flag )
 
 If a keyboard event is available, return true. Otherwise return false. The event shall be returned  by the next execution of EKEY. 
 
 After `EKEY?` returns with a value of true, subsequent executions of EKEY? prior to the  execution of `KEY`, `KEY?` or `EKEY` also return true, referring to the same event. 
-
 ||10.6.2.1325||EMIT?||"emit-question"||FACILITY EXT||
 ( -- flag )
 
 flag is true if the user output device is ready to accept data and the execution of `EMIT` in place  of `EMIT?` would not have suffered an indefinite delay. If the device status is indeterminate,  flag is true. 
-
 ||10.6.2.1905||MS||"xxxxx"||FACILITY EXT||
 ( u -- )
 
 Wait at least u milliseconds. 
-Note: The actual length and variability of the time period depends upon the implementation-defined  resolution of the system clock and upon other system and computer characteristics beyond the  scope of this Standard. 
-
+|Note:|The actual length and variability of the time period depends upon the implementation-defined  resolution of the system clock and upon other system and computer characteristics beyond the  scope of this Standard. 
 ||10.6.2.2292||TIME&DATE||"time-and-date"||FACILITY EXT||
 ( -- +n1 +n2 +n3 +n4 +n5 +n6 )
 
 Return the current time and date. +n1 is the second {0...59}, +n2 is the minute {0...59}, +n3 is  the hour {0...23}, +n4 is the day {1...31} +n5 is the month {1...12}, and +n6 is the year (e.g.,  1991). 
-
 </std-glossary>
 
 # 11. The optional File-Access word set{id=Z11_}
@@ -807,13 +760,10 @@ These words provide access to mass storage in the form of "files" under the foll
 ## 11.2 Additional terms{id=Z11_2}
 
 <miniterm>
-
 ||file-access method:||
 A permissible means of accessing a file, such as "read/write" or "read only". 
-
 ||file position:||
 The character offset from the start of the file. 
-
 ||input file:||
 The file, containing a sequence of lines, that is the input source. 
 
@@ -977,26 +927,21 @@ The phrase "Requiring the File Access Extensions word set" shall be appended to 
 
 
 <std-glossary>
-
 ||11.6.1.0080|| (||"paren"||FILE||
 ( "ccc<paren>" -- )
 
 Extend the semantics of **6.1.0080 (** to include: 
 
 When parsing from a text file, if the end of the parse area is reached before a right parenthesis is  found, refill the input buffer from the next line of the file, set >IN to zero, and resume parsing,  repeating this process until either a right parenthesis is found or the end of the file is reached. 
-
 ||11.6.1.0765||BIN||"xxxxx"||FILE||
 ( fam1 -- fam2 )
 
 Modify the implementation-defined file access method fam1 to additionally select a "binary",  i.e., not line oriented, file access method, giving access method fam2. 
-
-See: **11.6.1.2054 R/O**, **11.6.1.2056 R/W**, **11.6.1.2425 W/O**.
-
+|See:|**11.6.1.2054 R/O**, **11.6.1.2056 R/W**, **11.6.1.2425 W/O**.
 ||11.6.1.0900||CLOSE-FILE||"xxxxx"||FILE||
 ( fileid -- ior )
 
 Close the file identified by fileid. ior is the implementation-defined I/O result code. 
-
 ||11.6.1.1010||CREATE-FILE||"xxxxx"||FILE||
 ( c-addr u fam -- fileid ior )
 
@@ -1005,22 +950,18 @@ Create the file named in the character string specified by c-addr and u, and ope
 If the file was successfully created and opened, ior is zero, fileid is its identifier, and the file has  been positioned to the start of the file. 
 
 Otherwise, ior is the implementation-defined I/O result code and fileid is undefined. 
-
 ||11.6.1.1190||DELETE-FILE||"xxxxx"||FILE||
 ( c-addr u -- ior )
 
 Delete the file named in the character string specified by c-addr u. ior is the implementation-defined I/O result code. 
-
 ||11.6.1.1520||FILE-POSITION||"xxxxx"||FILE||
 ( fileid -- ud ior )
 
 ud is the current file position for the file identified by fileid. ior is the implementation-defined  I/O result code. ud is undefined if ior is non-zero. 
-
 ||11.6.1.1522||FILE-SIZE||"xxxxx"||FILE||
 ( fileid -- ud ior )
 
 ud is the size, in characters, of the file identified by fileid. ior is the implementation-defined I/O  result code. This operation does not affect the value returned by `FILE-POSITION`. ud is  undefined if ior is non-zero. 
-
 ||11.6.1.1717||INCLUDE-FILE||"xxxxx"||FILE||
 ( i*x fileid -- j*x )
 
@@ -1033,9 +974,7 @@ Text interpretation begins at the file position where the next file read would o
 When the end of the file is reached, close the file and restore the input source specification to its  saved value. 
 
 An ambiguous condition exists if fileid is invalid, if there is an I/O exception reading fileid, or if  an I/O exception occurs while closing fileid. When an ambiguous condition exists, the status  (open or closed) of any files that were being interpreted is implementation-defined. 
-
-See: **11.3.4 Input source**. 
-
+|See:|**11.3.4 Input source**. 
 ||11.6.1.1718||INCLUDED||"xxxxx"||FILE||
 ( i*x c-addr u -- j*x )
 
@@ -1047,9 +986,7 @@ Text interpretation begins at the file position where the next file read would o
 When the end of the file is reached, close the file and restore the input source specification to its  saved value. 
 
 An ambiguous condition exists if the named file can not be opened, if an I/O exception occurs  reading the file, or if an I/O exception occurs while closing the file. When an ambiguous  condition exists, the status (open or closed) of any files that were being interpreted is  implementation-defined. 
-
-See: **11.6.1.1717 INCLUDE-FILE**. 
-
+|See:|**11.6.1.1717 INCLUDE-FILE**. 
 ||11.6.1.1970||OPEN-FILE||"xxxxx"||FILE||
 ( c-addr u fam -- fileid ior )
 
@@ -1057,21 +994,16 @@ Open the file named in the character string specified by c-addr u, with file acc
 
 If the file is successfully opened, ior is zero, fileid is its identifier, and the file has been  positioned to the start of the file. 
 Otherwise, ior is the implementation-defined I/O result code and fileid is undefined. 
-
 ||11.6.1.2054||R/O||"r-o"||FILE||
 ( -- fam )
 
 fam is the implementation-defined value for selecting the "read only" file access method. 
-
-See: **11.6.1.1010 CREATE-FILE**, **11.6.1.1970 OPEN-FILE**. 
-
+|See:|**11.6.1.1010 CREATE-FILE**, **11.6.1.1970 OPEN-FILE**. 
 ||11.6.1.2056||R/W||"r-w"||FILE||
 ( -- fam )
 
 fam is the implementation-defined value for selecting the "read/write" file access method. 
-
-See: **11.6.1.1010 CREATE-FILE**, **11.6.1.1970 OPEN-FILE**. 
-
+|See:|**11.6.1.1010 CREATE-FILE**, **11.6.1.1970 OPEN-FILE**. 
 ||11.6.1.2080||READ-FILE||"xxxxx"||FILE||
 ( c-addr u1 fileid -- u2 ior )
 
@@ -1086,7 +1018,6 @@ If an exception occurs, ior is the implementation-defined I/O result code, and u
 An ambiguous condition exists if the operation is initiated when the value returned by `FILE-POSITION` is greater than the value returned by `FILE-SIZE` for the file identified by fileid, or  if the requested operation attempts to read portions of the file not written. 
 
 At the conclusion of the operation, `FILE-POSITION` returns the next file position after the  last character read. 
-
 ||11.6.1.2090||READ-LINE||"xxxxx"||FILE||
 ( c-addr u1 fileid -- u2 flag ior )
 
@@ -1101,7 +1032,6 @@ If ior is non-zero, an exception occurred during the operation and ior is the im
 An ambiguous condition exists if the operation is initiated when the value returned by `FILE-POSITION` is greater than the value returned by `FILE-SIZE` for the file identified by fileid, or  if the requested operation attempts to read portions of the file not written. 
 
 At the conclusion of the operation, `FILE-POSITION` returns the next file position after the  last character read. 
-
 ||11.6.1.2142||REPOSITION-FILE||"xxxxx"||FILE||
 ( ud fileid -- ior )
 
@@ -1109,7 +1039,6 @@ Reposition the file identified by fileid to ud. ior is the implementation-define
 
 An ambiguous condition exists if the file is positioned outside the file boundaries. 
 At the conclusion of the operation, `FILE-POSITION` returns the value ud. 
-
 ||11.6.1.2147||RESIZE-FILE||"xxxxx"||FILE||
 ( ud fileid -- ior )
 
@@ -1118,79 +1047,68 @@ Set the size of the file identified by fileid to ud. ior is the implementation-d
 If the resultant file is larger than the file before the operation, the portion of the file added as a  result of the operation might not have been written. 
 
 At the conclusion of the operation, `FILE-SIZE` returns the value ud and `FILE-POSITION` returns an unspecified value. 
-
-See: **11.6.1.2080 READ-FILE**, **11.6.1.2090 READ-LINE**. 
-
+|See:|**11.6.1.2080 READ-FILE**, **11.6.1.2090 READ-LINE**. 
 ||11.6.1.2165||S"||"s-quote"||FILE||
 Extend the semantics of **6.1.2165 `S"`** to be: 
+|Interpretation:|( "ccc<quote>" -- c-addr u )
 
-Interpretation: ( "ccc<quote>" -- c-addr u )  Parse ccc delimited by " (double quote). Store the resulting string c-addr u at a temporary  location. The maximum length of the temporary buffer is implementation-dependent but shall  be no less than 80 characters. Subsequent uses of `S"` may overwrite the temporary buffer. At  least one such buffer shall be provided. 
+Parse ccc delimited by " (double quote). Store the resulting string c-addr u at a temporary  location. The maximum length of the temporary buffer is implementation-dependent but shall  be no less than 80 characters. Subsequent uses of `S"` may overwrite the temporary buffer. At  least one such buffer shall be provided. 
+|Compilation:|( "ccc<quote>" -- )
 
-Compilation: ( "ccc<quote>" -- )  Parse ccc delimited by " (double quote). Append the run-time semantics given below to the  current definition. 
+Parse ccc delimited by " (double quote). Append the run-time semantics given below to the  current definition. 
+|Run-time:|( -- c-addr u )
 
-Run-time: ( -- c-addr u )  Return c-addr and u that describe a string consisting of the characters ccc.
-
-See: **3.4.1 Parsing**, **6.2.0855 C"**, **6.1.2165 S"**, **11.3.5 Other transient regions**. 
-
+Return c-addr and u that describe a string consisting of the characters ccc.
+|See:|**3.4.1 Parsing**, **6.2.0855 C"**, **6.1.2165 S"**, **11.3.5 Other transient regions**. 
 ||11.6.1.2218||SOURCE-ID||"source-i-d"||FILE||
 ( -- 0 | -1 | fileid )
 
 Extend **6.2.2218 SOURCE-ID** to include text-file input as follows: 
 
 SOURCE-ID Input source   fileid Text file "fileid"   -1 String (via `EVALUATE`)   0 User input device  An ambiguous condition exists if SOURCE-ID is used when BLK contains a non-zero value. 
-
 ||11.6.1.2425||W/O||"w-o"||FILE||
 ( -- fam )
 
 fam is the implementation-defined value for selecting the "write only" file access method. 
- 
-See: **11.6.1.1010 CREATE-FILE**, **11.6.1.1970 OPEN-FILE**. 
-
+|See:|**11.6.1.1010 CREATE-FILE**, **11.6.1.1970 OPEN-FILE**. 
 ||11.6.1.2480||WRITE-FILE||"xxxxx"||FILE||
 ( c-addr u fileid -- ior )
 
 Write u characters from c-addr to the file identified by fileid starting at its current position. ior is the implementation-defined I/O result code. 
 
 At the conclusion of the operation, `FILE-POSITION` returns the next file position after the  last character written to the file, and `FILE-SIZE` returns a value greater than or equal to the  value returned by `FILE-POSITION`. 
-
-See: **11.6.1.2080 READ-FILE**, **11.6.1.2090 READ-LINE**. 
-
+|See:|**11.6.1.2080 READ-FILE**, **11.6.1.2090 READ-LINE**. 
 ||11.6.1.2485||WRITE-LINE||"xxxxx"||FILE||
 ( c-addr u fileid -- ior )
 
 Write u characters from c-addr followed by the implementation-dependent line terminator to the  file identified by fileid starting at its current position. ior is the implementation-defined I/O  result code. 
 
 At the conclusion of the operation, `FILE-POSITION` returns the next file position after the  last character written to the file, and FILE-SIZE returns a value greater than or equal to the  value returned by `FILE-POSITION`. 
-
-See: **11.6.1.2080 READ-FILE**, **11.6.1.2090 READ-LINE**. 
+|See:|**11.6.1.2080 READ-FILE**, **11.6.1.2090 READ-LINE**. 
+</std-glossary>
 
 ### 11.6.2 File-Access extension words{id=Z11_6_2}
 
-
+<std-glossary>
 ||11.6.2.1524||FILE-STATUS||"xxxxx"||FILE EXT||
 (c-addr u -- x ior )
 
 Return the status of the file identified by the character string c-addr u. If the file exists, ior is  zero; otherwise ior is the implementation-defined I/O result code. x contains implementation-defined information about the file. 
-
 ||11.6.2.1560||FLUSH-FILE||"xxxxx"||FILE EXT||
 ( fileid -- ior )
 
 Attempt to force any buffered information written to the file referred to by fileid to be written to  mass storage, and the size information for the file to be recorded in the storage directory if  changed. If the operation is successful, ior is zero. Otherwise, it is an implementation-defined  I/O result code. 
-
 ||11.6.2.2125||REFILL||"xxxxx"||FILE EXT||
 ( -- flag )
 
 Extend the execution semantics of **6.2.2125 REFILL** with the following: 
 
 When the input source is a text file, attempt to read the next line from the text-input file. If  successful, make the result the current input buffer, set `>IN` to zero, and return true. Otherwise  return false. 
-
-See: **6.2.2125 REFILL**, **7.6.2.2125 REFILL**. 
-
+|See:|**6.2.2125 REFILL**, **7.6.2.2125 REFILL**. 
 ||11.6.2.2130||RENAME-FILE||"xxxxx"||FILE EXT||
 ( c-addr1 u1 c-addr2 u2 -- ior )
 
 Rename the file named by the character string c-addr1 u1 to the name in the character string c-addr2 u2. ior is the implementation-defined I/O result code. 
-
 </std-glossary>
 
 # 12. The optional Floating-Point word set{id=Z12_}
@@ -1202,16 +1120,12 @@ Rename the file named by the character string c-addr1 u1 to the name in the char
 ### 12.2.1 Definition of terms{id=Z12_2_1}
 
 <miniterm>
-
 ||float-aligned address:||
 The address of a memory location at which a floating-point number can be  accessed. 
-
 ||double-float-aligned address:||
 The address of a memory location at which a 64-bit IEEE double-precision  floating-point number can be accessed. 
-
 ||single-float-aligned address:||
 The address of a memory location at which a 32-bit IEEE single-precision  floating-point number can be accessed. 
-
 ||IEEE floating-point number:||
 A single- or double-precision floating-point number as defined in  ANSI/IEEE 754-1985. 
 
@@ -1402,7 +1316,6 @@ The phrase "Requiring the Floating-Point Extensions word set" shall be appended 
 ### 12.6.1 Floating-Point words{id=Z12_6_1}
 
 <std-glossary>
-
 ||12.6.1.0558||>FLOAT||"to-float"||FLOATING||
 ( c-addr u -- true | false ) ( F: -- r | ) or ( c-addr u -- r true | false )
 
@@ -1416,168 +1329,139 @@ The syntax of a convertible string := &lt;significand>[&lt;exponent>]<br>
  &lt;e-form> := &lt;e-char>[&lt;sign-form>]<br>
  &lt;sign-form> := \{ `+` | `-` }<br>
  &lt;e-char>:= \{ `D` | `d` | `E` | `e` }
-
 ||12.6.1.1130||D>F||"d-to-f"||FLOATING||
 ( d -- ) ( F: -- r ) or ( d -- r )
 
 r is the floating-point equivalent of d.||
 An ambiguous condition exists if d cannot be precisely  represented as a floating-point value. 
-
 ||12.6.1.1400||F!||"f-store"||FLOATING||
 ( f-addr -- ) ( F: r -- ) or ( r f-addr -- )
 
 Store r at f-addr. 
-
 ||12.6.1.1410||F*||"f-star"||FLOATING ||
 ( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )
 
 Multiply r1 by r2 giving r3. 
-
 ||12.6.1.1420||F+|||"f-plus"||FLOATING||
 ( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )
 
 Add r1 to r2 giving the sum r3. 
-
 ||12.6.1.1425||F-||"f-minus"||FLOATING||( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )||
 Subtract r2 from r1, giving r3. 
-
 ||12.6.1.1430||F/||"f-slash"||FLOATING||
 ( F: r1 r2 -- r3 )
 
 or ( r1 r2 -- r3 )
 Divide r1 by r2, giving the quotient r3. An ambiguous condition exists if r2 is zero, or the  quotient lies outside of the range of a floating-point number. 
-
 ||12.6.1.1440||F0<||"f-zero-less-than"||FLOATING||
 ( -- flag ) ( F: r -- )
 
 or ( r -- flag )  
 flag is true if and only if r is less than zero. 
-
 ||12.6.1.1450||F0=||"f-zero-equals"||FLOATING||
 ( -- flag ) ( F: r -- )
 
 or ( r -- flag )  
 flag is true if and only if r is equal to zero. 
-
 ||12.6.1.1460||F<||"f-less-than"||FLOATING||
 ( -- flag ) ( F: r1 r2 -- )
 
 or ( r1 r2 -- flag )  
 flag is true if and only if r1 is less than r2. 
-
 ||12.6.1.1470||F>D||"f-to-d"||FLOATING||( -- d ) ( F: r -- ) or ( r -- d )||
 d is the double-cell signed-integer equivalent of the integer portion of r. The fractional portion  of r is discarded. An ambiguous condition exists if the integer portion of r cannot be precisely  represented as a double-cell signed integer. 
-
 ||12.6.1.1472||F@||"f-fetch"||FLOATING||
 ( f-addr -- ) ( F: -- r )
 
 or ( f-addr -- r )
 r is the value stored at f-addr. 
-
 ||12.6.1.1479||FALIGN||"f-align"||FLOATING||
 ( -- )
 
 If the data-space pointer is not float aligned, reserve enough data space to make it so. 
-
 ||12.6.1.1483||FALIGNED||"f-aligned"||FLOATING||
 ( addr -- f-addr )
 
 f-addr is the first float-aligned address greater than or equal to addr. 
-
 ||12.6.1.1492||FCONSTANT||"f-constant"||FLOATING||
 ( "&lt;spaces>name" -- ) ( F: r -- ) or ( r "&lt;spaces>name" -- )
 
 Skip leading space delimiters. Parse name delimited by a space. Create a definition for name with the execution semantics defined below. 
 
 name is referred to as an "f-constant". 
+|name Execution:|( -- )
 
-name Execution: ( -- ) ( F: -- r ) or ( -- r )  Place r on the floating-point stack. 
-
-See: **3.4.1 Parsing**.
-
+( F: -- r ) or ( -- r )  Place r on the floating-point stack. 
+|See:|**3.4.1 Parsing**.
 ||12.6.1.1497||FDEPTH||"f-depth"||FLOATING||
 ( -- +n )
 
 +n is the number of values contained on the default separate floating-point stack. If floating-point numbers are kept on the data stack, +n is the current number of possible floating-point  values contained on the data stack. 
-
 ||12.6.1.1500||FDROP||"f-drop"||FLOATING||
 ( F: r -- ) or ( r -- )
 
 Remove r from the floating-point stack. 
-
 ||12.6.1.1510||FDUP||"f-dupe"||FLOATING||
 ( F: r -- r r ) or ( r -- r r )
 
 Duplicate r. 
-
 ||12.6.1.1552||FLITERAL||"f-literal"||FLOATING||
-Interpretation: Interpretation semantics for this word are undefined. 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( F: r -- )
 
-Compilation: ( F: r -- ) or ( r -- )  Append the run-time semantics given below to the current definition. 
+or ( r -- )  Append the run-time semantics given below to the current definition. 
+|Run-time:|( F: -- r )
 
-Run-time: ( F: -- r ) or ( -- r )  Place r on the floating-point stack. 
-
+or ( -- r )  Place r on the floating-point stack. 
 ||12.6.1.1555||FLOAT+||"float-plus"||FLOATING||( f-addr1 -- f-addr2 )||
 Add the size in address units of a floating-point number to f-addr1, giving f-addr2. 
-
 ||12.6.1.1556||FLOATS||"xxxxx"||FLOATING||
 ( n1 -- n2 )
 
 n2 is the size in address units of n1 floating-point numbers. 
-
 ||12.6.1.1558||FLOOR||"xxxxx"||FLOATING||
 ( F: r1 -- r2 )
 
 or ( r1 -- r2 )  Round r1 to an integral value using the "round toward negative infinity" rule, giving r2. 
-
 ||12.6.1.1562||FMAX||"f-max"||FLOATING||
 ( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )
 
 r3 is the greater of r1 and r2. 
-
 ||12.6.1.1565||FMIN||"f-min"||FLOATING||
 ( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )
 
 r3 is the lesser of r1 and r2. 
-
 ||12.6.1.1567||FNEGATE||"f-negate"||FLOATING||
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 r2 is the negation of r1. 
-
 ||12.6.1.1600||FOVER||"f-over"||FLOATING||
 ( F: r1 r2 -- r1 r2 r1 ) or ( r1 r2 -- r1 r2 r1 )
 
 Place a copy of r1 on top of the floating-point stack. 
-
 ||12.6.1.1610||FROT||"f-rote"||FLOATING||
 ( F: r1 r2 r3 -- r2 r3 r1 ) or ( r1 r2 r3 -- r2 r3 r1 )
 
 Rotate the top three floating-point stack entries. 
-
 ||12.6.1.1612||FROUND||"f-round"||FLOATING||
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 Round r1 to an integral value using the "round to nearest" rule, giving r2. 
- 
-See: **12.3.2 Floating-point operations**. 
-
+|See:|**12.3.2 Floating-point operations**. 
 ||12.6.1.1620||FSWAP||"f-swap"||FLOATING||
 ( F: r1 r2 -- r2 r1 ) or ( r1 r2 -- r2 r1 )
 
 Exchange the top two floating-point stack items. 
-
 ||12.6.1.1630||FVARIABLE||"f-variable"||FLOATING||
 ( "&lt;spaces>name" -- )
 
 Skip leading space delimiters. Parse name delimited by a space. Create a definition for name with the execution semantics defined below. Reserve 1 FLOATS address units of data space at  a float-aligned address. 
 
 name is referred to as an "f-variable". 
+|name Execution:|( --f-addr )
 
-name Execution: ( --f-addr )  f-addr is the address of the data space reserved by FVARIABLE when it created name. A  program is responsible for initializing the contents of the reserved space. 
-
-See: **3.4.1 Parsing**.
-
+f-addr is the address of the data space reserved by FVARIABLE when it created name. A  program is responsible for initializing the contents of the reserved space. 
+|See:|**3.4.1 Parsing**.
 ||12.6.1.2143||REPRESENT||"xxxxx"||FLOATING||
 ( c-addr u -- n flag1 flag2 ) (F: r -- ) or ( r c-addr u -- n flag1 flag2 )
 
@@ -1587,171 +1471,137 @@ An ambiguous condition exists if the value of BASE is not decimal ten.
 
 When flag2 is false, n and flag1 are implementation defined, as are the contents of c-addr. 
 Under these circumstances, the string at c-addr shall consist of graphic characters. 
-
-See: **3.2.1.2 Digit conversion**, **6.1.0750 BASE**, **12.3.2 Floating-point operations**. 
+|See:|**3.2.1.2 Digit conversion**, **6.1.0750 BASE**, **12.3.2 Floating-point operations**. 
 
 </std-glossary>
 
 ### 12.6.2 Floating-Point extension words{id=Z12_6_2}
 
 <std-glossary>
-
 ||12.6.2.1203||DF!||"d-f-store"||FLOATING EXT|| 
 ( df-addr -- ) ( F: r -- ) or ( r df-addr -- )
 
 Store the floating-point number r as a 64-bit IEEE double-precision number at df-addr. If the  significand of the internal representation of r has more precision than the IEEE double-precision  format, it will be rounded using the "round to nearest" rule. An ambiguous condition exists if  the exponent of r is too large to be accommodated in IEEE double-precision format. 
-
-See: **12.3.1.1 Addresses**, **12.3.2 Floating-point operations**. 
-
+|See:|**12.3.1.1 Addresses**, **12.3.2 Floating-point operations**. 
 ||12.6.2.1204||DF@||"d-f-fetch"||FLOATING EXT|| 
 ( df-addr -- ) ( F: -- r ) or ( df-addr -- r )
 
 Fetch the 64-bit IEEE double-precision number stored at df-addr to the floating-point stack as r in the internal representation. If the IEEE double-precision significand has more precision than  the internal representation it will be rounded to the internal representation using the "round to  nearest" rule. An ambiguous condition exists if the exponent of the IEEE double-precision  representation is too large to be accommodated by the internal representation. 
-
-See: **12.3.1.1 Addresses**, **12.3.2 Floating-point operations**. 
-
+|See:|**12.3.1.1 Addresses**, **12.3.2 Floating-point operations**. 
 ||12.6.2.1205||DFALIGN||"d-f-align"||FLOATING EXT|| 
 ( -- )
 
 If the data-space pointer is not double-float aligned, reserve enough data space to make it so. 
-
-See: **12.3.1.1 Addresses**. 
-
+|See:|**12.3.1.1 Addresses**. 
 ||12.6.2.1207||DFALIGNED||"d-f-aligned"||FLOATING EXT|| 
 ( addr -- df-addr )
 
 df-addr is the first double-float-aligned address greater than or equal to addr. 
-
-See: **12.3.1.1 Addresses**. 
-
+|See:|**12.3.1.1 Addresses**. 
 ||12.6.2.1208||DFLOAT+||"d-float-plus"||FLOATING EXT|| 
 ( df-addr1 -- df-addr2 )
 
 Add the size in address units of a 64-bit IEEE double-precision number to df-addr1, giving df-addr2. 
-
-See: **12.3.1.1 Addresses**. 
-
+|See:|**12.3.1.1 Addresses**. 
 ||12.6.2.1209||DFLOATS||"d-floats"||FLOATING EXT|| 
 ( n1 -- n2 )
 
 n2 is the size in address units of n1 64-bit IEEE double-precision numbers. 
-
 ||12.6.2.1415||F**||"f-star-star"||FLOATING EXT|| 
 ( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )
 
 Raise r1 to the power r2, giving the product r3. 
-
 ||12.6.2.1427||F.||"f-dot"||FLOATING EXT|| 
 ( -- ) ( F: r -- ) or ( r -- )
 
 Display, with a trailing space, the top number on the floating-point stack using fixed-point  notation: 
 
 [-] &lt;digits>.&lt;digits0>  An ambiguous condition exists if the value of BASE is not (decimal) ten or if the character  string representation exceeds the size of the pictured numeric output string buffer. 
-
-See: **12.6.1.0558 >FLOAT**. 
-
+|See:|**12.6.1.0558 >FLOAT**. 
 ||12.6.2.1474||FABS||"f-abs"||FLOATING EXT|| 
 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 r2 is the absolute value of r1. 
-
 ||12.6.2.1476||FACOS||"f-a-cos"||FLOATING EXT|| 
 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 r2 is the principal radian angle whose cosine is r1. An ambiguous condition exists if |r1| is  greater than one. 
-
 ||12.6.2.1477||FACOSH||"f-a-cosh"||FLOATING EXT|| 
 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 r2 is the floating-point value whose hyperbolic cosine is r1. An ambiguous condition exists if r1 is less than one. 
-
 ||12.6.2.1484||FALOG||"f-a-log"||FLOATING EXT|| 
 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 Raise ten to the power r1, giving r2. 
-
 ||12.6.2.1486||FASIN||"f-a-sine"||FLOATING EXT|| 
 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 r2 is the principal radian angle whose sine is r1. An ambiguous condition exists if |r1| is greater  than one. 
-
 ||12.6.2.1487||FASINH||"f-a-cinch"||FLOATING EXT|| 
 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 r2 is the floating-point value whose hyperbolic sine is r1. An ambiguous condition exists if r1 is  less than zero. 
-
 ||12.6.2.1488||FATAN||"f-a-tan"||FLOATING EXT|| 
 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 r2 is the principal radian angle whose tangent is r1. 
-
 ||12.6.2.1489||FATAN2||"f-a-tan-two"||FLOATING EXT|| 
 
 ( F: r1 r2 -- r3 ) or ( r1 r2 -- r3 )
 
 r3 is the radian angle whose tangent is r1/r2. An ambiguous condition exists if r1 and r2 are  zero. 
-
 ||12.6.2.1491||FATANH||"f-a-tan-h"||FLOATING EXT|| 
 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 r2 is the floating-point value whose hyperbolic tangent is r1. An ambiguous condition exists if  r1 is outside the range of -1E0 to 1E0. 
-
 ||12.6.2.1493||FCOS||"f-cos"||FLOATING EXT|| 
 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 r2 is the cosine of the radian angle r1. 
-
 ||12.6.2.1494||FCOSH||"f-cosh"||FLOATING EXT|| 
 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 r2 is the hyperbolic cosine of r1. 
-
 ||12.6.2.1513||FE.||"f-e-dot"||FLOATING EXT|| 
 
 ( -- ) ( F: r -- ) or ( r -- )
 
 Display, with a trailing space, the top number on the floating-point stack using engineering  notation, where the significand is greater than or equal to 1.0 and less than 1000.0 and the  decimal exponent is a multiple of three. 
 An ambiguous condition exists if the value of BASE is not (decimal) ten or if the character  string representation exceeds the size of the pictured numeric output string buffer. 
-
-See: **6.1.0750 BASE**, **12.3.2 Floating-point operations**, **12.6.1.2143 REPRESENT**. 
-
+|See:|**6.1.0750 BASE**, **12.3.2 Floating-point operations**, **12.6.1.2143 REPRESENT**. 
 ||12.6.2.1515||FEXP||"f-e-x-p"||FLOATING EXT|| 
 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 Raise e to the power r1, giving r2. 
-
 ||12.6.2.1516||FEXPM1||"f-e-x-p-m-one"||FLOATING EXT|| 
 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 Raise e to the power r1 and subtract one, giving r2. 
-
 ||12.6.2.1553||FLN||"f-l-n"||FLOATING EXT|| 
 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 r2 is the natural logarithm of r1. An ambiguous condition exists if r1 is less than or equal to  zero. 
-
 ||12.6.2.1554||FLNP1||"f-l-n-p-one"||FLOATING EXT|| 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 r2 is the natural logarithm of the quantity r1 plus one. An ambiguous condition exists if r1 is  less than or equal to negative one. 
-
 ||12.6.2.1557||FLOG||"f-log"||FLOATING EXT|| 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 r2 is the base-ten logarithm of r1. An ambiguous condition exists if r1 is less than or equal to  zero. 
-
 ||12.6.2.1613||FS.||"f-s-dot"||FLOATING EXT|| 
 ( -- ) ( F: r -- ) or ( r -- )
 
@@ -1763,44 +1613,36 @@ where:
 
  &lt;significand> := [-]&lt;digit>.&lt;digits0><br>
  &lt;exponent> := E[-]&lt;digits>  
- 
+
 An ambiguous condition exists if the value of BASE is not (decimal) ten or if the character  string representation exceeds the size of the pictured numeric output string buffer. 
-
-See: **6.1.0750 BASE**, **12.3.2 Floating-point operations**, **12.6.1.2143 REPRESENT**. 
-
+|See:|**6.1.0750 BASE**, **12.3.2 Floating-point operations**, **12.6.1.2143 REPRESENT**. 
 ||12.6.2.1614||FSIN||"f-sine"||FLOATING EXT|| 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 r2 is the sine of the radian angle r1. 
-
 ||12.6.2.1616||FSINCOS||"f-sine-cos"||FLOATING EXT|| 
 
 ( F: r1 -- r2 r3 ) or ( r1 -- r2 r3 )
 
 r2 is the sine of the radian angle r1. r3 is the cosine of the radian angle r1. 
-
 ||12.6.2.1617||FSINH||"f-cinch"||FLOATING EXT|| 
 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 r2 is the hyperbolic sine of r1. 
-
 ||12.6.2.1618||FSQRT||"f-square-root"||FLOATING EXT|| 
 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 r2 is the square root of r1. An ambiguous condition exists if r1 is less than zero. 
-
 ||12.6.2.1625||FTAN||"f-tan"||FLOATING EXT|| 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 r2 is the tangent of the radian angle r1. An ambiguous condition exists if cos(r1) is zero. 
-
 ||12.6.2.1626||FTANH||"f-tan-h"||FLOATING EXT|| 
 ( F: r1 -- r2 ) or ( r1 -- r2 )
 
 r2 is the hyperbolic tangent of r1. 
-
 ||12.6.2.1640||F~||"f-proximate"||FLOATING EXT|| 
 ( -- flag ) ( F: r1 r2 r3 -- ) or ( r1 r2 r3 -- flag )
 
@@ -1809,58 +1651,44 @@ If r3 is positive, flag is true if the absolute value of (r1 minus r2) is less t
 If r3 is zero, flag is true if the implementation-dependent encoding of r1 and r2 are exactly  identical (positive and negative zero are unequal if they have distinct encodings). 
 
 If r3 is negative, flag is true if the absolute value of (r1 minus r2) is less than the absolute value  of r3 times the sum of the absolute values of r1 and r2. 
-
 ||12.6.2.2035||PRECISION||"xxxxx"||FLOATING EXT||
 ( -- u )
 
 Return the number of significant digits currently used by F., FE., or FS. as u. 
-
 ||12.6.2.2200||SET-PRECISION||"xxxxx"||FLOATING EXT||
 ( u -- )
 
 Set the number of significant digits currently used by F., FE., or FS. to u. 
-
 ||12.6.2.2202||SF!||"s-f-store"||FLOATING EXT|| 
 ( sf-addr -- ) ( F: r -- ) or ( r sf-addr -- )
 
 Store the floating-point number r as a 32-bit IEEE single-precision number at sf-addr. If the  significand of the internal representation of r has more precision than the IEEE single-precision  format, it will be rounded using the "round to nearest" rule. An ambiguous condition exists if  the exponent of r is too large to be accommodated by the IEEE single-precision format. 
-
-See: **12.3.1.1 Addresses**, **12.3.2 Floating-point operations**. 
-
+|See:|**12.3.1.1 Addresses**, **12.3.2 Floating-point operations**. 
 ||12.6.2.2203||SF@||"s-f-fetch"||FLOATING EXT|| 
 ( sf-addr -- ) ( F: -- r ) or ( sf-addr -- r )
 
 Fetch the 32-bit IEEE single-precision number stored at sf-addr to the floating-point stack as r in the internal representation. If the IEEE single-precision significand has more precision than  the internal representation, it will be rounded to the internal representation using the "round to  nearest" rule. An ambiguous condition exists if the exponent of the IEEE single-precision  representation is too large to be accommodated by the internal representation. 
-
-See: **12.3.1.1 Addresses**, **12.3.2 Floating-point operations**. 
-
+|See:|**12.3.1.1 Addresses**, **12.3.2 Floating-point operations**. 
 ||12.6.2.2204||SFALIGN||"s-f-align"||FLOATING EXT|| 
 ( -- )
 
 If the data-space pointer is not single-float aligned, reserve enough data space to make it so. 
-
-See: **12.3.1.1 Addresses**. 
-
+|See:|**12.3.1.1 Addresses**. 
 ||12.6.2.2206||SFALIGNED||"s-f-aligned"||FLOATING EXT|| 
 ( addr -- sf-addr )
 
 sf-addr is the first single-float-aligned address greater than or equal to addr. 
-
-See: **12.3.1.1 Addresses**. 
-
+|See:|**12.3.1.1 Addresses**. 
 ||12.6.2.2207||SFLOAT+||"s-float-plus"||FLOATING EXT|| 
 ( sf-addr1 -- sf-addr2 )
 
 Add the size in address units of a 32-bit IEEE single-precision number to sf-addr1, giving sf-addr2. 
-
-See: **12.3.1.1 Addresses**. 
-
+|See:|**12.3.1.1 Addresses**. 
 ||12.6.2.2208||SFLOATS||"s-floats"||FLOATING EXT|| 
 ( n1 -- n2 )
 
 n2 is the size in address units of n1 32-bit IEEE single-precision numbers. 
-
-See: **12.3.1.1 Addresses**. 
+|See:|**12.3.1.1 Addresses**. 
 
 </std-glossary>
 
@@ -2008,24 +1836,20 @@ The phrase "Requiring the Locals Extensions word set" shall be appended to the l
 ### 13.6.1 Locals words{id=Z13_6_1}
 
 <std-glossary>
-
 ||13.6.1.0086||(LOCAL)||"paren-local-paren"||LOCAL||
-Interpretation: Interpretation semantics for this word are undefined. 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Execution:|( c-addr u -- )
 
-Execution: ( c-addr u -- )  When executed during compilation, `(LOCAL)` passes a message to the system that has one of  two meanings. If u is non-zero, the message identifies a new local whose definition name is  given by the string of characters identified by c-addr u. If u is zero, the message is "last local"  and c-addr has no significance. 
+When executed during compilation, `(LOCAL)` passes a message to the system that has one of  two meanings. If u is non-zero, the message identifies a new local whose definition name is  given by the string of characters identified by c-addr u. If u is zero, the message is "last local"  and c-addr has no significance. 
 
 The result of executing `(LOCAL)` during compilation of a definition is to create a set of named  local identifiers, each of which is a definition name, that only have execution semantics within  the scope of that definition’s source. 
+|local Execution:|( -- x )
 
-local Execution: ( -- x )  Push the local’s value, x, onto the stack. The local’s value is initialized as described in 13.3.3  Processing locals and may be changed by preceding the local’s name with TO. An ambiguous  condition exists when local is executed while in interpretation state. 
-
-Note: This word does not have special compilation semantics in the usual sense because it provides  access to a system capability for use by other user-defined words that do have them. However,  the locals facility as a whole and the sequence of messages passed defines specific usage rules  with semantic implications that are described in detail in section **13.3.3 Processing locals**. 
-
-Note: This word is not intended for direct use in a definition to declare that definition’s locals. It is  instead used by system or user compiling words. These compiling words in turn define their  own syntax, and may be used directly in definitions to declare locals. In this context, the syntax  for `(LOCAL)` is defined in terms of a sequence of compile-time messages and is described in  detail in section **13.3.3 Processing locals**. 
-
-Note: The Locals word set modifies the syntax and semantics of **6.2.2295 TO** as defined in the Core  Extensions word set. 
-
-See: **3.4 The Forth text interpreter**.
-
+Push the local’s value, x, onto the stack. The local’s value is initialized as described in 13.3.3  Processing locals and may be changed by preceding the local’s name with TO. An ambiguous  condition exists when local is executed while in interpretation state. 
+|Note:|This word does not have special compilation semantics in the usual sense because it provides  access to a system capability for use by other user-defined words that do have them. However,  the locals facility as a whole and the sequence of messages passed defines specific usage rules  with semantic implications that are described in detail in section **13.3.3 Processing locals**. 
+|Note:|This word is not intended for direct use in a definition to declare that definition’s locals. It is  instead used by system or user compiling words. These compiling words in turn define their  own syntax, and may be used directly in definitions to declare locals. In this context, the syntax  for `(LOCAL)` is defined in terms of a sequence of compile-time messages and is described in  detail in section **13.3.3 Processing locals**. 
+|Note:|The Locals word set modifies the syntax and semantics of **6.2.2295 TO** as defined in the Core  Extensions word set. 
+|See:|**3.4 The Forth text interpreter**.
 ||13.6.1.2295||TO||"xxxxx"||LOCAL||
 
 Extend the semantics of **6.2.2295 TO** to be: 
@@ -2033,19 +1857,21 @@ Extend the semantics of **6.2.2295 TO** to be:
  Compilation: ( "&lt;spaces>name" -- )  Skip leading spaces and parse name delimited by a space. Append the run-time semantics given  below to the current definition. An ambiguous condition exists if name was not defined by  either VALUE or `(LOCAL)`. 
  Run-time: ( x -- )  Store x in name. 
  Note: An ambiguous condition exists if either POSTPONE or [COMPILE] is applied to TO. 
+|See:|**3.4.1 Parsing**, **6.2.2295 TO**, **6.2.2405 VALUE**, **13.6.1.0086 (LOCAL)**.
+</std-glossary>
 
-See: **3.4.1 Parsing**, **6.2.2295 TO**, **6.2.2405 VALUE**, **13.6.1.0086 (LOCAL)**.
 
 ### 13.6.2 Locals extension words{id=Z13_6_2}
 
-
+<std-glossary>
 ||13.6.2.1795||LOCALS&#124; ||"locals-bar"||LOCAL EXT||
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( "&lt;spaces>name1" "&lt;spaces>name2" ... "&lt;spaces>namen" "|" -- )
 
-Interpretation: Interpretation semantics for this word are undefined. 
+Create up to eight local identifiers by repeatedly skipping leading spaces, parsing name, and  executing **13.6.1.0086 (LOCAL)**. The list of locals to be defined is terminated by |. Append  the run-time semantics given below to the current definition. 
+|Run-time:|( xn ... x2 x1 -- )
 
-Compilation: ( "&lt;spaces>name1" "&lt;spaces>name2" ... "&lt;spaces>namen" "|" -- )  Create up to eight local identifiers by repeatedly skipping leading spaces, parsing name, and  executing **13.6.1.0086 (LOCAL)**. The list of locals to be defined is terminated by |. Append  the run-time semantics given below to the current definition. 
- 
-Run-time: ( xn ... x2 x1 -- )  Initialize up to eight local identifiers as described in **13.6.1.0086 (LOCAL)**, each of which  takes as its initial value the top stack item, removing it from the stack. Identifier name1 is  initialized with x1, identifier name2 with x2, etc. When invoked, each local will return its value. 
+Initialize up to eight local identifiers as described in **13.6.1.0086 (LOCAL)**, each of which  takes as its initial value the top stack item, removing it from the stack. Identifier name1 is  initialized with x1, identifier name2 with x2, etc. When invoked, each local will return its value. 
 
 The value of a local may be changed using **13.6.1.2295 TO**. 
 
@@ -2154,7 +1980,6 @@ The phrase "Requiring the Memory-Allocation Extensions word set" shall be append
 ### 14.6.1 Memory-Allocation words{id=Z14_6_1}
 
 <std-glossary>
-
 ||14.6.1.0707||ALLOCATE||"xxxxx"||MEMORY||
 ( u -- a-addr ior )
 
@@ -2163,18 +1988,14 @@ Allocate u address units of contiguous data space. The data-space pointer is una
 If the allocation succeeds, a-addr is the aligned starting address of the allocated space and ior is  zero. 
 
 If the operation fails, a-addr does not represent a valid address and ior is the implementation-defined I/O result code. 
-
-See: **6.1.1650 HERE**, **14.6.1.1605 FREE**, **14.6.1.2145 RESIZE**. 
-
+|See:|**6.1.1650 HERE**, **14.6.1.1605 FREE**, **14.6.1.2145 RESIZE**. 
 ||14.6.1.1605||FREE||"xxxxx"||MEMORY||
 ( a-addr -- ior )
 
 Return the contiguous region of data space indicated by a-addr to the system for later  allocation. a-addr shall indicate a region of data space that was previously obtained by  `ALLOCATE` or `RESIZE`. The data-space pointer is unaffected by this operation. 
 
 If the operation succeeds, ior is zero. If the operation fails, ior is the implementation-defined  I/O result code. 
-
-See: **6.1.1650 HERE**, **14.6.1.0707 ALLOCATE**, **14.6.1.2145 RESIZE**. 
-
+|See:|**6.1.1650 HERE**, **14.6.1.0707 ALLOCATE**, **14.6.1.2145 RESIZE**. 
 ||14.6.1.2145||RESIZE||"xxxxx"||MEMORY||
 ( a-addr1 u -- a-addr2 ior )
 
@@ -2183,8 +2004,7 @@ Change the allocation of the contiguous data space starting at the address a-add
 If the operation succeeds, a-addr2 is the aligned starting address of u address units of allocated  memory and ior is zero. a-addr2 may be, but need not be, the same as a-addr1. If they are not  the same, the values contained in the region at a-addr1 are copied to a-addr2, up to the  minimum size of either of the two regions. If they are the same, the values contained in the  region are preserved to the minimum of u or the original size. If a-addr2 is not the same as a-addr1, the region of memory at a-addr1 is returned to the system according to the operation of  `FREE`. 
 
 If the operation fails, a-addr2 equals a-addr1, the region of memory at a-addr1 is unaffected,  and ior is the implementation-defined I/O result code. 
-
-See: **6.1.1650 HERE**, **14.6.1.0707 ALLOCATE**, **14.6.1.1605 FREE**. 
+|See:|**6.1.1650 HERE**, **14.6.1.0707 ALLOCATE**, **14.6.1.1605 FREE**. 
 
 </std-glossary>
 
@@ -2291,123 +2111,108 @@ The phrase "Requiring the Programming-Tools Extensions word set" shall be append
 ### 15.6.1 Programming-Tools words{id=Z15_6_1}
 
 <std-glossary>
-
 ||15.6.1.0220||.S||"dot-s"||TOOLS||
 ( -- )
 
 Copy and display the values currently on the data stack. The format of the display is  implementation-dependent. 
 
 `.S` may be implemented using pictured numeric output words. Consequently, its use may  corrupt the transient region identified by `#>`. 
-
-See: **3.3.3.6 Other transient regions**. 
-
+|See:|**3.3.3.6 Other transient regions**. 
 ||15.6.1.0600||?||"question"||TOOLS||
 ( a-addr -- )
 
 Display the value stored at a-addr. 
 
 `?` may be implemented using pictured numeric output words. Consequently, its use may corrupt  the transient region identified by `#>`. 
-
-See: **3.3.3.6 Other transient regions**. 
-
+|See:|**3.3.3.6 Other transient regions**. 
 ||15.6.1.1280||DUMP||"xxxxx"||TOOLS||
 ( addr u -- )
 
 Display the contents of u consecutive addresses starting at addr. The format of the display is  implementation dependent. 
 
 DUMP may be implemented using pictured numeric output words. Consequently, its use may  corrupt the transient region identified by `#>`. 
-
-See: **3.3.3.6 Other Transient Regions**. 
-
+|See:|**3.3.3.6 Other Transient Regions**. 
 ||15.6.1.2194||SEE||"xxxxx"||TOOLS||
 ( "&lt;spaces>name" -- )
 
 Display a human-readable representation of the named word’s definition. The source of the  representation (object-code decompilation, source block, etc.) and the particular form of the  display is implementation defined. 
 
 SEE may be implemented using pictured numeric output words. Consequently, its use may  corrupt the transient region identified by `#>`. 
-
-See: **3.3.3.6 Other transient regions**. 
-
+|See:|**3.3.3.6 Other transient regions**. 
 ||15.6.1.2465||WORDS||"xxxxx"||TOOLS||
 ( -- )
 
 List the definition names in the first word list of the search order. The format of the display is  implementation-dependent. 
 `WORDS` may be implemented using pictured numeric output words. Consequently, its use may  corrupt the transient region identified by `#>`. 
-
-See: **3.3.3.6 Other Transient Regions**. 
+|See:|**3.3.3.6 Other Transient Regions**. 
 
 </std-glossary>
 
 ### 15.6.2 Programming-Tools extension words{id=Z15_6_2}
 
 <std-glossary>
-
 ||15.6.2.0470||;CODE||"semicolon-code"||TOOLS EXT||
-Interpretation: Interpretation semantics for this word are undefined. 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( C: colon-sys -- )
 
-Compilation: ( C: colon-sys -- )  Append the run-time semantics below to the current definition. End the current definition,  allow it to be found in the dictionary, and enter interpretation state, consuming colon-sys. 
+Append the run-time semantics below to the current definition. End the current definition,  allow it to be found in the dictionary, and enter interpretation state, consuming colon-sys. 
 
 Subsequent characters in the parse area typically represent source code in a programming  language, usually some form of assembly language. Those characters are processed in an  implementation-defined manner, generating the corresponding machine code. The process  continues, refilling the input buffer as needed, until an implementation-defined ending sequence  is processed. 
+|Run-time:|( -- )
 
-Run-time: ( -- ) ( R: nest-sys -- )  Replace the execution semantics of the most recent definition with the name execution  semantics given below. Return control to the calling definition specified by nest-sys. An  ambiguous condition exists if the most recent definition was not defined with CREATE or a  user-defined word that calls CREATE. 
-name Execution: ( i*x -- j*x )  Perform the machine code sequence that was generated following ;CODE. 
+( R: nest-sys -- )  Replace the execution semantics of the most recent definition with the name execution  semantics given below. Return control to the calling definition specified by nest-sys. An  ambiguous condition exists if the most recent definition was not defined with CREATE or a  user-defined word that calls CREATE. 
+|name Execution:|( i*x -- j*x )
 
-See: **6.1.1250 DOES>**. 
-
+Perform the machine code sequence that was generated following ;CODE. 
+|See:|**6.1.1250 DOES>**. 
 ||15.6.2.0702||AHEAD||TOOLS EXT||
-Interpretation: Interpretation semantics for this word are undefined. 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( C: -- orig )
 
-Compilation: ( C: -- orig )  Put the location of a new unresolved forward reference orig onto the control flow stack. 
+Put the location of a new unresolved forward reference orig onto the control flow stack. 
 
 Append the run-time semantics given below to the current definition. The semantics are  incomplete until orig is resolved (e.g., by `THEN`). 
+|Run-time:|( -- )
 
-Run-time: ( -- )  Continue execution at the location specified by the resolution of orig. 
-
+Continue execution at the location specified by the resolution of orig. 
 ||15.6.2.0740||ASSEMBLER||"xxxxx"||TOOLS EXT||
 ( -- )
 
 Replace the first word list in the search order with the `ASSEMBLER` word list. 
-
-See: **16. The optional Search-Order word set**. 
-
+|See:|**16. The optional Search-Order word set**. 
 ||15.6.2.0830||BYE||"xxxxx"||TOOLS EXT||
 ( -- )
 
 Return control to the host operating system, if any. 
-
 ||15.6.2.0930||CODE||"xxxxx"||TOOLS EXT||
 ( "&lt;spaces>name" -- )
 
 Skip leading space delimiters. Parse name delimited by a space. Create a definition for name,  called a "code definition", with the execution semantics defined below. 
 
 Subsequent characters in the parse area typically represent source code in a programming  language, usually some form of assembly language. Those characters are processed in an  implementation-defined manner, generating the corresponding machine code. The process  continues, refilling the input buffer as needed, until an implementation-defined ending sequence  is processed. 
+|name Execution:|( i*x -- j*x )
 
-name Execution: ( i*x -- j*x )  Execute the machine code sequence that was generated following `CODE`. 
-
-See: **3.4.1 Parsing**.
-
+Execute the machine code sequence that was generated following `CODE`. 
+|See:|**3.4.1 Parsing**.
 ||15.6.2.1015||CS-PICK||"c-s-pick"||TOOLS EXT||
-Interpretation: Interpretation semantics for this word are undefined. 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Execution:|( C: destu ... orig0|dest0 -- destu ... orig0|dest0 destu )
 
-Execution: ( C: destu ... orig0|dest0 -- destu ... orig0|dest0 destu )  ( S: u -- )  Remove u. Copy destu to the top of the control-flow stack. An ambiguous condition exists if  there are less than u+1 items, each of which shall be an orig or dest, on the control-flow stack  before CS-PICK is executed. 
+( S: u -- )  Remove u. Copy destu to the top of the control-flow stack. An ambiguous condition exists if  there are less than u+1 items, each of which shall be an orig or dest, on the control-flow stack  before CS-PICK is executed. 
 
 If the control-flow stack is implemented using the data stack, u shall be the topmost item on the  data stack. 
-
 ||15.6.2.1020||CS-ROLL||"c-s-roll"||TOOLS EXT||
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Execution:|( C: origu|destu origu-1|destu-1 ... orig0|dest0 -- origu-1|destu-1 ... orig0|dest0 origu|destu )
 
-Interpretation: Interpretation semantics for this word are undefined. 
-
-Execution: ( C: origu|destu origu-1|destu-1 ... orig0|dest0 -- origu-1|destu-1 ... orig0|dest0 origu|destu )  ( S: u -- )  Remove u. Rotate u+1 elements on top of the control-flow stack so that origu|destu is on top of  the control-flow stack. An ambiguous condition exists if there are less than u+1 items, each of  which shall be an orig or dest, on the control-flow stack before CS-ROLL is executed. 
+( S: u -- )  Remove u. Rotate u+1 elements on top of the control-flow stack so that origu|destu is on top of  the control-flow stack. An ambiguous condition exists if there are less than u+1 items, each of  which shall be an orig or dest, on the control-flow stack before CS-ROLL is executed. 
 
 If the control-flow stack is implemented using the data stack, u shall be the topmost item on the  data stack. 
-
 ||15.6.2.1300||EDITOR||"xxxxx"||TOOLS EXT||
 ( -- )
 
 Replace the first word list in the search order with the EDITOR word list. 
-
-See: **16. The Optional Search-Order Word Set**. 
-
+|See:|**16. The Optional Search-Order Word Set**. 
 ||15.6.2.1580||FORGET||"xxxxx"||TOOLS EXT||
 ( "&lt;spaces>name" -- )
 
@@ -2416,39 +2221,34 @@ Skip leading space delimiters. Parse name delimited by a space. Find name, then 
 If the Search-Order word set is present, FORGET searches the compilation word list. An  ambiguous condition exists if the compilation word list is deleted. 
 
 An ambiguous condition exists if FORGET removes a word required for correct execution. 
-Note: This word is obsolescent and is included as a concession to existing implementations.
-
-See: **3.4.1 Parsing**.
-
+|Note:|This word is obsolescent and is included as a concession to existing implementations.
+|See:|**3.4.1 Parsing**.
 ||15.6.2.2250||STATE||"xxxxx"||TOOLS EXT||
 ( -- a-addr )
 
 Extend the semantics of **6.1.2250 STATE** to allow `;CODE` to change the value in `STATE`. A  program shall not directly alter the contents of `STATE`. 
-
-See: **3.4 The Forth text interpreter**, **6.1.0450 :**, **6.1.0460 ;**, **6.1.0670 ABORT**, **6.1.2050 QUIT**,  **6.1.2250 STATE**, **6.1.2500 [**, **6.1.2540 ]**, **6.2.0455 :NONAME**, **15.6.2.0470 ;CODE**. 
-
+|See:|**3.4 The Forth text interpreter**, **6.1.0450 :**, **6.1.0460 ;**, **6.1.0670 ABORT**, **6.1.2050 QUIT**,  **6.1.2250 STATE**, **6.1.2500 [**, **6.1.2540 ]**, **6.2.0455 :NONAME**, **15.6.2.0470 ;CODE**. 
 ||15.6.2.2531||[ELSE]||"bracket-else"||TOOLS EXT||
-Compilation: Perform the execution semantics given below. 
+|Compilation:|Perform the execution semantics given below. 
+|Execution:|( "&lt;spaces>name ... " -- )
 
-Execution: ( "&lt;spaces>name ... " -- )  Skipping leading spaces, parse and discard space-delimited words from the parse area, including  nested occurrences of `[IF]` ... `[THEN]` and `[IF]` ... `[ELSE]` ... `[THEN]`, until  the word `[THEN]` has been parsed and discarded. If the parse area becomes exhausted, it is  refilled as with REFILL. `[ELSE]` is an immediate word. 
-
-See: **3.4.1 Parsing**. 
-
+Skipping leading spaces, parse and discard space-delimited words from the parse area, including  nested occurrences of `[IF]` ... `[THEN]` and `[IF]` ... `[ELSE]` ... `[THEN]`, until  the word `[THEN]` has been parsed and discarded. If the parse area becomes exhausted, it is  refilled as with REFILL. `[ELSE]` is an immediate word. 
+|See:|**3.4.1 Parsing**. 
 ||15.6.2.2532||[IF]||"bracket-if"||TOOLS EXT||
-Compilation: Perform the execution semantics given below. 
+|Compilation:|Perform the execution semantics given below. 
+|Execution:|( flag | flag "&lt;spaces>name ... " -- )
 
-Execution: ( flag | flag "&lt;spaces>name ... " -- )  If flag is true, do nothing. Otherwise, skipping leading spaces, parse and discard space-delimited words from the parse area, including nested occurrences of `[IF]` ... `[THEN]` and  `[IF]` ... `[ELSE]` ... `[THEN]`, until either the word `[ELSE]` or the word `[THEN]` has  been parsed and discarded. If the parse area becomes exhausted, it is refilled as with `REFILL`. 
+If flag is true, do nothing. Otherwise, skipping leading spaces, parse and discard space-delimited words from the parse area, including nested occurrences of `[IF]` ... `[THEN]` and  `[IF]` ... `[ELSE]` ... `[THEN]`, until either the word `[ELSE]` or the word `[THEN]` has  been parsed and discarded. If the parse area becomes exhausted, it is refilled as with `REFILL`. 
 
 `[IF]` is an immediate word. 
 
 An ambiguous condition exists if `[IF]` is POSTPONEd, or if the end of the input buffer is  reached and cannot be refilled before the terminating `[ELSE]` or `[THEN]` is parsed. 
-
-See: **3.4.1 Parsing**. 
-
+|See:|**3.4.1 Parsing**. 
 ||15.6.2.2533||[THEN]||"bracket-then"||TOOLS EXT||
-Compilation: Perform the execution semantics given below. 
+|Compilation:|Perform the execution semantics given below. 
+|Execution:|( -- )
 
-Execution: ( -- )  Does nothing. `[THEN]` is an immediate word. 
+Does nothing. `[THEN]` is an immediate word. 
 
 </std-glossary>
 
@@ -2459,10 +2259,8 @@ Execution: ( -- )  Does nothing. `[THEN]` is an immediate word.
 ## 16.2 Additional terms and notation{id=Z16_2}
 
 <miniterm>
-
 ||compilation word list:||
 The word list into which new definition names are placed.
-
 ||search order:||A list of word lists specifying the order in which the dictionary will be searched. 
 
 </miniterm>
@@ -2582,77 +2380,65 @@ The phrase "Requiring the Search-Order Extensions word set" shall be appended to
 ### 16.6.1 Search-Order words{id=Z16_6_1}
 
 <std-glossary>
-
 ||16.6.1.1180||DEFINITIONS||"xxxxx"||SEARCH||
 ( -- )
 
 Make the compilation word list the same as the first word list in the search order. Specifies that  the names of subsequent definitions will be placed in the compilation word list. Subsequent  changes in the search order will not affect the compilation word list. 
-
-See: **16.3.3 Finding Definition Names**. 
-
+|See:|**16.3.3 Finding Definition Names**. 
 ||16.6.1.1550||FIND||"xxxxx"||SEARCH||
 Extend the semantics of **6.1.1550 FIND** to be: 
 
 ( c-addr -- c-addr 0 | xt 1 | xt -1 )
 
 Find the definition named in the counted string at c-addr. If the definition is not found after  searching all the word lists in the search order, return c-addr and zero. If the definition is  found, return xt. If the definition is immediate, also return one (1); otherwise also return minus-one (-1). For a given string, the values returned by FIND while compiling may differ from  those returned while not compiling. 
-
-See: **3.4.2 Finding definition names**, **6.1.0070 '**, **6.1.1550 FIND**, **6.1.2033 POSTPONE**,  **6.1.2510 [']**, D.6.7 Immediacy. 
-
+|See:|**3.4.2 Finding definition names**, **6.1.0070 '**, **6.1.1550 FIND**, **6.1.2033 POSTPONE**,  **6.1.2510 [']**, D.6.7 Immediacy. 
 ||16.6.1.1595||FORTH-WORDLIST||"xxxxx"||SEARCH||
 ( -- wid )
 
 Return wid, the identifier of the word list that includes all standard words provided by the  implementation. This word list is initially the compilation word list and is part of the initial  search order. 
-
 ||16.6.1.1643||GET-CURRENT||"xxxxx"||SEARCH||
 ( -- wid )
 
 Return wid, the identifier of the compilation word list. 
-
 ||16.6.1.1647||GET-ORDER||"xxxxx"||SEARCH||
 ( -- widn ... wid1 n )
 
 Returns the number of word lists n in the search order and the word list identifiers widn ... wid1 identifying these word lists. wid1 identifies the word list that is searched first, and widn the  word list that is searched last. The search order is unaffected. 
-
 ||16.6.1.2192||SEARCH-WORDLIST||"xxxxx"||SEARCH||
 ( c-addr u wid -- 0 | xt 1 | xt -1 )
 
 Find the definition identified by the string c-addr u in the word list identified by wid. If the  definition is not found, return zero. If the definition is found, return its execution token xt and  one (1) if the definition is immediate, minus-one (-1) otherwise. 
-
 ||16.6.1.2195||SET-CURRENT||"xxxxx"||SEARCH||
 ( wid -- )
 
 Set the compilation word list to the word list identified by wid. 
-
 ||16.6.1.2197||SET-ORDER||"xxxxx"||SEARCH||
 ( widn ... wid1 n -- )
 
 Set the search order to the word lists identified by widn ... wid1. Subsequently, word list wid1 will be searched first, and word list widn searched last. If n is zero, empty the search order. If n is minus one, set the search order to the implementation-defined minimum search order. The  minimum search order shall include the words FORTH-WORDLIST and `SET-ORDER`. A  system shall allow n to be at least eight. 
-
 ||16.6.1.2460||WORDLIST||"xxxxx"||SEARCH||
 ( -- wid )
 
 Create a new empty word list, returning its word list identifier wid. The new word list may be  returned from a pool of preallocated word lists or may be dynamically allocated in data space. 
 
 A system shall allow the creation of at least 8 new word lists in addition to any provided as part  of the system. 
+</std-glossary>
 
 ### 16.6.2 Search-Order extension words{id=Z16_6_2}
 
+<std-glossary>
 ||16.6.2.0715||ALSO||"xxxxx"||SEARCH EXT||
 ( -- )
 
 Transform the search order consisting of widn, ... wid2, wid1 (where wid1 is searched first) into  widn, ... wid2, wid1, wid1. An ambiguous condition exists if there are too many word lists in the  search order. 
-
 ||16.6.2.1590||FORTH||"xxxxx"||SEARCH EXT||
 ( -- )
 
 Transform the search order consisting of widn, ... wid2, wid1 (where wid1 is searched first) into  widn, ... wid2, wid`FORTH-WORDLIST`. 
-
 ||16.6.2.1965||ONLY||"xxxxx"||SEARCH EXT||
 ( -- )
 
 Set the search order to the implementation-defined minimum search order. The minimum  search order shall include the words `FORTH-WORDLIST` and `SET-ORDER`. 
-
 ||16.6.2.1985||ORDER||"xxxxx"||SEARCH EXT||
 ( -- )
 
@@ -2661,7 +2447,6 @@ Display the word lists in the search order in their search order sequence, from 
 `ORDER` may be implemented using pictured numeric output words. Consequently, its use may  corrupt the transient region identified by `#>`. 
 
 See **3.3.3.6 Other Transient Regions**. 
-
 ||16.6.2.2037||PREVIOUS||"xxxxx"||SEARCH EXT||
 ( -- )
 
@@ -2723,54 +2508,48 @@ The phrase "Requiring the String Extensions word set" shall be appended to the l
 ### 17.6.1 String words{id=Z17_6_1}
 
 <std-glossary>
-
 ||17.6.1.0170||-TRAILING||"dash-trailing"||STRING||
 ( c-addr u1 -- c-addr u2 )
 
 If u1 is greater than zero, u2 is equal to u1 less the number of spaces at the end of the character  string specified by c-addr u1. If u1 is zero or the entire string consists of spaces, u2 is zero. 
-
 ||17.6.1.0245||/STRING||"slash-string"||STRING||
 ( c-addr1 u1 n -- c-addr2 u2 )
 
 Adjust the character string at c-addr1 by n characters. The resulting character string, specified  by c-addr2 u2, begins at c-addr1 plus n characters and is u1 minus n characters long. 
-
 ||17.6.1.0780||BLANK||"xxxxx"||STRING||
 ( c-addr u -- )
 
 If u is greater than zero, store the character value for space in u consecutive character positions  beginning at c-addr. 
-
 ||17.6.1.0910||CMOVE||"c-move"||STRING||
 ( c-addr1 c-addr2 u -- )
 
 If u is greater than zero, copy u consecutive characters from the data space starting at c-addr1 to  that starting at c-addr2, proceeding character-by-character from lower addresses to higher  addresses. 
 
 Contrast with: **17.6.1.0920 CMOVE>**. 
-
 ||17.6.1.0920||CMOVE>||"c-move-up"||STRING||
 ( c-addr1 c-addr2 u -- )
 
 If u is greater than zero, copy u consecutive characters from the data space starting at c-addr1 to  that starting at c-addr2, proceeding character-by-character from higher addresses to lower  addresses. 
 
 Contrast with: **17.6.1.0910 CMOVE**. 
-
 ||17.6.1.0935||COMPARE||"xxxxx"||STRING||
 ( c-addr1 u1 c-addr2 u2 -- n )
 
 Compare the string specified by c-addr1 u1 to the string specified by c-addr2 u2. The strings  are compared, beginning at the given addresses, character by character, up to the length of the  shorter string or until a difference is found. If the two strings are identical, n is zero. If the two  strings are identical up to the length of the shorter string, n is minus-one (-1) if u1 is less than u2 and one (1) otherwise. If the two strings are not identical up to the length of the shorter string, n is minus-one (-1) if the first non-matching character in the string specified by c-addr1 u1 has a  lesser numeric value than the corresponding character in the string specified by c-addr2 u2 and  one (1) otherwise. 
-
 ||17.6.1.2191||SEARCH||"xxxxx"||STRING||
 ( c-addr1 u1 c-addr2 u2 -- c-addr3 u3 flag )
 
 Search the string specified by c-addr1 u1 for the string specified by c-addr2 u2. If flag is true, a  match was found at c-addr3 with u3 characters remaining. If flag is false there was no match  and c-addr3 is c-addr1 and u3 is u1. 
-
 ||17.6.1.2212||SLITERAL||"xxxxx"||STRING||
-Interpretation: Interpretation semantics for this word are undefined. 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( c-addr1 u -- )
 
-Compilation: ( c-addr1 u -- )  Append the run-time semantics given below to the current definition. 
+Append the run-time semantics given below to the current definition. 
+|Run-time:|( -- c-addr2 u )
 
-Run-time: ( -- c-addr2 u )  Return c-addr2 u describing a string consisting of the characters specified by c-addr1 u during  compilation. A program shall not alter the returned string. 
+Return c-addr2 u describing a string consisting of the characters specified by c-addr1 u during  compilation. A program shall not alter the returned string. 
 
-<std-glossary>
+</std-glossary>
 
 ### 17.6.2 String extension words{id=Z17_6_2}
 

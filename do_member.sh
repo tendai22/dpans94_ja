@@ -24,4 +24,11 @@ sed '/^<membership>/,/^<\/membership>/{
 }
 ' |sed '/std-glossary-option2/{
     /"xxxxx"/d
+}' |sed '
+/^##*/s/^\(##* [1-9][0-9.]*\)/\1\&ensp;/
+/^# /{
+    /^# 1\./!s/^/\
+<hr class="page-verso" \/>\
+\
+/
 }'

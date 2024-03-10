@@ -37,9 +37,9 @@ img {
 }
 
 /* table */
-.table {
-	margin-left: 4em;
-	float: center;
+table {
+	margin: 0 auto;
+	text-align: center;
 }
 
 /* coverpage grid */
@@ -147,10 +147,19 @@ img {
 	/*counter-increment: chapter;*/
 }
 
+/* almost all margin -4em; */
+
+body {
+	margin-left: 4em;
+}
+
+nomargin {
+	margin-left: -2.8em;
+}
+
 p {
 	text-align: auto;
 	margin-block: 1rem;
-	margin-left: 4em;
 }
 
 .title-page {
@@ -178,7 +187,7 @@ nh1 {
 }
 
 h1 {
-	break-before: verso;
+	/*break-before: verso;*/
 	font-size: 22Q;
 	line-height: 30Q;
 	block-size: 1.5lh;
@@ -233,10 +242,11 @@ h4, h5 {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Noto Serif JP';
+	font-family: 'Noto Sans JP';
 	font-weight: 700;
 	font-feature-settings: 'palt';
 	text-spacing: no-autospace;
+	margin-left: -2.5em;
 }
 
 /* please use <hr class="pagebreak"> */
@@ -247,7 +257,6 @@ h1, h2, h3, h4, h5, h6 {
 
 ul, ol {
 	margin-block: 0.5lh;
-	margin-left: 4em;
 	/*font-weight: 700;*/
 }
 
@@ -258,6 +267,10 @@ em {
 	text-decoration-color: #ccc;
 	text-underline-offset: -0.1em;
 	text-decoration-skip-ink: none;
+}
+
+bold {
+	font-weight: 700;
 }
 
 img[src$='.svg'] {
@@ -360,7 +373,6 @@ pre {
 	padding-inline: 3mm;
 	margin-block: 1mm;
 	margin-inline: 0;
-	margin-left: 4em;
 	/*background: repeating-linear-gradient(#eee 0, #eee 18Q, #fff 18Q, #fff 36Q);*/
 	background: #eee;
 	background-position-y: 1.4mm;
@@ -453,7 +465,6 @@ blockquote > p {
 /* miniterm style */
 .miniterm-grid {
 	margin-block: 1rem;
-	margin-left: 4em;
 }
 
 .miniterm-desc > p {
@@ -496,7 +507,7 @@ blockquote > p {
 
 .std-glossary-grid {
 	display: grid;
-    grid-template-columns: 16% 7% 27% 30% 1fr;
+    grid-template-columns: 16% 1em 27% 30% 1fr;
 	margin-bottom: 0.5em;
 }
 
@@ -525,13 +536,60 @@ blockquote > p {
 	margin-bottom: 0.5em;
 }
 
-.std-glossary-desc {
+.std-glossary-grid > desc {
 	grid-column: 3 / 6;
 	margin-left: 0;
+	margin-top: 1em;
+}
+
+.std-glossary-grid > word {
+	grid-column: 1 / 2;
+	text-align: right;
+	margin-top: 1em;
 }
 
 .std-glossary-desc > p {
 	grid-column: 3 / 6;
+	margin-left: 0;
+}
+
+/* app-glossary */
+.app-glossary-grid {
+	display: grid;
+    grid-template-columns: 4em 4em 1fr;
+	margin-bottom: 0.5em;
+}
+
+.app-glossary-word {
+	grid-column: 1 / 2;
+	font-weight: 700;
+}
+
+.app-glossary-option1 {
+	font-size: 14Q;
+	font-weight: 700;
+	grid-column: 3;
+}
+
+.app-glossary-grid > desc {
+	grid-column: 2 / 4;
+	margin-left: 0;
+	margin-top: 1em;
+}
+
+.app-glossary-grid > word {
+	grid-column: 1 / 2;
+	text-align: right;
+	margin-top: 1em;
+}
+
+.app-glossary-desc > p {
+	grid-column: 2 / 4;
+	margin-left: 0;
+}
+
+.app-glossary-grid > pre {
+	grid-column: 2 / 4;
 	margin-left: 0;
 }
 
@@ -543,7 +601,6 @@ blockquote > p {
 .description-grid {
 	display: grid;
     grid-template-columns: 9em 1fr;
-	margin-left: 4em;
 	margin-bottom: 1em;
 }
 
@@ -713,7 +770,7 @@ blockquote > p {
 	grid-area: book-info;
 	align-self: end;
 	display: grid;
-	grid-template-columns: 4em auto;
+	grid-template-columns: 0 auto;
 	column-gap: 1em;
 	row-gap: 1mm;
 }
@@ -762,7 +819,6 @@ dt.glossary {
 	margin-left: 0em;
 }
 dd.glossary {
-	margin-left: 4em;
 	margin-bottom: 1em;
 }
 
@@ -1483,6 +1539,14 @@ code {
 -------------------------------------------------------- */
 hr.page-wrap {
 	break-before: page;
+	visibility: hidden;
+	margin: 0px;
+	padding: 0px;
+	height: 1px;
+}
+
+hr.page-verso {
+	break-before: verso;
 	visibility: hidden;
 	margin: 0px;
 	padding: 0px;

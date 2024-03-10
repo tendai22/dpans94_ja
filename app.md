@@ -386,6 +386,7 @@ Forthの制御フローは、厳密に構造化されたプログラミングで
 
 以下のANS Forth `CASE`構造の簡単な実装は、制御構造拡張の例です。生じうる制御フロースタックの使用と干渉しないように、データスタックのメンテナンスに注意してください。
 
+```
     0 CONSTANT CASE IMMEDIATE ( init count of OFs ) 
 
     : OF    ( #of -- orig #of+1 / x -- ) 
@@ -411,6 +412,7 @@ Forthの制御フローは、厳密に構造化されたプログラミングで
             POSTPONE THEN 
         LOOP 
     ; IMMEDIATE 
+```
 
 ##### A.3.2.3.3 Return stack 
 
@@ -556,7 +558,9 @@ Forth クロスコンパイラと ANS Forth システムには、プログラム
 
 ### A.6.1 Core words{id=ZA_6_1}
 
-#### A.6.1.0070 `'` 
+<app-glossary>
+
+||A.6.1.0070||'||
 
 Typical use: `... ' name `.
 
@@ -564,17 +568,17 @@ Typical use: `... ' name `.
 
 See: **A.3.4.3..2 Interpretation semantics**, **A.6.1.1550 FIND**.
 
-#### A.6.1.0080 `(` 
+||A.6.1.0080||(||
 
 Typical use: `... ( ccc) ...`
 
-#### A.6.1.0140 `+LOOP` 
+||A.6.1.0140||+LOOP||
 
 Typical use:
 
-    : X ... limit first DO ... step +LOOP ; 
+ <pre>    : X ... limit first DO ... step +LOOP ; </pre>
 
-#### A.6.1.0150 `,` 
+||A.6.1.0150||,||
 
 Typical use:  
 
@@ -582,25 +586,25 @@ Typical use:
 
 See: **6.2.0945 COMPILE,**.
 
-#### A.6.1.0190 ." 
+||A.6.1.0190||."||
 
 Typical use: `: X ... ." ccc" ... ;` 
 
 実装は必要に応じて `."` の解釈セマンティクスを定義することができます。あるもっともらしい実装では、`."`を解釈すると区切られたメッセージが表示されます。別のもっともらしい実装では、`."`を解釈すると、後でメッセージを表示するためにコードをコンパイルします。さらに別のもっともらしい実装では、`."`の解釈は例外として扱われます。このようなバリエーションがあるとするなら、標準プログラムは `."` を解釈中に使用してはなりません。同様に、標準プログラムは `POSTPONE ."` を新しいワードの中にコンパイルして、そのワードを解釈中に使用してはなりません。
 
-#### A.6.1.0320 `2*` 
+||A.6.1.0320||2*||
 
-歴史的に、`2*` は論理左シフト命令として 2 の補数マシンに実装されてきました。 これらのマシンでは、2による乗算は効率的な副作用です。しかし、シフトにはセル内のビットの意味と位置の知識が必要です。名前は乗算を意味しますが、ほとんどの実装者は`2*`を実装するためにハードウェア左シフトを使用してきました。
+歴史的に、`2&ast;` は論理左シフト命令として 2 の補数マシンに実装されてきました。 これらのマシンでは、2による乗算は効率的な副作用です。しかし、シフトにはセル内のビットの意味と位置の知識が必要です。名前は乗算を意味しますが、ほとんどの実装者は`2&ast;`を実装するためにハードウェア左シフトを使用してきました。
 
-#### A.6.1.0330 `2/` 
+||A.6.1.0330||2/||
 
 このワードも`2*`と同様の一般的な用法を持ち、意味が不適切な名前を持っています。符号ビットを伝播するハードウェア右シフトを持つ2の補数マシンでよく実装されます。
 
-#### A.6.1.0350 `2@` 
+||A.6.1.0350||2@||
 
 `2@`では、格納順序は標準によって指定されます。
 
-#### A.6.1.0450 `:` 
+||A.6.1.0450||:||
 
 Typical use: `: name ... ;` 
 
@@ -608,21 +612,21 @@ Forth 83 では、このワードは検索順序を変更すると規定され�
 
 コロン自体はコンパイラを起動しないことに注意してください。コロンはコンパイル状態を設定し、解析領域内のこの後のワードがコンパイルされるようにします。
 
-#### A.6.1.0460 `;` 
+||A.6.1.0460||;||
 
 Typical use: `: name ... ;` 
 
 `;`と`;CODE`の両方が実行する機能の1つは、現在の定義を辞書で見つけられるようにすることである。現在の定義が `:NONAME` によって作成された場合、現在の定義には定義名がない。よって辞書で見つけることができない。`:NONAME`が実装されている場合、Forthコンパイラは現在の定義に関する十分な情報を保持し、`;`と`;CODE`が現在の定義を見つけられるようにするために何らかのアクションを実行しなければならないかどうかを判断できるようにしなければならない。
 
-#### A.6.1.0550 `>BODY` 
+||A.6.1.0550||>BODY||
 
 *a-addr* は、*xt* を定義した `CREATE` の実行直後に `HERE` が実行された場合に返されたであろうアドレスです。
 
-#### A.6.1.0680 ABORT" 
+||A.6.1.0680||ABORT"||
 
 Typical use: `: X ... test ABORT" ccc" ... ; `
 
-#### A.6.1.0695 ACCEPT 
+||A.6.1.0695||ACCEPT||
 
 以前の規格では、入力文字列の収集は、"return" を受信するか、+n1文字を受信したときに終了すると規定されていました。n1文字を受信したときに終了することは、システム環境によっては実装が困難であったり、高価であったり、不可能であったりします。そのため、多くの既存の実装はこの要件に準拠していません。行の編集や収集機能は、Forth 実装の制御を超えたシステムコンポーネントによって実装されることが多いため、本標準規格ではそのような要件を課していません。標準プログラムは `ACCEPT` または `EXPECT` で入力文字列を受け取ることができると仮定するだけでよいです。その行を準備して送信するために必要なユーザアクションの詳細なシーケンスは、本標準規格の範囲外です。
 
@@ -638,40 +642,40 @@ Typical use: `: X ... test ABORT" ccc" ... ; `
 
 `ACCEPT` は `EXPECT` のような「自動終了」の動作を持ちません。しかし、外部システムのハードウェアとソフトウェアが `ACCEPT` 機能を実行するかもしれないので、行終端を受信したときのカーソルの動作、したがって表示は実装によって定義されます。行終端文字を受信した後、カーソルは入力されたテキストの直後に残ることが推奨されます。
 
-#### A.6.1.0705 ALIGN 
+||A.6.1.0705||ALIGN||
 
 本標準規格では、さまざまなCPUアーキテクチャ間での移植性を提供することを試みました。しばしば生じる移植性の問題の原因の1つは、いくつかのCPUでセル整列のアドレスが要求されることです。このようなシステムでは、`C,`で構築されたデータ構造をビルドしたりトラバースしたりするために `ALIGN` と `ALIGNED` が必要になることがあります。 実装者は、これらのワードが機能しないシステムでは、これらのワードをno-opsとして定義することができます。
 
-#### A.6.1.0706 `ALIGNED` 
+||A.6.1.0706||ALIGNED||
 
 See: **A.6.1.0705 `ALIGN`**.
 
-#### A.6.1.0760 `BEGIN` 
+||A.6.1.0760||BEGIN||
 
 Typical use:
 
-    : X ... BEGIN ... test UNTIL ; 
+ <pre>    : X ... BEGIN ... test UNTIL ; </pre>
 
 or
 
-    : X ... BEGIN ... test WHILE ... REPEAT ;
+ <pre>    : X ... BEGIN ... test WHILE ... REPEAT ;</pre>
 
-#### A.6.1.0770 `BL` 
+||A.6.1.0770||BL||
 
 スペースはForth全体で標準的な区切り文字として使用されているため、このワードはプログラムが「スペース」のシステム値を検索して使用する唯一の方法です。スペース文字の値は、例えば `CHAR` では取得できません。
 
-#### A.6.1.0880 `CELL+` 
+||A.6.1.0880||CELL+||
 
 `ALIGN`と`ALIGNED`と同様に、`CELL`と`CELL+`というワードは、異なるセルサイズを持つシステム間での移動性を助けるために追加されました。これらは、整数個のセル幅でインデックスやアドレスを操作する際に使用することを意図しています。
 
 例:
 
-    2VARIABLE DATA 
+ <pre>    2VARIABLE DATA 
     0 100 DATA 2! 
     DATA @ . 100  
-    DATA CELL+ @ . 0  
+    DATA CELL+ @ . 0  </pre>
 
-#### A.6.1.0890 CELLS 
+||A.6.1.0890||CELLS||
 
 See: **A.6.1.0880 CELL+**.
 
@@ -679,55 +683,55 @@ Example: `CREATE NUMBERS 100 CELLS ALLOT`
 
 (配列`NUMBERS`中に100セルのデータの空き領域をAllotする)
 
-#### A.6.1.0895 CHAR 
+||A.6.1.0895||CHAR||
 
 Typical use: ... `CHAR A CONSTANT "A"` ...
 
-#### A.6.1.0950 CONSTANT 
+||A.6.1.0950||CONSTANT||
 
 Typical use: ... `DECIMAL 10 CONSTANT TEN` ...
 
-#### A.6.1.1000 `CREATE` 
+||A.6.1.1000||CREATE||
 
 `CREATE` で定義されたワードのデータフィールドアドレスは、`CREATE` の実行直後のデータスペースポインタによって与えられます。 データフィールドスペースの予約は、通常 `ALLOT` で行われます。
 
 Typical use: ... `CREATE SOMETHING` ...
 
-#### A.6.1.1240 `DO` 
+||A.6.1.1240||DO||
 
 Typical use:  
 
-    : X ... limit first DO ... LOOP ; 
+ <pre>    : X ... limit first DO ... LOOP ; </pre>
 
 or  
 
-    : X ... limit first DO ... step +LOOP ; 
+ <pre>    : X ... limit first DO ... step +LOOP ; </pre>
 
-#### A.6.1.1250 `DOES>` 
+||A.6.1.1250||DOES>||
 
 Typical use: `: X ... DOES> ... ;` 
 
 `DOES>`の後では、標準プログラムは、`DOES>`を含む定義の名前や、その名前によって隠されている可能性のある以前の定義名を見つける能力に関して、いかなる仮定も置くことはできません。ローカル変数と制御フロー構造に関する限り、`DOES>`は事実上1つの定義を終了し、別の定義を開始します。コンパイル動作は、ユーザが いかなる制御フロー構造の中にも `DOES>` を置く権利がないことを明確にしています。
 
-#### A.6.1.1310 `ELSE` 
+||A.6.1.1310||ELSE||
 
 Typical use: : `X ... test IF ... ELSE ... THEN ;` 
 
-#### A.6.1.1345 `ENVIRONMENT?` 
+||A.6.1.1345||ENVIRONMENT?||
 
 Coreワードセットのみを含む標準システムでは、`ENVIRONMENT?`を効果的に使用するには、定義内で使用するか、ユーザが提供する補助的な定義を使用する必要があります。Coreワードセットには、解釈状態で文字列を収集する直接的な方法(**11.6.1.2165 `S"`**はオプションのワードセットにある)と、解釈状態で返されたフラグをテストする手段(オプションの15.6.2.2532 `[IF]`など)の両方が欠けています。
 
 **6.1.1345 `ENVIRONMENT?`**, **11.6.1.2165 `S"`**, **15.6.2.2532 `[IF]`**, **15.6.2.2531 `[ELSE]`**, **15.6.2.2533 `[THEN]`** の組み合わせは、解釈状態において機能する条件付きコンパイルのための効果的なワード群を構成します。
 
-#### A.6.1.1360 `EVALUATE` 
+||A.6.1.1360||EVALUATE||
 
 技術委員会は、この機能が一般的に`EVAL`と表記されることを認識しています。しかし、このようにワードを定義することで苦しむ実装が存在します。また、我々は`EVALUATE`の方が読みやすく明示的であると考えます。これを`INTERPRET`と呼ぼうという意見もあったが、これも既存のコードに望ましくない影響を与えるでしょう。長いスペルは、ソースコードで頻繁に使用されるだろうワードではないため、重要ではないと判断されました。
 
-#### A.6.1.1380 EX`IT 
+||A.6.1.1380||EXIT||
 
 Typical use: `: X ... test IF ... EXIT THEN ... ;` 
 
-#### A.6.1.1550 `FIND` 
+||A.6.1.1550||FIND||
 
 委員会が取り上げたより困難な問題の1つは、Forth言語の仕様から実装メカニズムの仕様を切り離す問題でした。3つの基本的な実装アプローチがすぐに列挙できます。
 
@@ -741,87 +745,87 @@ Typical use: `: X ... test IF ... EXIT THEN ... ;`
 
 タイプ3の実装の1つであるCharles MooreのcmForthは、多くのForthワードについてコンパイル版と解釈版の両方を持っています。現在のところ、これはタイプ3実装の一般的なアプローチのようです。委員会は、このような実装方法を認めなければならないと考えました。その結果、解釈セマンティクスのないワードはコンパイル中にしか見つからない可能性があり、他のワードはコンパイル版と解釈版の2つのバージョンが存在する可能性があります。したがって、FINDが返す値は`STATE`に依存し、`'`と`[']`は解釈セマンティクスを持たないワードを見つけることができないかもしれません。
 
-#### A.6.1.1561 `FM/MOD` 
+||A.6.1.1561||FM/MOD||
 
 Forth 83 は、切り捨て除算(floored division)の要件を導入することで、ホスト CPU の動作に従って除算を実装するという、他の言語ではより一般的な慣行を好む人々から、多くの論争と懸念が示されました。 妥協点を見出すために、本標準規格は、一般的な除算方式として切り捨て型と対称型の両方のプリミティブを提供する(`SM/REM`を参照)こととしました。`FM/MOD`は切り捨てバージョンです。
 
 技術委員会は、明示的に命名された2つの除算演算子の完全なセットを提供することを検討したが、これは規格を不当に拡大し複雑にするという理由で、そのやり方は採用されませんでした。その代わりに、実装者は通常の除算ワードを `FM/MOD` または `SM/REM` のどちらかで定義することができます。明示的に命名された演算子のセットを持ちたい人は、そうすることを推奨します。 `FM/MOD`は例えば次のような定義で使用することができます。
 
-    : /_MOD ( n1 n2 -- n3 n4) >R S>D R> FM/MOD ; 
+ <pre>    : /_MOD ( n1 n2 -- n3 n4) >R S>D R> FM/MOD ; 
     : /_ ( n1 n2 -- n3) /_MOD SWAP DROP ; 
     : _MOD ( n1 n2 -- n3) /_MOD DROP ; 
-    : */_MOD ( n1 n2 n3 -- n4 n5) >R M* R> FM/MOD ; 
-    : */_ ( n1 n2 n3 -- n4 ) */_MOD SWAP DROP ; 
+    : &ast;/_MOD ( n1 n2 n3 -- n4 n5) >R M&ast; R> FM/MOD ; 
+    : &ast;/_ ( n1 n2 n3 -- n4 ) &ast;/_MOD SWAP DROP ; </pre>
 
-#### A.6.1.1700 IF 
+||A.6.1.1700||IF||
 
 Typical use:
 
-    : X ... test IF ... THEN ... ; 
+ <pre>    : X ... test IF ... THEN ... ; </pre>
 
 or
 
-    : X ... test IF ... ELSE ... THEN ... ; 
+ <pre>    : X ... test IF ... ELSE ... THEN ... ; </pre>
 
-#### A.6.1.1710 IMMEDIATE 
+||A.6.1.1710||IMMEDIATE||
 
 Typical use: `Typical use: : X ... ; IMMEDIATE `
 
-#### A.6.1.1720 INVERT 
+||A.6.1.1720||INVERT||
 
 `NOT`はもともと、制御構造を読みやすくするためのフラグ演算子としてForthに用意されました。 その意図された用法では、次の2つの定義は同じ結果を生むことになります。
 
-    : ONE ( flag -- ) 
+ <pre>    : ONE ( flag -- ) 
         IF ." true" ELSE ." false" THEN ; 
     : TWO ( flag -- ) 
-        NOT IF ." false" ELSE ." true" THEN ; 
+        NOT IF ." false" ELSE ." true" THEN ; </pre>
 
 これは、`NOT` をセル全体の 1 の補数演算として再定義した Forth-83 Standard より前の一般的な用法であり、機能的には `-1 XOR` と同等です。同時に、このワードによって操作されるデータ型はフラグからセル全体のビットの集合に変更され、`TRUE` の標準値は "1"(右端のビットだけがセットされる)から "-1"(すべてのビットがセットされる)に変更されました。`TRUE`と`NOT`のこの定義は以前の定義と互換性がないため、多くのForthユーザは古い定義に依存し続けています。したがって、両方のバージョンが一般的に使用されています。
 
 したがって、現時点では`NOT`の用法を標準化することはできません。`NOT`の2つの伝統的な意味(フラグの意味を否定する意味と1の補数演算を行う意味)は、それぞれ`0=`と`INVERT`によって利用可能になります。
 
-#### A.6.1.1730 J 
+||A.6.1.1730||J||
 
 `J`は、入れ子になった `DO ... LOOP`、`DO ... +LOOP`、`?DO ... LOOP`、 `?DO ... +LOOP`だけで利用できます。例は以下の通りです。
 
-    : X ... DO ... DO ... J ... LOOP ... +LOOP ... ; 
+ <pre>    : X ... DO ... DO ... J ... LOOP ... +LOOP ... ; </pre>
 
-#### A.6.1.1760 LEAVE 
+||A.6.1.1760||LEAVE||
 
 `LEAVE`は直ちにループを抜けることに注意してください。ループ内で`LEAVE`に続くワードは実行されません。
 
 典型的な用法は、
 
-    : X ... DO ... IF ... LEAVE THEN ... LOOP ... ; 
+ <pre>    : X ... DO ... IF ... LEAVE THEN ... LOOP ... ; </pre>
 
-#### A.6.1.1780 LITERAL 
+||A.6.1.1780||LITERAL||
 
 Typical use: : X ... [ x ] LITERAL ... ; 
 
-#### A.6.1.1800 LOOP 
+||A.6.1.1800||LOOP||
 
 Typical use:
 
-    : X ... limit first DO ... LOOP ... ; 
+ <pre>    : X ... limit first DO ... LOOP ... ; </pre>
 
 or
 
-    : X ... limit first ?DO ... LOOP ... ; 
+ <pre>    : X ... limit first ?DO ... LOOP ... ; </pre>
 
-#### A.6.1.1810 `M*` 
+||A.6.1.1810||M*||
 
 このワードは、計算の初期段階で便利なもので、超精密な計算を便利に行うことができます。1970年代初頭のForthシステムから使われています。
 
-#### A.6.1.1900 MOVE 
+||A.6.1.1900||MOVE||
 
 `CMOVE` および `CMOVE>` は、Forth 83 の主要な移動演算子です。これらは、移動が適切に呼び出された場合に伝搬を意味する移動の動作を指定します。一部のハードウェアでは、この特定の動作は最良のmove命令を使用して達成することはできません。さらに、`CMOVE`と`CMOVE>`は文字を移動します。ANS Forthには、アドレス単位を扱うことができる移動命令が必要です。このため、`MOVE`が定義されてCoreワードセットに追加され、`CMOVE`と`CMOVE>`はStringワードセットに移動しました。
 
-#### A.6.1.2033 POSTPONE 
+||A.6.1.2033||POSTPONE||
 
 Typical use:  
 
-    : ENDIF POSTPONE THEN ; IMMEDIATE 
-    : X ... IF ... ENDIF ... ; 
+ <pre>    : ENDIF POSTPONE THEN ; IMMEDIATE 
+    : X ... IF ... ENDIF ... ; </pre>
 
 
 `POSTPONE`は`COMPILE`と`[COMPILE]`の機能のほとんどを置き換えます。`COMPILE`と`[COMPILE]`は同じ目的で使用され、解析領域内の次のワードのコンパイル動作を延期します。`COMPILE`は非即値ワードに、`[COMPILE]`は即値ワードに適用されるように設計されています。このため、プログラマはシステム内のどのワードが即時ワードであるかを知る必要があり、負担が大きくなります。
@@ -830,7 +834,7 @@ Typical use:
 
 `COMPILE`に関する2つ目の問題は、一部のプログラマが特定の実装を期待し、利用するようになったことです。すなわち、
 
-    : COMPILE R> DUP @ , CELL+ >R ; 
+ <pre>    : COMPILE R> DUP @ , CELL+ >R ; </pre>
 
 です。
 
@@ -838,64 +842,64 @@ Typical use:
 
 これらの理由から、`COMPILE`は規格に含まれず、`POSTPONE`を優先して`[COMPILE]`は席を譲りました。これ以上の議論は、Hayes, J.R., "Postpone", *Proceedings of the 1989 Rochester Forth Conference.*にあります。
 
-#### A.6.1.2120 RECURSE 
+||A.6.1.2120||RECURSE||
 
 Typical use: : X ... RECURSE ... ; 
 
 これはForthの再帰演算子で、実装によっては`MYSELF`と呼ばれることもあります。通常の例は階乗関数のコーディングです。
 
-    : FACTORIAL ( +n1 -- +n2) 
+ <pre>    : FACTORIAL ( +n1 -- +n2) 
         DUP 2 < IF DROP 1 EXIT THEN 
         DUP 1- RECURSE * 
-    ;
- 
+    ;</pre>
+
 $n_2 = n_1(n_1-1)(n_1-2)...(2)(1)$、$n_1$とそれ自身より小さいすべての正の整数の積(特殊なケースとして、階乗ゼロは1に等しい)。再起はコンピュータ科学者に愛されているが、両方のスタックを異常に多用するので、使用には注意が必要です。**A.6.1.2140 REPEAT**の代替定義を参照してください。
 
-#### A.6.1.2140 REPEAT 
+||A.6.1.2140||REPEAT||
 
 Typical use:  
 
-    : FACTORIAL ( +n1 -- +n2) 
+ <pre>    : FACTORIAL ( +n1 -- +n2) 
         DUP 2 < IF DROP 1 EXIT THEN 
         DUP 
         BEGIN DUP 2 > WHILE 
             1- SWAP OVER * SWAP 
         REPEAT DROP 
-    ; 
+    ;</pre> 
 
-#### A.6.1.2165 S" 
+||A.6.1.2165||S"||
 
 Typical use: : X ... S" ccc" ... ; 
 
 このワードは多くのシステムで`"`(引用符)という名前で使われています。しかし、`"` の使用法については、多くのシステムでここで示した実行セマンティクスが使用されている一方で、カウントされた文字列のアドレスを返すシステムもあり、現在の慣行はほぼ均等に分かれています。ここでは、`S"`とCore Extensionの`C"`という2つのワードを提供することで、両陣営を満たそうと試みています。
 
-#### A.6.1.2214 SM/REM 
+||A.6.1.2214||SM/REM||
 
 `FM/MOD`での除算については前述の説明を参照してください。`SM/REM` は対称除算プリミティブであり、以下の対称除算演算子をプログラムで定義できます。
 
-    : /-REM ( n1 n2 -- n3 n4 ) >R S>D R> SM/REM ; 
+ <pre>    : /-REM ( n1 n2 -- n3 n4 ) >R S>D R> SM/REM ; 
     : /- ( n1 n2 -- n3 ) /-REM SWAP DROP ; 
     : -REM ( n1 n2 -- n3 ) /-REM DROP ; 
     : */-REM ( n1 n2 n3 -- n4 n5 ) >R M* R> SM/REM ; 
-    : */- ( n1 n2 n3 -- n4 ) */-REM SWAP DROP ; 
+    : */- ( n1 n2 n3 -- n4 ) */-REM SWAP DROP ; </pre>
 
-#### A.6.1.2216 SOURCE 
+||A.6.1.2216||SOURCE||
 
 `SOURCE`は、異なる入力ソースに対する入力バッファの位置の違いを隠すことで、入力バッファに直接アクセスするプロセスを簡素化します。これにより、実装者は、異なる入力ソースに対するバッファリングメカニズムをより柔軟に実装することができます。委員会は、個々の変数の集まりからなる入力バッファ仕様から脱却し、`TIB`と`#TIB`の廃止を宣言しました。
 
 この形式の`SOURCE`は、F83、POLYFORTH、LMIのForthsなどに存在します。従来のシステムでは、以下のフレーズ、
 
-    BLK @  IF BLK @ BLOCK 1024  ELSE TIB #TIB @ THEN  
+ <pre>    BLK @  IF BLK @ BLOCK 1024  ELSE TIB #TIB @ THEN  </pre>
 
 と等価です。
 
-#### A.6.1.2250 STATE 
+||A.6.1.2250||STATE||
 
 `EVALUATE`、`LOAD`、`INCLUDE-FILE`、および`INCLUDED`は、`STATE`を変更するワードとしてリストされていないが、これらのワードのいずれか1つによって解釈されるテキストには、`STATE`を明示的に変更するワードが1つ以上含まれる可能性があります。`EVALUATE`、`LOAD`、`INCLUDE-FILE`、および`INCLUDED`は、それ自体が`STATE`を変更することはありません。
 
 `STATE`は、テキストインタプリタのネストとは連動しません。例えば、次のようなコード列、
 
-    : FOO S" ]" EVALUATE ;     FOO 
+ <pre>    : FOO S" ]" EVALUATE ;     FOO </pre>
 
 はシステムをコンパイル状態にします。同様に、`]`を含むブロックを`LOAD`した後、システムはコンパイル状態になります。
 
@@ -903,68 +907,70 @@ Typical use: : X ... S" ccc" ... ;
 
 For example:  
 
-    : NOP : POSTPONE ; IMMEDIATE ; 
-    NOP ALIGN NOP ALIGNED  
-    
+ <pre>    : NOP : POSTPONE ; IMMEDIATE ; 
+    NOP ALIGN NOP ALIGNED  </pre>
+
 ANS Forthに準拠していないシステムの中には、`STATE`への値の設定に加えて、`]` にコンパイラループを呼び出させるものがあります。このようなシステムは、`NOP`の2回目の使用を不適切にコンパイルしようとします。
 
 また、標準では、プログラムが `]` や `[` の実行トークンを見つけ、これらを使用して `STATE` に影響を与えることを妨げるものは何もないことに注意してください。これらの事実は、`[`の実装は`STATE`を設定する以外には何も行わず、単一のインタプリタ/コンパイラループが`STATE`を監視することを示唆しています。
 
-#### A.6.1.2270 THEN 
+||A.6.1.2270||THEN||
 
 Typical use:  
 
-    : X ... test IF ... THEN ... ; 
+ <pre>    : X ... test IF ... THEN ... ; </pre>
 
 or  
 
-    : X ... test IF ... ELSE ... THEN ... ; 
+ <pre>    : X ... test IF ... ELSE ... THEN ... ; </pre>
 
-#### A.6.1.2380 UNLOOP 
+||A.6.1.2380||UNLOOP||
 
 Typical use:  
 
-    : X ...
+ <pre>    : X ...
         limit first DO 
           ... test IF ... UNLOOP EXIT THEN ...
         LOOP ...
-    ;
+    ;</pre>
  
 `UNLOOP`は、`DO` ... `LOOP`のコンテキスト内で`EXIT`を使用できるようにします。`LOOP`および関連する`DO-LOOP`構文の中で`EXIT`を使うことができます。 関数としての`UNLOOP`は`DO`と呼ばれてきた。`UNLOOP`の方がより動作を表しています。何も取り消されることはなく、単に実行を止めるだけです。
 
-#### A.6.1.2390 UNTIL 
+||A.6.1.2390||UNTIL||
 
 Typical use: : X ... BEGIN ... test UNTIL ... ; 
 
-#### A.6.1.2410 VARIABLE 
+||A.6.1.2410||VARIABLE||
 
 Typical use: ... VARIABLE XYZ ...
 
-#### A.6.1.2430 WHILE 
+||A.6.1.2430||WHILE||
 
 Typical use: : X ... BEGIN ... test WHILE ... REPEAT ... ; 
 
-#### A.6.1.2450 WORD 
+||A.6.1.2450||WORD||
 
 Typical use: *char* `WORD` *ccc&lt;char>* 
 
-#### A.6.1.2500 [ 
+||A.6.1.2500||[||
 
 Typical use: : X ... [ 4321 ] LITERAL ... ; 
 
-#### A.6.1.2510 ['] 
+||A.6.1.2510||[']||
 
 Typical use: : X ... ['] name ... ; 
 
 See: **A.6.1.1550 FIND**.
 
-#### A.6.1.2520 [CHAR] 
+||A.6.1.2520||[CHAR]||
 
 Typical use: : X ... [CHAR] ccc ... ; 
 
-#### A.6.1.2540 ] 
+||A.6.1.2540||]||
 
 Typical use: : X ... [ 1234 ] LITERAL ... ; 
+
+</app-glossary>
 
 ### A.6.2 Core extension words{id=ZA_6_2}
 
@@ -977,33 +983,35 @@ Typical use: : X ... [ 1234 ] LITERAL ... ;
 
 これらのワードを含める正当な理由は様々であるため、技術委員会は、実装者が完全なコレクションを提供することを推奨しておらず、顧客にとって最も価値があると考えられるワードを選択することを推奨しています。
 
-#### A.6.2.0060 #TIB 
+<app-glossary>
+
+||A.6.2.0060||#TIB||
 
 `#TIB` の機能は `SOURCE` に引き継がれました。
 
-#### A.6.2.0200 .( 
+||A.6.2.0200||.(||
 
 Typical use: .( ccc) 
 
-#### A.6.2.0210 .R 
+||A.6.2.0210||.R||
 
 `.R`において、"R"が`RIGHT`の短縮形です。
 
-#### A.6.2.0340 2>R 
+||A.6.2.0340||2>R||
 
 歴史的に、`DO`の実装には`2>R`が使われてきました。従って、リターンスタック上のパラメータの順序も同じです。
 
 `2>R` の主な利点は、スタックエントリの最上位をリターンスタックの最上位に置くことです。例えば、倍セルの数がリターンスタックに転送されても、リターンスタックの最上位へのアクセスが倍セルの数の上位桁へのアクセスになります。
 
-#### A.6.2.0410 2R> 
+||A.6.2.0410||2R>||
 
 `2R>`は`R> R>`と等価ではないことに注意してください。その代わり、`2>R`(**A.6.2.0340**参照)の動作の映し鏡となります。
 
-#### A.6.2.0455 :NONAME 
+||A.6.2.0455||:NONAME||
 
 `:NONAME`を使用することで、コロン定義のセマンティクスを持つ実行トークンを名前なしで作成できます。これまでは、`:` (コロン) だけがこれらのセマンティクスを持つ実行トークンを作成できました。したがって、Forthコードは`:`の構文を使用してのみコンパイルできました。つまり、
 
-    : NAME ... ; 
+ <pre>    : NAME ... ; </pre>
 
 の形式です。`:NONAME`はこの制約を取り除き、Forthコンパイラをプログラマの手に委ねることになります。
 
@@ -1013,24 +1021,24 @@ Typical use: .( ccc)
 
 例えば、`:NONAME`を使ってコード断片のテーブルを作成し、そのテーブルにインデックスを付けてアクセスすることで、特定のフラグメントを実行することができます。テーブルの宣言構文は以下の通りです。
 
-    :NONAME .. code for command 0 .. ; 0 CMD ! 
+ <pre>    :NONAME .. code for command 0 .. ; 0 CMD ! 
     :NONAME .. code for command 1 .. ; 1 CMD ! 
         ...
     :NONAME .. code for command 99 .. ; 99 CMD ! 
 
-    ... 5 CMD @ EXECUTE ...
+    ... 5 CMD @ EXECUTE ...</pre>
 
 このテーブルを構築するワードの定義は以下の通りです。
 
-    CREATE CMD-TABLE \ table for command execution tokens  
+ <pre>    CREATE CMD-TABLE \ table for command execution tokens  
        100 CELLS ALLOT 
 
     : CMD ( n -- a-addr ) \ nth element address in table 
-       CELLS CMD-TABLE + ; 
+       CELLS CMD-TABLE + ; </pre>
 
 さらなる例として、パフォーマンス・モニタを可能にする定義ワードを作成することができます。以下の例では、あるワードの実行回数をカウントしています。`:`の名前を最初に変えて、`;`の新しい定義を可能としています。
 
-    : DOCOLON ( -- ) 
+ <pre>    : DOCOLON ( -- ) 
     \ Modify CREATEd word to execute like a colon def 
       DOES> ( i*x a-addr -- j*x ) 
        1 OVER +! \ count executions 
@@ -1043,39 +1051,39 @@ Typical use: .( ccc)
         0 ,                 \ storage for execution token 
         DOCOLON             \ set run time for CREATEd word 
         :NONAME             \ begin unnamed colon definition 
-    ;
+    ;</pre>
 
 (`DOES>`の配置に注意。  `DOES>`は`:NONAME`の定義ではなく`CREATE`されたワードを変更しなければならないので、`DOES>`は`:NONAME`の前に実行されなければならない)。
 
-    OLD: ; ( a-addr xt colon-sys -- )  
+ <pre>    OLD: ; ( a-addr xt colon-sys -- )  
     \ ends an execution-counting colon definition ) 
         POSTPONE ; \ complete compilation of colon def 
         SWAP CELL+ ! \ save execution token 
-    ; IMMEDIATE 
+    ; IMMEDIATE </pre>
 
 新しい`:`と`;`は、ワードを定義するために標準的なものと同じように使用されます。
 
-    ... : xxx ... ; ... xxx ...
+ <pre>    ... : xxx ... ; ... xxx ...</pre>
 
 しかし現在では、これらのワードを "チック" してカウント(と実行トークン)を取り出すことができます。
 
-    ... ' xxx >BODY ? ...
+ <pre>    ... ' xxx >BODY ? ...</pre>
 
-#### A.6.2.0620 ?DO 
+||A.6.2.0620||?DO||
 
 Typical use: 
 
-    : FACTORIAL ( +n1 -- +n2 )  1 SWAP 1+ ?DO  I *  LOOP ; 
+ <pre>    : FACTORIAL ( +n1 -- +n2 )  1 SWAP 1+ ?DO  I *  LOOP ; </pre>
 
 このワードは、Forth-83の`DO`によってもたらされた難題「16ビットシステム上で、等しい引数が与えられると65,535回ループしてしまう」を解決してほしいという多くの要望に応えて追加されたものです。本標準規格は32ビット・システムも推奨しているため、この動作は耐え難いものです。技術委員会はこれらのセマンティクスをDOに適用することを検討しましたが、既存のコードを壊すかもしれないという理由でそれは断念しました。
 
-#### A.6.2.0700 AGAIN 
+||A.6.2.0700||AGAIN||
 
 Typical use: : X ... BEGIN ... AGAIN ... ; 
 
 ワード列中に終了させる方法がない限り、これは無限ループとなります。
 
-#### A.6.2.0855 C" 
+||A.6.2.0855||C"||
 
 Typical use: : X ... C" ccc" ... ; 
 
@@ -1085,19 +1093,19 @@ Typical use: : X ... C" ccc" ... ;
 
 See: **A.3.1.3.4 Counted strings**.
 
-#### A.6.2.0873 CASE 
+||A.6.2.0873||CASE||
 
 Typical use:  
 
-    : X ...
+ <pre>    : X ...
         CASE 
             test1 OF ... ENDOF 
             testn OF ... ENDOF 
             ... ( default ) 
         ENDCASE ...
-    ; 
+    ; </pre>
 
-#### A.6.2.0945 COMPILE, 
+||A.6.2.0945||COMPILE,||
 
 `COMPILE,`は`EXECUTE`に相当するコンパイル処理です。多くの場合、`COMPILE,`を使用しなくても、`POSTPONE`を使用してワードをコンパイルすることが可能です。しかし、`POSTPONE`を使うには、コンパイル時にワードの名前がわかっていなければなりません。一方で、`COMPILE,` はワードがいつでもどこにあっても構いません。`EVALUATE`を使用して、実行時まで名前がわからないワードをコンパイルすることができますが、これには2つの問題があります。  
 
@@ -1108,61 +1116,61 @@ Typical use:
 
 ほとんどのシステムでは、`COMPILE,`を実装することが可能です。よって、通常のコンパイル処理で生成されるコードと同程度に最適化されたコードを生成することが可能です。しかし、実装によっては、特定の定義名に対応する2つの異なる "トークン" が存在します。解釈中またはEXECUTE中に使用される通常の "実行トークン" と、コンパイル中に使用されるもう1つの "コンパイル・トークン" です。実行トークンからコンパイル・トークンを取得できるとは限りません。 このような実装では、`COMPILE,`は普通にコンパイルされたコードほど効率的なコードを生成しないかもしれません。
 
-#### A.6.2.0970 CONVERT 
+||A.6.2.0970||CONVERT||
 
 `CONVERT`は以下のように定義できます。
 
-    : CONVERT CHAR+ 65535 >NUMBER DROP ; 
+ <pre>    : CONVERT CHAR+ 65535 >NUMBER DROP ; </pre>
 
-#### A.6.2.1342 ENDCASE 
+||A.6.2.1342||ENDCASE||
 
 Typical use:  
 
-    : X ...
+ <pre>    : X ...
         CASE 
             test1 OF ... ENDOF 
             testn OF ... ENDOF 
             ... ( default ) 
         ENDCASE ...
-    ; 
+    ; </pre>
 
-#### A.6.2.1343 ENDOF 
+||A.6.2.1343||ENDOF||
 
 Typical use:  
 
-    : X ...
+ <pre>    : X ...
         CASE 
             test1 OF ... ENDOF 
             testn OF ... ENDOF 
             ... ( default ) 
         ENDCASE ...
-    ; 
+    ; </pre>
 
-#### A.6.2.1390 EXPECT 
+||A.6.2.1390||EXPECT||
 
 `EXPECT`に正の整数カウント(+n)を指定するという規定により、一部の実装者は特別な動作を引き起こすフラグとして0または負の値を使用する習慣を継続することができます。そのような動作が標準規格の外にある限り、標準プログラムはそれに依存することはできませんが、技術委員会は不必要にそれを排除することは望みません。実際の値はほとんど常に小さな整数であるため、この制限によって機能が損なわれることはありません。
 
-#### A.6.2.1850 MARKER 
+||A.6.2.1850||MARKER||
 
 辞書の実装がより精巧になり、場合によっては複数のアドレス空間が使用されるようになると、 `FORGET` は多くの Forth システムで実装することが法外に難しくなったり、不可能になったりしました。 `MARKER`は、将来辞書を再配置しなければならなくなる可能性のある場所を具体的に示す 「ランドマーク情報」をシステムに事前に記憶させることで、この問題を大幅に緩和します。
 
-#### A.6.2.1950 OF 
+||A.6.2.1950||OF||
 
 Typical use:  
 
-    : X ...
+ <pre>    : X ...
         CASE 
             test1 OF ... ENDOF 
             testn OF ... ENDOF 
             ... ( default ) 
         ENDCASE ...
-    ; 
+    ; </pre>
 
-#### A.6.2.2000 PAD 
+||A.6.2.2000||PAD||
 
 `PAD`は、初期のForth実装から文字列のスクラッチストレージとして利用可能でした。多くのプログラマが、システム用途との非互換性を恐れて`PAD`の使用に消極的であることが、私たちの知るところとなりました。`PAD`は特にプログラマの利便性を意図したものであり、標準的なワードでは使用されていないという事実を文書化したのはそのためです。
 
-#### A.6.2.2008 PARSE 
+||A.6.2.2008||PARSE||
 
 Typical use: char PARSE ccc&lt;char> 
 
@@ -1170,21 +1178,21 @@ Typical use: char PARSE ccc&lt;char>
 
 a) `WORD`は常に先頭の区切り文字をスキップします。この動作は、空白でない文字のシーケンスを検索するテキストインタプリタの使用には適していますが、`(` , `.(` , `."`のようなワードで使用するには不適切です。次の(欠陥のある) `.(` の定義を考えてみましょう。
 
-    : .( [CHAR] ) WORD COUNT TYPE ; IMMEDIATE 
+ <pre>    : .( [CHAR] ) WORD COUNT TYPE ; IMMEDIATE </pre>
 
 以下のような行で使用するならばうまく動作します。
 
-    .( HELLO) 5 .
+ <pre>    .( HELLO) 5 .</pre>
 
 もしユーザが空の文字列を入力したら何が起こるか考えてください。
 
-    .( ) 5 .
+ <pre>    .( ) 5 .</pre>
 
 上に示した`.(`の定義は、`)`を先頭の区切り文字として扱い、それをスキップして、`)`でない文字に続く別の`)`を見つけるまで、あるいは解析領域が空になるまで、文字を消費し続けます。この例では、`5 .` は出力される文字列の一部として扱われます。
 
 `PARSE`を使えば、`.(`の正しい定義を書くことができます。
 
-    : .( [CHAR] ) PARSE TYPE ; IMMEDIATE 
+ <pre>    : .( [CHAR] ) PARSE TYPE ; IMMEDIATE </pre>
 
 この定義で、「空文字列」の異常さが回避されます。
 
@@ -1200,49 +1208,49 @@ b) `WORD`はその結果をカウントされた文字列として返します�
 
 先頭の区切り文字をスキップする`WORD`の動作は、空白で区切られた名前の解析に有用です。多くのシステム実装では、この目的のために、戻り値が"c-addr u"であることについては`PARSE`を踏襲しているが、明示的なデリミタ引数を持たず(デリミタセットは暗黙的に "空白" である)、先頭のデリミタをスキップするワードを追加で定義している。このワードの一般的な説明は以下の通りです。
 
-    PARSE-WORD ( "<spaces>name" -- c-addr u )  
+ <pre>    PARSE-WORD ( "<spaces>name" -- c-addr u )  </pre>
 
 先頭のスペースを読み飛ばし、スペースで区切られた名前を切り出します。c-addrは入力バッファ内のアドレス、uは選択された文字列の長さです。パース領域が空の場合、結果の文字列の長さは0です。
 
 `PARSE`と`PARSE-WORD`の両方が存在する場合、`WORD`の必要性はほとんどなくなります。
 
-#### A.6.2.2030 PICK 
+||A.6.2.2030||PICK||
 
 `0 PICK`は`DUP`と同等であり、`1 PICK`は`OVER`と同等です。
 
-#### A.6.2.2040 QUERY 
+||A.6.2.2040||QUERY||
 
 `QUERY`の機能は、`ACCEPT`と`EVALUATE`で実行することができます。
 
-#### A.6.2.2125 REFILL 
+||A.6.2.2125||REFILL||
 
 このワードは`QUERY`の有用な一般化です。この仕様に合わせて`QUERY`を再定義すると、既存のコードが壊れてしまいます。`REFILL`は、すべての入力ソースに対して合理的に動作するように設計されています。入力ソースがユーザからの場合、`QUERY`と同様に、`REFILL`は、例えば、通信チャネルが閉じ、それ以上入力ができないことをシステムが知っている場合でも、偽の値を返す可能性があります。
 
-#### A.6.2.2150 ROLL 
+||A.6.2.2150||ROLL||
 
 `2 ROLL`は`ROT`と等価、`1 ROLL`は`SWAP`と等価、`0 ROLL`はNULL操作です。
 
-#### A.6.2.2182 SAVE-INPUT 
+||A.6.2.2182||SAVE-INPUT||
 
 `SAVE-INPUT`と`RESTORE-INPUT`は、`BLOCK`入力と同程度の入力ソースのテキストファイル内での再配置を可能にします。`SAVE-INPUT`と`RESTORE-INPUT`は、この再配置を達成するために必要な操作の「詳細を隠す」ものであり、すべての入力ソースで同じように使用されます。 このため、プログラムは複数の変数を検査し、それらの変数の値によって異なるアクションを取る必要がないため、入力ソースの再配置が容易になります。
 
 `SAVE-INPUT`と`RESTORE-INPUT`は、1つの入力ソース内での再配置を目的としています。例えば、以下のシナリオは標準規格のプログラムとして*許されません*。
 
-    : XX 
+ <pre>    : XX 
         SAVE-INPUT CREATE 
         S" RESTORE-INPUT" EVALUATE 
         ABORT" couldn't restore input" 
-    ;
+    ;</pre>
  
 なぜなら、`RESTORE-INPUT`が実行された時点で、入力ソースは`EVALUATE`経由の文字列であり、`SAVE-INPUT`が実行されたときと同じ入力ソースではないからです。
 
 次のコードは許されます。
 
-    : XX 
+ <pre>    : XX 
         SAVE-INPUT CREATE 
         S" .( Hello)" EVALUATE 
         RESTORE-INPUT ABORT" couldn't restore input" 
-    ;
+    ;</pre>
  
 `EVALUATE`から戻ってきた後、入力ソースの指定は以前の状態に戻されるため、`SAVE-INPUT`と`RESTORE-INPUT`は同じ入力ソースを有効にして呼び出されます。
 
@@ -1254,22 +1262,22 @@ b) `WORD`はその結果をカウントされた文字列として返します�
 
 `SAVE-INPUT`と`RESTORE-INPUT`の入れ子は許されます。例えば、次の状況は期待通りに動作します。
 
-    : XX 
+ <pre>    : XX 
         SAVE-INPUT 
             S" f1" INCLUDED 
             \ The file "f1" includes: 
             \ ... SAVE-INPUT ... RESTORE-INPUT ...
             \ End of file "f1" 
         RESTORE-INPUT ABORT" couldn't restore input" 
-    ;
+    ;</pre>
  
 In principle, `RESTORE-INPUT` could be implemented to "always fail", e.g.:  
 
 `RESTORE-INPUT`は「常に失敗する」と実装することも原理的には可能です。例えば、
 
-    : RESTORE-INPUT ( x1 ... xn n -- flag ) 
+ <pre>    : RESTORE-INPUT ( x1 ... xn n -- flag ) 
         0 ?DO DROP LOOP TRUE 
-    ;
+    ;</pre>
  
 ですが、そのような実装はほとんどの場合役に立たないでしょう。無駄な実装を作るよりも、`SAVE-INPUT`と`RESTORE-INPUT`を未定義のままにすることがシステムにとって望ましいでしょう。このワードがない場合、アプリケーションプログラマは「ダミー」実装を作るかどうか、あるいは他の方法で問題を回避するかどうかを選択できます。
 
@@ -1288,30 +1296,30 @@ In principle, `RESTORE-INPUT` could be implemented to "always fail", e.g.:
 
 これは例にすぎません。標準プログラムは、`SAVE-INPUT`によって返される個々のスタック項目の特定の意味を想定してはなりません。
 
-#### A.6.2.2290 TIB 
+||A.6.2.2290||TIB||
 
 TIBの機能はSOURCEにより引き継がれました。
 
-#### A.6.2.2295 TO 
+||A.6.2.2295||TO||
 
 歴史的に、`TO`の実装の中には、明示的に解析を行わないものがいくつか存在しました。その代わりに、モードフラグを設定し、その後の name の実行でそれをテストするのです。ANS Forthは、`TO`が解析領域の最後で使用されたときでも`TO`の効果が予測可能となるように、`TO`が解析しなければならないことを明示的に要求しています。
 
 Typical use: `x TO name `
 
-#### A.6.2.2298 TRUE 
+||A.6.2.2298||TRUE||
 
 `TRUE`は、フレーズ`0 0=`と等価です。
 
-#### A.6.2.2405 VALUE 
+||A.6.2.2405||VALUE||
 
 Typical use:  
 
-    0 VALUE DATA 
-    : EXCHANGE ( n1 -- n2 ) DATA SWAP TO DATA ; 
+ <pre>    0 VALUE DATA 
+    : EXCHANGE ( n1 -- n2 ) DATA SWAP TO DATA ; </pre>
 
 `EXCHANGE`は、`DATA`中に n1 を残し、前の値 n2 を返す。
 
-#### A.6.2.2440 WITHIN 
+||A.6.2.2440||WITHIN||
 
 循環数空間(circular number spaces: 未定義の用語)については言及せず、コードも提供せずに、`WITHIN`について説明します。右端にオーバーフロー点(o)、左端にアンダーフロー点(u)を持つ数直線を考えます。
 
@@ -1323,7 +1331,7 @@ u-------------------[.....................)------------------------o
 
 `[`がn2|u2、`)`がn3|u3を表し、ドットと`[`がその範囲内(`WITHIN`)になります。n3|u3はn2|u2より大きいので、以下のテストはn1|u1がn2|u2およびn3|u3の範囲内にあるかどうかを判定します。
 
-    n2|u2 ≤ n1|u1 and n1|u1 < n3|u3.
+ <pre>    n2|u2 ≤ n1|u1 and n1|u1 < n3|u3.</pre>
 
 比較範囲がオーバーフロー/アンダーフローのポイントをまたぐ場合: 
 
@@ -1331,17 +1339,17 @@ u...............)-----------------------------[........................o
 
 n3|u3はn2|u2より小さいので、次のテストはn1|u1がn2|u2およびn3|u3内にあるかどうかを判定します。
 
-    n2|u2 ≤ n1|u1 or n1|u1 < n3|u3.
+ <pre>    n2|u2 ≤ n1|u1 or n1|u1 < n3|u3.</pre>
 
 `WITHIN`は符号付きと符号なしの両方の引数に対して機能しなければなりません。以下の実装はいけそうですが、動作しません。
 
-    : WITHIN ( test low high -- flag ) 
+ <pre>    : WITHIN ( test low high -- flag ) 
         >R OVER < 0= ( test flag1 ) SWAP R> < ( flag1 flag2 ) AND 
-    ; 
+    ; </pre>
 
 16ビットマシンでの2の補数演算を仮定し、次のテストを考えてみましょう。
 
-    33000 32000 34000 WITHIN 
+ <pre>    33000 32000 34000 WITHIN </pre>
 
 上記の実装では、符号なし数33000が明らかに範囲{{32000 .. 34000}}内であるにもかかわらず、このテストでは偽を返します。
 
@@ -1349,21 +1357,23 @@ n3|u3はn2|u2より小さいので、次のテストはn1|u1がn2|u2およびn3|
 
 上記の実装で`<`を`U<`に置き換えると、符号なし数値では動作するが、ある符号付き数値範囲で問題が発生します。特に、以下のテスト
 
-    1 -5 5 WITHIN 
+ <pre>    1 -5 5 WITHIN </pre>
 
 は誤った回答を返します。
 
 算術オーバーフローを無視する2の補数マシン(ほとんどのマシン)では、以下の実装はすべてのケースで動作します。
 
-    : WITHIN ( test low high -- flag ) OVER - >R - R> U< ; 
+ <pre>    : WITHIN ( test low high -- flag ) OVER - >R - R> U< ; </pre>
 
-#### A.6.2.2530 [COMPILE] 
+||A.6.2.2530||[COMPILE]||
 
 Typical use  : name2 ... [COMPILE] name1 ... ; IMMEDIATE
 
-#### A.6.2.2535 \ 
+||A.6.2.2535||\||
 
 Typical use:  5 CONSTANT THAT  \  THIS IS A COMMENT ABOUT THAT
+
+</app-glossary>
 
 ## A.7 The optional Block word set{id=ZA_7}
 
@@ -1384,7 +1394,7 @@ Typical use:  5 CONSTANT THAT  \  THIS IS A COMMENT ABOUT THAT
 
 ### A.7.6 Glossary{id=ZA_7_6}
 
-##### A.7.6.2.2190 SCR 
+||A.7.6.2.2190||SCR||
 
 SCRはスクリーン(screen)の短縮形です。
 
@@ -1403,41 +1413,45 @@ Forthのデータ型に関する議論については、 **A.3.1** を参照し�
 
 ### A.8.6 Glossary{id=ZA_8_6}
 
-##### A.8.6.1.0360 2CONSTANT 
+<app-glossary>
+
+||A.8.6.1.0360||2CONSTANT||
 
 Typical use: x1 x2 2CONSTANT name 
 
-##### A.8.6.1.0390 2LITERAL 
+||A.8.6.1.0390||2LITERAL||
 
 Typical use: : X ... [ x1 x2 ] 2LITERAL ... ; 
 
-##### A.8.6.1.0440 2VARIABLE 
+||A.8.6.1.0440||2VARIABLE||
 
 Typical use: 2VARIABLE name 
 
-##### A.8.6.1.1070 D.R 
+||A.8.6.1.1070||D.R||
 
 In D.R, the "R" is short for RIGHT.
 
-##### A.8.6.1.1090 D2* 
+||A.8.6.1.1090||D2*||
 
 See: **A.6.1.0320 2* for applicable discussion**.
 
-##### A.8.6.1.1100 D2/ 
+||A.8.6.1.1100||D2/||
 
 See: **A.6.1.0330 2/ for applicable discussion**.
 
-##### A.8.6.1.1140 D>S 
+||A.8.6.1.1140||D>S||
 
 例えば符号-倍精度表現(sign-magnitude representation)のように、倍精度から単精度への変換が単純に `DROP` で行えないような数値表現が存在します。このワードは、2の補数システムの `DROP` と等価であり、アプリケーションコードに数値表現の違いに対する耐性を付け、、移植性を容易にします。
 
-##### A.8.6.1.1820 M*/ 
+||A.8.6.1.1820||M*/||
 
 `M*/` は、かつて Chuck Moore 氏によって Forth で最も有用な算術演算子であると評されました。倍セル数を扱う計算のほとんどで仕事をメインで担うワードです。システムによっては符号付き除数を許容しているものがあることに注意してください。これは、CPUによっては多くのパフォーマンスを犠牲にする可能性があります。除数を正に限るという要求が問題であるとはいまだ証明されていません。
 
-##### A.8.6.1.1830 M+ 
+||A.8.6.1.1830||M+||
 
 `M+` は積分(integrating)の古典的な方法です。
+
+</app-glossary>
 
 ## A.9 The optional Exception word set{id=ZA_9}
 
@@ -1469,7 +1483,7 @@ See: **A.6.1.0330 2/ for applicable discussion**.
 
 </miniterm>
 
-    VARIABLE HANDLER 0 HANDLER ! \ last exception handler  
+ <pre>    VARIABLE HANDLER 0 HANDLER ! \ last exception handler  
     : CATCH ( xt -- exception# | 0 ) \ return addr on stack 
         SP@ >R ( xt ) \ save data stack pointer 
         HANDLER @ >R ( xt ) \ and previous handler 
@@ -1489,17 +1503,17 @@ See: **A.6.1.0330 2/ for applicable discussion**.
             \ stack is restored to the state that existed 
             \ when CATCH began execution 
         THEN 
-    ;
+    ;</pre>
 
 マルチタスクシステムでは、 `HANDLER` 変数はタスクごとの変数領域(つまり、ユーザ変数)に置かねばなりません。
 
 このサンプル実装では、 `CATCH` が一度も呼ばれなかった場合(つまり `ABORT` の動作)を明示的に処理していません。一つの解決策は、`THROW`の`IF`の後に以下のコードを追加することです。  
 
-    HANDLER @ 0= IF ( empty the stack ) QUIT THEN  
+ <pre>    HANDLER @ 0= IF ( empty the stack ) QUIT THEN  </pre>
 
 もう一つの解決策は、`QUIT` の中で `CATCH` を実行し、常に「最終手段としての例外ハンドラ」が存在するようにすることです。例えば
 
-    : QUIT 
+ <pre>    : QUIT 
         ( empty the return stack and ) 
         ( set the input source to the user input device ) 
         POSTPONE [ 
@@ -1514,16 +1528,16 @@ See: **A.6.1.0330 2/ for applicable discussion**.
                 ( default ) DUP ." Exception # " .
             ENDCASE 
         REPEAT BYE 
-    ;
+    ;</pre>
  
 この例では、**3.4 The Forth text interpreter** で説明したテキストインタプリタのセマンティクスを具現化するシステム実装ワード `INTERPRET` が存在することを想定しています。この `QUIT` の実装では、 `THROW` 固有のデータスタックとリターンスタックの復元により、スタックとリターンスタックが空になることを自動的に処理することに注意してください。この `QUIT` の定義があれば、簡単に定義できます。  
 
-    : ABORT -1 THROW ; 
+ <pre>    : ABORT -1 THROW ; </pre>
 
 データスタックとリターンスタックに加えて他のスタックを持つシステムでは、 `CATCH` と `THROW` の実装はそれらのスタックポインタを保存してリストアする必要があります。このような「拡張バージョン」は、この基本的な実装の上に構築することができます。例えば、`FP@` と `FP!`でアクセスする別のスタックポインタでは、 `CATCH` のみを再定義する必要があります。
 
-    : CATCH ( xt -- exception# | 0 ) 
-        FP@ >R CATCH R> OVER IF FP! ELSE DROP THEN ; 
+ <pre>    : CATCH ( xt -- exception# | 0 ) 
+        FP@ >R CATCH R> OVER IF FP! ELSE DROP THEN ; </pre>
 
 この場合、 `THROW` を変更する必要はありません。すべての再定義と同様に、再定義されたバージョンの `CATCH` は `CATCH` の再定義後にコンパイルされた定義でのみ使用できることに注意してください。
 
@@ -1539,13 +1553,15 @@ See: **A.6.1.0330 2/ for applicable discussion**.
 
 ### A.9.6 Glossary{id=ZA_9_6}
 
-##### A.9.6.1.2275 THROW 
+<app-glossary>
+
+||A.9.6.1.2275||THROW||
 
 `THROW` がゼロ以外の引数で実行された場合、対応する `CATCH` がそれを返したかのような効果があります。 この場合、スタックの深さは `CATCH` が実行を開始する直前と同じです。*i\*x*個のスタック引数の値は、*xt*の実行中に任意に変更される可能性があります。一般的に、これらのスタック項目は何の役にも立たないかもしれないが、(スタックの深さが決定論的であるため)それらの数はわかっているので、アプリケーションは予測可能なスタック状態に戻るためにそれらを `DROP` するかもしれません。
 
 Typical use: 
 
-    : could-fail ( -- char ) 
+ <pre>    : could-fail ( -- char ) 
         KEY DUP [CHAR] Q = IF 1 THROW THEN ; 
     : do-it ( a b -- c) 2DROP could-fail ; 
     : try-it ( --) 
@@ -1559,23 +1575,27 @@ Typical use:
             ( x1 x2) 2DROP ." Exception, keep trying" CR 
         REPEAT ( char ) 
         ." The character was " EMIT CR 
-    ; 
+    ; </pre>
+
+</app-glossary>
 
 ## A.10 The optional Facility word set{id=ZA_10}
 
 ### A.10.6 Glossary{id=ZA_10_6}
 
-##### A.10.6.1.0742 AT-XY 
+<app-glossary>
+
+||A.10.6.1.0742||AT-XY||
 
 ほとんどの実装者は、CRT画面上でカーソルを位置決めする方法を提供していますが、名前やスタック引数には大きなばらつきがあります。このバージョンは、少なくとも1つの主要ベンダーがサポートしています。
 
-##### A.10.6.1.1755 KEY? 
+||A.10.6.1.1755||KEY?||
 
 技術委員会は、スタック効果について何度も議論してきました。決定されたものが何であれ、誰かの慣習に違反し、いくつかのマシンにペナルティを与えることになります。この方法は、いくつかのシステムではキーの先打ちと干渉しませんが、キーボードをポーリングすると必然的に文字が破壊されるようなマシンでは、1文字バッファの実装を要求することになっています。
 
 `KEY`または`KEY?`を使用するということは、アプリケーションが、最終的に有効な文字を受信することを見越して、文字以外のイベントに煩わされることを望んでいないことを示しています。よって、それらは破棄されます。文字以外のイベントを処理したいアプリケーションは、`EKEY`と`EKEY?`を使用しなければなりません。 一つのアプリケーション内で `KEY?` / `KEY` と `EKEY?` / `EKEY` を混在して使用することは可能ですが、アプリケーションが有効な文字を受信するまで非文字イベントを破棄したい場合にのみ `KEY?` と `KEY` を使用しなければなりません。
 
-##### A.10.6.2.1305 EKEY 
+||A.10.6.2.1305||EKEY||
 
 `EKEY`は、システム依存の "生(raw)" のキーボードイベントのセットにアクセスするための標準的なワードを提供します。これには、標準文字セットのメンバに対応するイベント、実装で定義された文字セットの他のメンバに対応するイベント、文字セットのメンバに対応しないキーストロークが含まれます。
 
@@ -1597,7 +1617,7 @@ Typical use:
 
 MS-DOSの "Direct STDIN Input" システムコール(Interrupt 21h, Function 07h)を実行するワード`DOS-KEY` ( -- char )と、MS-DOSの "Check STDIN Status" システムコール(Interrupt 21h, Function 0Bh)を実行するワード`DOS-KEY?` ( -- flag)が存在すると仮定します。
 
-    : EKEY? ( -- flag ) DOS-KEY? 0<> ; 
+ <pre>    : EKEY? ( -- flag ) DOS-KEY? 0<> ; 
     : EKEY ( -- u ) DOS-KEY ?DUP 0= IF DOS-KEY 256 + THEN ; 
     : EKEY>CHAR ( u -- u false | char true ) 
         DUP 255 > IF ( u ) 
@@ -1622,7 +1642,7 @@ MS-DOSの "Direct STDIN Input" システムコール(Interrupt 21h, Function 07h
                 DROP 
             REPEAT EXIT 
         THEN PENDING-CHAR @ -1 PENDING-CHAR ! 
-    ;
+    ;</pre>
 
 </div>
 
@@ -1634,20 +1654,20 @@ MS-DOSの "Direct STDIN Input" システムコール(Interrupt 21h, Function 07h
 
 「両方の良いとこ取り」は、`EKEY`が受信した最初のバイトにファンクション8を使用し、スキャンコードバイトにファンクション7を使用することです。例えば
 
-    : EKEY ( -- u ) 
+ <pre>    : EKEY ( -- u ) 
         DOS-KEY-FUNCTION-8 ?DUP 0= IF 
             DOS-KEY-FUNCTION-7 DUP 3 = IF 
                 DROP 0 ELSE 256 + 
             THEN 
         THEN 
-    ;
+    ;</pre>
  
 もちろん、Forthの実装者がCtrl-Cを通常の割り込み機能に使用せずにプログラムに渡すことを選択した場合、DOS関数7はどちらの場合にも適切です(そして、タイプされたCtrl-Cが出力操作中にForthシステムに割り込むのを防ぐために、さらにいくつかの注意を払う必要があります)。
 
 Forthシステムは、`EKEY`を実装することなく、以下のようにKEYをよりシンプルに実装することもできます。
 
-    : KEY ( -- char ) DOS-KEY ; 
-    : KEY? ( -- flag ) DOS-KEY? 0<> ; 
+ <pre>    : KEY ( -- char ) DOS-KEY ; 
+    : KEY? ( -- flag ) DOS-KEY? 0<> ; </pre>
 
 この単純版の欠点は以下の通りです。
 
@@ -1657,23 +1677,25 @@ b) 文字以外のイベントを処理したいアプリケーション・プ�
 
 MS-DOSで`EKEY`を使用するもう1つの方法は、BIOSの "Read Keyboard Status" 機能(割り込み16h、ファンクション01h)または関連する "Check Keyboard" 機能(割り込み16h、ファンクション11h)を使用することです。この機能の利点は、同じ文字に対応する異なるキー(例えば2つの「1」キー)をプログラムで区別できることです。欠点は、BIOSキーボード機能がキーボードのみを読み取ることです。DOSのSTDIN入力関数のように、別の「標準入力」ソースに「リダイレクト」することはできません。
 
-##### A.10.6.2.1306 EKEY>CHAR 
+||A.10.6.2.1306||EKEY>CHAR||
 
 `EKEY>CHAR`は、キーボードイベントを文字セットの対応するメンバに変換します。
 
 複数の異なるキーボードイベントが同じ文字に対応する可能性があり、他のキーボードイベントは文字に対応しない可能性があります。
 
-##### A.10.6.2.1325 EMIT? 
+||A.10.6.2.1325||EMIT?||
 
 不定遅延(indefinite delay)とは、プリンタがオフラインになっているなど、デバイスに関連する状態であり、 デバイスが新しいデータを受け入れる前にオペレータの操作が必要になることです。
 
-##### A.10.6.2.1905 MS 
+||A.10.6.2.1905||MS||
 
 周波数はさまざまですが、どのシステムにもクロックがあります。多くのプログラムでは時間間隔を指定する必要があるため、このワードが使用されています。内部時間単位としてのミリ秒の使用は、実用的な "最小公倍数" の外部単位です。実装者は、「クロックの1刻み」(その大きさが何であれ)を内部単位として使用し、適切な変換を行うことを想定しています。
 
-##### A.10.6.2.2292 TIME&DATE 
+||A.10.6.2.2292||TIME&DATE||
 
 ほとんどのシステムにはリアルタイム時計/カレンダーがあります。このワードは、このワードへのポータブルなアクセスを提供します。
+
+</app-glossary>
 
 ## A.11 The optional File-Access word set{id=ZA_11}
 
@@ -1695,19 +1717,21 @@ MS-DOSで`EKEY`を使用するもう1つの方法は、BIOSの "Read Keyboard St
 
 ### A.11.6 Glossary{id=ZA_11_6}
 
-##### A.11.6.1.0765 BIN 
+<app-glossary>
+
+||A.11.6.1.0765||BIN||
 
 オペレーティングシステムによっては、ファイルの内容を一連の行としてではなく、 構造化されていないバイナリ・データのストリームとしてアクセスするために、 異なるモードでファイルを開くことを要求するものがあります。
 
 `READ-FILE`と`WRITE-FILE`の引数は文字格納要素の配列であり、各要素は少なくとも8ビットで構成されます。技術委員会は、`BIN`モードでは、これらの記憶エレメントの内容をファイルに書き込んで、後でそのまま読み返すことができることを意図しています。技術委員会は、"ワイド" 文字がファイルとブロックのワードセットに与える影響に関する問題への対処を拒絶しました。
 
-##### A.11.6.1.1010 CREATE-FILE 
+||A.11.6.1.1010||CREATE-FILE||
 
 Typical use:  
 
-    : X .. S" TEST.FTH" R/W CREATE-FILE ABORT" CREATE-FILE FAILED" ... ; 
+ <pre>    : X .. S" TEST.FTH" R/W CREATE-FILE ABORT" CREATE-FILE FAILED" ... ; </pre>
 
-##### A.11.6.1.1717 INCLUDE-FILE 
+||A.11.6.1.1717||INCLUDE-FILE||
 
 ここでは、テキストファイル入力がある場合に、入力ソース指定を保存するための2つの実装方法を示します。  
 
@@ -1715,29 +1739,29 @@ Typical use:
 
 2) アクティブなテキスト入力ファイルごとに個別の行バッファを割り当て、そのバッファを入力バッファとして使用します。 この方法は、「シークと再読み込み」のステップを回避し、パイプやその他のシーケンシャル・アクセスのみの通信チャネルなどの「擬似ファイル」の使用を可能にします。
 
-##### A.11.6.1.1718 INCLUDED 
+||A.11.6.1.1718||INCLUDED||
 
 Typical use: ... S" filename" INCLUDED ...
 
-##### A.11.6.1.1970 OPEN-FILE 
+||A.11.6.1.1970||OPEN-FILE||
 
 Typical use:  
 
-    : X .. S" TEST.FTH" R/W OPEN-FILE ABORT" OPEN-FILE FAILED" ... ; 
+ <pre>    : X .. S" TEST.FTH" R/W OPEN-FILE ABORT" OPEN-FILE FAILED" ... ; </pre>
 
-##### A.11.6.1.2080 READ-FILE 
+||A.11.6.1.2080||READ-FILE||
 
 典型的なファイル処理アルゴリズムは以下のようになります。
 
-    BEGIN                   ( )  
+ <pre>    BEGIN                   ( )  
         ... READ-FILE THROW ( length ) 
     ?DUP WHILE              ( length ) 
         ...                 ( ) 
-    REPEAT                  ( )  
+    REPEAT                  ( )  </pre>
 
 この例では、`THROW`は(予期しない)例外条件を処理するために使用され、 `READ-FILE`の戻り値の0以外の値として報告されます。ファイルの終了は、"length" 戻り値のゼロ値として報告されます。
 
-##### A.11.6.1.2090 READ-LINE 
+||A.11.6.1.2090||READ-LINE||
 
 ホスト・オペレーティングシステムが提供する行読み取り機能を使用できるようにするため、 メモリバッファに行終端を格納することが許可されています。この規定がなければ、一時的なバッファが必要になっていたかもしれません。既存のオペレーティングシステムの大部分では、2文字の制限で十分です。行終端文字列が2文字より長いホストオペレーティングシステムの実装では、2文字以上の終端文字の格納を防ぐために特別な措置を取らなければならないかもしれません。
 
@@ -1747,17 +1771,17 @@ A typical line-oriented sequential file-processing algorithm might look like:
 
 典型的な行指向のシーケンシャルファイル処理アルゴリズムは次のようなものです。
 
-    BEGIN               ( )  
+ <pre>    BEGIN               ( )  
         . . . READ-LINE THROW ( length not-eof-flag ) 
     WHILE               ( length )  
         . . .           ( ) 
-    REPEAT DROP         ( )  
+    REPEAT DROP         ( )  </pre>
 
 この例では、`THROW`は(予期しない)I/O例外条件を処理するために使用され、これは`READ-LINE`からの "ior"戻り値のゼロ以外の値として報告されます。
 
 `READ-LINE`は、空の(長さゼロの)行がルーチンで発生し、長さゼロでファイル末尾を表すことができないため、別のファイル終了フラグを必要とします。
 
-##### A.11.6.1.2165 S" 
+||A.11.6.1.2165||S"||
 
 Typical use: ... S" ccc" ...
 
@@ -1766,6 +1790,8 @@ Typical use: ... S" ccc" ...
 文字列が上書きされる可能性がある場合は、アプリケーションが割り当てた「安全な」バッファに文字列をコピーするのが賢明です。
 
 `S"`の方法で解析したいプログラムは、`S"` を使わずに `PARSE` または `WORD` `COUNT` を使用し、解釈された文字列バッファの上書きを防ぐことを推奨します。
+
+</app-glossary>
 
 ## A.12 The optional Floating-Point word set{id=ZA_12}
 
@@ -1796,9 +1822,9 @@ Typical use: ... S" ccc" ...
 
 カスタム浮動小数点数データ構造を定義する際には、`CREATE`がさまざまな浮動小数点数データ型に対して必ずしもデータ空間ポインタを整列させたままにするとは限らないことに注意してください。プログラムは、コンパイル時と実行時の両方で適切なアライメントを指定することで、さまざまな種類の浮動小数点数アライメントの要件に準拠することができます。例えば
 
-    : FCONSTANT ( F: r -- ) 
+ <pre>    : FCONSTANT ( F: r -- ) 
         CREATE FALIGN HERE 1 FLOATS ALLOT F! 
-        DOES> ( F: -- r ) FALIGNED F@ ; 
+        DOES> ( F: -- r ) FALIGNED F@ ; </pre>
 
 #### A.12.3.7 Text interpreter input number conversion 
 
@@ -1806,7 +1832,9 @@ Typical use: ... S" ccc" ...
 
 ### A.12.6 Glossary{id=ZA_12_6}
 
-##### A.12.6.1.0558 >FLOAT 
+<app-glossary>
+
+||A.12.6.1.0558||>FLOAT||
 
 `>FLOAT`は、プログラムで浮動小数点数データを読みやすい ASCII 形式で読み込めるようにします。これは、テキストインタプリタが受理するものよりはるかに広い構文を受け入れます。これは、テキストインタプリタがソースプログラムを作成するためのルールを定義しているのに対して、 `>FLOAT` はデータを受け入れるためのルールを定義しているためです。`>FLOAT`は、ANS Forthシステムに加えて、他の広く使われている標準的なプログラミング環境からのデータ入力を可能にするために、可能な限り広く定義されています。
 
@@ -1814,27 +1842,27 @@ Typical use: ... S" ccc" ...
 
 `>FLOAT`は空白の文字列をゼロとして扱う必要はありませんが、将来のANS Forthのバージョンではこのような要件が含まれる可能性があるため、この動作を強く推奨します。
 
-##### A.12.6.1.1427 F.
+||A.12.6.1.1427||F.||
 
 For example, `1E3 F.` displays `1000.` .
 
-##### A.12.6.1.1492 FCONSTANT 
+||A.12.6.1.1492||FCONSTANT||
 
 Typical use: r FCONSTANT name 
 
-##### A.12.6.1.1552 FLITERAL 
+||A.12.6.1.1552||FLITERAL||
 
 Typical use: : `X ... [ ... ( r ) ] FLITERAL ... ;` 
 
-##### A.12.6.1.1630 FVARIABLE 
+||A.12.6.1.1630||FVARIABLE||
 
 Typical use: `FVARIABLE name` 
 
-##### A.12.6.1.2143 REPRESENT 
+||A.12.6.1.2143||REPRESENT||
 
 このワードは浮動小数点数表示用のプリミティブを提供します。IEEE-754を含むいくつかの浮動小数点数フォーマットでは、実装で定義された範囲外の数値を表現することができます。 これにはプラスマイナス無限大、非正規化数などが含まれます。このような場合、`REPRESENT`は通常、"+infinity "や "nan" などの適切な文字列を返すように実装されることが期待されます。
 
-##### A.12.6.2.1489 FATAN2 
+||A.12.6.2.1489||FATAN2||
 
 `FSINCOS` と `FATAN2` は、角度を 2 ベクトルに、またはその逆に変換する相補的な演算子のペアです。角度の正接が無限大になる場合でも、ヌルベクトルを除くすべてのケースでこの変換を正しく明確に処理するため、ほとんどの幾何学的および物理的なアプリケーションに不可欠です。
 
@@ -1842,7 +1870,7 @@ Typical use: `FVARIABLE name`
 
 `FATAN2`の引数の順序は同じで、従来の表現におけるベクトルをスカラー角に変換します。したがって、すべての角度に対して、`FSINCOS FATAN2` は、`FSINCOS` の算術精度と引数の範囲内で恒等演算です。また、`FSINCOS` は常に有効な単位ベクトルを返すが、`FATAN2` は NULL 以外ならどのようなベクトルでも受け付けることに注意しましょう。`FATAN2` へのベクトル引数の大きさがゼロの場合、あいまいな状態が存在します。
 
-##### A.12.6.2.1516 FEXPM1 
+||A.12.6.2.1516||FEXPM1||
 
 この関数は、引数がゼロに近い場合に正確な計算を可能にし、標準的な指数関数の便利な基数を提供します。$cosh(x)$ のような双曲線関数は `FEXPM1` を使用することで効率的かつ正確に実装することができます。`FEXP`を使った場合、この関数は$x$の値が小さい場合精度が失われます。
 
@@ -1852,19 +1880,19 @@ Typical use: `FVARIABLE name`
 
 1. `FLN` と `FEXP`を使った場合、 
 
-    FLN of 1.15 = 0.139762,  
+ <pre>    FLN of 1.15 = 0.139762,  
     divide by 365 = 3.82910E-4,  
     form the exponent using FEXP = 1.00038, and  
-    subtract one (1) and convert to percentage = 0.038%.
+    subtract one (1) and convert to percentage = 0.038%.</pre>
 
 精度は2桁しか確保できません。
 
 2. `FLNP1` と `FEXPM1` を使った場合は、
 
-    FLNP1 of 0.15 = 0.139762, (this is the same value as in the first example, although with the argument  closer to zero it may not be so)  
+ <pre>    FLNP1 of 0.15 = 0.139762, (this is the same value as in the first example, although with the argument  closer to zero it may not be so)  
     divide by 365 = 3.82910E-4,  
     form the exponent and subtract one (1) using FEXPM1 = 3.82983E-4, and  
-    convert to percentage = 0.0382983%.
+    convert to percentage = 0.0382983%.</pre>
 
 これは精度6桁いっぱい確保しています。
 
@@ -1872,24 +1900,26 @@ Typical use: `FVARIABLE name`
 
 このワードがあることで、双曲線関数を使用可能な精度で計算することができます。例えば、双曲線正弦関数は次のように定義できます。
 
-    : FSINH ( r1 -- r2 ) 
-        FEXPM1 FDUP FDUP 1.0E0 F+ F/ F+ 2.0E0 F/ ; 
+ <pre>    : FSINH ( r1 -- r2 ) 
+        FEXPM1 FDUP FDUP 1.0E0 F+ F/ F+ 2.0E0 F/ ; </pre>
 
-##### A.12.6.2.1554 FLNP1 
+||A.12.6.2.1554||FLNP1||
 
 この関数は、引数がゼロに近い場合に正確なコンパイルを可能にし、標準対数関数の便利なベースを提供します。例えば、FLNは次のように実装できます。
 
-    : FLN 1.0E0 F- FLNP1 ; 
+ <pre>    : FLN 1.0E0 F- FLNP1 ; </pre>
 
 See: **A.12.6.2.1516 FEXPM1**.
 
-##### A.12.6.2.1616 FSINCOS 
+||A.12.6.2.1616||FSINCOS||
 
 See: **A.12.6.2.1489 FATAN2**.
 
-##### A.12.6.2.1640 F~ 
+||A.12.6.2.1640||F~||
 
 これは、一般的に使用される3種類の「浮動小数点数の等値性」を提供するものです。絶対的な意味での「近い」、表現上の完全な等値性、そして「比較的近い」です。
+
+</app-glossary>
 
 ## A.13 The optional Locals word set{id=ZA_13}
 
@@ -1915,7 +1945,7 @@ See: **A.12.6.2.1489 FATAN2**.
 
 - 本標準規格で定義され、Creative Solutions, Inc.のシステムで使用されている構文。
 
-<pre>
+ <pre>
     : LOCALS| ( "name...name |" -- ) 
         BEGIN 
             BL WORD COUNT OVER C@ 
@@ -1929,7 +1959,7 @@ See: **A.12.6.2.1489 FATAN2**.
 
 - 本標準規格が提案する構文: ( LOCAL name ) に使用上の規則を追加したもの
 
-<pre>
+ <pre>
     : LOCAL ( "name" -- ) BL WORD COUNT (LOCAL) ; IMMEDIATE 
     : END-LOCALS ( -- ) 0 0 (LOCAL) ; IMMEDIATE 
     : EXAMPLE ( n -- n n**2 n**3 ) 
@@ -2028,13 +2058,15 @@ i)の`CHRIS`は**13.3.3.2e**の3つの違反を示しています。Aという�
 
 ### A.13.6 Glossary{id=ZA_13_6}
 
-##### A.13.6.1.2295 TO 
+<app-glossary>
+
+||A.13.6.1.2295||TO||
 
 Typical use: `x TO name` 
 
 See: **A.6.2.2295 TO**.
 
-##### A.13.6.2.1795 LOCALS| 
+||A.13.6.2.1795||LOCALS|||
 
 このワードの可能な実装と使用例は、上記の**A.13**に示されています。これはあくまで例であり、記述されたセマンティクスを実現する実装であれば、どのようなものでも構いません。
 
@@ -2054,19 +2086,19 @@ Forthの当初の目的のひとつは、「ユーザ」と「プログラマ」
 
 ### A.15.6 Glossary{id=ZA_15_6}
 
-##### A.15.6.1.0220 .S 
+||A.15.6.1.0220||.S||
 
 `.S` は、ほとんどすべての Forth システムで見られるデバッグ用便利ワードです。これは、Forth のテキストで普遍的に言及されています。
 
-##### A.15.6.1.2194 SEE 
+||A.15.6.1.2194||SEE||
 
 `SEE`はワードのオンラインドキュメントとして機能し、デコンパイルして適切な変更を加えて再生成することで、ワードを修正することができます。
 
-##### A.15.6.1.2465 WORDS 
+||A.15.6.1.2465||WORDS||
 
 `WORDS` は、ほとんどすべての Forth システムで見られるデバッグ用の便利な機能です。これは、Forth のテキストで普遍的に参照されています。
 
-##### A.15.6.2.0470 ;CODE 
+||A.15.6.2.0470||;CODE||
 
 Typical use: : namex ... &lt;create> ... ;CODE ...
 
@@ -2074,15 +2106,15 @@ Typical use: : namex ... &lt;create> ... ;CODE ...
 
 ここで、namex は定義ワードで、&lt;create> は `CREATE` または `CREATE` を呼び出すユーザ定義ワードです。
 
-##### A.15.6.2.0930 CODE 
+||A.15.6.2.0930||CODE||
 
 一部の Forth システムでは、`ASSEMBLER` ワードリストを検索順序に追加してアセンブリ機能を実装し、テキストインタプリタを使用して、Forth ソースコードに似た字句特性を持つ後置(postfix)アセンブリ言語を解析します。通常、このようなシステムでは、ワード`END-CODE`が解釈されるとアセンブリが終了します。
 
-##### A.15.6.2.1015 CS-PICK 
+||A.15.6.2.1015||CS-PICK||
 
 その意図は、制御フロー・スタック上のデスティネーションを繰り返し、複数回解決できるようにすることです。例えば
 
-    \ Conditionally transfer control to beginning of loop 
+ <pre>    \ Conditionally transfer control to beginning of loop 
     \ This is similar in spirit to C's "continue" statement.
     : ?REPEAT ( dest -- dest ) \ Compilation 
             ( flag -- ) \ Execution 
@@ -2097,31 +2129,31 @@ Typical use: : namex ... &lt;create> ... ;CODE ...
         ...
         flag UNTIL ( Go back to BEGIN if flag is false ) 
         ...
-    ; 
+    ; </pre>
 
-##### A.15.6.2.1020 CS-ROLL 
+||A.15.6.2.1020||CS-ROLL||
 
 その意図は、制御フロー・スタック上の起点と終点が、後続の制御フロー・ワードによって解決される順序を変更することです。例えば、`WHILE`を`IF`と`CS-ROLL`で実装すると次のようになります。
 
-    : WHILE ( dest -- orig dest ) 
+ <pre>    : WHILE ( dest -- orig dest ) 
         POSTPONE IF 1 CS-ROLL 
-    ; IMMEDIATE 
+    ; IMMEDIATE </pre>
 
-##### A.15.6.2.1580 FORGET 
+||A.15.6.2.1580||FORGET||
 
 Typical use: ... FORGET name ...
 
 `FORGET`は、辞書を以前の状態に復元するために必要なすべての情報が、忘れたワードから何らかの方法で推論可能であると仮定しています。これは単純な線形辞書モデルにおいては正しいかもしれませんが、他の Forth システム、たとえば複数のアドレス空間を持つシステムでは実装が困難です。例えば、ForthがROMに組み込まれている場合、配列が忘れられたときに回復すべきRAMの量を、`FORGET`はどうやって知るのでしょうか？一般的で好ましい解決策は、`MARKER`によって提供されます。
 
-##### A.15.6.2.2531 [ELSE] 
+||A.15.6.2.2531||[ELSE]||
 
 Typical use: ... flag [IF] ... [ELSE] ... [THEN] ...
 
-##### A.15.6.2.2532 [IF] 
+||A.15.6.2.2532||[IF]||
 
 Typical use: ... flag [IF] ... [ELSE] ... [THEN] ...
 
-##### A.15.6.2.2533 [THEN] 
+||A.15.6.2.2533||[THEN]||
 
 Typical use: ... flag [IF] ... [ELSE] ... [THEN] ...
 
@@ -2129,17 +2161,17 @@ Typical use: ... flag [IF] ... [ELSE] ... [THEN] ...
 
 条件付きコンパイルは、「スマート・コメント」(何らかのテストに基づいて、行の残りをスキップしたりスキップしなかったりする定義)を使って行われることもあります。例えば
 
-    \ If 16-Bit? contains TRUE, lines preceded by 16BIT\ 
+ <pre>    \ If 16-Bit? contains TRUE, lines preceded by 16BIT\ 
     \ will be skipped. Otherwise, they will not be skipped.
     VARIABLE 16-BIT?  
     : 16BIT\ ( -- ) 16-BIT? @ IF POSTPONE \ THEN 
-    ; IMMEDIATE 
+    ; IMMEDIATE </pre>
 
 このテクニックは行単位で動作し、短くて孤立したバリアントコードのシーケンスに適しています。
 
 より複雑な条件付きコンパイルの問題では、一度に複数のソース行を包含できるネスト可能な方法をお勧めします。ANS Forthオプショナル・プログラミング・ツール拡張のワードセットに含まれているワードは、この目的に便利です。以下に示す実装は、どの入力ソース(キーボード、`EVALUATE`、`BLOCK`、またはテキストファイル)でも動作します。
 
-    : [ELSE] ( -- ) 
+ <pre>    : [ELSE] ( -- ) 
         1 BEGIN \ level 
             BEGIN BL WORD COUNT DUP WHILE \ level adr len 
                 2DUP S" [IF]" COMPARE 0= IF \ level adr len 
@@ -2160,8 +2192,9 @@ Typical use: ... flag [IF] ... [ELSE] ... [THEN] ...
     : [IF] ( flag -- ) 
         0= IF POSTPONE [ELSE] THEN 
     ; IMMEDIATE 
-    : [THEN] ( -- ) ; IMMEDIATE 
+    : [THEN] ( -- ) ; IMMEDIATE </pre>
 
+</app-glossary>
 
 ## A.16 The optional Search-Order word set{id=ZA_16}
 
@@ -2202,17 +2235,19 @@ In other words, the following is not guaranteed to work:
 
 ### A.16.6 Glossary{id=ZA_16_6}
 
-##### A.16.6.1.2192 SEARCH-WORDLIST 
+<app-glossary>
+
+||A.16.6.1.2192||SEARCH-WORDLIST||
 
 `SEARCH-WORDLIST`の文字列引数は、`FIND`のように単なる*c-addr*ではなく、*c-addr u*で表現されます。委員会は、*c-addr u*をスタック上の文字列の好ましい表現として確立することを望み、文字列引数を受け付けるすべての新しい関数にこの表現を採用しました。この決定により、既存のシステムでは`SEARCH-WORDLIST`の実装がいくらか難しくなるかもしれないが、委員会は、追加の難しさは軽微であると感じています。
 
 `SEARCH-WORDLIST` がワードを見つけられなかった場合、`FIND` のように文字列を返すことはしません。これは、Forth のワードは引数を消費するという一般的な原則に従っています。
 
-##### A.16.6.2.0715 ALSO 
+||A.16.6.2.0715||ALSO||
 
 以下は、プリミティブ検索ワードセットを使って `ALSO`/`ONLY` を実装したものです。
 
-    WORDLIST CONSTANT ROOT ROOT SET-CURRENT  
+ <pre>    WORDLIST CONSTANT ROOT ROOT SET-CURRENT  
     : DO-VOCABULARY ( -- ) \ Implementation factor 
         DOES> @ >R ( ) ( R: widnew ) 
             GET-ORDER SWAP DROP ( wid1 ... widn-1 n ) 
@@ -2230,19 +2265,19 @@ In other words, the following is not guaranteed to work:
     \ Forth-83 version; just removes ONLY 
     : SEAL ( -- ) GET-ORDER 1- SET-ORDER DROP ; 
     \ F83 and F-PC version; leaves only CONTEXT 
-    : SEAL ( -- ) GET-ORDER OVER 1 SET-ORDER DISCARD ; 
+    : SEAL ( -- ) GET-ORDER OVER 1 SET-ORDER DISCARD ; </pre>
 
 The preceding definition of ONLY in terms of a "ROOT" word list follows F83 usage, and assumes that the  default search order just includes ROOT and FORTH. A more portable definition of FORTH and ONLY,  without the assumptions, is:  
 
 前述の「ROOT」ワードリストによる`ONLY`の定義は、F83の用法に従ったもので、デフォルトの検索順序が`ROOT`と`FORTH`を含むだけと仮定しています。`FORTH`と`ONLY`のよりポータブルな定義(仮定なし)は以下の通りです。
 
-    <omit the ... WORDLIST CONSTANT ROOT ... line> 
+ <pre>    <omit the ... WORDLIST CONSTANT ROOT ... line> 
     CREATE FORTH GET-ORDER OVER , DISCARD DO-VOCABULARY  
-    : ONLY ( -- ) -1 SET-ORDER ; 
+    : ONLY ( -- ) -1 SET-ORDER ; </pre>
 
 ここで、`GET-ORDER`と`SET-ORDER`の簡単な実装と、それに対応する`FIND`の定義を示します。`WORDDLIST`、`SEARCH-WORDLIST`、`GET-CURRENT`、`SET-CURRENT`の実装は、システムの詳細に依存するので、ここでは示しません。
 
-    16 CONSTANT #VOCS 
+ <pre>    16 CONSTANT #VOCS 
     VARIABLE #ORDER  
     CREATE CONTEXT  #VOCS CELLS ALLOT  
     : GET-ORDER   ( -- wid1 .. widn n ) 
@@ -2268,19 +2303,23 @@ The preceding definition of ONLY in terms of a "ROOT" word list follows F83 usag
                 2SWAP 2DROP LEAVE ( w 1 | w -1 ) 
             THEN                ( c-addr 0 ) 
         LOOP                    ( c-addr 0 | w 1 | w -1 ) 
-    ; 
+    ; </pre>
 
 辞書検索メカニズムが検索時間を短縮するためにハッシュテーブルまたはルックアップキャッシュを使用する実装では、SET-ORDERはハッシュテーブルを再構築するか、キャッシュをフラッシュする必要があるかもしれません。
+
+</app-glossary>
 
 ## A.17 The optional String word set{id=ZA_17}
 
 ### A.17.6 Glossary{id=ZA_17_6}
 
-##### A.17.6.1.0245 /STRING 
+<app-glossary>
+
+||A.17.6.1.0245||/STRING||
 
 `/STRING`は、文字列の "左" 端から相対的に文字を削除または追加するために使用されます。*n*の正の値は文字列から文字を除外し、*n*の負の値は文字列の左端に文字を含めます。`/STRING`は`WORD`の自然な因子であり、一般的に使用できます。
 
-##### A.17.6.1.0910 CMOVE 
+||A.17.6.1.0910||CMOVE||
 
 If *c-addr2* lies within the source region (i.e., when *c-addr2* is not less than *c-addr1* and *c-addr2* is less than  the quantity *c-addr1 u* `CHARS +`), memory propagation occurs.
 
@@ -2288,35 +2327,37 @@ If *c-addr2* lies within the source region (i.e., when *c-addr2* is not less tha
 
 典型的な使用例:  アドレス100に "ABCD" という文字列があるとします。次に
 
-    100 DUP CHAR+ 3 CMOVE the string at address 100 is "AAAA".
+ <pre>    100 DUP CHAR+ 3 CMOVE the string at address 100 is "AAAA".</pre>
 
 `CMOVE` と `CMOVE>` に対する解説は `MOVE` に続きます。
 
-##### A.17.6.1.0920 CMOVE> 
+||A.17.6.1.0920||CMOVE>||
 
 *c-addr1*がデスティネーション領域内にある場合(すなわち、*c-addr1*が*c-addr2*以上であり、かつ*c-addr2*が量*c-addr1 u* `CHARS` `+`より小さい場合)、メモリ伝搬が起こります。
 
 Typical use: アドレス100に文字列 "ABCD" があり、そのあと、
 
-    100 DUP CHAR+ SWAP 3 CMOVE> 
-    
+ <pre>    100 DUP CHAR+ SWAP 3 CMOVE> </pre>
+
 を実行すると、アドレス100の文字列は "DDDD" です。
 
-##### A.17.6.1.0935 COMPARE 
+||A.17.6.1.0935||COMPARE||
 
 既存のForthシステムは、スペル、入力引数、出力引数、大文字と小文字の区別が異なるワードを使って文字列比較演算を行います。広く使われているものを選びました。
 
-##### A.17.6.1.2191 SEARCH 
+||A.17.6.1.2191||SEARCH||
 
 既存のForthシステムは、スペル、入出力引数、大文字と小文字の区別が異なるワードを使って文字列検索操作を行います。広く使われているものを選びました。
 
-##### A.17.6.1.2212 SLITERAL 
+||A.17.6.1.2212||SLITERAL||
 
 **6.1.2165  S"** の現在の機能は以下の定義で提供されます。
 
-    : S" ( "ccc<quote>" -- ) 
+ <pre>    : S" ( "ccc<quote>" -- ) 
         [CHAR] " PARSE POSTPONE SLITERAL 
-    ; IMMEDIATE 
+    ; IMMEDIATE </pre>
+
+</app-glossary>
 
 # B. Bibliography (informative annex){id=ZB_}
 
@@ -2454,7 +2495,7 @@ Forthの「ワード」は、機能的には他の言語のサブルーチンに
 ワードは、キーボードから、あるいはプログラムソースの中で、名前によって参照されます。そのため、「ワード」という用語は、プログラム(および言語)単位とそのテキスト名の両方に適用されます。テキストの解析では、Forth はワードをスペースで区切られた文字列とみなします。スペース(世界共通の区切り文字)、CR(端末入力を終了させる)、バックスペースまたはDEL(キーボード入力中にバックスペースする)です。多くのグループは、読みやすさを向上させるために命名規則を採用しています。テキスト中で遭遇するワードは、定義されたワード(Forthルーチン)、数字、未定義のワードの3つに分類されます。例えば、次に示すワードが4つあります。
 
     HERE DOES> ! 8493
-    
+
 最初の3つは標準定義のワードです。これは、後述するForthの辞書に、これらのワードに遭遇したときにForthが何をすべきかを説明する項目があることを意味します。数字「8493」はおそらく辞書にはなく、Forth はこれをバイナリに変換し、パラメータ用のプッシュダウンスタックに置きます。Forthが未定義のワードに遭遇し、それを数字に変換できない場合、そのワードは例外メッセージとともにユーザに返されます。
 
 アーキテクチャ上、Forthのワードは「構造化プログラミング」の原則に厳密に従います。  
@@ -2489,7 +2530,7 @@ Forth プログラムは、システムで使用されるメモリの大部分�
 データスタック(しばしば単に "スタック" と呼ばれる)の使用は、演算子の前にオペランドを置く表記法につながります。上の例の`ACCEPT`というワードは、スタックからアドレスとカウントを取り出し、そこに別のアドレスを残します。同様に、`BLANK`と呼ばれるワードはアドレスとカウントを期待し、そのアドレスから始まる領域に指定された数のスペース文字(20H)を配置します。このように
 
     PAD 25 BLANK
-    
+
 は、`PAD`によってスタックにプッシュされたアドレスのスクラッチ領域を25個のスペースで埋めます。通常、アプリケーションワードも同様に定義されます。例えば
 
     100 SAMPLES 
@@ -2738,10 +2779,10 @@ Forth 83は、スタックの項目が16ビットを占有することを規定�
 ||移行/変換:||
 上位ビットが設定されたビットマスクを使用するプログラムは変更しなければならないかもしれません。実装で定義されたビットマスク定数、またはスタック幅に依存しない方法でビットマスクを計算する手順のいずれかに置き換えます。以下に、スタック幅に依存しないビットマスクの計算手順をいくつか示します。
 
-    1 CONSTANT LO-BIT 
+ <pre>    1 CONSTANT LO-BIT 
     TRUE 1 RSHIFT INVERT CONSTANT HI-BIT  
     : LO-BITS ( n -- mask ) 0 SWAP 0 ?DO 1 LSHIFT LO-BIT OR LOOP ; 
-    : HI-BITS ( n -- mask ) 0 SWAP 0 ?DO 1 RSHIFT HI-BIT OR LOOP ; 
+    : HI-BITS ( n -- mask ) 0 SWAP 0 ?DO 1 RSHIFT HI-BIT OR LOOP ; </pre>
 
 16ビット算術演算の暗黙の「モジュロ65536」動作に依存するプログラムは、適切な場所で明示的にモジュロ演算を実行するように書き直す必要があります。委員会は、このような仮定は滅多に発生しないと考えています。例: 一部のチェックサムまたは CRC 計算、一部の乱数生成器、ほとんどの固定小数点分数計算。
 
@@ -2829,8 +2870,8 @@ Forth 83 では、アドレスのアライメントに制限はありません�
 
 最も簡単な方法は、アラインされたアドレスを対象としたシステム演算子"`@`"と"`!`"を再定義し、アライメントを必要としないようにすることです。例えば、16ビットのリトルエンディアンバイトアドレスマシンでは、以下のようにアライメントなしの"`@`"と"`!`"を定義することができます。
 
-    : @ ( addr -- x ) DUP C@ SWAP CHAR+ C@ 8 LSHIFT OR ; 
-    : ! ( x addr -- ) OVER 8 RSHIFT OVER CHAR+ C! C! ; 
+ <pre>    : @ ( addr -- x ) DUP C@ SWAP CHAR+ C@ 8 LSHIFT OR ; 
+    : ! ( x addr -- ) OVER 8 RSHIFT OVER CHAR+ C! C! ; </pre>
 
 これらの定義、および必要に応じて "`+!`"、"`2@`"、"`2!`"、"`,`"、"`?`"に対応する同様の定義を、アラインされていないアプリケーションの前にコンパイルすることができます。
 
@@ -2859,11 +2900,11 @@ Forth 79とForth 83の除算の挙動の違いは多くの論争の的となり�
 ||移行/変換:||
 符号が混在する除算オペランドで特定の丸め動作を必要とするプログラムでは、プログラムで使用する除算演算子を、新しい ANS Forth の除算プリミティブ `SM/REM`(対称除算、つまりゼロに向かって丸める)または `FM/MOD`(フロアード除算、つまり負の無限大に向かって丸める)のいずれかで再定義することができます。その後、プログラムを変更せずに再コンパイルすることができます。例えば、Forth83スタイルの除算演算子は次のように定義することができます。
 
-    : /MOD ( n1 n2 -- n3 n4 ) >R S>D R> FM/MOD ; 
+ <pre>    : /MOD ( n1 n2 -- n3 n4 ) >R S>D R> FM/MOD ; 
     : MOD ( n1 n2 -- n3 ) /MOD DROP ; 
     : / ( n1 n2 -- n3 ) /MOD SWAP DROP ; 
     : */MOD ( n1 n2 n3 -- n4 n5 ) >R M* R> FM/MOD ; 
-    : */ ( n1 n2 n3 -- n4 n5 ) */MOD SWAP DROP ; 
+    : */ ( n1 n2 n3 -- n4 n5 ) */MOD SWAP DROP ; </pre>
 
 </description>
 
@@ -2900,18 +2941,18 @@ b) `COMPILE` `[COMPILE]` &lt;即時ワード> というフレーズを使用し�
 
 `COMPILE [COMPILE] <immediate-word>`というフレーズの使用は、「中間ワード」(以下の例ではXX)を導入し、そのワードを後置することによって処理することができます。例えば
 
-    : ABC COMPILE [COMPILE] IF ; 
+ <pre>    : ABC COMPILE [COMPILE] IF ; </pre>
 
 は、
 
-    : XX POSTPONE IF ; 
-    : ABC POSTPONE XX ; 
+ <pre>    : XX POSTPONE IF ; 
+    : ABC POSTPONE XX ; </pre>
 
 と変換します。
 
 `COMPILE`に続いて、辞書内のスレッドを明示的にコンパイルするために「コンパイル状態から切り替わる」プログラムでは、非標準的なケースが発生する可能性があります。例えば
 
-    : XYZ COMPILE [ ' ABC , ] ; 
+ <pre>    : XYZ COMPILE [ ' ABC , ] ; </pre>
 
 これは、`COMPILE`とスレッドコードの実装がどのように動作するかについての正確な知識に大きく依存します。このようなケースは機械的に処理することはできません。コードが何をしているかを正確に理解し、ANS Forthの制限に従ってそのセクションを書き換えることによって翻訳する必要があります。
 

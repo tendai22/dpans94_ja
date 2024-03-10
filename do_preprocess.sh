@@ -3,6 +3,7 @@
 # 後処理で環境に合わせたタグを生成する。
 cat "$@" |
 sed '/^<std-glossary>/,/^<\/std-glossary>/b preprocess
+/^<app-glossary>/,/^<\/app-glossary>/b preprocess
 /^<miniterm>/,/^<\/miniterm>/b preprocess
 /^<membership>/,/^<\/membership>/b preprocess
 /^<foreword>/,/^<\/foreword>/b preprocess

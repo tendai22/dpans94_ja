@@ -1,3 +1,4 @@
+<nomargin>
 <div style="display: flow;
             flex-direction: row;
             margin: 0 25mm;">
@@ -200,3 +201,4 @@ The following organizations and individuals have also participated in this proje
 
 </foreword>
 
+</nomargin>

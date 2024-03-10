@@ -11,7 +11,7 @@ TOC_TARGET =\
 TARGET = cover_x.md test_x.md toc.md $(TOC_TARGET)
 
 .md_x.md:
-	( sh do_preprocess.sh $< |sh do_desc.sh - | sh do_member.sh - | sh do_item.sh - |sh do_note2.sh - )  > $(DEST)/$@
+	( sh do_preprocess.sh $< |sh do_desc2.sh - | sh do_member.sh - | sh do_item.sh - |sh do_note2.sh - )  > $(DEST)/$@
 
 all: output.pdf
 
