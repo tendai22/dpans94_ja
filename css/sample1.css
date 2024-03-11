@@ -150,11 +150,11 @@ table {
 /* almost all margin -4em; */
 
 body {
-	margin-left: 4em;
+	margin-left: 12mm;
 }
 
 nomargin {
-	margin-left: -2.8em;
+	margin-left: -12mm;
 }
 
 p {
@@ -246,7 +246,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 700;
 	font-feature-settings: 'palt';
 	text-spacing: no-autospace;
-	margin-left: -2.5em;
+	margin-left: -12mm;
 }
 
 /* please use <hr class="pagebreak"> */
@@ -441,10 +441,14 @@ blockquote > p {
 */
 
 /* foreword style */
+foreword {
+}
+
 .foreword-grid {
 	display: grid;
     grid-template-columns: 10em 0.1em 1fr;
 	margin-bottom: 1em;
+	margin-left: -12mm;
 }
 
 .foreword-word {
@@ -453,12 +457,16 @@ blockquote > p {
 	grid-column: 1;
 }
 
-.foreword-desc {
+.foreword-grid > desc {
 	grid-column: 3;
 }
 
-.foreword-desc > p {
+/*.foreword-grid > desc > p {
 	margin-left: 0;
+	grid-column: 3;
+}
+*/
+.foreword-grid > organizations {
 	grid-column: 3;
 }
 
@@ -477,9 +485,9 @@ blockquote > p {
 }
 
 
-/* flex verison */
+/* grid verison */
 .membership {
-	margin-left: 10em;
+	margin-left: 6em;
 }
 
 .membership > p {
@@ -489,6 +497,7 @@ blockquote > p {
 .membership-grid {
 	display: grid;
 	grid-template-columns: 20em 1fr;
+	margin-left: 0;
 }
 
 .membership-organization {
@@ -509,6 +518,7 @@ blockquote > p {
 	display: grid;
     grid-template-columns: 16% 1em 27% 30% 1fr;
 	margin-bottom: 0.5em;
+	margin-left: -12mm;
 }
 
 .std-glossary-word {
@@ -536,7 +546,7 @@ blockquote > p {
 	margin-bottom: 0.5em;
 }
 
-.std-glossary-grid > desc {
+.std-glossary-grid > desc, p, pre, table, .table {
 	grid-column: 3 / 6;
 	margin-left: 0;
 	margin-top: 1em;
@@ -546,11 +556,6 @@ blockquote > p {
 	grid-column: 1 / 2;
 	text-align: right;
 	margin-top: 1em;
-}
-
-.std-glossary-desc > p {
-	grid-column: 3 / 6;
-	margin-left: 0;
 }
 
 /* app-glossary */
@@ -609,15 +614,9 @@ blockquote > p {
 	margin-left: 0;
 }
 
-.description-desc > p {
+.description-grid > p, pre, desc, table, .table {
+	grid-column: 2;
 	margin-left: 0;
-}
-
-.description-desc > pre {
-	margin-left: 0;
-}
-
-.description-word {
 }
 
 .x3-grid {

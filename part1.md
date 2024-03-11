@@ -1,5 +1,6 @@
 <div style="font-family: Noto Sans JP;
-            font-weight: 400;">
+            font-weight: 400;
+            margin-left: -12mm;">
   <div style="border-style: solid;
             border-width: 1px 0;
             font-size: 12Q;
@@ -606,7 +607,6 @@ In cases where the operands differ in sign and the rounding direction matters, a
 
 <div style="display: grid;
             grid-template-column: 1fr 1em 1fr;
-            margin-left: -2em;
             min-width: 2em;">
   <div style="grid-row: 1; grid-column: 1;">
 

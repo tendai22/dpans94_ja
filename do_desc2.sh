@@ -17,7 +17,8 @@ sed '
         b do_env
     }
     /^<app-glossary>/,/^<\/app-glossary>/{
-        b do_env
+        s/||{{[^}][^}]*}}||\([^|][^|]*\)||\([^|][^|]*\)||/#### \1 `\2`/
+        b
     }
     /^<foreword>/,/^<\/foreword>/{
         b do_env
@@ -137,5 +138,7 @@ sed '/^<table>/,/<\table>/{
     }
     s/<figcaption> *<\/figcaption>//
     s/<div><\/div>//
+    # put some space between ### and A.2.1
+    /^#/s/^\(##* [0-9A-Z.][0-9A-Z.]*\) /\1\&emsp; /
 '
 # end of script
