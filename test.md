@@ -1,583 +1,490 @@
-# 7 Sample
-
-### 7.6.1 Sample Glossary
+## 6.1 Core words{id=Z6_1}
 
 <std-glossary>
-||7.6.1.0790||BLK||"b-l-k"||BLOCK||
-( -- a-addr )
+||6.1.0010||!||"store"||CORE||( x a-addr -- )||
+Store x at a-addr. 
+|See:| **3.3.3.1 Address alignment**. 
+||6.1.0030||#||"number-sign"||CORE||( ud1 -- ud2 )||
+Divide *ud1* by the number in `BASE` giving the quotient *ud2* and the remainder *n*. (*n* is the least-significant digit of *ud1*.) Convert n to external form and add the resulting character to the  beginning of the pictured numeric output string. An ambiguous condition exists if `#` executes  outside of a `<#` `#>` delimited number conversion. 
+|See:| **6.1.0040 #>**, **6.1.0050 #S**, **6.1.0490 <#**. 
+||6.1.0040||#>||"number-sign-greater"||CORE||( xd -- c-addr u )||
+Drop xd. Make the pictured numeric output string available as a character string. c-addr and u specify the resulting character string. A program may replace characters within the string. 
+|See:| **6.1.0030 #**, **6.1.0050 #S**, **6.1.0490 `<#`**. 
+||6.1.0050||#S||"number-sign-s"||CORE||( ud1 -- ud2 )||
+Convert one digit of ud1 according to the rule for `#`. Continue conversion until the quotient is  zero. ud2 is zero. An ambiguous condition exists if #S executes outside of a `<#` `#>` delimited  number conversion. 
+|See:| **6.1.0030 #**, **6.1.0040 #>**, **6.1.0490 `<#`**. 
+||6.1.0070||'||"tick"||CORE||( "&lt;spaces>name" -- xt )||
+Skip leading space delimiters. Parse name delimited by a space. Find name and return xt, the  execution token for name. An ambiguous condition exists if name is not found. 
 
-a-addr is the address of a cell containing zero or the number of the mass-storage block being  interpreted. If `BLK` contains zero, the input source is not a block and can be identified by  `SOURCE-ID`, if `SOURCE-ID` is available. An ambiguous condition exists if a program directly  alters the contents of BLK. 
-|See:|**7.3.3 Block buffer regions**. 
-||7.6.1.0800||BLOCK||"xxxxx"||BLOCK||
-( u -- a-addr )
+When interpreting, ' xyz EXECUTE is equivalent to xyz. 
+|See:| 3.4 **The Forth text interpreter**, **3.4.1 Parsing**, **A.6.1.2033 POSTPONE**, **A.6.1.2510 [']**,  **D.6.7 Immediacy**.
+||6.1.0080||(||"paren"||CORE||
+|Compilation:|Perform the execution semantics given below. 
+|Execution:|( "ccc&lt;paren>" -- )
 
-a-addr is the address of the first character of the block buffer assigned to mass-storage block u. 
+Parse ccc delimited by ) (right parenthesis). ( is an immediate word. 
 
-An ambiguous condition exists if u is not an available block number. 
+The number of characters in ccc may be zero to the number of characters in the parse area. 
+|See:| **3.4.1 Parsing**, **11.6.1.0080 (**.
 
-If block u is already in a block buffer, a-addr is the address of that block buffer. 
 
-If block u is not already in memory and there is an unassigned block buffer, transfer block u from mass storage to an unassigned block buffer. a-addr is the address of that block buffer. 
+||6.1.0090||*||"star"||CORE||( n1|u1 n2|u2 -- n3|u3 )||
+Multiply n1|u1 by n2|u2 giving the product n3|u3. 
+||6.1.0100||*/||"star-slash"||CORE||( n1 n2 n3 -- n4 )||
+Multiply n1 by n2 producing the intermediate double-cell result d. Divide d by n3 giving the  single-cell quotient n4. An ambiguous condition exists if n3 is zero or if the quotient n4 lies  outside the range of a signed number. If d and n3 differ in sign, the implementation-defined  result returned will be the same as that returned by either the phrase >R M* R> FM/MOD  SWAP DROP or the phrase >R M* R> SM/REM SWAP DROP. 
+|See:| **3.2.2.1 Integer division**. 
+||6.1.0110||*/MOD||"star-slash-mod"||CORE||( n1 n2 n3 -- n4 n5 )||
+Multiply n1 by n2 producing the intermediate double-cell result d. Divide d by n3 producing the  single-cell remainder n4 and the single-cell quotient n5. An ambiguous condition exists if n3 is  zero, or if the quotient n5 lies outside the range of a single-cell signed integer. If d and n3 differ  in sign, the implementation-defined result returned will be the same as that returned by either  the phrase >R M* R> FM/MOD or the phrase >R M* R> SM/REM. 
+|See:| **3.2.2.1 Integer division**. 
+||6.1.0120||+||"plus"||CORE||( n1|u1 n2|u2 -- n3|u3 )||
+Add n2|u2 to n1|u1, giving the sum n3|u3. 
+|See:| **3.3.3.1 Address alignment**. 
 
-If block u is not already in memory and there are no unassigned block buffers, unassign a block  buffer. If the block in that buffer has been `UPDATE`d, transfer the block to mass storage and  transfer block u from mass storage into that buffer. a-addr is the address of that block buffer. 
+TRAILER  ANSI X3.215-1994 27
+||6.1.0130||+!||"plus-store"||CORE||( n|u a-addr -- )||
+Add n|u to the single-cell number at a-addr. 
+|See:| **3.3.3.1 Address alignment**. 
+||6.1.0140||+LOOP||"plus-loop"||CORE||
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( C: do-sys -- )
 
-At the conclusion of the operation, the block buffer pointed to by a-addr is the current block  buffer and is assigned to u. 
-||7.6.1.0820||BUFFER||"xxxxx"||BLOCK||
-( u -- a-addr )
+Append the run-time semantics given below to the current definition. Resolve the destination of  all unresolved occurrences of LEAVE between the location given by do-sys and the next  location for a transfer of control, to execute the words following `+LOOP`. 
+|Run-time:|( n -- ) ( R: loop-sys1 -- | loop-sys2 )
 
-a-addr is the address of the first character of the block buffer assigned to block u. The contents  of the block are unspecified. An ambiguous condition exists if u is not an available block  number. 
+An ambiguous condition exists if the loop control parameters are unavailable. Add n to the loop  index. If the loop index did not cross the boundary between the loop limit minus one and the  loop limit, continue execution at the beginning of the loop. Otherwise, discard the current loop  control parameters and continue execution immediately following the loop. 
+|See:| **6.1.1240 DO**, **6.1.1680 I**, **6.1.1760 LEAVE**. 
+||6.1.0150||,||"comma"||CORE||( x -- )||
+Reserve one cell of data space and store x in the cell. If the data-space pointer is aligned when  , begins execution, it will remain aligned when , finishes execution. An ambiguous condition  exists if the data-space pointer is not aligned prior to execution of ,. 
+|See:| **3.3.3 Data space**, **3.3.3.1 Address alignment**. 
+||6.1.0160||-||"minus"||CORE||( n1|u1 n2|u2 -- n3|u3 )||
+Subtract n2|u2 from n1|u1, giving the difference n3|u3. 
+|See:| **3.3.3.1 Address alignment**. 
+||6.1.0180||.||"dot"||CORE||( n -- )||
+Display n in free field format. 
+|See:| **3.2.1.2 Digit conversion**, **3.2.1.3 Free-field number display**. 
+||6.1.0190||."||"dot-quote"||CORE||
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( "ccc&lt;quote>" -- )
 
-If block u is already in a block buffer, a-addr is the address of that block buffer. 
+Parse ccc delimited by " (double-quote). Append the run-time semantics given below to the  current definition. 
+|Run-time:|( -- )
 
-If block u is not already in memory and there is an unassigned buffer, a-addr is the address of  that block buffer. 
+Display ccc. 
+|See:| **3.4.1 Parsing**, **6.2.0200 .(**. 
+||6.1.0230||/||"slash"||CORE||( n1 n2 -- n3 )||
+Divide n1 by n2, giving the single-cell quotient n3. An ambiguous condition exists if n2 is zero. 
 
-If block u is not already in memory and there are no unassigned block buffers, unassign a block  buffer. If the block in that buffer has been `UPDATE`d, transfer the block to mass storage. a-addr is the address of that block buffer. 
+If n1 and n2 differ in sign, the implementation-defined result returned will be the same as that  returned by either the phrase >R S>D R> FM/MOD SWAP DROP or the phrase >R S>D R>  SM/REM SWAP DROP. 
+|See:| **3.2.2.1 Integer division**. 
+||6.1.0240||/MOD||"slash-mod"||CORE||( n1 n2 -- n3 n4 )||
+Divide n1 by n2, giving the single-cell remainder n3 and the single-cell quotient n4. An  ambiguous condition exists if n2 is zero. If n1 and n2 differ in sign, the implementation-defined  result returned will be the same as that returned by either the phrase >R S>D R> FM/MOD or  the phrase >R S>D R> SM/REM. 
+|See:| **3.2.2.1 Integer division**. 
+||6.1.0250||0<||"zero-less"||CORE||( n -- flag )||
+flag is true if and only if n is less than zero. 
+||6.1.0270||0=||"zero-equals"||CORE||( x -- flag )||
+flag is true if and only if x is equal to zero. 
+||6.1.0290||1+||"one-plus"||CORE||( n1|u1 -- n2|u2 )||
+Add one (1) to n1|u1 giving the sum n2|u2. 
 
-At the conclusion of the operation, the block buffer pointed to by a-addr is the current block  buffer and is assigned to u. 
-|See:|**7.6.1.0800 BLOCK**.
-||7.6.1.1360||EVALUATE||"xxxxx"||BLOCK||
+TRAILER  ANSI X3.215-1994 29
+||6.1.0300||1-||"one-minus"||CORE||( n1|u1 -- n2|u2 )||
+Subtract one (1) from n1|u1 giving the difference n2|u2. 
+||6.1.0310||2!||"two-store"||CORE||( x1 x2 a-addr -- )||
+Store the cell pair x1 x2 at a-addr, with x2 at a-addr and x1 at the next consecutive cell. It is  equivalent to the sequence SWAP OVER ! CELL+ !. 
+|See:| **3.3.3.1 Address alignment**. 
+||6.1.0320||2*||"two-star"||CORE||( x1 -- x2 )||
+x2 is the result of shifting x1 one bit toward the most-significant bit, filling the vacated least-significant bit with zero. 
+||6.1.0330||2/||"two-slash"||CORE||( x1 -- x2 )||
+x2 is the result of shifting x1 one bit toward the least-significant bit, leaving the most-significant  bit unchanged. 
+||6.1.0350||2@||"two-fetch"||CORE||( a-addr -- x1 x2 )||
+Fetch the cell pair x1 x2 stored at a-addr. x2 is stored at a-addr and x1 at the next consecutive  cell. It is equivalent to the sequence DUP CELL+ @ SWAP @. 
+|See:| **3.3.3.1 Address alignment**, **6.1.0310 2!**. 
+||6.1.0370||2DROP||"two-drop"||CORE||( x1 x2 -- )||
+Drop cell pair x1 x2 from the stack. 
+||6.1.0380||2DUP||"two-dupe"||CORE||( x1 x2 -- x1 x2 x1 x2 )||
+Duplicate cell pair x1 x2. 
+||6.1.0400||2OVER||"two-over"||CORE||( x1 x2 x3 x4 -- x1 x2 x3 x4 x1 x2 )||
+Copy cell pair x1 x2 to the top of the stack. 
+||6.1.0430||2SWAP||"two-swap"||CORE||( x1 x2 x3 x4 -- x3 x4 x1 x2 )||
+Exchange the top two cell pairs. 
+||6.1.0450||:||"colon"||CORE||( C: "&lt;spaces>name" -- colon-sys )||
+Skip leading space delimiters. Parse name delimited by a space. Create a definition for name,  called a "colon definition". Enter compilation state and start the current definition, producing  colon-sys. Append the initiation semantics given below to the current definition. 
 
-Extend the semantics of **6.1.1360 EVALUATE** to include: 
-Store zero in BLK. 
-||7.6.1.1559||FLUSH||"xxxxx"||BLOCK||
-( -- )
+The execution semantics of name will be determined by the words compiled into the body of the  definition. The current definition shall not be findable in the dictionary until it is ended (or until  the execution of DOES> in some systems). 
+|Initiation:|( i*x -- i*x ) ( R: -- nest-sys )
 
-Perform the function of `SAVE-BUFFERS`, then unassign all block buffers. 
-||7.6.1.1790||LOAD||"xxxxx"||BLOCK||
-( i*x u -- j*x )
+Save implementation-dependent information nest-sys about the calling definition. The stack  effects i*x represent arguments to name. 
+|name Execution:|( i*x -- j*x )
 
-Save the current input-source specification. Store u in `BLK` (thus making block u the input  source and setting the input buffer to encompass its contents), set `>IN` to zero, and interpret. 
+Execute the definition name. The stack effects i*x and j*x represent arguments to and results  from name, respectively. 
+|See:| **3.4 The Forth text interpreter**, **3.4.1 Parsing**, **3.4.5 Compilation**, **6.1.1250 DOES>**, **6.1.2500  [**, **6.1.2540 ]**, **15.6.2.0470 ;CODE**. 
+||6.1.0460||;||"semicolon"||CORE||
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( C: colon-sys -- )
 
-When the parse area is exhausted, restore the prior input source specification. Other stack  effects are due to the words `LOAD`ed. 
-An ambiguous condition exists if u is zero or is not a valid block number. 
-|See:|**3.4 The Forth text interpreter**. 
-||7.6.1.2180||SAVE-BUFFERS||"xxxxx"||BLOCK||
-( -- )
+Append the run-time semantics below to the current definition. End the current definition,  allow it to be found in the dictionary and enter interpretation state, consuming colon-sys. If the  data-space pointer is not aligned, reserve enough data space to align it. 
+|Run-time:|( -- ) ( R: nest-sys -- )
 
-Transfer the contents of each UPDATEd block buffer to mass storage. Mark all buffers as  unmodified. 
-||7.6.1.2400||UPDATE||"xxxxx"||BLOCK||
-( -- )
+Return to the calling definition specified by nest-sys. 
+|See:| **3.4 The Forth text interpreter**, **3.4.5 Compilation**. 
+||6.1.0480||<||"less-than"||CORE||( n1 n2 -- flag )||
+flag is true if and only if n1 is less than n2. 
+|See:| **6.1.2340 `U<`**. 
 
-Mark the current block buffer as modified. An ambiguous condition exists if there is no current  block buffer. 
-UPDATE does not immediately cause I/O. 
-|See:|**7.6.1.0800 BLOCK**, **7.6.1.0820 BUFFER**, **7.6.1.1559 FLUSH**, **7.6.1.2180 SAVE-BUFFERS**. 
+TRAILER  ANSI X3.215-1994 31
+||6.1.0490||<#||"less-number-sign"||CORE||( -- )||
+Initialize the pictured numeric output conversion process. 
+|See:| **6.1.0030 #**, **6.1.0040 #>**, **6.1.0050 #S**. 
+||6.1.0530||=||"equals"||CORE||( x1 x2 -- flag )||
+flag is true if and only if x1 is bit-for-bit the same as x2. 
+||6.1.0540||>||"greater-than"||CORE||( n1 n2 -- flag )||
+flag is true if and only if n1 is greater than n2. 
+|See:| **6.2.2350 U**>. 
+||6.1.0550||>BODY||"to-body"||CORE||( xt -- a-addr )||
+a-addr is the data-field address corresponding to xt. An ambiguous condition exists if xt is not  for a word defined via CREATE. 
+|See:| **3.3.3 Data space**. 
+||6.1.0560||>IN||"to-in"||CORE||( -- a-addr )||
+a-addr is the address of a cell containing the offset in characters from the start of the input  buffer to the start of the parse area. 
+||6.1.0570||>NUMBER||"to-number"||CORE||( ud1 c-addr1 u1 -- ud2 c-addr2 u2 )||
+ud2 is the unsigned result of converting the characters within the string specified by c-addr1 u1 into digits, using the number in BASE, and adding each into ud1 after multiplying ud1 by the  number in BASE. Conversion continues left-to-right until a character that is not convertible,  including any "+" or "-", is encountered or the string is entirely converted. c-addr2 is the  location of the first unconverted character or the first character past the end of the string if the  string was entirely converted. u2 is the number of unconverted characters in the string. An  ambiguous condition exists if ud2 overflows during the conversion. 
+|See:| **3.2.1.2 Digit conversion**. 
+||6.1.0580||>R||"to-r"||CORE||
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Execution:|( x -- ) ( R: -- x )
+
+Move x to the return stack. 
+|See:| **3.2.3.3 Return stack**, **6.1.2060 R>**, **6.1.2070 R@**, **6.2.0340 2>R**, **6.2.0410 2R>**, **6.2.0415 2R@**. 
+||6.1.0630||?DUP||"question-dupe"||CORE||( x -- 0 | x x )||
+Duplicate x if it is non-zero. 
+||6.1.0650||@||"fetch"||CORE||( a-addr -- x )||
+x is the value stored at a-addr. 
+|See:| **3.3.3.1 Address alignment**. 
+||6.1.0670||ABORT||"xxxxx"||CORE||( i\*x -- ) ( R: j\*x -- )||
+Empty the data stack and perform the function of QUIT, which includes emptying the return  stack, without displaying a message. 
+|See:| **9.6.2.0670 ABORT**. 
+||6.1.0680||ABORT"||"abort-quote"||CORE||
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( "ccc&lt;quote>" -- )
+
+Parse ccc delimited by a " (double-quote). Append the run-time semantics given below to the  current definition. 
+|Run-time:|( i*x x1 -- | i*x ) ( R: j*x -- | j*x )
+
+Remove x1 from the stack. If any bit of x1 is not zero, display ccc and perform an  implementation-defined abort sequence that includes the function of ABORT. 
+|See:| **3.4.1 Parsing**, **9.6.2.0680 ABORT"**. 
+||6.1.0690||ABS||"abs"||CORE||( n -- u )||
+u is the absolute value of n. 
+||6.1.0695||ACCEPT||"xxxxx"||CORE||  ( c-addr +n1 -- +n2 )||
+Receive a string of at most +n1 characters. An ambiguous condition exists if +n1 is zero or  greater than 32,767. Display graphic characters as they are received. A program that depends  on the presence or absence of non-graphic characters in the string has an environmental  dependency. The editing functions, if any, that the system performs in order to construct the  string are implementation-defined. 
+Input terminates when an implementation-defined line terminator is received. When input  terminates, nothing is appended to the string, and the display is maintained in an  implementation-defined way. 
+
++n2 is the length of the string stored at c-addr. 
+||6.1.0705||ALIGN||"xxxxx"||CORE||  ( -- )||
+If the data-space pointer is not aligned, reserve enough space to align it. 
+|See:| **3.3.3 Data space**, **3.3.3.1 Address alignment**. 
+||6.1.0706||ALIGNED||"xxxxx"||CORE||  ( addr -- a-addr )||
+a-addr is the first aligned address greater than or equal to addr. 
+|See:| **3.3.3.1 Address alignment**. 
+||6.1.0710||ALLOT||"xxxxx"||CORE||  ( n -- )||
+If n is greater than zero, reserve n address units of data space. If n is less than zero, release |n|  address units of data space. If n is zero, leave the data-space pointer unchanged. 
+
+If the data-space pointer is aligned and n is a multiple of the size of a cell when `ALLOT` begins  execution, it will remain aligned when `ALLOT` finishes execution. 
+If the data-space pointer is character aligned and n is a multiple of the size of a character when  `ALLOT` begins execution, it will remain character aligned when `ALLOT` finishes execution. 
+|See:| **3.3.3 Data space**. 
+||6.1.0720||AND||"xxxxx"||CORE||  ( x1 x2 -- x3 )||
+x3 is the bit-by-bit logical "and" of x1 with x2. 
+||6.1.0750||BASE||"xxxxx"||CORE||  ( -- a-addr )||
+a-addr is the address of a cell containing the current number-conversion radix {{2...36}}. 
+||6.1.0760||BEGIN||"xxxxx"||CORE||
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( C: -- dest )
+
+Put the next location for a transfer of control, dest, onto the control flow stack. Append the run-time semantics given below to the current definition. 
+|Run-time:|( -- )
+
+Continue execution. 
+|See:| **3.2.3.2 Control-flow stack**, **6.1.2140 REPEAT**, **6.1.2390 UNTIL**, **6.1.2430 WHILE**. 
+||6.1.0770||BL||"b-l"||CORE||( -- char )||
+char is the character value for a space. 
+||6.1.0850||C!||"c-store"||CORE||( char c-addr -- )||
+Store char at c-addr. When character size is smaller than cell size, only the number of low-order bits corresponding to character size are transferred. 
+|See:| **3.3.3.1 Address alignment** 
+||6.1.0860||C,||"c-comma"||CORE||( char -- )||
+Reserve space for one character in the data space and store char in the space. If the data-space  pointer is character aligned when C, begins execution, it will remain character aligned when C, finishes execution. An ambiguous condition exists if the data-space pointer is not character-aligned prior to execution of C,. 
+|See:| **3.3.3 Data space**, **3.3.3.1 Address alignment**. 
+||6.1.0870||C@||"c-fetch"||CORE||( c-addr -- char )||
+Fetch the character stored at c-addr. When the cell size is greater than character size, the  unused high-order bits are all zeroes. 
+|See:| **3.3.3.1 Address alignment**. 
+
+TRAILER  ANSI X3.215-1994 35
+||6.1.0880||CELL+||"cell-plus"||CORE||( a-addr1 -- a-addr2 )||
+Add the size in address units of a cell to a-addr1, giving a-addr2. 
+|See:| **3.3.3.1 Address alignment**. 
+||6.1.0890||CELLS||"xxxxx"||CORE||  ( n1 -- n2 )||
+n2 is the size in address units of n1 cells. 
+||6.1.0895||CHAR||"char"||CORE||( "&lt;spaces>name" -- char )||
+Skip leading space delimiters. Parse name delimited by a space. Put the value of its first  character onto the stack. 
+|See:| **3.4.1 Parsing**, **6.1.2520 [CHAR**].
+||6.1.0897||CHAR+||"char-plus"||CORE||( c-addr1 -- c-addr2 )||
+Add the size in address units of a character to c-addr1, giving c-addr2. 
+|See:| **3.3.3.1 Address alignment**. 
+||6.1.0898||CHARS||"chars"||CORE||( n1 -- n2 )||
+n2 is the size in address units of n1 characters. 
+||6.1.0950||CONSTANT||"xxxxx"||CORE||  ( x "&lt;spaces>name" -- )||
+Skip leading space delimiters. Parse name delimited by a space. Create a definition for name with the execution semantics defined below. 
+
+name is referred to as a "constant". 
+|name Execution:|( -- x )
+
+Place x on the stack. 
+|See:| **3.4.1 Parsing**. 
+||6.1.0980||COUNT||"xxxxx"||CORE||  ( c-addr1 -- c-addr2 u )||
+Return the character string specification for the counted string stored at c-addr1. c-addr2 is the  address of the first character after c-addr1. u is the contents of the character at c-addr1, which  is the length in characters of the string at c-addr2. 
+||6.1.0990||CR||"c-r"||CORE||( -- )||
+Cause subsequent output to appear at the beginning of the next line. 
+||6.1.1000||CREATE||"xxxxx"||CORE|| ( "&lt;spaces>name" -- )||
+Skip leading space delimiters. Parse name delimited by a space. Create a definition for name with the execution semantics defined below. If the data-space pointer is not aligned, reserve  enough data space to align it. The new data-space pointer defines name’s data field. CREATE does not allocate data space in name’s data field. 
+|name Execution:|( -- a-addr )
+
+a-addr is the address of name’s data field. The execution semantics of name may be extended  by using DOES>. 
+|See:| **3.3.3 Data space**, **6.1.1250 DOES**>. 
+||6.1.1170||DECIMAL||"xxxxx"||CORE|| ( -- )||
+Set the numeric conversion radix to ten (decimal). 
+||6.1.1200||DEPTH||"xxxxx"||CORE|| ( -- +n )||
++n is the number of single-cell values contained in the data stack before +n was placed on the  stack. 
+||6.1.1240||DO||"xxxxx"||CORE|| 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( C: -- do-sys )
+
+Place do-sys onto the control-flow stack. Append the run-time semantics given below to the  current definition. The semantics are incomplete until resolved by a consumer of do-sys such as  LOOP. 
+|Run-time:|( n1|u1 n2|u2 -- ) ( R: -- loop-sys )
+
+Set up loop control parameters with index n2|u2 and limit n1|u1. An ambiguous condition exists  if n1|u1 and n2|u2 are not both the same type. Anything already on the return stack becomes  unavailable until the loop-control parameters are discarded. 
+|See:| **3.2.3.2 Control-flow stack**, **6.1.0140 +LOOP**, **6.1.1800 LOOP**. 
+||6.1.1250||DOES>||"does"||CORE||
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( C: colon-sys1 -- colon-sys2 )
+
+Append the run-time semantics below to the current definition. Whether or not the current  definition is rendered findable in the dictionary by the compilation of DOES> is implementation  defined. Consume colon-sys1 and produce colon-sys2. Append the initiation semantics given  below to the current definition. 
+|Run-time:|( -- ) ( R: nest-sys1 -- )
+
+Replace the execution semantics of the most recent definition, referred to as name, with the  name execution semantics given below. Return control to the calling definition specified by  nest-sys1. An ambiguous condition exists if name was not defined with `CREATE` or a user-defined word that calls `CREATE`. 
+|Initiation:|( i*x -- i*x a-addr ) ( R: -- nest-sys2 )
+
+Save implementation-dependent information nest-sys2 about the calling definition. Place  name’s data field address on the stack. The stack effects i*x represent arguments to name. 
+|name Execution:|( i\*x -- j\*x )
+
+Execute the portion of the definition that begins with the initiation semantics appended by the  DOES> which modified name. The stack effects i\*x and j\*x represent arguments to and results  from name, respectively. 
+|See:| **6.1.1000 CREATE**. 
+||6.1.1260||DROP||"xxxxx"||CORE|| ( x -- )||
+Remove x from the stack. 
+||6.1.1290||DUP||"dupe"||CORE||( x -- x x )||
+Duplicate x. 
+||6.1.1310||ELSE||"xxxxx"||CORE|| 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( C: orig1 -- orig2 )
+
+Put the location of a new unresolved forward reference orig2 onto the control flow stack. 
+
+Append the run-time semantics given below to the current definition. The semantics will be  incomplete until orig2 is resolved (e.g., by THEN). Resolve the forward reference orig1 using  the location following the appended run-time semantics. 
+|Run-time:|( -- )
+
+Continue execution at the location given by the resolution of orig2. 
+|See:| **6.1.1700 IF**, **6.1.2270 THEN**. 
+||6.1.1320||EMIT||"xxxxx"||CORE|| ( x -- )||
+If x is a graphic character in the implementation-defined character set, display x. The effect of  EMIT for all other values of x is implementation-defined. 
+
+When passed a character whose character-defining bits have a value between hex 20 and 7E  inclusive, the corresponding standard character, specified by **3.1.2.1 Graphic characters**, is  displayed. Because different output devices can respond differently to control characters,  programs that use control characters to perform specific functions have an environmental  dependency. Each EMIT deals with only one character. 
+|See:| **6.1.2310 TYPE**. 
+||6.1.1345||ENVIRONMENT?||"environment-query"||CORE||( c-addr u -- false | i*x true )||
+*c-addr* is the address of a character string and u is the string’s character count. u may have a  value in the range from zero to an implementation-defined maximum which shall not be less  than 31. The character string should contain a keyword from **3.2.6 Environmental queries** or  the optional word sets to be checked for correspondence with an attribute of the present  environment. If the system treats the attribute as unknown, the returned flag is false; otherwise,  the flag is true and the i*x returned is of the type specified in the table for the attribute queried. 
+||6.1.1360||EVALUATE||"xxxxx"||CORE||( i*x c-addr u -- j*x )||
+Save the current input source specification. Store minus-one (-1) in SOURCE-ID if it is  present. Make the string described by c-addr and u both the input source and input buffer, set  >IN to zero, and interpret. When the parse area is empty, restore the prior input source  specification. Other stack effects are due to the words EVALUATEd. 
+||6.1.1370||EXECUTE||"xxxxx"||CORE|| ( i*x xt -- j*x )||
+Remove xt from the stack and perform the semantics identified by it. Other stack effects are due  to the word EXECUTEd. 
+|See:| 6.1.0070 ', **6.1.2510 [**']. 
+
+
+||6.1.1380||EXIT||"xxxxx"||CORE||
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Execution:|( -- ) ( R: nest-sys -- )
+
+Return control to the calling definition specified by nest-sys. Before executing EXIT within a  do-loop, a program shall discard the loop-control parameters by executing UNLOOP. 
+|See:| **3.2.3.3 Return stack**, **6.1.2380 UNLOOP**. 
+||6.1.1540||FILL||"xxxxx"||CORE|| ( c-addr u char -- )||
+If u is greater than zero, store char in each of u consecutive characters of memory beginning at  c-addr. 
+||6.1.1550||FIND||"xxxxx"||CORE|| ( c-addr -- c-addr 0 | xt 1 | xt -1 )||
+Find the definition named in the counted string at c-addr. If the definition is not found, return  c-addr and zero. If the definition is found, return its execution token xt. If the definition is  immediate, also return one (1), otherwise also return minus-one (-1). For a given string, the  values returned by FIND while compiling may differ from those returned while not compiling. 
+|See:| **3.4.2 Finding definition names**, **A.6.1.0070 '**, **A.6.1.2510 [']**, **A.6.1.2033 POSTPONE**,  **D.6.7 Immediacy**. 
+||6.1.1561||FM/MOD||"f-m-slash-mod"||CORE||( d1 n1 -- n2 n3 )||
+Divide d1 by n1, giving the floored quotient n3 and the remainder n2. Input and output stack  arguments are signed. An ambiguous condition exists if n1 is zero or if the quotient lies outside  the range of a single-cell signed integer. 
+|See:| **3.2.2.1 Integer division**, **6.1.2214 SM/REM**, **6.1.2370 UM/MOD**. 
+||6.1.1650||HERE||"xxxxx"||CORE|| ( -- addr )||
+addr is the data-space pointer. 
+|See:|**3.3.3.2 Contiguous regions**. 
+||6.1.1670||HOLD||"xxxxx"||CORE|| ( char -- )||
+Add char to the beginning of the pictured numeric output string. An ambiguous condition exists  if HOLD executes outside of a `<#` `#>` delimited number conversion. 
+||6.1.1680||I||"xxxxx"||CORE||
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Execution:|( -- n|u ) ( R: loop-sys -- loop-sys )  n|u is a copy of the current (innermost)
+
+loop index. An ambiguous condition exists if the loop  control parameters are unavailable. 
+||6.1.1700||IF||"xxxxx"||CORE|| 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( C: -- orig )
+
+Put the location of a new unresolved forward reference orig onto the control flow stack. Append  the run-time semantics given below to the current definition. The semantics are incomplete  until orig is resolved, e.g., by `THEN` or `ELSE`. 
+|Run-time:|( x -- )
+
+If all bits of x are zero, continue execution at the location specified by the resolution of orig. 
+|See:| **3.2.3.2 Control flow stack**, **6.1.1310 ELSE**, **6.1.2270 THEN**. 
+||6.1.1710||IMMEDIATE||"xxxxx"||CORE|| ( -- )||
+Make the most recent definition an immediate word. An ambiguous condition exists if the most  recent definition does not have a name. 
+|See:| **D.6.7 Immediacy**. 
+||6.1.1720||INVERT||"xxxxx"||CORE||( x1 -- x2 )||
+Invert all bits of x1, giving its logical inverse x2. 
+|See:| **6.1.1910 NEGATE**, **6.1.0270 0=**. 
+||6.1.1730||J||"xxxxx"||CORE|| 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Execution:|( -- n|u ) ( R: loop-sys1 loop-sys2 -- loop-sys1 loop-sys2 )
+
+n|u is a copy of the next-outer loop index. An ambiguous condition exists if the loop control  parameters of the next-outer loop, loop-sys1, are unavailable. 
+||6.1.1750||KEY||"xxxxx"||CORE|| ( -- char )||
+Receive one character char, a member of the implementation-defined character set. Keyboard  events that do not correspond to such characters are discarded until a valid character is received,  and those events are subsequently unavailable. 
+
+All standard characters can be received. Characters received by KEY are not displayed. 
+
+Any standard character returned by KEY has the numeric value specified in **3.1.2.1 Graphic  characters**. Programs that require the ability to receive control characters have an  environmental dependency. 
+|See:| **10.6.2.1307 EKEY**, **10.6.1.1755 KEY?**. 
+||6.1.1760||LEAVE||"xxxxx"||CORE|| 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Execution:|( -- ) ( R: loop-sys -- )
+
+Discard the current loop control parameters. An ambiguous condition exists if they are  unavailable. Continue execution immediately following the innermost syntactically enclosing  DO ... LOOP or DO ... +LOOP. 
+|See:| **3.2.3.3 Return stack**, **6.1.0140 +LOOP**, **6.1.1800 LOOP**. 
+||6.1.1780||LITERAL||"xxxxx"||CORE|| 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( x -- )
+
+Append the run-time semantics given below to the current definition. 
+|Run-time:|( -- x )
+
+Place x on the stack. 
+||6.1.1800||LOOP||"xxxxx"||CORE|| 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( C: do-sys -- )
+
+Append the run-time semantics given below to the current definition. Resolve the destination of  all unresolved occurrences of `LEAVE` between the location given by do-sys and the next  location for a transfer of control, to execute the words following the `LOOP`. 
+|Run-time:|( -- ) ( R: loop-sys1 -- | loop-sys2 )
+
+An ambiguous condition exists if the loop control parameters are unavailable. Add one to the  loop index. If the loop index is then equal to the loop limit, discard the loop parameters and  continue execution immediately following the loop. Otherwise continue execution at the  beginning of the loop. 
+|See:| **6.1.1240 DO**, **6.1.1680 I**, **6.1.1760 LEAVE**. 
+||6.1.1805||LSHIFT||"l-shift"||CORE||( x1 u -- x2 )||
+Perform a logical left shift of u bit-places on x1, giving x2. Put zeroes into the least significant  bits vacated by the shift. An ambiguous condition exists if u is greater than or equal to the  number of bits in a cell. 
+||6.1.1810||M*||"m-star"||CORE||( n1 n2 -- d )||
+d is the signed product of n1 times n2. 
+||6.1.1870||MAX||"xxxxx"||CORE|| ( n1 n2 -- n3 )||
+n3 is the greater of n1 and n2. 
+||6.1.1880||MIN||"xxxxx"||CORE|| ( n1 n2 -- n3 )||
+n3 is the lesser of n1 and n2. 
+||6.1.1890||MOD||"xxxxx"||CORE||( n1 n2 -- n3 )||
+Divide n1 by n2, giving the single-cell remainder n3. An ambiguous condition exists if n2 is  zero. If n1 and n2 differ in sign, the implementation-defined result returned will be the same as  that returned by either the phrase >R S>D R> FM/MOD DROP or the phrase >R S>D R>  SM/REM DROP. 
+|See:| **3.2.2.1 Integer division**. 
+||6.1.1900||MOVE||"xxxxx"||CORE|| ( addr1 addr2 u -- )||
+If u is greater than zero, copy the contents of u consecutive address units at addr1 to the u consecutive address units at addr2. After MOVE completes, the u consecutive address units at  addr2 contain exactly what the u consecutive address units at addr1 contained before the move. 
+|See:| **17.6.1.0910 CMOVE**, **17.6.1.0920 CMOVE>**. 
+||6.1.1910||NEGATE||"xxxxx"||CORE|| ( n1 -- n2 )||
+Negate n1, giving its arithmetic inverse n2. 
+|See:| **6.1.1720 INVERT**, **6.1.0270 0=.** 
+||6.1.1980||OR||"xxxxx"||CORE|| ( x1 x2 -- x3 )||
+x3 is the bit-by-bit inclusive-or of x1 with x2. 
+||6.1.1990||OVER||"xxxxx"||CORE|| ( x1 x2 -- x1 x2 x1 )||
+Place a copy of x1 on top of the stack. 
+||6.1.2033||POSTPONE||"xxxxx"||CORE|| 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( "&lt;spaces>name" -- )
+
+Skip leading space delimiters. Parse name delimited by a space. Find name. Append the  compilation semantics of name to the current definition. An ambiguous condition exists if name is not found. 
+|See:| **3.4.1 Parsing**.
+
+
+||6.1.2050||QUIT||"xxxxx"||CORE||( -- ) ( R: i*x -- )||
+Empty the return stack, store zero in SOURCE-ID if it is present, make the user input device the  input source, and enter interpretation state. Do not display a message. Repeat the following: 
+
+- Accept a line from the input source into the input buffer, set >IN to zero, and interpret. 
+- Display the implementation-defined system prompt if in interpretation state, all  processing has been completed, and no ambiguous condition exists. 
+|See:| 3.4 The Forth text interpreter. 
+
+
+||6.1.2060||R>||"r-from"||CORE||
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Execution:|( -- x ) ( R: x -- )
+
+Move x from the return stack to the data stack. 
+|See:| **3.2.3.3 Return stack**, **6.1.0580 >R**, **6.1.2070 R@**, **6.2.0340 2>R**, **6.2.0410 2R>**, **6.2.0415 2R@**. 
+||6.1.2070||R@||"r-fetch"||CORE||
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Execution:|( -- x ) ( R: x -- x )
+
+Copy x from the return stack to the data stack. 
+|See:| **3.2.3.3 Return stack**, **6.1.0580 >R**, **6.1.2060 R>**, **6.2.0340 2>R**, **6.2.0410 2R>**, **6.2.0415 2R@**. 
+||6.1.2120||RECURSE||"xxxxx"||CORE|| 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( -- )
+
+Append the execution semantics of the current definition to the current definition. An  ambiguous condition exists if `RECURSE` appears in a definition after `DOES>`. 
+|See:| **6.1.1250 DOES>**, **6.1.2120 RECURSE**.
+||6.1.2140||REPEAT||"xxxxx"||CORE|| 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( C: orig dest -- )
+
+Append the run-time semantics given below to the current definition, resolving the backward  reference dest. Resolve the forward reference orig using the location following the appended  run-time semantics. 
+|Run-time:|( -- )
+
+Continue execution at the location given by dest. 
+|See:| **6.1.0760 BEGIN**, **6.1.2430 WHILE**. 
+||6.1.2160||ROT||"rote"||CORE||( x1 x2 x3 -- x2 x3 x1 )||
+Rotate the top three stack entries. 
+||6.1.2162||RSHIFT||"r-shift"||CORE||( x1 u -- x2 )||
+Perform a logical right shift of u bit-places on x1, giving x2. Put zeroes into the most significant  bits vacated by the shift. An ambiguous condition exists if u is greater than or equal to the  number of bits in a cell. 
+||6.1.2165||S"||"s-quote"||CORE||
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( "ccc&lt;quote>" -- )
+
+Parse ccc delimited by " (double-quote). Append the run-time semantics given below to the  current definition. 
+|Run-time:|( -- c-addr u )
+
+Return c-addr and u describing a string consisting of the characters ccc. A program shall not  alter the returned string. 
+|See:| **3.4.1 Parsing**, **6.2.0855 C"**, **11.6.1.2165 S"**.
+||6.1.2170||S>D||"s-to-d"||CORE||( n -- d )||
+Convert the number n to the double-cell number d with the same numerical value. 
+||6.1.2210||SIGN||"xxxxx"||CORE|| ( n -- )||
+If n is negative, add a minus sign to the beginning of the pictured numeric output string. An  ambiguous condition exists if SIGN executes outside of a `<#` `#>` delimited number conversion. 
+||6.1.2214||SM/REM||"s-m-slash-rem"||CORE||( d1 n1 -- n2 n3 )||
+Divide d1 by n1, giving the symmetric quotient n3 and the remainder n2. Input and output stack  arguments are signed. An ambiguous condition exists if n1 is zero or if the quotient lies outside  the range of a single-cell signed integer. 
+|See:| **3.2.2.1 Integer division**, **6.1.1561 FM/MOD**, **6.1.2370 UM/MOD**. 
+||6.1.2216||SOURCE||"xxxxx"||CORE|| ( -- c-addr u )||
+c-addr is the address of, and u is the number of characters in, the input buffer. 
+||6.1.2220||SPACE||"xxxxx"||CORE|| ( -- )||
+Display one space. 
+||6.1.2230||SPACES||"xxxxx"||CORE|| ( n -- )||
+If n is greater than zero, display n spaces. 
+||6.1.2250||STATE||"xxxxx"||CORE|| ( -- a-addr )||
+a-addr is the address of a cell containing the compilation-state flag. STATE is true when in  compilation state, false otherwise. The true value in STATE is non-zero, but is otherwise  implementation-defined. Only the following standard words alter the value in STATE: :
+
+(colon), ; (semicolon), ABORT, QUIT, :NONAME, [ (left-bracket), and ] (right-bracket). 
+
+Note: A program shall not directly alter the contents of STATE. 
+|See:| 3.4 The Forth text interpreter, **6.1.0450 :**, **6.1.0460 ;**, **6.1.0670 ABORT**, **6.1.2050 QUIT**, **6.1.2500 [**, **6.1.2540 ]**, **6.2.0455 :NONAME**, **15.6.2.2250 STATE**. 
+||6.1.2260||SWAP||"xxxxx"||CORE|| ( x1 x2 -- x2 x1 )||
+Exchange the top two stack items. 
+||6.1.2270||THEN||"xxxxx"||CORE|| 
+|Interpretation:|Interpretation semantics for this word are undefined. 
+|Compilation:|( C: orig -- )
+
+Append the run-time semantics given below to the current definition. Resolve the forward  reference orig using the location of the appended run-time semantics. 
+|Run-time:|( -- )
+
+Continue execution. 
+|See:| **6.1.1310 ELSE**, **6.1.1700 IF**. 
+
 </std-glossary>
-
-# D. Compatibility analysis of ANS Forth (informative annex){id=ZD_}
-
-ANS Forth以前にも、Forthの業界標準はいくつかありました。 ここでは、ANS Forthと最新のForth 83の主な相違点とともに、最も影響力のあるものを年代順に示します。
-
-## D.1 FIG Forth (circa 1978){id=ZD_1}
-
-FIG Forthは、Forth Interest Group(FIG)によって開発されたForth言語の「モデル」実装でした。FIG Forthでは、比較的少数のワードがプロセッサ依存の機械語で実装され、残りのワードはForthで実装されました。FIGモデルはパブリックドメインに置かれ、さまざまなコンピュータシステムに移植されました。FIG Forthの実装の大部分はすべてのマシンで同じであったため、FIG Forthで書かれたプログラムは、Forthシステム実装の内部を直接操作する「システムレベル」プログラムであっても、かなりの移植性を享受することができました。
-
-FIG Forthの実装は、Forthの使用に興味を持つ人の数を増やすことに影響を与えました。多くの人が、FIG Forthモデルに具現化された実装技術を「Forthの本質」と結び付けています。
-
-しかし、FIG Forthは必ずしも同時代の商用Forth実装を代表するものではありませんでした。最も成功を収めた商用Forthシステムの中には、FIG Forth「モデル」とは異なる実装技術を使用したものもあります。
-
-## D.2 Forth 79{id=ZD_2}
-
-Forth-79 標準規格は、Forthユーザとベンダーの国際的なグループであるForth標準化チームによる、1978年から1980年にかけての一連の会議から生まれたものです(Forth 77およびForth 78として知られる暫定バージョンも、このグループによってリリースされました)。
-
-Forth 79は、16ビット、2の補数、アライメントなし、リニアバイトアドレッシングの仮想マシン上で定義されたワードのセットについて記述しました。「間接スレッドコード」として知られる実装技術を規定し、ASCII文字セットを使用しました。
-
-Forth-79 標準規格は、いくつかのパブリックドメインや商用実装の基礎となり、そのいくつかは現在でも利用可能でサポートされています。
-
-## D.3 Forth 83{id=ZD_3}
-
-同じくForth標準化チームにより、Forth-83 Standardは1983年にリリースされました。Forth 83は、Forth 79の欠陥のいくつかを修正しようとしたものです。
-
-Forth 83は、ほとんどの点でForth 79に似ていました。しかし、Forth 83は、Forth 79で明確に定義されていた機能の定義のいくつかを変更しました。例えば、整数除算の丸め動作、`PICK`と`ROLL`のオペランドの基底値、`'`が返すアドレスの意味、`'`のコンパイル動作、"true"フラグの値、`NOT`の意味、`VOCABULARY`で定義されたワードの「連鎖」動作がすべて変更されました。Forth 83では、Forth 79の実装制限が緩和され、あらゆる種類のスレッドコードが許可されましたが、ネイティブのマシンコードへのコンパイルは完全には許可されませんでした(これは特に禁止されたわけではなく、別の規定の間接的な結果であった)。
-
-多くの新しいForth実装はForth-83標準規格に基づいていましたが、「厳密に準拠した」Forth-83実装はほとんど存在しません。
-
-Forth 79とForth 83の間の変更に起因する非互換性は、通常、比較的簡単に修正することができましたが、成功を収めたForthベンダーの多くは、Forth 83に準拠するように実装を変換しませんでした。例えば、最も成功しているApple Macintoshコンピュータ用の商用Forthは、Forth 79に基づいています。
-
-## D.4 Recent developments{id=ZD_4}
-
-Forth-83標準規格が発表されて以来、コンピュータ業界は急速かつ大きな変化を遂げてきました。手頃な価格のパーソナルコンピュータのスピード、メモリ容量、ディスク容量は100倍以上になりました。8ビットプロセッサは16ビットプロセッサに取って代わられ、今では32ビットプロセッサが当たり前になっています。
-
-小型システムのオペレーティングシステムやプログラミング言語環境は、80年代前半に比べはるかに強力になっています。
-
-パーソナル・コンピュータ市場は、主に少数派の「趣味」の市場から、成熟したビジネスおよび商業市場へと変化した。
-
-カスタム・マイクロプロセッサの設計技術の向上により、Forth言語の実行に最適化されたコンピュータである「Forthチップ」が数多く設計されるようになりました。
-
-ROMベースの組み込み制御コンピュータの市場は大きく成長した。
-
-この進化する技術を最大限に活用し、他のプログラミング言語との競争を有利に進めるため、最近のForth実装の多くは、以前のForth標準規格の「ルール」のいくつかを無視しています。特に
-
-- 32ビットのForth実装は、現在では一般的です。 
-- 一部のForthシステムは、実行するハードウェアのアドレスアライメント制限を採用しています。 
-- 一部のForthシステムは、従来の「スレッドコード」ではなく、ネイティブコード生成、マイクロコード生成、最適化技術を使用しています。 
-- 一部のForthシステムは、セグメント化されたアドレス指定アーキテクチャを利用し、Forthの「辞書」の一部を異なるセグメントに配置しています。 
-- 現在では、より多くのForthシステムが、従来のForth「ブロック」ではなく、OSのテキストファイルをソースコードに使用し、別の「標準」オペレーティングシステムの環境で動作しています。 
-- 一部のForthシステムでは、外部のオペレーティングシステム・ソフトウェア、ウィンドウ・ソフトウェア、ターミナル・コンセントレータ、または通信チャネルがユーザ入力を処理または前処理することを許可しており、その結果、Forth 83で規定された入力編集、文字セットの可用性、および画面管理の動作から逸脱しています。
-
-他のプログラミング言語(主に「C言語」)や他のForthベンダーからの競争圧力により、Forthベンダーは、既存のForth標準が暗示する「仮想マシン・モデル」にうまく適合しない最適化を行うようになりました。
-
-## D.5 ANS Forth approach{id=ZD_5}
-
-ANS Forth委員会は、Forth 79とForth 83の違いによって引き起こされるForthコミュニティの深刻な分断、および市場の圧力によって引き起こされるこれら2つの業界標準のいずれかからの分岐に対処しました。
-
-Consequently, the committee has chosen to base its compatibility decisions not upon a strict その結果、委員会は、互換性判断の基準として、Forth-83 Standardとの厳密な比較ではなく、既存のさまざまな実装、特にかなりのユーザベースおよび/または市場でかなりの成功を収めている実装を考慮することにしました。
-
-委員会は、ANS Forthが以前の規格のように仮想マシンモデルに対して厳しい要件を規定した場合、多くの実装者がANS Forthに準拠しないことを選択するだろうと感じています。委員会は、ANS ForthがForthコミュニティの分断を深めるのではなく、むしろ統一に役立つことを望んでおり、そのため、一般的な実装技術を無効にするのではなく、包含することを選択しました。
-
-Forth 83からの変更の多くは、この理論的根拠によって正当化されます。そのほとんどは、「ANS Forth Standard Programはxを仮定してはならない」という範疇に入るもので、ここで「x」とは、Forth-83 Standardが規定する仮想マシンモデルから生じる権利のことです。委員会は、特に、既存のForth実装の相当数がForth-83仮想モデルを正しく実装していないことを考慮すると、これらの制限は妥当であると感じています。Forth-83の権威は「理論上は」存在しますが、「現実的ではない」ということです。
-
-別の見方をすれば、ANS Forthは現在のForthの実践の多様性を認めながらも、そこにある類似性を文書化しようと試みているということです。ある意味で、ANS Forthは「特定の仮想マシンの処方箋」ではなく、「現実の記述」なのです。
-
-Forthには以前の米国国家規格が存在しないため、以前の規格に関するX3/SD-9「ポリシーとガイドライン」の3.4項で規定される動作要件は適用されません。
-
-以下の説明では、ANS Forth と Forth 83 の違いについて説明します。ほとんどの場合、Forth 83は、この議論の目的上、Forth 79およびFIG Forthを代表するものです。しかし、これらの多くの場合において、ANS Forth は、以前に公表された標準よりも、Forth 業界の既存の状態を代表するものです。
-
-## D.6 Differences from Forth 83{id=ZD_6}
-
-### D.6.1 Stack width{id=ZD_6_1}
-
-Forth 83は、スタックの項目が16ビットを占有することを規定しています。これにはアドレス、フラグ、数値が含まれます。ANS Forthは、スタック項目が少なくとも16ビットであることを規定しています。実装は実際のサイズを文書化しなければなりません。
-
-<description>
-
-||影響されるワード:||
-すべての算術演算子、論理演算子、アドレス演算子  
-||理由:||
-32ビットマシンは一般的になりつつあります。32ビットマシン上の16ビットForthシステムは競争力がありません。
-||影響:||
-16ビットスタックを仮定するプログラムは16ビットマシン上で動作し続けます。ANS Forthは異なるスタック幅を要求しているわけではなく、単に許容しているだけです。多くのプログラムは影響を受けません(ただし、「アドレス単位」を参照してください)。
-||移行/変換:||
-上位ビットが設定されたビットマスクを使用するプログラムは変更しなければならないかもしれません。実装で定義されたビットマスク定数、またはスタック幅に依存しない方法でビットマスクを計算する手順のいずれかに置き換えます。以下に、スタック幅に依存しないビットマスクの計算手順をいくつか示します。
-
-    1 CONSTANT LO-BIT 
-    TRUE 1 RSHIFT INVERT CONSTANT HI-BIT  
-    : LO-BITS ( n -- mask ) 0 SWAP 0 ?DO 1 LSHIFT LO-BIT OR LOOP ; 
-    : HI-BITS ( n -- mask ) 0 SWAP 0 ?DO 1 RSHIFT HI-BIT OR LOOP ;
-
-16ビット算術演算の暗黙の「モジュロ65536」動作に依存するプログラムは、適切な場所で明示的にモジュロ演算を実行するように書き直す必要があります。委員会は、このような仮定は滅多に発生しないと考えています。例: 一部のチェックサムまたは CRC 計算、一部の乱数生成器、ほとんどの固定小数点分数計算。
-
-</description>
-
-### D.6.2 Number representation{id=ZD_6_2}
-
-Forth 83 は、2 の補数による数値表現と算術演算を規定しています。ANS Forth では、1の補数と符号+絶対値も使用できます。
-
-<description>
-
-||影響されるワード:||
-すべての算術演算子および論理演算子、LOOP、+LOOP
-||理由:||
-コンピュータの中には、1の補数や符号+絶対値表現を使用するものがあります。委員会は、そのようなマシン用のForth実装に2の補数の算術演算をエミュレートすることを強制し、深刻な性能上のペナルティを負わせることを望んでいませんでした。このようなマシンを使用している委員会メンバの経験から、これらの数値表現をサポートするために必要な使用制限は、過度に負担になるものではないことが示されています。
-||影響:||
-ANS Forth標準プログラムは、「2の補数演算環境への依存」を宣言することができます。これは、標準プログラムが2の補数マシン上でのみ動作することを保証することを意味します。事実上、現在のコンピュータの圧倒的多数は2の補数を使用しているので、これは厳しい制限ではありません。委員会は、現在のところ、2の補数でないマシン用の Forth-83 準拠の実装を知らないため、既存の Forth-83 プログラムは、現在動作しているマシンと同じクラスで動作します。
-||移行/変換:||
-ANS Forth 標準システムを2の補数でないマシン上で利用したい既存のプログラムでは、論理関数を実行するための算術演算子の使用を排除したり、スタック幅のセクションで説明したようにビット演算からビットマスク定数を導出したり、符号なし数値の使用範囲を正数の範囲に制限したり、単長数から倍長数への変換のために提供されている演算子を使用したりすることができます。
-</description>
-
-
-### D.6.3 Address units{id=ZD_6_3}
-
-Forth 83は、一意なアドレスのそれぞれがメモリ内の8ビットバイトを参照することを規定しています。ANS Forthでは、一意なアドレスのそれぞれによって参照されるアイテムのサイズは実装によって決まりますが、デフォルトでは1文字のサイズになります。Forth 83では、多くのメモリ操作をバイト数で説明しています。ANS Forthでは、これらの操作を文字数またはアドレス単位で記述します。
-
-<description>
-
-
-||影響されるワード||
-"アドレス単位" の引数を持つもの  
-||理由:||
-最も人気のあるForthチップを含むいくつかのマシンは、8ビットバイトの代わりに16ビットメモリ位置をアドレスします。
-||影響:||
-プログラムは、バイトアドレッシング環境への依存を宣言することを選択することができ、現在動作しているマシンのクラスで動作し続けます。ワードアドレス指定マシン上のForth実装がForth 83に準拠するためには、速度とメモリ効率においてかなりのコストをかけてバイトアドレッシングをシミュレートする必要があります。委員会は、そのようなマシンのためのそのようなForth-83実装を知らないので、バイトアドレッシング環境への依存は、現在存在する事実上の制限を超えて標準プログラムを制限しません。
-||移行/変換:||
-新しい`CHARS`と`CHAR+`アドレス算術演算子を、非バイトアドレスのマシンへの移植性を必要とするプログラムで使用するべきです。そのような変換が必要な場所は、引数としてアドレス単位の数を受け付けるワード(例えば、`MOVE`、`ALLOT`)の出現を検索することによって特定することができます。
-</description>
-
-### D.6.4 Address increment for a cell is no longer two{id=ZD_6_4}
-
-Forth-83が16ビットのスタック幅とバイトアドレッシングを同時に規定した結果、スタックからのアイテムを含むメモリ配列を含むアドレス計算では、数字の2を確実に使用することができました。ANS Forthは16ビットスタック幅もバイトアドレッシングも必要としないため、このような計算にはもはや2という数字は必ずしも適切ではありません。
-
-<description>
-
-||影響されるワード:||
-@ ! +! 2+ 2* 2- +LOOP 
-||理由:||
-"アドレス単位" と "スタック幅" の理由を参照。 
-||影響:||
-この点で、既存のプログラムは、メモリに格納されたときにスタックセルが2つのアドレス単位を占有するマシンでも引き続き動作します。これには、現在 Forth 83 準拠の実装が存在するほとんどのマシンが含まれます。原理的には、32ビットのスタック幅を持つ16ビットワードアドレスのマシンも含まれるが、委員会はそのようなマシンの例を知りません。
-||移行/変換:||
-新しいアドレス算術演算子`CELLS`と`CELL+`を移植可能なプログラムで使用するべきです。このような変換が必要な場所は、文字 "2" を検索し、それがアドレス計算の一部として使用されているかどうかを判断することによって特定することができます。アドレス計算の中では、以下の置換が適切です。
-<table>
-
- |Old<br><div style="width: 10em;"></div>|New<br><div style="width: 10em;"></div>| 
- |--|--|
- |2+ or 2 +|CELL+ 
- |2* or 2 *|CELLS 
- |2- or 2 -|1 CELLS - 
- |2/ or 2 /|1 CELLS / 
- |2|1 CELLS 
-
-</table>
-
-ループ・インデックスがアドレスである場合、`+LOOP`の引数としてアドレス計算に数値「2」単体が使われることがあります。負の被除数で動作するワード`2/`を変換する場合、使用される丸め方法に注意する必要があります。
-
-</description>
-
-### D.6.5 Address alignment{id=ZD_6_5}
-
-Forth 83 では、アドレスのアライメントに制限はありません。ANS Forthは、標準システムがさまざまな`@`演算子や`!`演算子を使う際にアドレスアライメントを要求してくるかもしれません。
-
-<description>
-||影響されるワード:||
-! +! 2! 2@ @ ? ,
-||理由||
-多くのコンピュータでは、アライメントされたアドレスの使用を推奨するハードウェア制限があります。一部のマシンでは、アラインされていないアドレスで使用すると、ネイティブのメモリアクセス命令が例外トラップを引き起こすものがります。アラインされていないアクセスが例外トラップを引き起こさないマシンであっても、アラインされているアクセスの方が通常は高速です。
-||影響||
-アラインされた"`@`"および"`!`"ワードの使用に適したアドレスを返すANS Forthワードは、すべてアラインされたアドレスを返さなければなりません。ほとんどの場合、問題はありません。文字データとセルサイズデータが混在したユーザ定義のデータ構造を使用すると、問題が発生することがあります。
-
-既存のForthシステムの多く、特に強いアライメント要求を持つコンピュータで現在使用されているものは、すでにアライメントを要求しています。そのようなマシンで現在使用されている既存のForthコードの多くは、アライメント環境で使用するための変換をすでに完了しています。
-||移行/変換:||
-アドレスアライメントを必要とするシステムで使用するためのプログラムの変換には、2つのアプローチが考えられます。
-
-最も簡単な方法は、アラインされたアドレスを対象としたシステム演算子"`@`"と"`!`"を再定義し、アライメントを必要としないようにすることです。例えば、16ビットのリトルエンディアンバイトアドレスマシンでは、以下のようにアライメントなしの"`@`"と"`!`"を定義することができます。
-
- <pre>    : @ ( addr -- x ) DUP C@ SWAP CHAR+ C@ 8 LSHIFT OR ; 
-    : ! ( x addr -- ) OVER 8 RSHIFT OVER CHAR+ C! C! ; </pre>
-
-これらの定義、および必要に応じて "`+!`"、"`2@`"、"`2!`"、"`,`"、"`?`"に対応する同様の定義を、アラインされていないアプリケーションの前にコンパイルすることができます。
-
-アプリケーションがアラインされていないフィールドを含むデータ構造を大量に使用する場合、この方法によりメモリを節約することができます。
-
-もう1つの方法は、アプリケーションのソースコードを変更して、アラインされていないデータフィールドをなくすことです。ANS Forth のワード `ALIGN` と `ALIGNED` を使用して、データフィールドを強制的に整列させることができます。このような整列が必要な場所は、アプリケーションのデータ構造(単純な変数以外)が定義されている部分を検査するか、「スマートコンパイラ」技術(後述の「スマートコンパイラ」の説明を参照)によって決定することができます。
-
-この方法は、データ構造のメモリ使用量を増加させる可能性はありますが、アプリケーションの実行速度はおそらく速くなります。
-
-最後に、前述のテクニックを組み合わせるやり方です。アライメントされていないデータフィールドを正確に特定し、そのフィールドだけに「アライメントされていない」バージョンのメモリ・アクセス演算子を使用することで対応することが可能です。この "ハイブリッド" アプローチは、実行速度とメモリ使用率の妥協点に影響を与えます。
-
-</description>
-
-### D.6.6 Division/modulus rounding direction{id=ZD_6_6}
-
-Forth 79は、除算が0に向かって丸められ、余りが被除数の符号を持つことを規定しました。Forth 83は、除算が負の無限大に丸められ、余りが除数の符号を持つことを規定しました。 ANS Forthでは、実装者の判断により、以下に示す除算演算子のどちらの動作も許可しており、ユーザがどちらの明示的な動作も合成できるように、１組(2個)の除算プリミティブを提供しています。
-
-<description>
-
-||影響されるワード:||
-`/ MOD /MOD */MOD */`
-||理由:||
-Forth 79とForth 83の除算の挙動の違いは多くの論争の的となり、多くのForth実装はForth 83の動作に切り替えませんでした。両者とも、アプリケーション要件と実行効率の両論を引用して、声高な支持者がいます。委員会は、広範な議論を何度も開催した結果、どちらか一方の動作を選択することではコンセンサスを得ることはできず、デフォルトとしてどちらかの動作を許可する一方、必要に応じてユーザが明示的に両方の動作を使用できるようにする手段を提供することを選択しました。実装者はどちらの動作も選択できるため、現在のシステムが示す動作を変更する必要はなく、そのシステム上で動作し、特定の動作に依存している既存のプログラムの正しい機能を維持することができます。新しい実装では、ネイティブのCPU命令セットでサポートされている動作を提供することで、実行速度を最大化することもできるし、システムの意図するアプリケーション領域に最も適した動作を選択することもできます。
-||影響:||
-この問題は、正の除数と負の被除数、または負の除数と正の被除数を使用するプログラムにのみ影響します。除算の大半は正の配当と正の除数の両方で行われます。その場合、許容される除算の動作はどちらも結果は同じです。
-||移行/変換:||
-符号が混在する除算オペランドで特定の丸め動作を必要とするプログラムでは、プログラムで使用する除算演算子を、新しい ANS Forth の除算プリミティブ `SM/REM`(対称除算、つまりゼロに向かって丸める)または `FM/MOD`(フロアード除算、つまり負の無限大に向かって丸める)のいずれかで再定義することができます。その後、プログラムを変更せずに再コンパイルすることができます。例えば、Forth83スタイルの除算演算子は次のように定義することができます。
-
- <pre>    : /MOD ( n1 n2 -- n3 n4 ) >R S>D R> FM/MOD ; 
-    : MOD ( n1 n2 -- n3 ) /MOD DROP ; 
-    : / ( n1 n2 -- n3 ) /MOD SWAP DROP ; 
-    : */MOD ( n1 n2 n3 -- n4 n5 ) >R M* R> FM/MOD ; 
-    : */ ( n1 n2 n3 -- n4 n5 ) */MOD SWAP DROP ; </pre>
-
-</description>
-
-### D.6.7 Immediacy{id=ZD_6_7}
-
-Forth 83は、多くの「コンパイルワード」が「即時」であり、コンパイル時にコンパイルされる代わりに実行されることを意味すると規定しています。ANS Forthは、これらのワードのほとんどについてあまり具体的ではなく、その動作はコンパイル時にのみ定義されるとし、特定のコンパイル時の動作ではなくその結果を指定しています。
-
-通常実行されるワードのコンパイルを強制するために、Forth 83は、非即時ワードで使用される`COMPILE`というワードと、即時ワードで使用される`[COMPILE]`というワードを提供しています。ANS Forthは`POSTPONE`という単一のワードを提供しており、これは即時ワードと非即時ワードの両方で使用され、自動的に適切な動作が選択されます。
-
-<description>
-
-||影響されるワード:||
-`COMPILE [COMPILE] ['] '`
-||理由:||
-あるワードが即時かそうでないかの区別は、Forthシステムに選択された実装技法に依存します。従来の "スレッドコード(threaded code)" 実装では、(`LEAVE`というワードを唯一の例外として)その選択は一般的に非常に明確であり、規格はどのワードを即時性とすべきかを規定することができました。しかし、最適化を伴うネイティブコード生成など、現在普及している実装技術の中には、スレッドコード実装で即時とされたワードセットとは異なるワードセットに即時属性を要求するものもあります。ANS Forthは、このような他の実装技術の有効性を認め、即時性属性を指定するケースをできるだけ少なくしています。
-
-即値ワードの集合の要素が明確でない場合、`COMPILE`と`[COMPILE]`のどちらを使用するかの判断を明確に行うことができません。その結果、ANS Forthは「汎用」置換ワード`POSTPONE`を提供し、`COMPILE`と`[COMPILE]`の両方の大多数の使用目的を果たさせることにしました。
-
-同様に、コンパイルワードの正確なコンパイル動作が指定されていない場合、コンパイルワードと共に`'`や`[']`を使用することは不明確であるため、ANS Forthは標準プログラムがコンパイルワードと共に'や[']を使用することを許可していません。
-
-`COMPILE`というワードの伝統的な(非即物的な)定義には、さらに問題があります。その伝統的な定義は、スレッドコード実装技術を前提としており、その動作はそのコンテキストでのみ適切に記述できます。ANS Forthのコンテキストでは、スレッドコードに加えて他の実装技法も許可されているため、従来の`COMPILE`の動作を記述することは、不可能ではないにしても、非常に困難です。ANS Forthでは、`COMPILE`の動作を変更し既存のコードを破壊するのではなく、標準規格に`COMPILE`というワードを含めないこととしました。これにより、既存の実装では、その実装が適切であれば、従来の動作で`COMPILE`というワードを供給し続けることができます。
-||影響:||
-`[COMPILE]`の適切な使用は、ワードが即時かどうかの知識に依存しないため、`[COMPILE]`はANS Forthに残っています(`[COMPILE]`を非即時のワードと一緒に使用することは、これまでもずっと禁止されています)。`[COMPILE]`を使う必要があるかどうかは、その対象となるワードが即時的かどうかの知識を必要としますが、`[COMPILE]`を使うことは常に安全です。`[COMPILE]`はコア拡張ワードセットに移されたため、(必須)コアワードセットではなくなりましたが、委員会は、ほとんどのベンダーがいずれにせよ`[COMPILE]`を提供すると予想しています。
-
-ほとんどの場合、`[COMPILE]`と`COMPILE`の両方を`POSTPONE`に置き換えるのが正しい。`[COMPILE]`と`COMPILE`を`POSTPONE`に「無頓着に」置き換えるのに適さない用法は非常にまれであり、次の2つのカテゴリーに分類されます。
-
-a) `[COMPILE]`の非即時ワードでの使用。これは、Forth 79システムとForth 83システムのどちらを使用しているかに関係なく、これらのワードのコンパイルを強制するために、`'`(tick: Forth 79では即時だったがForth 83では即時でなくなった)や`LEAVE`(Forth 83では即時になったがForth 79では即時でなかった)というワードで行われることがあります。
-
-b) `COMPILE` `[COMPILE]` &lt;即時ワード> というフレーズを使用して、即時ワードを「二重に延期」する場合。
-||移行/変換:||
-多くの ANS Forth 実装は、既存の使用法と互換性のある形で `[COMPILE]` と `COMPILE` の両方を実装し続けるでしょう。そのような環境では、変換は必要ありません。
-
-完全な移植性を目指すなら、`COMPILE`と`[COMPILE]`の使用は、上に示したまれな場合を除き、`POSTPONE`に変更するべきです。`[COMPILE]`の非即時ワードでの使用は、そのままにしておいてもよいし、プログラムは、コア拡張ワードセットから`[COMPILE]`のワードに対する要求を宣言してもよいし、対象のワードが非即時であることが分かっている場合は、非即時ワードの前の`[COMPILE]`を単に削除してもよいです。
-
-`COMPILE [COMPILE] <immediate-word>`というフレーズの使用は、「中間ワード」(以下の例ではXX)を導入し、そのワードを後置することによって処理することができます。例えば
-
- <pre>    : ABC COMPILE [COMPILE] IF ; </pre>
-
-は、
-
- <pre>    : XX POSTPONE IF ; 
-    : ABC POSTPONE XX ; </pre>
-
-と変換します。
-
-`COMPILE`に続いて、辞書内のスレッドを明示的にコンパイルするために「コンパイル状態から切り替わる」プログラムでは、非標準的なケースが発生する可能性があります。例えば
-
- <pre>    : XYZ COMPILE [ ' ABC , ] ; </pre>
-
-これは、`COMPILE`とスレッドコードの実装がどのように動作するかについての正確な知識に大きく依存します。このようなケースは機械的に処理することはできません。コードが何をしているかを正確に理解し、ANS Forthの制限に従ってそのセクションを書き換えることによって翻訳する必要があります。
-
-`[COMPILE] [COMPILE]`の代わりに`POSTPONE [COMPILE]`というフレーズを使用してください。
-</description>
-
-### D.6.8 Input character set{id=ZD_6_8}
-
-Forth 83は、7ビットASCII文字セットが `KEY` を通じて利用可能であると規定しています。ANS Forthでは、16進数20から16進数7Eまでのコードを持つASCII文字セットの図形文字(graphic character)に制限されています。
-
-<description>
-
-||影響されるワード:||
-KEY
-||理由:||
-多くのシステム環境は、入力編集、ジョブ制御、フロー制御などの目的で特定の制御文字を「消費」します。Forthの実装では、このようなシステムの動作を必ずしも制御できるとは限りません。
-||影響:||
-`KEY`を通して特定の制御文字を受け取る能力を必要とする標準プログラムは、入力文字セットについて環境依存であることを宣言しなければなりません。
-||移行/変換:||
-移植性を最大にするために、プログラムは必要な入力文字セットを図形文字だけに制限すべきです。利用可能であれば制御文字も扱うことができますが、完全なプログラム機能には図形文字だけを用いてアクセスできるようにすべきです。
-
-上述したように、入力文字セットに対する環境依存を宣言してもよいです。たとえそうであっても、control-Sやcontrol-Q(フロー制御のためによく使用され、その存在を検出するのが困難な通信ハードウェアによって使用されることもある)、ASCII NUL(多くのキーボードで入力することが困難)、キャリッジリターンとラインフィードの区別(システムによっては、キャリッジリターンをラインフィードに変換したり、その逆に変換したりするものもある)など、特にやっかいな制御文字の要求をプログラムが避けることが推奨されます。
-</description>
-
-### D.6.9 Shifting with UM/MOD{id=ZD_6_9}
-
-Forth-83の2の補数という性質と、切り捨て除算(マイナス無限大に向かって丸める)の要件を考えると、シフトは除算と等価です。また、2の補数表現は、符号なし2のべき乗除算が論理右シフトと等価であることを意味するので、論理右シフトを実行するために`UM/MOD`を使用することができたのですが……
-
-<description>
-
-||影響されるワード:||
-UM/MOD
-||理由:||
-`UM/MOD`の問題は、すでに説明したように、非「2の補数表現」を許容した結果です。
-
-ANS Forthには、論理シフトを実行するための`LSHIFT`と`RSHIFT`というワードが用意されています。これは通常、論理シフトに`UM/MOD`を使用するよりも効率的で、より記述的です。
-||影響:||
-2の補数演算を持つANS Forthシステム(大半のマシン)で実行されるプログラムは、論理シフトと`UM/MOD`との非互換性を経験することはありません。非「2の補数」マシン上で実行することを意図した既存のForth-83 Standardプログラムは、非「2の補数」のANS Forthシステム上でシフトするために`UM/MOD`を使用することはできません。委員会は、非「2の補数」マシン上の既存のForth-83実装の存在を知りません。よって、かなりの数の既存プログラムにはこれは影響しないはずです(おそらくまったく影響しないでしょう)。
-||移行/変換:||
-`UM/MOD`がシフト演算として動作することを必要とするプログラムは、2の補数演算への環境依存を宣言することができます。
-
-2の補数演算への環境依存を宣言できないプログラムは、互換性のない`UM/MOD`の使用箇所を編集して、アプリケーション内で定義された他の演算子で置き換えることが必要になるかもしれません。
-</description>
-
-### D.6.10 Vocabularies / wordlists{id=ZD_6_10}
-
-ANS Forthは、Forth 83に存在した`VOCABULARY`、`CONTEXT`、および`CURRENT`というワードを定義していません。その代わりに、ANS Forthは検索順序の指定と制御のための基本的なワードセットを定義しており、これには以前のどの標準にも存在しなかったワードも含まれています。
-
-Forth-83の "`ALSO`/`ONLY`" 実験的検索ワードセットは、ほとんどの部分でANS Forth検索ワードセットの拡張部分として指定されています。
-
-<description>
-
-||影響されるワード:||
-VOCABULARY CONTEXT CURRENT
-||理由:||
-語彙は、既存のシステム間で多くの乖離がある分野です。 主要なベンダーのシステムや以前の標準を考慮すると、`VOCABULARY`によって定義されたワードには、少なくとも5つの異なる、相互に互換性のない動作が存在します。Forth 83は、コンパイルされた語彙の階層と実行時の検索順序の間の特定の関係を規定しないことによって、「実行時の検索順序の指定」の方向に一歩を踏み出しました。Forth 83はまた、ランタイム検索順序指定のための実験的メカニズムである`ALSO`/`ONLY`スキームを規定しました。`ALSO`/`ONLY`は多くのシステムで実装され、Forthコミュニティではある程度の人気を獲得した。
-
-しかし、いくつかのベンダーは技術的な制限を理由に実装を拒否しています。これらの制限を解決し、`ALSO`/`ONLY` を批判的な人たちにも受け入れられるようにするために、委員会は `ALSO`/`ONLY` に対するいくつかの異論に対応する修正を加えるだけでなく、`ALSO`/`ONLY` や現在流行している他の全ての検索ワードセットを実装するのに十分なパワーを提供する単純な "基本的な(primitive)ワードセット" を規定しました。
-
-Forth 83の`ALSO`/`ONLY`ワードセットは、検索順序(search-order)ワードセットのオプション拡張として提供されます。これは、実装者がこのワードセットを提供することを許可するもので、標準的な動作が明確に定義されていますが、実装者に実装を強制するものではありません。一部のベンダは `ALSO`/`ONLY` を実装しないと公言しており、ある大手ベンダは `ALSO`/`ONLY` が強制されるのであれば ANS Forth を一切実装しないと表明しています。委員会は、すべてのシステムに `ALSO`/`ONLY` を組み込むことを義務付けることなく、可能な限り `ALSO`/`ONLY` を規定し、また、ベンダが実装しやすく、`ALSO`/`ONLY` を合成するために使用できる基本的な検索順序ワードセットセットを提供することで、慎重に対処すると感じています。
-||移行/変換:||
-Forth 83は`VOCABULARY`に対して正確なセマンティクスを義務付けていないため、既存のForth-83 Standardプログラムでは、自明な方法を除いて`VOCABULARY`を使用することはできません。プログラムは、検索順序ワードセットの存在に依存していると宣言することができ、そのワードセットのプリミティブを使用して必要なセマンティクスを実装することができます。`ALSO`/`ONLY` を必要とする Forth 83 プログラムは、検索順序拡張ワードセットへの依存を宣言するか、検索順序ワードセットを用いて拡張を実装することができます。
-</description>
-
-
-### D.6.11 Multiprogramming impact{id=ZD_6_11}
-
-Forth 83は、「マルチプログラミングの影響」を持つワードに、その説明の最初の行に文字「M」で印を付けています。ANS Forthは、ワードの説明から「M」の指定を削除し、マルチプログラミングの影響に関する議論をこの非規格の附属書に移しました。
-
-<description>
-
-||影響されるワード:||
-なし
-||理由:||
-「マルチプログラミングの影響」の意味は、マルチプログラミングの特定のモデルにおいてのみ正確です。多くのForthシステムは、特定のラウンドロビン・協調・ブロックバッファ共有モデルを使用してマルチプログラミング機能を提供していますが、そのモデルは普遍的なものではありません。古典的なモデルを仮定しても、"M" という名称には、マルチプログラミングシステム上で相互作用するアプリケーションを記述するために十分な情報が含まれていませんでした。
-
-現実的に言えば、Forth83の "M" 指定は、マルチプログラムシステムにおけるブロックバッファアドレスの使用規則を文書化する役割を果たしました。これらのアドレスは、タスクが何らかの理由でCPUを手放した後、多くの場合、I/Oを実行したり、イベントを待ったり、`PAUSE`というワードを使って自発的にCPUリソースを共有したりする目的には無意味になります。移植性を持つアプリケーションをマルチプログラミングシステム上で実用的に動作させるためには、このような使用規則を尊重することが不可欠でした。この規則を守らないと、実際にエラーが発生したアプリケーションだけでなく、システム上で動作している他のアプリケーションの整合性も簡単に損なわれてしまいます。したがって、"M" は、設計上CPUを放棄するすべてのワードに表示され、他のワードは決してCPUを放棄しないことの理解を与えました。
-
-これらの使用ルールは、関連するブロックワード集に明示的に文書化されています。「M」指定は完全に削除されました。
-||影響:||
-実際のところ、ありません。
-
-マルチプログラミングに依存するアプリケーションは、何らかのリソースを共有し、タスク間で通信を行う少なくとも2つのタスクから構成されなければならないという意味で、Forth83にはマルチプログラミングに**依存する(DEPENDED)**標準的なプログラムを書くのに十分な情報が含まれていませんでした。これは、ANS Forthにも当てはまります。
-
-Forth 83の非マルチプログラミングアプリケーションは、マルチプログラミングシステム上で適切に実行できるように、`BLOCK`の使用規則を尊重する必要がありました。ANS Forthも同様です。
-
-唯一の違いは、`BLOCK`の使用規則を定義を文書化する方法です。技術委員会は、「マルチプログラミングの影響」という概念よりも現在の方法の方が明確であると考えています。
-||移行/変換:||
-必要ありません。
-</description>
-
-### D.6.12 Words not provided in executable form{id=ZD_6_12}
-
-ANS Forthでは、プログラマが追加操作をしなくても、提供されたすべてのワードが利用可能であることを要求するのではなく、いくつかのワードをソースコードまたは「必要に応じてロード」形式で提供する実装が可能です。
-
-<description>
-
-||影響されるワード:||
-すべてのワード。
-
-||理由:||
-Forthシステムは、メモリ容量が限られている環境で使用されることが多いです。実行形式でシステムに含まれるワードそれぞれが、メモリ空間を消費します。委員会は、標準的なワードをソース形式で提供できるようにすることで、制約のある環境で使用するために設計されたシステムであっても、実装者が完全なANS Forth実装を提供する確率を高めることができると考えています。
-
-||影響:||
-あるANS Forth実装で標準プログラムを使用するには、「ソース形式」のワードを実行可能にするために、実装に依存した「序文(preface)」をプログラムの前に置く必要がある場合があります。これは、他のコンピュータ言語が特定のアプリケーションに必要なライブラリルーチンを選択するために必要とする方法に似ています。
-
-C言語のような言語では、アプリケーションのメモリイメージから不要なルーチンを排除するという目標は、通常、ルーチンのライブラリを提供し、「リンカ」プログラムを使って必要なルーチンのみを実行可能なアプリケーションに組み込むことで達成されます。リンカを呼び出して制御する方法は、言語定義の範囲外です。
-
-||移行/変換:||
-プログラムをコンパイルする前に、プログラマはそのプログラムが必要とするワードを実行できるようにするために、何らかのアクションを実行する必要があるかもしれません。
-
-</description>
-
-# E. ANS Forth portability guide (informative annex){id=ZE_}
-
-## E.1 Introduction{id=ZE_1}
-
-Forthを実装するために使用される最も一般的なアーキテクチャは、バイトアドレスメモリ、16ビット演算、および2の補数数表現を持っていました。Forth-83 Standardは、これらの特定の機能がForth-83 Standardシステムに存在しなければならず、Forth-83プログラムがこれらの機能を自由に利用できることを規定しています。
-
-しかし、ビットアドレスやセルアドレス、32ビット演算、1の補数での数値表現など、アーキテクチャのジャングルには多くの野獣が存在します。Forthの強みの1つは、「特殊な(peculiar)」機能を持つ「特殊な(unusual)」ハードウェア上の「特殊な(strange)」環境において有用であることであるため、標準Forthがこれらのマシン上でも動作することは重要です。
-
-ANS Forth Standardの主な目標は、標準Forthをサポートできるマシンの種類を増やすことです。これは、いくつかの重要なForth項目を実装で定義できるようにし(例えば、セルの大きさはどのくらいか)、実装を隠蔽するForth演算子(ワード)を提供することによって達成されます。これにより、実装者はネイティブハードウェアを最も効果的に利用するForthシステムを作成することができます。マシンに依存しない演算子は、いくばくかのプログラマの規律とともに使用することで、プログラマがさまざまなマシンで動作するForthプログラムを書くことを可能にします。
-
-この付録の残りの部分では、移植可能なANS Forthプログラムを記述するためのガイドラインを示します。最初のセクションでは、プログラムをハードウェアに依存しないようにする方法について説明します。1つのマシンアーキテクチャしか知らない人が、異機種間でプログラムを移植する際に発生する問題を想像することは困難です。そのため、具体的なアーキテクチャーとそれぞれの問題の例を示します。第2節では、多くのプログラマが想定しているが、移植可能なプログラムでは当てにしてはならない、Forthの実装に関する仮定について説明します。
-
-## E.2 Hardware peculiarities{id=ZE_2}
-
-### E.2.1 Data/memory abstraction{id=ZE_2_1}
-
-データとメモリはプログラム構築の石とモルタルです。残念ながら、データとメモリの扱いはコンピュータによって異なります。ANS Forthシステム標準規格では、さまざまなコンピュータに適用されるデータとメモリの定義を示しています。これらの定義は、特定のハードウェアの詳細を無視して、データとメモリの共通要素について話す方法を与えてくれます。同様に、これらの定義に従った方法でデータとメモリを使用する ANS Forth プログラムも、ハードウェアの詳細を無視することができます。以下のセクションでは、定義について説明し、異なるコンピュータのデータ/メモリの特殊性に依存しないプログラムの記述方法について説明します。
-
-### E.2.2 Definitions{id=ZE_2_2}
-
-ANS Forthで定義されている3つの用語は、アドレス単位、セル、およびキャラクタです。ANS Forthシステムのアドレス空間は、アドレス単位の配列に分割されます。アドレス単位とは、アドレス指定が可能な最小のビットの集まりです。言い換えれば、アドレス単位とは、アドレスaddrとaddr+1に広がるビット数のことです。 最も一般的なマシンは8ビットのアドレス単位を使用しています。このような「バイトアドレス」マシンには、インテル8086やモトローラ68000ファミリーがあります。しかし、他のアドレス単位・サイズも存在します。ビットアドレスのマシンもあれば、4ビットニブルアドレス のマシンもあります。また、アドレス単位が8ビットより大きいマシンもあります。例えば、いくつかのForth-in-hardwareコンピュータはセルアドレスです。
-
-セルは Forth システムの基本的なデータ型です。セルは単一セル整数とメモリアドレスとどちらにもなり得ます。Forthのパラメータスタックとリターンスタックはセルのスタックです。Forth 83では、セルは16ビットであると規定されています。ANS Forthでは、セルのサイズは実装で定義されたアドレス単位の数です。したがって、16ビットのマイクロプロセッサ上で実装されたANS Forthは16ビットのセルを使用することができ、32ビットのマシン上で実装されたANS Forthは32ビットのセルを使用することができます。また、18ビットマシンや36ビットマシンなども、それぞれ18ビットセルや36ビットセルを持つANS Forthシステムをサポートすることができます。これらすべてのシステムで、`DUP` はデータスタックの先頭を複製するという同じことを行います。`!` (ストア)の動作も一貫しています。データスタック上に2つのセルがあると、2番目のセルを一番上のセルが指定するメモリ位置に格納します。
-
-同様に、文字の定義は、実装で定義された数のアドレス単位(ただし、少なくとも8ビット)に一般化されました。これにより、Forthの実装者は、不適切なプロセッサ上で8ビット文字を提供する必要がなくなりました。例えば、9ビットのアドレス単位を持つ18ビット・マシンでは、9ビット文字が最も便利です。定義上、アドレス単位より小さいものをアドレスにすることはできないので、文字は少なくともアドレス単位と同じ大きさでなければなりません。このため、アドレス単位が大きいマシンでは大きな文字になります。例えば、16 ビットセルアドレスのマシンでは、16 ビットキャラクタが最も理にかなっています。
-
-### E.2.3 Addressing memory{id=ZE_2_3}
-
-ANS Forth では、上記の定義を使用することで、多くの移植性の問題を解消しています。最も一般的な移植性の問題の 1 つは、メモリ内の連続するセルのアドレス指定です。あるセルのメモリ・アドレスが与えられたとき、次のセルのアドレスはどのように見つけるのでしょうか? Forth 83では、これは簡単です。 `2 +`です。 このコードは、メモリが8ビット単位(バイト)でアドレス指定され、セルが16ビット幅であると仮定しています。32ビットセルを持つバイト・アドレス・マシンでは、次のセルを見つけるコードは `4 +`ですし、セルアドレスのプロセッサでは `1+`で、16 ビットセルを持つビットアドレスのプロセッサでは `16 +` となります。ANS Forthには、これらのすべてのケースで使用できる`CELL+`というネクストセル演算子が用意されています。アドレスが与えられると、`CELL+`はセルのサイズ(アドレス単位で勘定します)でアドレスを調整します。関連する問題として、セルの配列を任意の順序でアドレス指定することがあります。 Forth83を使ってセルの配列を作成するための定義ワードは次のようになります。
-
-    : ARRAY CREATE 2* ALLOT DOES> SWAP 2* + ; 
-
-配列のインデックスをスケールするために`2*`を使用することは、バイトアドレッシングと16ビットセルを再び想定しています。上記の例のように、マシンによって異なるバージョンのコードが必要になります。ANS Forthは、`CELLS`というポータブルなスケーリング演算子を提供しています。数値*n*が与えられると、`CELLS`は*n*個のセルを保持するのに必要なアドレス単位の数を返します。ポータブルな配列の定義は
-
-    : ARRAY CREATE CELLS ALLOT 
-        DOES> SWAP CELLS + ; 
-
-文字の配列のアドレス指定にも移植性の問題があります。Forth 83(および最も一般的な ANS Forth 実装)では、文字のサイズはアドレス単位のサイズに等しくなります。 その結果、メモリ内の連続する文字のアドレスは`1+`を使用して求めることができ、文字配列へのインデックスのスケーリングは不要です(つまり、`1 *`)。しかし、1文字がアドレス単位より大きい場合もあります。例えば、(1)アドレス単位が小さいシステム(例えば、ビットアドレスやニブルアドレスシステム)、(2)文字セットが大きいシステム(例えば、バイトアドレスマシンの16ビット文字)がそれです。`CHAR+`および`CHARS`演算子(`CELL+`および`CELLS`に類似しています)は、最大限の移植性を可能にするために利用可能です。
-
-ANS Forthは、アドレス単位を使用するために、メモリのチャンクを操作するいくつかのForthワードの定義を一般化しています。その一例が`ALLOT`です。`ALLOT`の前に適切なスケーリング演算子(`CELLS`、`CHARS`など)を付けることで、任意のデータ構造用のスペースを割り当てることができます(上記の配列の定義を参照)。例えば
-
-    CREATE ABUFFER 5 CHARS ALLOT ( allot 5 character buffer)  
-
-メモリブロック転送ワードもアドレス単位を使います。  
-
-    source destination 8 CELLS MOVE ( move 8 cells)  
-
-### E.2.4 Alignment problems{id=ZE_2_4}
-
-すべてのアドレスが同じというわけではありません。多くのプロセッサでは、メモリアクセス命令で使用できるアドレスに制限があります。この規格は、ANS Forth の実装者がアライメントを透過的に行うことを要求しているわけではありません。それどころか、ANS Forth プログラムが文字とセルのアライメントが必要になる可能性があることを想定することを(セクション **3.3.3.1 アドレスのアライメント** で)要求しています。
-
-アライメント制限によって引き起こされる最も一般的な問題の1つは、文字とセルの両方を含む表を作成することです。(カンマ)またはCを使用して表を初期化すると、データはデータ空間ポインタに格納されます。したがって、適切にアライメントされなければなりません。例えば、ポータブルでないテーブル定義は次のようになります。
-
-    CREATE ATABLE 1 C, X , 2 C, Y ,  
-
-16ビット・フェッチを偶数アドレスに制限しているマシンでは、`CREATE`はデータ空間ポインタを偶数アドレスに残し、`1 C,` はデータ空間ポインタを奇数にし、 `,` (カンマ)は` X` を奇数アドレスに格納することでアドレス制限に違反することになります。ポータブルなテーブルの作り方は  
-
-    CREATE ATABLE 1 C, ALIGN X , 2 C, ALIGN Y ,  
-
-`ALIGN`は、データ空間ポインタを、現在のアドレス以上の最初のアライメントされたアドレスに調整します。 アラインされたアドレスは、文字、セル、セルペア、倍セル数の格納やフェッチに適しています。
-
-テーブルを初期化した後、テーブルから値を読み取りたい。例えば、テーブルから最初のセルXを取り出したいとします。`ATABLE CHAR+`は、文字の後の最初のもののアドレスを与えます。しかし、`C`と`,`の間に辞書ポインタをアライメントしたので、これはXのアドレスではないかもしれません。Xのアドレスを取得するポータブルな方法は次のとおりです。  
-
-    ATABLE CHAR+ ALIGNED  
-
-`ALIGNED`は、スタックの先頭のアドレスを、現在の値以上の最初のアライメントされたアドレスに調整します。
-
-## E.3 Number representation{id=ZE_3}
-
-コンピュータによって数字の表現方法は異なります。これらの違いを意識することで、プログラマが特定の表現に依存したプログラムを書かずに済むようになります。
-
-### E.3.1 Big endian vs. little endian{id=ZE_3_1}
-
-メモリ上の数値を構成するビットは、マシンによって異なる順序で保持されます。あるマシンは、数値の最上位部分をメモリの下位アドレスに置き、その後に数値の下位の部分を上位のアドレスに置きます。他のマシンはその逆で、数値の最下位は最下位アドレスに格納されます。例えば、16ビット8086の「リトルエンディアン」Forthのコードは、34(16進数)という答えを生成します。
-
-    VARIABLE FOO HEX 1234 FOO ! FOO C@  
-
-16ビット68000の "ビッグエンディアン" Forthで同じコードを実行すると、答えは12(16進数)となります。プログラムに移植性を持たせるためには、メモリ上の数値表現を悪用することはできません。
-
-関連する問題は、メモリ上のセルペアと倍セル数の表現です。セルペアがスタックから`2!`でメモリに移動されると、スタックの一番上にあったセルはより低いメモリアドレスに置かれます。メモリにあるときに個々のセルを操作するのは便利で合理的です。
-
-### E.3.2 ALU organization{id=ZE_3_2}
-
-異なるコンピュータは、整数を表現するために異なるビットパターンを使用します。2進数表現(2の補数、1の補数、符号+絶対値など)や10進数表現(BCDなど)が可能です。これらのフォーマットはそれぞれ、コンピュータの算術論理演算装置(ALU)の設計において利点と欠点を生み出します。最も一般的に使用されている2の補数表現は、加算と減算のアルゴリズムが単純なため人気があります。
-
-2の補数マシンで育ってきたプログラマは、数の表現に慣れ親しみ、その表現のいくつかの特性を当然のものと考える傾向があります。例えば、2の累乗で割った余りを求めるトリックは、ANDでいくつかのビットをマスクすることです。このトリックの一般的な応用例は、`1 AND`を使って奇数かどうかをテストすることです。しかし、これは数が負の場合、1の補数マシンで動作しません(ポータブルなテクニックは`2 MOD`です)。
-
-このセクションの残りは、2の補数以外の2進表現を持つマシン間で移植性を求める場合に注意すべき点の(網羅的ではない)リストです。
-
-単一セル数を倍セル数に変換するには、ANS Forthは演算子`S>D`を提供します。倍セル数を単一セル数に変換するには、Forthプログラマは伝統的に`DROP`を使用してきました。しかし、このトリックは符号+絶対値形式マシンでは機能しません。ポータビリティのために、`D>S`演算子が用意されています。 符号なし単一セル数を倍セル数に変換するには、スタックに `0` をプッシュします。
-
-## E.4 Forth system implementation{id=ZE_4}
-
-Forth の歴史の中で、驚くほど多様な実装技術が開発されてきました。ANS Forth Standardはこのような多様性を奨励し、その結果、ユーザがANS Forthシステムの基本的な実装について想定できることを制限しています。特定のForth実装のユーザは、その実装の側面に慣れてしまい、それがすべてのForthに共通するものだと思い込んでしまうことがよくあります。 このセクションでは、このような間違った思い込みの多くを指摘します。
-
-### E.4.1 Definitions{id=ZE_4_1}
-
-従来、Forth定義は、Forthワードの名前、辞書検索リンク、定義の実行方法を記述するデータ、および定義自体を記述するパラメータで構成されていました。これらの構成要素は、名前、リンク、コード、パラメータフィールドと呼ばれます^^X 。これらのフィールドにアクセスする方法は、現在使用されているすべての Forth 実装で動作するものは見つかっていません。そのため、ANS Forthはフィールドの使用方法を厳しく制限しています。具体的には、移植可能な ANS Forth プログラムは、name、link、code フィールドを一切使用できません。パラメータフィールド(わかりやすくするためにデータフィールドと改名された)の使用は、以下に説明する操作に限定されます。
-
-^^X{これらの用語は標準では定義されていません。歴史的な連続性を保つためにここで言及します。
-^^}
-
-`CREATE`または`CREATE`を呼び出す他の定義ワードで定義されたワードのみがデータフィールドを持ちます。規格の他の定義ワード(`VARIABLE`、`CONSTANT`、`:`など)は`CREATE`で実装されていないかもしれません。そのため、標準プログラムでは、`VARIABLE`、`CONSTANT`、 `:` などで定義されたワードはデータフィールドを持たない可能性があると仮定しなければなりません。標準プログラムには、定数の値を変更したり、コロン定義の意味を変更したりする方法はありません。定義ワードの`DOES>`の部分はデータフィールドを操作します。 `CREATE`されたワードのみがデータフィールドを持つので、`DOES>`は`CREATE`または`CREATE`を呼び出すワードとしか組み合わせることができません。
-
-ANS Forthでは、`FIND`、`[']`、および`'`(tick)は「実行トークン」と呼ばれる不特定の実体を返します。実行トークンで実行できることは限られています。トークンを`EXECUTE`に渡してtickされたワードを実行したり、`COMPILE,`で現在の定義にコンパイルしたりすることができます。トークンは変数に格納し、後で使用することもできます。最後に、tickで取り出したワードが`CREATE`で定義された場合、`>BODY`は実行トークンをワードのデータフィールドアドレスに変換します。
-
-実行トークンで絶対にできないことの1つは、Forth定義のオブジェクトコードに`!`や`,`を使って格納することです。 このテクニックは、オブジェクトコードがアドレスのリスト(スレッドコード)であり、実行トークンもアドレスである実装で使用されることがあります。ただし、ANS Forth では、これが機能しないネイティブコードの実装を許可しています。
-
-### E.4.2 Stacks{id=ZE_4_2}
-
-一部の Forth 実装では、メモリ内のスタックのアドレスを見つけ、セルの配列としてスタックを操作することが可能です。しかし、このテクニックは移植性がありません。いくつかのシステム、特に Forth-in-hardware システムでは、スタックはプログラムによってアドレス指定できないメモリの一部にあったり、まったくメモリになかったりします。Forthのパラメータスタックとリターンスタックは、スタックとして扱われなければなりません。
-
-標準プログラムは、値を一時的に格納するためにのみ、リターンスタックを直接使用することができます。`R@`、`R>`、`2R>` を使ってリターンスタックを調べたり、リターンスタックから取り除いたりする値はすべて、`>R` または `2>R` を使って明示的にスタックに置かれなければなりません。システムがリターンアドレスやループ制御パラメータを保持するためにリターンスタックを使用することがあるため、これにも注意が必要です。規格のセクション**3.2.3.3 リターンスタック**に制限事項のリストがあります。
-
-## E.5 ROMed application disciplines and conventions{id=ZE_5}
-
-標準システムが一様に読み書きが可能なデータ空間を提供する場合、この環境を "RAM-only" と呼んでもよいです。
-
-ROM化されたアプリケーション用に設計されたプログラムは、データ空間を少なくとも2つの部分に分割しなければなりません。書き込み可能で読み出し可能な未初期化部分、RAMと呼びます。読み出しのみ可能で初期化済の領域、ROMと呼びます。第3の可能性として、書き込み可能で読み取り可能な初期化された部分。通常は「初期化RAM」と呼びます。初期化RAMはこの規範では扱いません。標準プログラムは、必要に応じてRAMデータ空間を明示的に初期化しなければなりません。
-
-データ空間をRAMとROMに分けることは、ROM化されたプログラムの生成時のみ意味があります。ROM化されたプログラム自体が標準的な開発システムであれば、通常のRAM専用システムと同じ分類法を持ちます。
-
-RAM専用環境からRAMとROMの混在環境へ変換する際に影響を受けるワードは以下の通りです。  
-
-    , (comma) ALIGN ALIGNED ALLOT C, CREATE HERE UNUSED
-
-(VARIABLEは常にRAMデータ空間にアクセスします) `,`(カンマ)と`C,`を除き、これらのワードはRAMとROMの両方のデータ空間で意味を持ちます。
-
-データ空間を選択するには、これらのワードの前にセレクタ`RAM`と`ROM`を付けます。例えば
-
-    ROM CREATE ONES 32 ALLOT ONES 32 1 FILL RAM  
-
-とすると、ROMデータ空間にテーブル`ONES`が作成されます。ROM用のプログラムを生成する際にRAMデータ空間にデータを格納することは、曖昧な条件となります。
-
-これらのセレクタを素直に実装すると、各空間に対して別々のアドレスカウンタを保持することになります。カウンタ値は`HERE`によって返され、 `,` (コンマ)、`C,`、 `ALIGN`、`ALLOT`によって変更され、RAMとROMは単に適切なアドレスカウンタを選択するだけです。この手法は、データ空間にパーティションを追加した場合、そのパーティションにも拡張できます。
-
-## E.6 Summary{id=ZE_6}
-
-ANS Forth標準規格が、ポータブルなプログラムを書くことを誰かに強制することはできません、また、強制するべきでもありません。パフォーマンスが最優先とされる状況では、プログラマはあらゆるトリックを駆使することが推奨されます。一方、さまざまなシステムへの移植性が必要な場合は、ANS Forthがそのためのツールを提供します。完全に移植可能なプログラムというものは、おそらく存在しないでしょう。プログラマは、このガイドを使って、特定のマシンに対する移植性を提供することのトレードオフを賢く考慮する必要があります。例えば、符号+絶対値表現を使用するマシンは稀であり、おそらくあまり考えるに値しないでしょう。しかし、異なるセルサイズを持つシステムには必ず遭遇するので、それに対応すべきです。一般に、プログラムの移植性を高めることは、プログラマの思考プロセスと最終的なプログラムの両方を明確にします。
-
-# F. Alphabetic list of words (informative annex){id=ZF_}
-
-以下のリストにおいて、参照番号の最後の4桁の部分は、すべての標準ワードのアルファベット順に対応するシーケンスを確立します。最初の2桁または3桁の部分は，そのワードが定義されているワードセットと用語集セクションを示します。
-
-### LIST OF WORDS(low.md) SHOULD BE HERE{id=ZLIST}

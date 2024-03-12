@@ -1124,8 +1124,12 @@ Add n|u to the single-cell number at a-addr.
 |See:| **3.3.3.1 Address alignment**. 
 ||6.1.0140||+LOOP||"plus-loop"||CORE||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: do-sys -- )  Append the run-time semantics given below to the current definition. Resolve the destination of  all unresolved occurrences of LEAVE between the location given by do-sys and the next  location for a transfer of control, to execute the words following `+LOOP`. 
-|Run-time:|( n -- ) ( R: loop-sys1 -- | loop-sys2 )  An ambiguous condition exists if the loop control parameters are unavailable. Add n to the loop  index. If the loop index did not cross the boundary between the loop limit minus one and the  loop limit, continue execution at the beginning of the loop. Otherwise, discard the current loop  control parameters and continue execution immediately following the loop. 
+|Compilation:|( C: do-sys -- )
+
+Append the run-time semantics given below to the current definition. Resolve the destination of  all unresolved occurrences of LEAVE between the location given by do-sys and the next  location for a transfer of control, to execute the words following `+LOOP`. 
+|Run-time:|( n -- ) ( R: loop-sys1 -- | loop-sys2 )
+
+An ambiguous condition exists if the loop control parameters are unavailable. Add n to the loop  index. If the loop index did not cross the boundary between the loop limit minus one and the  loop limit, continue execution at the beginning of the loop. Otherwise, discard the current loop  control parameters and continue execution immediately following the loop. 
 |See:| **6.1.1240 DO**, **6.1.1680 I**, **6.1.1760 LEAVE**. 
 ||6.1.0150||,||"comma"||CORE||( x -- )||
 Reserve one cell of data space and store x in the cell. If the data-space pointer is aligned when  , begins execution, it will remain aligned when , finishes execution. An ambiguous condition  exists if the data-space pointer is not aligned prior to execution of ,. 
@@ -1138,8 +1142,12 @@ Display n in free field format.
 |See:| **3.2.1.2 Digit conversion**, **3.2.1.3 Free-field number display**. 
 ||6.1.0190||."||"dot-quote"||CORE||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( "ccc&lt;quote>" -- )  Parse ccc delimited by " (double-quote). Append the run-time semantics given below to the  current definition. 
-|Run-time:|( -- )  Display ccc. 
+|Compilation:|( "ccc&lt;quote>" -- )
+
+Parse ccc delimited by " (double-quote). Append the run-time semantics given below to the  current definition. 
+|Run-time:|( -- )
+
+Display ccc. 
 |See:| **3.4.1 Parsing**, **6.2.0200 .(**. 
 ||6.1.0230||/||"slash"||CORE||( n1 n2 -- n3 )||
 Divide n1 by n2, giving the single-cell quotient n3. An ambiguous condition exists if n2 is zero. 
@@ -1181,13 +1189,21 @@ Exchange the top two cell pairs.
 Skip leading space delimiters. Parse name delimited by a space. Create a definition for name,  called a "colon definition". Enter compilation state and start the current definition, producing  colon-sys. Append the initiation semantics given below to the current definition. 
 
 The execution semantics of name will be determined by the words compiled into the body of the  definition. The current definition shall not be findable in the dictionary until it is ended (or until  the execution of DOES> in some systems). 
-|Initiation:|( i*x -- i*x ) ( R: -- nest-sys )  Save implementation-dependent information nest-sys about the calling definition. The stack  effects i*x represent arguments to name. 
-|name Execution:|( i*x -- j*x )  Execute the definition name. The stack effects i*x and j*x represent arguments to and results  from name, respectively. 
+|Initiation:|( i*x -- i*x ) ( R: -- nest-sys )
+
+Save implementation-dependent information nest-sys about the calling definition. The stack  effects i*x represent arguments to name. 
+|name Execution:|( i*x -- j*x )
+
+Execute the definition name. The stack effects i*x and j*x represent arguments to and results  from name, respectively. 
 |See:| **3.4 The Forth text interpreter**, **3.4.1 Parsing**, **3.4.5 Compilation**, **6.1.1250 DOES>**, **6.1.2500  [**, **6.1.2540 ]**, **15.6.2.0470 ;CODE**. 
 ||6.1.0460||;||"semicolon"||CORE||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: colon-sys -- )  Append the run-time semantics below to the current definition. End the current definition,  allow it to be found in the dictionary and enter interpretation state, consuming colon-sys. If the  data-space pointer is not aligned, reserve enough data space to align it. 
-|Run-time:|( -- ) ( R: nest-sys -- )  Return to the calling definition specified by nest-sys. 
+|Compilation:|( C: colon-sys -- )
+
+Append the run-time semantics below to the current definition. End the current definition,  allow it to be found in the dictionary and enter interpretation state, consuming colon-sys. If the  data-space pointer is not aligned, reserve enough data space to align it. 
+|Run-time:|( -- ) ( R: nest-sys -- )
+
+Return to the calling definition specified by nest-sys. 
 |See:| **3.4 The Forth text interpreter**, **3.4.5 Compilation**. 
 ||6.1.0480||<||"less-than"||CORE||( n1 n2 -- flag )||
 flag is true if and only if n1 is less than n2. 
@@ -1212,7 +1228,9 @@ ud2 is the unsigned result of converting the characters within the string specif
 |See:| **3.2.1.2 Digit conversion**. 
 ||6.1.0580||>R||"to-r"||CORE||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Execution:|( x -- ) ( R: -- x )  Move x to the return stack. 
+|Execution:|( x -- ) ( R: -- x )
+
+Move x to the return stack. 
 |See:| **3.2.3.3 Return stack**, **6.1.2060 R>**, **6.1.2070 R@**, **6.2.0340 2>R**, **6.2.0410 2R>**, **6.2.0415 2R@**. 
 ||6.1.0630||?DUP||"question-dupe"||CORE||( x -- 0 | x x )||
 Duplicate x if it is non-zero. 
@@ -1224,8 +1242,12 @@ Empty the data stack and perform the function of QUIT, which includes emptying t
 |See:| **9.6.2.0670 ABORT**. 
 ||6.1.0680||ABORT"||"abort-quote"||CORE||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( "ccc&lt;quote>" -- )  Parse ccc delimited by a " (double-quote). Append the run-time semantics given below to the  current definition. 
-|Run-time:|( i*x x1 -- | i*x ) ( R: j*x -- | j*x )  Remove x1 from the stack. If any bit of x1 is not zero, display ccc and perform an  implementation-defined abort sequence that includes the function of ABORT. 
+|Compilation:|( "ccc&lt;quote>" -- )
+
+Parse ccc delimited by a " (double-quote). Append the run-time semantics given below to the  current definition. 
+|Run-time:|( i*x x1 -- | i*x ) ( R: j*x -- | j*x )
+
+Remove x1 from the stack. If any bit of x1 is not zero, display ccc and perform an  implementation-defined abort sequence that includes the function of ABORT. 
 |See:| **3.4.1 Parsing**, **9.6.2.0680 ABORT"**. 
 ||6.1.0690||ABS||"abs"||CORE||( n -- u )||
 u is the absolute value of n. 
@@ -1252,8 +1274,12 @@ x3 is the bit-by-bit logical "and" of x1 with x2.
 a-addr is the address of a cell containing the current number-conversion radix {{2...36}}. 
 ||6.1.0760||BEGIN||"xxxxx"||CORE||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: -- dest )  Put the next location for a transfer of control, dest, onto the control flow stack. Append the run-time semantics given below to the current definition. 
-|Run-time:|( -- )  Continue execution. 
+|Compilation:|( C: -- dest )
+
+Put the next location for a transfer of control, dest, onto the control flow stack. Append the run-time semantics given below to the current definition. 
+|Run-time:|( -- )
+
+Continue execution. 
 |See:| **3.2.3.2 Control-flow stack**, **6.1.2140 REPEAT**, **6.1.2390 UNTIL**, **6.1.2430 WHILE**. 
 ||6.1.0770||BL||"b-l"||CORE||( -- char )||
 char is the character value for a space. 
@@ -1285,7 +1311,9 @@ n2 is the size in address units of n1 characters.
 Skip leading space delimiters. Parse name delimited by a space. Create a definition for name with the execution semantics defined below. 
 
 name is referred to as a "constant". 
-|name Execution:|( -- x )  Place x on the stack. 
+|name Execution:|( -- x )
+
+Place x on the stack. 
 |See:| **3.4.1 Parsing**. 
 ||6.1.0980||COUNT||"xxxxx"||CORE||  ( c-addr1 -- c-addr2 u )||
 Return the character string specification for the counted string stored at c-addr1. c-addr2 is the  address of the first character after c-addr1. u is the contents of the character at c-addr1, which  is the length in characters of the string at c-addr2. 
@@ -1293,7 +1321,9 @@ Return the character string specification for the counted string stored at c-add
 Cause subsequent output to appear at the beginning of the next line. 
 ||6.1.1000||CREATE||"xxxxx"||CORE|| ( "&lt;spaces>name" -- )||
 Skip leading space delimiters. Parse name delimited by a space. Create a definition for name with the execution semantics defined below. If the data-space pointer is not aligned, reserve  enough data space to align it. The new data-space pointer defines name’s data field. CREATE does not allocate data space in name’s data field. 
-|name Execution:|( -- a-addr )  a-addr is the address of name’s data field. The execution semantics of name may be extended  by using DOES>. 
+|name Execution:|( -- a-addr )
+
+a-addr is the address of name’s data field. The execution semantics of name may be extended  by using DOES>. 
 |See:| **3.3.3 Data space**, **6.1.1250 DOES**>. 
 ||6.1.1170||DECIMAL||"xxxxx"||CORE|| ( -- )||
 Set the numeric conversion radix to ten (decimal). 
@@ -1301,15 +1331,27 @@ Set the numeric conversion radix to ten (decimal).
 +n is the number of single-cell values contained in the data stack before +n was placed on the  stack. 
 ||6.1.1240||DO||"xxxxx"||CORE|| 
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: -- do-sys )  Place do-sys onto the control-flow stack. Append the run-time semantics given below to the  current definition. The semantics are incomplete until resolved by a consumer of do-sys such as  LOOP. 
-|Run-time:|( n1|u1 n2|u2 -- ) ( R: -- loop-sys )  Set up loop control parameters with index n2|u2 and limit n1|u1. An ambiguous condition exists  if n1|u1 and n2|u2 are not both the same type. Anything already on the return stack becomes  unavailable until the loop-control parameters are discarded. 
+|Compilation:|( C: -- do-sys )
+
+Place do-sys onto the control-flow stack. Append the run-time semantics given below to the  current definition. The semantics are incomplete until resolved by a consumer of do-sys such as  LOOP. 
+|Run-time:|( n1|u1 n2|u2 -- ) ( R: -- loop-sys )
+
+Set up loop control parameters with index n2|u2 and limit n1|u1. An ambiguous condition exists  if n1|u1 and n2|u2 are not both the same type. Anything already on the return stack becomes  unavailable until the loop-control parameters are discarded. 
 |See:| **3.2.3.2 Control-flow stack**, **6.1.0140 +LOOP**, **6.1.1800 LOOP**. 
 ||6.1.1250||DOES>||"does"||CORE||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: colon-sys1 -- colon-sys2 )  Append the run-time semantics below to the current definition. Whether or not the current  definition is rendered findable in the dictionary by the compilation of DOES> is implementation  defined. Consume colon-sys1 and produce colon-sys2. Append the initiation semantics given  below to the current definition. 
-|Run-time:|( -- ) ( R: nest-sys1 -- )  Replace the execution semantics of the most recent definition, referred to as name, with the  name execution semantics given below. Return control to the calling definition specified by  nest-sys1. An ambiguous condition exists if name was not defined with `CREATE` or a user-defined word that calls `CREATE`. 
-|Initiation:|( i*x -- i*x a-addr ) ( R: -- nest-sys2 )  Save implementation-dependent information nest-sys2 about the calling definition. Place  name’s data field address on the stack. The stack effects i*x represent arguments to name. 
-|name Execution:|( i\*x -- j\*x )  Execute the portion of the definition that begins with the initiation semantics appended by the  DOES> which modified name. The stack effects i\*x and j\*x represent arguments to and results  from name, respectively. 
+|Compilation:|( C: colon-sys1 -- colon-sys2 )
+
+Append the run-time semantics below to the current definition. Whether or not the current  definition is rendered findable in the dictionary by the compilation of DOES> is implementation  defined. Consume colon-sys1 and produce colon-sys2. Append the initiation semantics given  below to the current definition. 
+|Run-time:|( -- ) ( R: nest-sys1 -- )
+
+Replace the execution semantics of the most recent definition, referred to as name, with the  name execution semantics given below. Return control to the calling definition specified by  nest-sys1. An ambiguous condition exists if name was not defined with `CREATE` or a user-defined word that calls `CREATE`. 
+|Initiation:|( i*x -- i*x a-addr ) ( R: -- nest-sys2 )
+
+Save implementation-dependent information nest-sys2 about the calling definition. Place  name’s data field address on the stack. The stack effects i*x represent arguments to name. 
+|name Execution:|( i\*x -- j\*x )
+
+Execute the portion of the definition that begins with the initiation semantics appended by the  DOES> which modified name. The stack effects i\*x and j\*x represent arguments to and results  from name, respectively. 
 |See:| **6.1.1000 CREATE**. 
 ||6.1.1260||DROP||"xxxxx"||CORE|| ( x -- )||
 Remove x from the stack. 
@@ -1317,10 +1359,14 @@ Remove x from the stack.
 Duplicate x. 
 ||6.1.1310||ELSE||"xxxxx"||CORE|| 
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: orig1 -- orig2 )  Put the location of a new unresolved forward reference orig2 onto the control flow stack. 
+|Compilation:|( C: orig1 -- orig2 )
+
+Put the location of a new unresolved forward reference orig2 onto the control flow stack. 
 
 Append the run-time semantics given below to the current definition. The semantics will be  incomplete until orig2 is resolved (e.g., by THEN). Resolve the forward reference orig1 using  the location following the appended run-time semantics. 
-|Run-time:|( -- )  Continue execution at the location given by the resolution of orig2. 
+|Run-time:|( -- )
+
+Continue execution at the location given by the resolution of orig2. 
 |See:| **6.1.1700 IF**, **6.1.2270 THEN**. 
 ||6.1.1320||EMIT||"xxxxx"||CORE|| ( x -- )||
 If x is a graphic character in the implementation-defined character set, display x. The effect of  EMIT for all other values of x is implementation-defined. 
@@ -1338,7 +1384,9 @@ Remove xt from the stack and perform the semantics identified by it. Other stack
 
 ||6.1.1380||EXIT||"xxxxx"||CORE||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Execution:|( -- ) ( R: nest-sys -- )  Return control to the calling definition specified by nest-sys. Before executing EXIT within a  do-loop, a program shall discard the loop-control parameters by executing UNLOOP. 
+|Execution:|( -- ) ( R: nest-sys -- )
+
+Return control to the calling definition specified by nest-sys. Before executing EXIT within a  do-loop, a program shall discard the loop-control parameters by executing UNLOOP. 
 |See:| **3.2.3.3 Return stack**, **6.1.2380 UNLOOP**. 
 ||6.1.1540||FILL||"xxxxx"||CORE|| ( c-addr u char -- )||
 If u is greater than zero, store char in each of u consecutive characters of memory beginning at  c-addr. 
@@ -1355,11 +1403,17 @@ addr is the data-space pointer.
 Add char to the beginning of the pictured numeric output string. An ambiguous condition exists  if HOLD executes outside of a `<#` `#>` delimited number conversion. 
 ||6.1.1680||I||"xxxxx"||CORE||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Execution:|( -- n|u ) ( R: loop-sys -- loop-sys )  n|u is a copy of the current (innermost) loop index. An ambiguous condition exists if the loop  control parameters are unavailable. 
+|Execution:|( -- n|u ) ( R: loop-sys -- loop-sys )  n|u is a copy of the current (innermost)
+
+loop index. An ambiguous condition exists if the loop  control parameters are unavailable. 
 ||6.1.1700||IF||"xxxxx"||CORE|| 
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: -- orig )  Put the location of a new unresolved forward reference orig onto the control flow stack. Append  the run-time semantics given below to the current definition. The semantics are incomplete  until orig is resolved, e.g., by `THEN` or `ELSE`. 
-|Run-time:|( x -- )  If all bits of x are zero, continue execution at the location specified by the resolution of orig. 
+|Compilation:|( C: -- orig )
+
+Put the location of a new unresolved forward reference orig onto the control flow stack. Append  the run-time semantics given below to the current definition. The semantics are incomplete  until orig is resolved, e.g., by `THEN` or `ELSE`. 
+|Run-time:|( x -- )
+
+If all bits of x are zero, continue execution at the location specified by the resolution of orig. 
 |See:| **3.2.3.2 Control flow stack**, **6.1.1310 ELSE**, **6.1.2270 THEN**. 
 ||6.1.1710||IMMEDIATE||"xxxxx"||CORE|| ( -- )||
 Make the most recent definition an immediate word. An ambiguous condition exists if the most  recent definition does not have a name. 
@@ -1369,7 +1423,9 @@ Invert all bits of x1, giving its logical inverse x2.
 |See:| **6.1.1910 NEGATE**, **6.1.0270 0=**. 
 ||6.1.1730||J||"xxxxx"||CORE|| 
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Execution:|( -- n|u ) ( R: loop-sys1 loop-sys2 -- loop-sys1 loop-sys2 )  n|u is a copy of the next-outer loop index. An ambiguous condition exists if the loop control  parameters of the next-outer loop, loop-sys1, are unavailable. 
+|Execution:|( -- n|u ) ( R: loop-sys1 loop-sys2 -- loop-sys1 loop-sys2 )
+
+n|u is a copy of the next-outer loop index. An ambiguous condition exists if the loop control  parameters of the next-outer loop, loop-sys1, are unavailable. 
 ||6.1.1750||KEY||"xxxxx"||CORE|| ( -- char )||
 Receive one character char, a member of the implementation-defined character set. Keyboard  events that do not correspond to such characters are discarded until a valid character is received,  and those events are subsequently unavailable. 
 
@@ -1379,16 +1435,26 @@ Any standard character returned by KEY has the numeric value specified in **3.1.
 |See:| **10.6.2.1307 EKEY**, **10.6.1.1755 KEY?**. 
 ||6.1.1760||LEAVE||"xxxxx"||CORE|| 
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Execution:|( -- ) ( R: loop-sys -- )  Discard the current loop control parameters. An ambiguous condition exists if they are  unavailable. Continue execution immediately following the innermost syntactically enclosing  DO ... LOOP or DO ... +LOOP. 
+|Execution:|( -- ) ( R: loop-sys -- )
+
+Discard the current loop control parameters. An ambiguous condition exists if they are  unavailable. Continue execution immediately following the innermost syntactically enclosing  DO ... LOOP or DO ... +LOOP. 
 |See:| **3.2.3.3 Return stack**, **6.1.0140 +LOOP**, **6.1.1800 LOOP**. 
 ||6.1.1780||LITERAL||"xxxxx"||CORE|| 
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( x -- )  Append the run-time semantics given below to the current definition. 
-|Run-time:|( -- x )  Place x on the stack. 
+|Compilation:|( x -- )
+
+Append the run-time semantics given below to the current definition. 
+|Run-time:|( -- x )
+
+Place x on the stack. 
 ||6.1.1800||LOOP||"xxxxx"||CORE|| 
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: do-sys -- )  Append the run-time semantics given below to the current definition. Resolve the destination of  all unresolved occurrences of `LEAVE` between the location given by do-sys and the next  location for a transfer of control, to execute the words following the `LOOP`. 
-|Run-time:|( -- ) ( R: loop-sys1 -- | loop-sys2 )  An ambiguous condition exists if the loop control parameters are unavailable. Add one to the  loop index. If the loop index is then equal to the loop limit, discard the loop parameters and  continue execution immediately following the loop. Otherwise continue execution at the  beginning of the loop. 
+|Compilation:|( C: do-sys -- )
+
+Append the run-time semantics given below to the current definition. Resolve the destination of  all unresolved occurrences of `LEAVE` between the location given by do-sys and the next  location for a transfer of control, to execute the words following the `LOOP`. 
+|Run-time:|( -- ) ( R: loop-sys1 -- | loop-sys2 )
+
+An ambiguous condition exists if the loop control parameters are unavailable. Add one to the  loop index. If the loop index is then equal to the loop limit, discard the loop parameters and  continue execution immediately following the loop. Otherwise continue execution at the  beginning of the loop. 
 |See:| **6.1.1240 DO**, **6.1.1680 I**, **6.1.1760 LEAVE**. 
 ||6.1.1805||LSHIFT||"l-shift"||CORE||( x1 u -- x2 )||
 Perform a logical left shift of u bit-places on x1, giving x2. Put zeroes into the least significant  bits vacated by the shift. An ambiguous condition exists if u is greater than or equal to the  number of bits in a cell. 
@@ -1413,7 +1479,9 @@ x3 is the bit-by-bit inclusive-or of x1 with x2.
 Place a copy of x1 on top of the stack. 
 ||6.1.2033||POSTPONE||"xxxxx"||CORE|| 
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( "&lt;spaces>name" -- )  Skip leading space delimiters. Parse name delimited by a space. Find name. Append the  compilation semantics of name to the current definition. An ambiguous condition exists if name is not found. 
+|Compilation:|( "&lt;spaces>name" -- )
+
+Skip leading space delimiters. Parse name delimited by a space. Find name. Append the  compilation semantics of name to the current definition. An ambiguous condition exists if name is not found. 
 |See:| **3.4.1 Parsing**.
 
 
@@ -1427,20 +1495,30 @@ Empty the return stack, store zero in SOURCE-ID if it is present, make the user 
 
 ||6.1.2060||R>||"r-from"||CORE||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Execution:|( -- x ) ( R: x -- )  Move x from the return stack to the data stack. 
+|Execution:|( -- x ) ( R: x -- )
+
+Move x from the return stack to the data stack. 
 |See:| **3.2.3.3 Return stack**, **6.1.0580 >R**, **6.1.2070 R@**, **6.2.0340 2>R**, **6.2.0410 2R>**, **6.2.0415 2R@**. 
 ||6.1.2070||R@||"r-fetch"||CORE||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Execution:|( -- x ) ( R: x -- x )  Copy x from the return stack to the data stack. 
+|Execution:|( -- x ) ( R: x -- x )
+
+Copy x from the return stack to the data stack. 
 |See:| **3.2.3.3 Return stack**, **6.1.0580 >R**, **6.1.2060 R>**, **6.2.0340 2>R**, **6.2.0410 2R>**, **6.2.0415 2R@**. 
 ||6.1.2120||RECURSE||"xxxxx"||CORE|| 
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( -- )  Append the execution semantics of the current definition to the current definition. An  ambiguous condition exists if `RECURSE` appears in a definition after `DOES>`. 
+|Compilation:|( -- )
+
+Append the execution semantics of the current definition to the current definition. An  ambiguous condition exists if `RECURSE` appears in a definition after `DOES>`. 
 |See:| **6.1.1250 DOES>**, **6.1.2120 RECURSE**.
 ||6.1.2140||REPEAT||"xxxxx"||CORE|| 
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: orig dest -- )  Append the run-time semantics given below to the current definition, resolving the backward  reference dest. Resolve the forward reference orig using the location following the appended  run-time semantics. 
-|Run-time:|( -- )  Continue execution at the location given by dest. 
+|Compilation:|( C: orig dest -- )
+
+Append the run-time semantics given below to the current definition, resolving the backward  reference dest. Resolve the forward reference orig using the location following the appended  run-time semantics. 
+|Run-time:|( -- )
+
+Continue execution at the location given by dest. 
 |See:| **6.1.0760 BEGIN**, **6.1.2430 WHILE**. 
 ||6.1.2160||ROT||"rote"||CORE||( x1 x2 x3 -- x2 x3 x1 )||
 Rotate the top three stack entries. 
@@ -1448,8 +1526,12 @@ Rotate the top three stack entries.
 Perform a logical right shift of u bit-places on x1, giving x2. Put zeroes into the most significant  bits vacated by the shift. An ambiguous condition exists if u is greater than or equal to the  number of bits in a cell. 
 ||6.1.2165||S"||"s-quote"||CORE||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( "ccc&lt;quote>" -- )  Parse ccc delimited by " (double-quote). Append the run-time semantics given below to the  current definition. 
-|Run-time:|( -- c-addr u )  Return c-addr and u describing a string consisting of the characters ccc. A program shall not  alter the returned string. 
+|Compilation:|( "ccc&lt;quote>" -- )
+
+Parse ccc delimited by " (double-quote). Append the run-time semantics given below to the  current definition. 
+|Run-time:|( -- c-addr u )
+
+Return c-addr and u describing a string consisting of the characters ccc. A program shall not  alter the returned string. 
 |See:| **3.4.1 Parsing**, **6.2.0855 C"**, **11.6.1.2165 S"**.
 ||6.1.2170||S>D||"s-to-d"||CORE||( n -- d )||
 Convert the number n to the double-cell number d with the same numerical value. 
@@ -1475,8 +1557,12 @@ Note: A program shall not directly alter the contents of STATE.
 Exchange the top two stack items. 
 ||6.1.2270||THEN||"xxxxx"||CORE|| 
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: orig -- )  Append the run-time semantics given below to the current definition. Resolve the forward  reference orig using the location of the appended run-time semantics. 
-|Run-time:|( -- )  Continue execution. 
+|Compilation:|( C: orig -- )
+
+Append the run-time semantics given below to the current definition. Resolve the forward  reference orig using the location of the appended run-time semantics. 
+|Run-time:|( -- )
+
+Continue execution. 
 |See:| **6.1.1310 ELSE**, **6.1.1700 IF**. 
 
 
@@ -1496,12 +1582,18 @@ Divide ud by u1, giving the quotient u3 and the remainder u2. All values and ari
 |See:| **3.2.2.1 Integer division**, **6.1.1561 FM/MOD**, **6.1.2214 SM/REM**. 
 ||6.1.2380||UNLOOP||"xxxxx"||CORE|| 
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Execution:|( -- ) ( R: loop-sys -- )  Discard the loop-control parameters for the current nesting level. An UNLOOP is required for  each nesting level before the definition may be EXITed. An ambiguous condition exists if the  loop-control parameters are unavailable. 
+|Execution:|( -- ) ( R: loop-sys -- )
+
+Discard the loop-control parameters for the current nesting level. An UNLOOP is required for  each nesting level before the definition may be EXITed. An ambiguous condition exists if the  loop-control parameters are unavailable. 
 |See:| **3.2.3.3 Return stack**. 
 ||6.1.2390||UNTIL||"xxxxx"||CORE|| 
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: dest -- )  Append the run-time semantics given below to the current definition, resolving the backward  reference dest. 
-|Run-time:|( x -- )  If all bits of x are zero, continue execution at the location specified by dest. 
+|Compilation:|( C: dest -- )
+
+Append the run-time semantics given below to the current definition, resolving the backward  reference dest. 
+|Run-time:|( x -- )
+
+If all bits of x are zero, continue execution at the location specified by dest. 
 |See:| **6.1.0760 BEGIN**. 
 
 
@@ -1509,14 +1601,20 @@ Divide ud by u1, giving the quotient u3 and the remainder u2. All values and ari
 Skip leading space delimiters. Parse name delimited by a space. Create a definition for name with the execution semantics defined below. Reserve one cell of data space at an aligned  address. 
 
 name is referred to as a "variable". 
-|name Execution:|( -- a-addr )  a-addr is the address of the reserved cell. A program is responsible for initializing the contents  of the reserved cell. 
+|name Execution:|( -- a-addr )
+
+a-addr is the address of the reserved cell. A program is responsible for initializing the contents  of the reserved cell. 
 |See:| **3.4.1 Parsing**. 
 
 
 ||6.1.2430||WHILE||"xxxxx"||CORE|| 
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: dest -- orig dest )  Put the location of a new unresolved forward reference orig onto the control flow stack, under  the existing dest. Append the run-time semantics given below to the current definition. The  semantics are incomplete until orig and dest are resolved (e.g., by REPEAT). 
-|Run-time:|( x -- )  If all bits of x are zero, continue execution at the location specified by the resolution of orig. 
+|Compilation:|( C: dest -- orig dest )
+
+Put the location of a new unresolved forward reference orig onto the control flow stack, under  the existing dest. Append the run-time semantics given below to the current definition. The  semantics are incomplete until orig and dest are resolved (e.g., by REPEAT). 
+|Run-time:|( x -- )
+
+If all bits of x are zero, continue execution at the location specified by the resolution of orig. 
 ||6.1.2450||WORD||"xxxxx"||CORE|| ( char "&lt;chars>ccc&lt;char>" -- c-addr )||
 Skip leading delimiters. Parse characters ccc delimited by char. An ambiguous condition exists  if the length of the parsed string is greater than the implementation-defined length of a counted  string. 
 
@@ -1533,21 +1631,31 @@ x3 is the bit-by-bit exclusive-or of x1 with x2.
 ||6.1.2500||[||"left-bracket"||CORE||
 |Interpretation:|Interpretation semantics for this word are undefined. 
 |Compilation:|Perform the execution semantics given below. 
-|Execution:|( -- )  Enter interpretation state. [ is an immediate word. 
+|Execution:|( -- )
+
+Enter interpretation state. [ is an immediate word. 
 |See:| **3.4 The Forth text interpreter**, **3.4.5 Compilation**, **6.1.2540 ]**. 
 
 
 ||6.1.2510||[']||"bracket-tick"||CORE||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( "&lt;spaces>name" -- )  Skip leading space delimiters. Parse name delimited by a space. Find name. Append the run-time semantics given below to the current definition. 
+|Compilation:|( "&lt;spaces>name" -- )
+
+Skip leading space delimiters. Parse name delimited by a space. Find name. Append the run-time semantics given below to the current definition. 
 
 An ambiguous condition exists if name is not found. 
-|Run-time:|( -- xt )  Place name’s execution token xt on the stack. The execution token returned by the compiled  phrase "['] X " is the same value returned by "' X " outside of compilation state. 
+|Run-time:|( -- xt )
+
+Place name’s execution token xt on the stack. The execution token returned by the compiled  phrase "['] X " is the same value returned by "' X " outside of compilation state. 
 |See:| **3.4.1 Parsing**, **A.6.1.0070 '**, **A.6.1.2033 POSTPONE**, **D.6.7 Immediacy**. 
 ||6.1.2520||[CHAR]||"bracket-char"||CORE||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( "&lt;spaces>name" -- )  Skip leading space delimiters. Parse name delimited by a space. Append the run-time  semantics given below to the current definition. 
-|Run-time:|( -- char )  Place char, the value of the first character of name, on the stack. 
+|Compilation:|( "&lt;spaces>name" -- )
+
+Skip leading space delimiters. Parse name delimited by a space. Append the run-time  semantics given below to the current definition. 
+|Run-time:|( -- char )
+
+Place char, the value of the first character of name, on the stack. 
 |See:| **3.4.1 Parsing**, **6.1.0895 CHAR**.
 ||6.1.2540||]||"right-bracket"||CORE||( -- )||
 Enter compilation state. 
@@ -1560,7 +1668,9 @@ a-addr is the address of a cell containing the number of characters in the termi
 Note: This word is obsolescent and is included as a concession to existing implementations.
 ||6.2.0200||.(||"dot-paren"||CORE EXT||
 |Compilation:|Perform the execution semantics given below. 
-|Execution:|( "ccc&lt;paren>" -- )  Parse and display ccc delimited by ) (right parenthesis). .( is an immediate word. 
+|Execution:|( "ccc&lt;paren>" -- )  Parse and display ccc delimited by )
+
+(right parenthesis). .( is an immediate word. 
 |See:| **3.4.1 Parsing**, **6.1.0190 ."**.
 ||6.2.0210||.R||"dot-r"||CORE EXT||( n1 n2 -- )||
 Display n1 right aligned in a field n2 characters wide. If the number of characters required to  display n1 is greater than n2, all digits are displayed with no leading spaces in a field as wide as  necessary. 
@@ -1570,7 +1680,9 @@ flag is true if and only if x is not equal to zero.
 flag is true if and only if n is greater than zero. 
 ||6.2.0340||2>R||"two-to-r"||CORE EXT||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Execution:|( x1 x2 -- ) ( R: -- x1 x2 )  Transfer cell pair x1 x2 to the return stack. Semantically equivalent to SWAP >R >R. 
+|Execution:|( x1 x2 -- ) ( R: -- x1 x2 )
+
+Transfer cell pair x1 x2 to the return stack. Semantically equivalent to SWAP >R >R. 
 |See:| **3.2.3.3 Return stack**, **6.1.0580 >R**, **6.1.2060 R>**, **6.1.2070 R@**, **6.2.0410 2R>**, **6.2.0415 2R@**. 
 ||6.2.0410||2R>||"two-r-from"||CORE EXT||
 |Interpretation:|Interpretation semantics for this word are undefined. 
@@ -1579,7 +1691,9 @@ Transfer cell pair x1 x2 from the return stack. Semantically equivalent to R> R>
 |See:| **3.2.3.3 Return stack**, **6.1.0580 >R**, **6.1.2060 R>**, **6.1.2070 R@**, **6.2.0340 2>R**, **6.2.0415 2R@**. 
 ||6.2.0415||2R@||"two-r-fetch"||CORE EXT||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Execution:|( -- x1 x2 ) ( R: x1 x2 -- x1 x2 )  Copy cell pair x1 x2 from the return stack. Semantically equivalent to  R> R> 2DUP >R >R SWAP. 
+|Execution:|( -- x1 x2 ) ( R: x1 x2 -- x1 x2 )
+
+Copy cell pair x1 x2 from the return stack. Semantically equivalent to  R> R> 2DUP >R >R SWAP. 
 |See:| **3.2.3.3 Return stack**, **6.1.0580 >R**, **6.1.2060 R>**, **6.1.2070 R@**, **6.2.0340 2>R**, **6.2.0410 2R>**. 
 ||6.2.0455||:NONAME||"colon-no-name"||CORE EXT||( C: -- colon-sys ) ( S: -- xt )||
 Create an execution token xt, enter compilation state and start the current definition, producing  colon-sys. Append the initiation semantics given below to the current definition. 
@@ -1587,34 +1701,56 @@ Create an execution token xt, enter compilation state and start the current defi
 The execution semantics of xt will be determined by the words compiled into the body of the  definition. This definition can be executed later by using xt EXECUTE. 
 
 If the control-flow stack is implemented using the data stack, colon-sys shall be the topmost  item on the data stack. See **3.2.3.2 Control-flow stack**. 
-|Initiation:|( i*x -- i*x ) ( R: -- nest-sys )  Save implementation-dependent information nest-sys about the calling definition. The stack  effects i*x represent arguments to xt. 
-|xt Execution:|( i*x -- j*x )  Execute the definition specified by xt. The stack effects i*x and j*x represent arguments to and  results from xt, respectively. 
+|Initiation:|( i*x -- i*x ) ( R: -- nest-sys )
+
+Save implementation-dependent information nest-sys about the calling definition. The stack  effects i*x represent arguments to xt. 
+|xt Execution:|( i*x -- j*x )
+
+Execute the definition specified by xt. The stack effects i*x and j*x represent arguments to and  results from xt, respectively. 
 ||6.2.0500||<>||"not-equals"||CORE EXT||( x1 x2 -- flag )||
 flag is true if and only if x1 is not bit-for-bit the same as x2. 
 ||6.2.0620||?DO||"question-do"||CORE EXT||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: -- do-sys )  Put do-sys onto the control-flow stack. Append the run-time semantics given below to the  current definition. The semantics are incomplete until resolved by a consumer of do-sys such as  LOOP. 
-|Run-time:|( n1|u1 n2|u2 -- ) ( R: -- | loop-sys )  If n1|u1 is equal to n2|u2, continue execution at the location given by the consumer of do-sys. 
+|Compilation:|( C: -- do-sys )
+
+Put do-sys onto the control-flow stack. Append the run-time semantics given below to the  current definition. The semantics are incomplete until resolved by a consumer of do-sys such as  LOOP. 
+|Run-time:|( n1|u1 n2|u2 -- ) ( R: -- | loop-sys )
+
+If n1|u1 is equal to n2|u2, continue execution at the location given by the consumer of do-sys. 
 Otherwise set up loop control parameters with index n2|u2 and limit n1|u1 and continue  executing immediately following ?DO. Anything already on the return stack becomes  unavailable until the loop control parameters are discarded. An ambiguous condition exists if  n1|u1 and n2|u2 are not both of the same type. 
 |See:| **3.2.3.2 Control-flow stack**, **6.1.0140 +LOOP**, **6.1.1240 DO**, **6.1.1680 I**, **6.1.1760 LEAVE**,  **6.1.1800 LOOP**, **6.1.2380 UNLOOP**. 
 ||6.2.0700||AGAIN||"xxxxx"||CORE EXT||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: dest -- )  Append the run-time semantics given below to the current definition, resolving the backward  reference dest. 
-|Run-time:|( -- )  Continue execution at the location specified by dest. If no other control flow words are used,  any program code after AGAIN will not be executed. 
+|Compilation:|( C: dest -- )
+
+Append the run-time semantics given below to the current definition, resolving the backward  reference dest. 
+|Run-time:|( -- )
+
+Continue execution at the location specified by dest. If no other control flow words are used,  any program code after AGAIN will not be executed. 
 |See:| **6.1.0760 BEGIN**. 
 ||6.2.0855||C"||"c-quote"||CORE EXT|| 
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( "ccc&lt;quote>" -- )  Parse ccc delimited by " (double-quote) and append the run-time semantics given below to the  current definition. 
-|Run-time:|( -- c-addr )  Return c-addr, a counted string consisting of the characters ccc. A program shall not alter the  returned string. 
+|Compilation:|( "ccc&lt;quote>" -- )  Parse ccc delimited by " (double-quote)
+
+and append the run-time semantics given below to the  current definition. 
+|Run-time:|( -- c-addr )
+
+Return c-addr, a counted string consisting of the characters ccc. A program shall not alter the  returned string. 
 |See:| **3.4.1 Parsing**, **6.1.2165 S"**, **11.6.1.2165 S"**. 
 ||6.2.0873||CASE||"xxxxx"||CORE EXT|| 
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: -- case-sys )  Mark the start of the CASE ... OF ... ENDOF ... ENDCASE structure. Append the  run-time semantics given below to the current definition. 
-|Run-time:|( -- )  Continue execution. 
+|Compilation:|( C: -- case-sys )
+
+Mark the start of the CASE ... OF ... ENDOF ... ENDCASE structure. Append the  run-time semantics given below to the current definition. 
+|Run-time:|( -- )
+
+Continue execution. 
 |See:| **6.2.1342 ENDCASE**, **6.2.1343 ENDOF**, **6.2.1950 OF**. 
 ||6.2.0945||COMPILE,||"compile-comma"||CORE EXT||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Execution:|( xt -- )  Append the execution semantics of the definition represented by xt to the execution semantics of  the current definition. 
+|Execution:|( xt -- )
+
+Append the execution semantics of the definition represented by xt to the execution semantics of  the current definition. 
 ||6.2.0970||CONVERT||"xxxxx"||CORE EXT||( ud1 c-addr1 -- ud2 c-addr2 )||
 ud2 is the result of converting the characters within the text beginning at the first character after  c-addr1 into digits, using the number in BASE, and adding each digit to ud1 after multiplying  ud1 by the number in BASE. Conversion continues until a character that is not convertible is  encountered. c-addr2 is the location of the first unconverted character. An ambiguous  condition exists if ud2 overflows. 
 
@@ -1622,15 +1758,23 @@ Note: This word is obsolescent and is included as a concession to existing imple
 |See:| **3.2.1.2 Digit conversion**. 
 ||6.2.1342||ENDCASE||"end-case"||CORE EXT||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: case-sys -- )  Mark the end of the CASE ... OF ... ENDOF ... ENDCASE structure. Use case-sys to resolve the entire structure. Append the run-time semantics given below to the current  definition. 
-|Run-time:|( x -- )  Discard the case selector x and continue execution. 
+|Compilation:|( C: case-sys -- )
+
+Mark the end of the CASE ... OF ... ENDOF ... ENDCASE structure. Use case-sys to resolve the entire structure. Append the run-time semantics given below to the current  definition. 
+|Run-time:|( x -- )
+
+Discard the case selector x and continue execution. 
 |See:| **6.2.0873 CASE**, **6.2.1343 ENDOF**, **6.2.1950 OF**. 
 
 
 ||6.2.1343||ENDOF||"end-of"||CORE EXT||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: case-sys1 of-sys -- case-sys2 )  Mark the end of the OF ... ENDOF part of the CASE structure. The next location for a  transfer of control resolves the reference given by of-sys. Append the run-time semantics given  below to the current definition. Replace case-sys1 with case-sys2 on the control-flow stack, to  be resolved by ENDCASE. 
-|Run-time:|( -- )  Continue execution at the location specified by the consumer of case-sys2. 
+|Compilation:|( C: case-sys1 of-sys -- case-sys2 )
+
+Mark the end of the OF ... ENDOF part of the CASE structure. The next location for a  transfer of control resolves the reference given by of-sys. Append the run-time semantics given  below to the current definition. Replace case-sys1 with case-sys2 on the control-flow stack, to  be resolved by ENDCASE. 
+|Run-time:|( -- )
+
+Continue execution at the location specified by the consumer of case-sys2. 
 |See:| **6.2.0873 CASE**, **6.2.1342 ENDCASE**, **6.2.1950 OF**. 
 
 
@@ -1652,7 +1796,9 @@ Set contents of `BASE` to sixteen.
 
 ||6.2.1850||MARKER||"xxxxx"||CORE EXT||( "&lt;spaces>name" -- )||
 Skip leading space delimiters. Parse name delimited by a space. Create a definition for name with the execution semantics defined below. 
-|name Execution:|( -- )  Restore all dictionary allocation and search order pointers to the state they had just prior to the  definition of name. Remove the definition of name and all subsequent definitions. Restoration  of any structures still existing that could refer to deleted definitions or deallocated data space is  not necessarily provided. No other contextual information such as numeric base is affected. 
+|name Execution:|( -- )
+
+Restore all dictionary allocation and search order pointers to the state they had just prior to the  definition of name. Remove the definition of name and all subsequent definitions. Restoration  of any structures still existing that could refer to deleted definitions or deallocated data space is  not necessarily provided. No other contextual information such as numeric base is affected. 
 |See:| **3.4.1 Parsing**, **15.6.2.1580 FORGET**. 
 
 
@@ -1662,8 +1808,12 @@ Drop the first item below the top of stack.
 
 ||6.2.1950||OF||"xxxxx"||CORE EXT||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( C: -- of-sys )  Put of-sys onto the control flow stack. Append the run-time semantics given below to the  current definition. The semantics are incomplete until resolved by a consumer of of-sys such as  ENDOF. 
-|Run-time:|( x1 x2 -- | x1 )  If the two values on the stack are not equal, discard the top value and continue execution at the  location specified by the consumer of of-sys, e.g., following the next ENDOF. Otherwise,  discard both values and continue execution in line. 
+|Compilation:|( C: -- of-sys )
+
+Put of-sys onto the control flow stack. Append the run-time semantics given below to the  current definition. The semantics are incomplete until resolved by a consumer of of-sys such as  ENDOF. 
+|Run-time:|( x1 x2 -- | x1 )
+
+If the two values on the stack are not equal, discard the top value and continue execution at the  location specified by the consumer of of-sys, e.g., following the next ENDOF. Otherwise,  discard both values and continue execution in line. 
 |See:| **6.2.0873 CASE**, **6.2.1342 ENDCASE**, **6.2.1343 ENDOF**. 
 ||6.2.2000||PAD||"xxxxx"||CORE EXT||( -- c-addr )||
 c-addr is the address of a transient region that can be used to hold data for intermediate  processing. 
@@ -1717,8 +1867,12 @@ c-addr is the address of the terminal input buffer.
 Note: This word is obsolescent and is included as a concession to existing implementations. 
 ||6.2.2295||TO||"xxxxx"||CORE EXT||
 |Interpretation:|( x "&lt;spaces>name" -- )  Skip leading spaces and parse name delimited by a space. Store x in name. An ambiguous  condition exists if name was not defined by `VALUE`. 
-|Compilation:|( "&lt;spaces>name" -- )  Skip leading spaces and parse name delimited by a space. Append the run-time semantics given  below to the current definition. An ambiguous condition exists if name was not defined by  `VALUE`. 
-|Run-time:|( x -- )  Store x in name. 
+|Compilation:|( "&lt;spaces>name" -- )
+
+Skip leading spaces and parse name delimited by a space. Append the run-time semantics given  below to the current definition. An ambiguous condition exists if name was not defined by  `VALUE`. 
+|Run-time:|( x -- )
+
+Store x in name. 
 
 Note: An ambiguous condition exists if either POSTPONE or [COMPILE] is applied to TO. 
 |See:| **6.2.2405 VALUE**, **13.6.1.2295 TO**. 
@@ -1737,18 +1891,24 @@ u is the amount of space remaining in the region addressed by HERE , in address 
 ||6.2.2405||VALUE||"xxxxx"||CORE EXT||( x "&lt;spaces>name" -- )||
 Skip leading space delimiters. Parse name delimited by a space. Create a definition for name with the execution semantics defined below, with an initial value equal to x. 
 name is referred to as a "value". 
-|name Execution:|( -- x )  Place x on the stack. The value of x is that given when name was created, until the phrase x TO  name is executed, causing a new value of x to be associated with name. 
+|name Execution:|( -- x )
+
+Place x on the stack. The value of x is that given when name was created, until the phrase x TO  name is executed, causing a new value of x to be associated with name. 
 |See:| **3.4.1 Parsing**. 
 ||6.2.2440||WITHIN||"xxxxx"||CORE EXT||( n1|u1 n2|u2 n3|u3 -- flag )||
 Perform a comparison of a test value n1|u1 with a lower limit n2|u2 and an upper limit n3|u3,  returning true if either (n2|u2 &lt; n3|u3 and (n2|u2 &le; n1|u1 and n1|u1 &lt; n3|u3)) or (n2|u2 &gt; n3|u3 and (n2|u2 &le; n1|u1 or n1|u1 &lt; n3|u3)) is true, returning false otherwise. An ambiguous condition  exists if n1|u1, n2|u2, and n3|u3 are not all the same type. 
 ||6.2.2530||[COMPILE]||"bracket-compile"||CORE EXT||
 |Interpretation:|Interpretation semantics for this word are undefined. 
-|Compilation:|( "&lt;spaces>name" -- )  Skip leading space delimiters. Parse name delimited by a space. Find name. If name has other  than default compilation semantics, append them to the current definition; otherwise append the  execution semantics of name. An ambiguous condition exists if name is not found. 
+|Compilation:|( "&lt;spaces>name" -- )
+
+Skip leading space delimiters. Parse name delimited by a space. Find name. If name has other  than default compilation semantics, append them to the current definition; otherwise append the  execution semantics of name. An ambiguous condition exists if name is not found. 
 |See:| **3.4.1 Parsing**. 
 
 
 ||6.2.2535||\||"backslash"||CORE EXT||
 |Compilation:|Perform the execution semantics given below. 
-|Execution:|( "ccc&lt;eol>"-- )  Parse and discard the remainder of the parse area. \ is an immediate word. 
+|Execution:|( "ccc&lt;eol>"-- )
+
+Parse and discard the remainder of the parse area. \ is an immediate word. 
 |See:| **7.6.2.2535 \\**. 
 
